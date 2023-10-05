@@ -22,6 +22,7 @@ public class User {
     private AuthUserInfo authUserInfo;
 
 
-    @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"))
     private List<Role> roles;
 }

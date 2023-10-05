@@ -18,10 +18,5 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "roles_users",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "users_id"))
-    private List<User> users;
 
 }
