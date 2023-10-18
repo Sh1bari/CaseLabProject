@@ -2,7 +2,6 @@ package com.example.caselabproject.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/v1")
 @RequiredArgsConstructor
+@Secured("ROLE_TEST")
 public class PublicController {
 
     @GetMapping("/unsecured")
@@ -28,7 +28,6 @@ public class PublicController {
     }
 
     @GetMapping("/info")
-    @Secured("ROLE_TEST")
     public String userData(Principal principal) {
         Authentication authentication = (Authentication) principal;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

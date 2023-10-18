@@ -1,6 +1,6 @@
 package com.example.caselabproject.services.security;
 
-import com.example.caselabproject.entities.Role;
+import com.example.caselabproject.models.entities.Role;
 import com.example.caselabproject.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,6 @@ package com.example.caselabproject.configs;
 
 import com.example.caselabproject.utils.JwtTokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

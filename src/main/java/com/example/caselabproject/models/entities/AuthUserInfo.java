@@ -1,8 +1,6 @@
-package com.example.caselabproject.entities;
+package com.example.caselabproject.models.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -11,6 +9,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "auth_user_info")
 public class AuthUserInfo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

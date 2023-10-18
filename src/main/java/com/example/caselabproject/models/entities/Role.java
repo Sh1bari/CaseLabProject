@@ -1,4 +1,4 @@
-package com.example.caselabproject.entities;
+package com.example.caselabproject.models.entities;
 
 import javax.persistence.*;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.example.caselabproject.repositories;
 
-import com.example.caselabproject.entities.Role;
+import com.example.caselabproject.models.entities.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

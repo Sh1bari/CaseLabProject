@@ -1,9 +1,8 @@
 package com.example.caselabproject.services.security;
 
 import com.example.caselabproject.dtos.RegistrationUserDto;
-import com.example.caselabproject.entities.AuthUserInfo;
-import com.example.caselabproject.entities.Role;
-import com.example.caselabproject.entities.User;
+import com.example.caselabproject.models.entities.AuthUserInfo;
+import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.repositories.AuthUserInfoRepo;
 import com.example.caselabproject.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,6 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.dtos.JwtRequest;
 import com.example.caselabproject.dtos.RegistrationUserDto;
-import com.example.caselabproject.dtos.ResetJwtRequest;
 import com.example.caselabproject.services.security.SecurityAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
