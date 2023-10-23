@@ -17,6 +17,7 @@ import java.util.Collection;
 @Secured("ROLE_TEST")
 public class PublicController {
 
+
     @GetMapping("/unsecured")
     public String unsecuredData() {
         return "Unsecured data";

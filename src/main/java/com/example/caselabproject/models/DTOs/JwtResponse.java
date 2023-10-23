@@ -1,4 +1,4 @@
-package com.example.caselabproject.dtos;
+package com.example.caselabproject.models.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

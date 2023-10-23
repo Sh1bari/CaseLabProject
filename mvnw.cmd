@@ -121,8 +121,8 @@ set WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
 set WRAPPER_URL="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
 
-FOR /F "usebackq tokens=1,2 delims==" %%A IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties") DO (
-    IF "%%A"=="wrapperUrl" SET WRAPPER_URL=%%B
+FOR /F "usebackq tokens=1,2 delims==" %%B IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties") DO (
+    IF "%%B"=="wrapperUrl" SET WRAPPER_URL=%%B
 )
 
 @REM Extension to allow automatically downloading the maven-wrapper.jar from Maven-central
@@ -155,8 +155,8 @@ if exist %WRAPPER_JAR% (
 
 @REM If specified, validate the SHA-256 sum of the Maven wrapper jar file
 SET WRAPPER_SHA_256_SUM=""
-FOR /F "usebackq tokens=1,2 delims==" %%A IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties") DO (
-    IF "%%A"=="wrapperSha256Sum" SET WRAPPER_SHA_256_SUM=%%B
+FOR /F "usebackq tokens=1,2 delims==" %%B IN ("%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties") DO (
+    IF "%%B"=="wrapperSha256Sum" SET WRAPPER_SHA_256_SUM=%%B
 )
 IF NOT %WRAPPER_SHA_256_SUM%=="" (
     powershell -Command "&{"^

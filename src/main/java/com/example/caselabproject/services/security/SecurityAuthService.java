@@ -1,11 +1,11 @@
 package com.example.caselabproject.services.security;
 
-import com.example.caselabproject.dtos.JwtRequest;
-import com.example.caselabproject.dtos.JwtResponse;
-import com.example.caselabproject.dtos.RegistrationUserDto;
-import com.example.caselabproject.dtos.UserDto;
-import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.models.DTOs.JwtRequest;
+import com.example.caselabproject.models.DTOs.JwtResponse;
+import com.example.caselabproject.models.DTOs.RegistrationUserDto;
+import com.example.caselabproject.models.DTOs.UserDto;
+import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,7 +47,7 @@ public class SecurityAuthService {
         return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername(), user.getAuthUserInfo().getEmail()));
     }
 
-    public ResponseEntity<?> resetToken(String username){
+    public ResponseEntity<?> resetToken(String username) {
         UserDetails userDetails = userService.loadUserByUsername(username);
         String token = jwtTokenUtils.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
