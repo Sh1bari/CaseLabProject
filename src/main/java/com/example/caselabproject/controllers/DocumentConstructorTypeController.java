@@ -18,7 +18,7 @@ import java.net.URI;
 public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
-    @PostMapping
+    @PutMapping
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto
