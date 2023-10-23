@@ -3,12 +3,12 @@ package com.example.caselabproject.dtos.request;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class DocumentConstructorTypeRequestDto {
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
     public DocumentConstructorType mapToEntity() {

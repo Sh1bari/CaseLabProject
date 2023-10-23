@@ -5,10 +5,8 @@ import com.example.caselabproject.dtos.response.DocumentConstructorTypeResponseD
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -20,8 +18,9 @@ public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
-            DocumentConstructorTypeRequestDto documentTypeRequestDto) {
+            @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
         DocumentConstructorTypeResponseDto responseDto = typeService.create(documentTypeRequestDto);
         return ResponseEntity
                 .created(URI.create("/api/doctype/" + responseDto.getId()))

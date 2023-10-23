@@ -1,6 +1,7 @@
 package com.example.caselabproject.controllers.advice;
 
 import com.example.caselabproject.exceptions.AppError;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +19,9 @@ public class GlobalExceptionHandler {
             HttpMessageNotReadableException.class,
             MethodArgumentTypeMismatchException.class
     })
-    public AppError onValidationExceptions(RuntimeException exception) {
-        return new AppError(400, exception.getMessage());
+    public ResponseEntity<AppError> onValidationExceptions(RuntimeException exception) {
+        return ResponseEntity
+                .badRequest()
+                .body(new AppError(400, exception.getMessage()));
     }
 }
