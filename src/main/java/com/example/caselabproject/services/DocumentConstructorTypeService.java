@@ -1,7 +1,8 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.dtos.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.dtos.response.DocumentConstructorTypeResponseDto;
+import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 
 import javax.validation.Valid;
 

@@ -1,4 +1,4 @@
-package com.example.caselabproject.dtos.response;
+package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import lombok.Builder;

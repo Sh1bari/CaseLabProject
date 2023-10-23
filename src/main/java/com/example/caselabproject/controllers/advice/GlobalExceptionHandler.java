@@ -1,6 +1,8 @@
 package com.example.caselabproject.controllers.advice;
 
 import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,5 +25,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body(new AppError(400, exception.getMessage()));
+    }
+    @ExceptionHandler({
+            DocumentConstructorTypeNameExistsException.class
+    })
+    public ResponseEntity<AppError> documentConstructorTypeNameExistsException(DocumentConstructorTypeNameExistsException ex) {
+        return ResponseEntity
+                .unprocessableEntity()
+                .body(new AppError(ex.getStatus(), ex.getMessage()));
     }
 }
