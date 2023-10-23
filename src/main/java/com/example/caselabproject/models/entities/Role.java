@@ -1,10 +1,8 @@
 package com.example.caselabproject.models.entities;
 
-import javax.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Data

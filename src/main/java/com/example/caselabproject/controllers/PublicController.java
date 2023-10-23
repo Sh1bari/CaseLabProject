@@ -1,8 +1,6 @@
 package com.example.caselabproject.controllers;
 
-import com.example.caselabproject.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

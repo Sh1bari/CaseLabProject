@@ -1,6 +1,5 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
@@ -22,7 +21,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
 
     @Override
     @Transactional
-    public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto){
+    public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         try {
             DocumentConstructorType createdType = typeRepository.save(typeRequestDto.mapToEntity());
             return DocumentConstructorTypeResponseDto.mapFromEntity(createdType);

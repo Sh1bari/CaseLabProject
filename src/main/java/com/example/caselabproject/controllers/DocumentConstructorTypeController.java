@@ -1,6 +1,5 @@
 package com.example.caselabproject.controllers;
 
-import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
@@ -18,11 +17,11 @@ import java.net.URI;
 public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
-    @PutMapping("/")
+    @PostMapping()
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto
-    ){
+    ) {
         DocumentConstructorTypeResponseDto responseDto = typeService.create(documentTypeRequestDto);
         return ResponseEntity
                 .created(URI.create("/api/doctype/" + responseDto.getId()))
