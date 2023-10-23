@@ -34,4 +34,5 @@ public class GlobalExceptionHandler {
                 .unprocessableEntity()
                 .body(new AppError(ex.getStatus(), ex.getMessage()));
     }
+
 }

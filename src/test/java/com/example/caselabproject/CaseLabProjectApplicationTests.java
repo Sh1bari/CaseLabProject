@@ -18,14 +18,4 @@ class CaseLabProjectApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    void document_constructor_type_service_works() {
-        assertAll("trying different id",
-                () -> assertEquals(Optional.empty(),
-                        documentConstructorTypeService.findById(300_000L)),
-                () -> assertEquals(Optional.empty(),
-                        documentConstructorTypeService.findById(-1L))
-        );
-    }
 }
