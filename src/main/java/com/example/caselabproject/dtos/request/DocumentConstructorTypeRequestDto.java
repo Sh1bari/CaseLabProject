@@ -12,8 +12,8 @@ public class DocumentConstructorTypeRequestDto {
     private String name;
 
     public DocumentConstructorType mapToEntity() {
-        DocumentConstructorType type = new DocumentConstructorType();
-        type.setName(this.name);
-        return type;
+        return DocumentConstructorType.builder()
+                .name(this.name)
+                .build();
     }
 }
