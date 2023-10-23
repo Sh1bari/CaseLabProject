@@ -17,7 +17,7 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private AuthUserInfo authUserInfo;
 
 
