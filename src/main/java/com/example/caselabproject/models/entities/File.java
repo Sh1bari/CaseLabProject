@@ -17,7 +17,8 @@ public class File {
     private String path;
     private String type;
 
-    @OneToOne(orphanRemoval = true)
+
+    @ManyToOne
     @JoinColumn(name = "document_id")
     private Document document;
 

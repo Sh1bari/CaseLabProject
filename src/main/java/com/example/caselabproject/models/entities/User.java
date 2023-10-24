@@ -1,12 +1,16 @@
 package com.example.caselabproject.models.entities;
 
-import lombok.Data;
+import com.example.caselabproject.models.enums.Status;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -16,6 +20,9 @@ public class User {
 
     @Column(name = "username", unique = true)
     private String username;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private AuthUserInfo authUserInfo;
@@ -29,9 +36,7 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
+    private String position;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true)
     private List<Document> documents;
@@ -41,4 +46,5 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Application> applications;
+
 }

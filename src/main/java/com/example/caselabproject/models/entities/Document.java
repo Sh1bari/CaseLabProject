@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,13 +22,13 @@ public class Document {
     @JoinColumn(name = "user_id")
     private User creator;
 
-
     @ManyToOne
     @JoinColumn(name = "document_constructor_type_id")
     private DocumentConstructorType documentConstructorType;
 
-    @OneToOne(mappedBy = "document", orphanRemoval = true)
-    private File file;
+
+    @OneToMany(mappedBy = "document", orphanRemoval = true)
+    private List<File> files;
 
     @ManyToOne
     @JoinColumn(name = "application_id")

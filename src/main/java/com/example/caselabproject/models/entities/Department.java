@@ -18,5 +18,6 @@ public class Department {
     private List<User> users;
 
     @OneToMany(mappedBy = "department", orphanRemoval = true)
-    private List<Application> applications;
+    private List<ApplicationItem> applicationItems;
+
 }

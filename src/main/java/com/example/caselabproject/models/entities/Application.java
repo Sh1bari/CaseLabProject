@@ -19,22 +19,21 @@ public class Application {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
     @Basic
     private LocalDateTime creationDate;
 
     @Basic
     private LocalDateTime deadlineDate;
 
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus applicationStatus;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "document_id")
+    private Document document;
+
     @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private List<Document> documents;
+    private List<ApplicationItem> applicationItems;
 
-    private ApplicationStatus status;
-
-    private String comment;
 
 }
