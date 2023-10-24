@@ -2,6 +2,7 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
+import com.example.caselabproject.models.entities.User;
 
 import javax.validation.Valid;
 

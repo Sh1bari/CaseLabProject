@@ -19,10 +19,9 @@ spring:
     show-sql: false
     generateDdl: true
     database: postgresql
-    databasePlatform: org.hibernate.dialect.PostgreSQL95Dialect
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
-        ddl-auto: update
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true

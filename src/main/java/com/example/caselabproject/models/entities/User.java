@@ -21,6 +21,7 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
