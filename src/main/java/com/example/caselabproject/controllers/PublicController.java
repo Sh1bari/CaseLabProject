@@ -1,6 +1,10 @@
 package com.example.caselabproject.controllers;
 
+import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.Status;
+import com.example.caselabproject.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,9 +16,7 @@ import java.security.Principal;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/v1")
 @RequiredArgsConstructor
-@Secured("ROLE_TEST")
 public class PublicController {
 
 
