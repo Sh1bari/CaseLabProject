@@ -8,4 +8,7 @@ import javax.validation.Valid;
 public interface DocumentConstructorTypeService {
 
     DocumentConstructorTypeResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
+
+    DocumentConstructorTypeResponseDto renameById(Long id,
+                                                  @Valid DocumentConstructorTypeRequestDto typeRequestDto);
 }

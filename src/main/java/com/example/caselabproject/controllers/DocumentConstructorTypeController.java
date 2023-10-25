@@ -26,4 +26,15 @@ public class DocumentConstructorTypeController {
                 .created(URI.create("/api/doctype/" + responseDto.getId()))
                 .body(responseDto);
     }
+
+    @PatchMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<?> renameDocumentType(@PathVariable Long id,
+                                                @RequestBody DocumentConstructorTypeRequestDto request) {
+        DocumentConstructorTypeResponseDto response = typeService.renameById(id, request);
+
+        return ResponseEntity
+                .ok()
+                .body(response);
+    }
 }
