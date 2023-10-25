@@ -1,10 +1,7 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.RecordState;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,12 +23,16 @@ public class DocumentConstructorType {
 
     @Builder.Default
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Document> documents = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Field> fields = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private RecordState recordState;
+    private RecordState recordState = RecordState.ACTIVE;
 }
