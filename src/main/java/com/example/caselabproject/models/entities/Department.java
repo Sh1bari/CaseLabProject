@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,10 +15,13 @@ public class Department {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "department", orphanRemoval = true)
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<User> users;
 
-    @OneToMany(mappedBy = "department", orphanRemoval = true)
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<ApplicationItem> applicationItems;
+
+    @Enumerated(EnumType.STRING)
+    private RecordState recordState;
 
 }

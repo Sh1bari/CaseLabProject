@@ -1,6 +1,6 @@
 package com.example.caselabproject.models.entities;
 
-import com.example.caselabproject.models.enums.Status;
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,31 +21,30 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private RecordState recordState;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private AuthUserInfo authUserInfo;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"))
     private List<Role> roles;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "department_id")
     private Department department;
 
     private String position;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true)
+    @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Document> documents;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private PersonalUserInfo personalUserInfo;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Application> applications;
 
 }

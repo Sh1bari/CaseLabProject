@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,20 +19,23 @@ public class Document {
     @Basic
     private LocalDateTime creationDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User creator;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "document_constructor_type_id")
     private DocumentConstructorType documentConstructorType;
 
 
-    @OneToMany(mappedBy = "document", orphanRemoval = true)
+    @OneToMany(mappedBy = "document", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<File> files;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "application_id")
     private Application application;
+
+    @Enumerated(EnumType.STRING)
+    private RecordState recordState;
 
 }

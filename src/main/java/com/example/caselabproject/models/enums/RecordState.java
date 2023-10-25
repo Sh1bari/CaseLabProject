@@ -1,6 +1,6 @@
 package com.example.caselabproject.models.enums;
 
-public enum Status {
+public enum RecordState {
     DELETED,
     ACTIVE
 }

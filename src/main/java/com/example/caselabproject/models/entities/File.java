@@ -18,7 +18,7 @@ public class File {
     private String type;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "document_id")
     private Document document;
 
