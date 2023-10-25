@@ -1,7 +1,6 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
-import com.example.caselabproject.models.enums.ApplicationStatus;
 import lombok.Data;
 
 import javax.persistence.*;
