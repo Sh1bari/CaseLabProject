@@ -2,6 +2,7 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
 import com.example.caselabproject.exceptions.DocumentTypeIdNotExistsException;
+import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
@@ -12,7 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.w3c.dom.DocumentType;
 
 import java.util.Optional;
 
@@ -29,14 +29,15 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
             DocumentConstructorType createdType = typeRepository.save(typeRequestDto.mapToEntity());
             return DocumentConstructorTypeResponseDto.mapFromEntity(createdType);
         } catch (DataIntegrityViolationException ex) {
-            throw new DocumentConstructorTypeNameExistsException(422, "Document type " + typeRequestDto.getName() + " already exists.");
+            throw new DocumentConstructorTypeNameExistsException(422,
+                    "Document type " + typeRequestDto.getName() + " already exists.");
         }
     }
 
     @Override
     @Transactional
     public DocumentConstructorTypeResponseDto renameById(Long id,
-                                                         DocumentConstructorTypeRequestDto typeRequestDto) {
+                                                         DocumentConstructorTypePatchRequestDto typeRequestDto) {
         final Optional<DocumentConstructorType> optionalDocumentType = typeRepository.findById(id);
         final DocumentConstructorType documentType = optionalDocumentType.orElseThrow(
                 () -> new DocumentTypeIdNotExistsException(404, "Document type with " + id + " id doesn't exist"));

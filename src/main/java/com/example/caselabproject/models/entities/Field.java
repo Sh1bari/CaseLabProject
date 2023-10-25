@@ -17,7 +17,7 @@ public class Field {
 
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "document_constructor_type_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
