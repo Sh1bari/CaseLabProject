@@ -3,3 +3,8 @@
 
 Когда начинаете выполнять задачу, в google доке напротив неё пишете своё имя. 
 Ссылка на google документ с ТЗ: https://docs.google.com/document/d/1NoXTgT-kpQUOy9dmZnyT1L4Q3qsXYdHGp5AjlA9WbNE/edit?usp=drivesdk
+
+Подключиться к БД по данным из application.yaml
+- запустить приложение для создания таблиц
+- запустить скрипты из resources.sql.Check.sql
+- в таблицу ролей добавить ROLE_USER и ROLE_ADMIN
