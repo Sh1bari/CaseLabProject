@@ -9,6 +9,8 @@ spring:
   sql:
     init:
       mode: always
+      data-locations: classpath:/sql/data.sql
+      schema-locations: classpath:/sql/Check.sql
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/CaseLab
