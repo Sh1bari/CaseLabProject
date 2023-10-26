@@ -33,6 +33,7 @@ public class DocumentConstructorType {
     @EqualsAndHashCode.Exclude
     private List<Field> fields = new ArrayList<>();
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     private RecordState recordState = RecordState.ACTIVE;
 }

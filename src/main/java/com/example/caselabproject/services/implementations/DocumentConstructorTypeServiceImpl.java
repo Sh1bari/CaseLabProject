@@ -26,8 +26,10 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     @Transactional
     public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         try {
-            DocumentConstructorType createdType = typeRepository.save(typeRequestDto.mapToEntity());
-            return DocumentConstructorTypeResponseDto.mapFromEntity(createdType);
+            DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
+            typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
+            return DocumentConstructorTypeResponseDto
+                    .mapFromEntity(typeRepository.save(typeToSave));
         } catch (DataIntegrityViolationException ex) {
             throw new DocumentConstructorTypeNameExistsException(422,
                     "Document type " + typeRequestDto.getName() + " already exists.");
