@@ -1,13 +1,19 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.RecordState;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +29,6 @@ public class Department {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
+
 
 }
