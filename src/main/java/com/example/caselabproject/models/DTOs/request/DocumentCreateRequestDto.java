@@ -1,12 +1,10 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Document;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
 public class DocumentCreateRequestDto {
 
