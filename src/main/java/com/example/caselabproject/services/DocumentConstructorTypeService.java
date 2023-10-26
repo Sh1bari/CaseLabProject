@@ -5,11 +5,14 @@ import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeReq
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 public interface DocumentConstructorTypeService {
 
     DocumentConstructorTypeResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
-    DocumentConstructorTypeResponseDto updateById(Long id,
+    DocumentConstructorTypeResponseDto updateById(@Min(1L) Long id,
                                                   @Valid DocumentConstructorTypePatchRequestDto typeRequestDto);
+
+    void deleteById(@Min(1L) Long id);
 }

@@ -1,11 +1,12 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
-import com.example.caselabproject.exceptions.DocumentTypeIdNotExistsException;
+import com.example.caselabproject.exceptions.DocumentConstructorTypeIdNotExistsException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +38,22 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                                                          DocumentConstructorTypePatchRequestDto typeRequestDto) {
         final Optional<DocumentConstructorType> optionalDocumentType = typeRepository.findById(id);
         DocumentConstructorType documentType = optionalDocumentType.orElseThrow(
-                () -> new DocumentTypeIdNotExistsException(404, "Document type with " + id + " id doesn't exist"));
+                () -> new DocumentConstructorTypeIdNotExistsException(404, "Document type with " + id + " id doesn't exist"));
 
         documentType.setName(typeRequestDto.getName());
         documentType = this.saveInternal(documentType);
 
         return DocumentConstructorTypeResponseDto.mapFromEntity(documentType);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        typeRepository.findById(id)
+                .ifPresent((documentType) -> {
+                    documentType.setRecordState(RecordState.DELETED);
+                    typeRepository.save(documentType);
+                });
     }
 
     private DocumentConstructorType saveInternal(DocumentConstructorType typeToSave) {

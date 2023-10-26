@@ -2,7 +2,7 @@ package com.example.caselabproject.controllers.advice;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
-import com.example.caselabproject.exceptions.DocumentTypeIdNotExistsException;
+import com.example.caselabproject.exceptions.DocumentConstructorTypeIdNotExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,11 +37,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({
-            DocumentTypeIdNotExistsException.class
+            DocumentConstructorTypeIdNotExistsException.class
     })
     public ResponseEntity<AppError> onNotFoundException(RuntimeException e) {
         return ResponseEntity
                 .unprocessableEntity()
                 .body(new AppError(404, e.getMessage()));
     }
+
+
 }

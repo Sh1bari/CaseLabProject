@@ -1,6 +1,7 @@
 package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class DocumentConstructorTypeResponseDto {
     private String name;
     private String prefix;
     private List<FieldResponseDto> fields;
+    private RecordState state;
 
     public static DocumentConstructorTypeResponseDto mapFromEntity(DocumentConstructorType type) {
         return DocumentConstructorTypeResponseDto.builder()
@@ -21,6 +23,7 @@ public class DocumentConstructorTypeResponseDto {
                 .name(type.getName())
                 .prefix(type.getPrefix())
                 .fields(type.getFields().stream().map(FieldResponseDto::mapFromEntity).toList())
+                .state(type.getRecordState())
                 .build();
     }
 }

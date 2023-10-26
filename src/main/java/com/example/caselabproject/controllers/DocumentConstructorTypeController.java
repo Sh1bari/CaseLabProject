@@ -5,6 +5,7 @@ import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeReq
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,12 @@ public class DocumentConstructorTypeController {
         return ResponseEntity
                 .ok()
                 .body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteDocumentType(@PathVariable Long id) {
+        typeService.deleteById(id);
     }
 }
