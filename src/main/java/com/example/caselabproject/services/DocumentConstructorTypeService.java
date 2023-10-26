@@ -10,6 +10,6 @@ public interface DocumentConstructorTypeService {
 
     DocumentConstructorTypeResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
-    DocumentConstructorTypeResponseDto renameById(Long id,
+    DocumentConstructorTypeResponseDto updateById(Long id,
                                                   @Valid DocumentConstructorTypePatchRequestDto typeRequestDto);
 }

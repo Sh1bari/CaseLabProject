@@ -2,10 +2,14 @@ package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.RecordState;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -37,5 +41,13 @@ public class Document {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
+
+    @ElementCollection
+    @CollectionTable(name = "document_field", joinColumns = @JoinColumn(name = "document_id"))
+    @MapKeyJoinColumn(name = "field_id")
+    @Column(name = "value")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Map<Field, String> fieldsValues = new HashMap<>();
 
 }

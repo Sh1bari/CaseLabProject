@@ -25,28 +25,32 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     @Override
     @Transactional
     public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
-        try {
-            DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
-            typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
-            return DocumentConstructorTypeResponseDto
-                    .mapFromEntity(typeRepository.save(typeToSave));
-        } catch (DataIntegrityViolationException ex) {
-            throw new DocumentConstructorTypeNameExistsException(422,
-                    "Document type " + typeRequestDto.getName() + " already exists.");
-        }
+        DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
+        typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
+        return DocumentConstructorTypeResponseDto
+                .mapFromEntity(this.saveInternal(typeToSave));
     }
 
     @Override
     @Transactional
-    public DocumentConstructorTypeResponseDto renameById(Long id,
+    public DocumentConstructorTypeResponseDto updateById(Long id,
                                                          DocumentConstructorTypePatchRequestDto typeRequestDto) {
         final Optional<DocumentConstructorType> optionalDocumentType = typeRepository.findById(id);
-        final DocumentConstructorType documentType = optionalDocumentType.orElseThrow(
+        DocumentConstructorType documentType = optionalDocumentType.orElseThrow(
                 () -> new DocumentTypeIdNotExistsException(404, "Document type with " + id + " id doesn't exist"));
 
         documentType.setName(typeRequestDto.getName());
-        typeRepository.save(documentType);
+        documentType = this.saveInternal(documentType);
 
         return DocumentConstructorTypeResponseDto.mapFromEntity(documentType);
+    }
+
+    private DocumentConstructorType saveInternal(DocumentConstructorType typeToSave) {
+        try {
+            return typeRepository.save(typeToSave);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DocumentConstructorTypeNameExistsException(422,
+                    "Document type " + typeToSave.getName() + " already exists.");
+        }
     }
 }

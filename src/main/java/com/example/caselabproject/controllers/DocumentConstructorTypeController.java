@@ -33,7 +33,7 @@ public class DocumentConstructorTypeController {
     public ResponseEntity<DocumentConstructorTypeResponseDto> renameDocumentType(
             @PathVariable Long id,
             @RequestBody DocumentConstructorTypePatchRequestDto request) {
-        DocumentConstructorTypeResponseDto response = typeService.renameById(id, request);
+        DocumentConstructorTypeResponseDto response = typeService.updateById(id, request);
 
         return ResponseEntity
                 .ok()

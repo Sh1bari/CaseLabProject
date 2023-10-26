@@ -21,11 +21,10 @@ public class DocumentConstructorType {
     @Column(unique = true)
     private String name;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private List<Document> documents = new ArrayList<>();
+    /**
+     * Префикс кода документа, после которого следует номер. Код документа = prefix + document_id
+     */
+    private String prefix;
 
     @Builder.Default
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
@@ -36,4 +35,10 @@ public class DocumentConstructorType {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private RecordState recordState = RecordState.ACTIVE;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Document> documents = new ArrayList<>();
 }

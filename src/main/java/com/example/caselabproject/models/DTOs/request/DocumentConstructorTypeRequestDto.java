@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class DocumentConstructorTypeRequestDto {
     @NotBlank
     private String name;
 
+    @NotEmpty
+    private String prefix;
+
     @NotNull
     @UniqueElements
     private List<@Valid FieldRequestDto> fields;
@@ -23,6 +27,7 @@ public class DocumentConstructorTypeRequestDto {
         return DocumentConstructorType.builder()
                 .name(this.name)
                 .fields(this.fields.stream().map(FieldRequestDto::mapToEntity).toList())
+                .prefix(this.prefix)
                 .build();
     }
 }
