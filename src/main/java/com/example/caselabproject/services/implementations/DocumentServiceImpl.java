@@ -8,9 +8,11 @@ import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.services.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepo;

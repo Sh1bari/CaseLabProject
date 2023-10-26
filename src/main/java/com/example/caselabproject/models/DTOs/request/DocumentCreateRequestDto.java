@@ -1,8 +1,10 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Document;
+import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,6 +15,7 @@ public class DocumentCreateRequestDto {
         this.creationDate = LocalDateTime.now();
     }
 
+    @NotBlank
     private String name;
     private LocalDateTime creationDate;
 
