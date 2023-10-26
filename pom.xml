@@ -59,6 +59,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>2.7.12</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.4</version>
+        </dependency>
     </dependencies>
 
     <build>
