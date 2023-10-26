@@ -6,5 +6,5 @@
 
 Подключиться к БД по данным из application.yaml
 - запустить приложение для создания таблиц
-- запустить скрипты из resources.sql.Check.sql
+- запустить скрипты из resources.sql
 - в таблицу ролей добавить ROLE_USER и ROLE_ADMIN
