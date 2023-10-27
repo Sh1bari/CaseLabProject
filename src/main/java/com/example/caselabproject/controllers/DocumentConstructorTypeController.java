@@ -31,6 +31,10 @@ public class DocumentConstructorTypeController {
                 .body(responseDto);
     }
 
+    /**
+     * Важно добавить изменение fields
+     * @author Sh1bari
+     */
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> renameDocumentType(
@@ -38,7 +42,8 @@ public class DocumentConstructorTypeController {
             @RequestBody DocumentConstructorTypePatchRequestDto request) {
         DocumentConstructorTypeResponseDto response = typeService.updateById(id, request);
         return ResponseEntity
-                .ok(response);
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
     @DeleteMapping("/{id}")
@@ -55,7 +60,8 @@ public class DocumentConstructorTypeController {
         DocumentConstructorTypeResponseDto response = typeService.getById(id);
 
         return ResponseEntity
-                .ok(response);
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
     @GetMapping("/all")
@@ -69,6 +75,7 @@ public class DocumentConstructorTypeController {
                 typeService.getAllContaining(name, state, page, size);
 
         return ResponseEntity
-                .ok(response);
+                .status(HttpStatus.OK)
+                .body(response);
     }
 }

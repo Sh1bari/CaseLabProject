@@ -4,7 +4,6 @@ import com.example.caselabproject.models.enums.RecordState;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,19 +25,16 @@ public class DocumentConstructorType {
      */
     private String prefix;
 
-    @Builder.Default
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Field> fields = new ArrayList<>();
+    private List<Field> fields;
 
-    @Builder.Default
     @Enumerated(EnumType.STRING)
     private RecordState recordState = RecordState.ACTIVE;
 
-    @Builder.Default
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Document> documents = new ArrayList<>();
+    private List<Document> documents;
 }

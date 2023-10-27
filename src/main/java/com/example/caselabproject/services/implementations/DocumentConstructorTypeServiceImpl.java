@@ -2,6 +2,7 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNotFoundException;
+import com.example.caselabproject.exceptions.DocumentConstructorTypePageNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
@@ -35,7 +36,8 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     }
 
     @Override
-    public DocumentConstructorTypeResponseDto updateById(Long id, DocumentConstructorTypePatchRequestDto typeRequestDto) {
+    public DocumentConstructorTypeResponseDto updateById(Long id,
+                                                         DocumentConstructorTypePatchRequestDto typeRequestDto) {
         DocumentConstructorType documentType = typeRepository.findById(id).orElseThrow(
                 () -> new DocumentConstructorTypeNotFoundException(id));
 
@@ -63,12 +65,14 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     }
 
     @Override
-    public List<DocumentConstructorTypeResponseDto> getAllContaining(
-            String name, RecordState state, Integer page, Integer size) {
+    public List<DocumentConstructorTypeResponseDto> getAllContaining(String name,
+                                                                     RecordState state,
+                                                                     Integer page,
+                                                                     Integer size) {
         Page<DocumentConstructorType> documentTypes =
-                typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(
-                        name, state, PageRequest.of(page, size, Sort.by("name").ascending()));
-
+                typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, state,
+                        PageRequest.of(page, size, Sort.by("name").ascending()))
+                                .orElseThrow(()-> new DocumentConstructorTypePageNotFoundException(page));
         return documentTypes
                 .map(DocumentConstructorTypeResponseDto::mapFromEntity)
                 .toList();

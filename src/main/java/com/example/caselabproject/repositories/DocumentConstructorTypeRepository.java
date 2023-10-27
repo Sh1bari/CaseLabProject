@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DocumentConstructorTypeRepository extends JpaRepository<DocumentConstructorType, Long> {
-    Page<DocumentConstructorType> findAllByNameContainingIgnoreCaseAndRecordState(
+    Optional<Page<DocumentConstructorType>> findAllByNameContainingIgnoreCaseAndRecordState(
             String name, RecordState state, Pageable pageable);
 }
