@@ -26,13 +26,14 @@ public class DocumentConstructorTypeController {
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
+
         DocumentConstructorTypeResponseDto responseDto = typeService.create(documentTypeRequestDto);
         return ResponseEntity
                 .created(URI.create("/api/doctype/" + responseDto.getId()))
                 .body(responseDto);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> renameDocumentType(
             @PathVariable Long id,
@@ -45,9 +46,11 @@ public class DocumentConstructorTypeController {
 
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteDocumentType(@PathVariable Long id) {
+    public ResponseEntity<?> deleteDocumentType(@PathVariable Long id) {
         typeService.deleteById(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     @GetMapping("/{id}")

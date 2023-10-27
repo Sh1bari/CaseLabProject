@@ -1,18 +1,12 @@
 package com.example.caselabproject.exceptions;
 
-import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
+@Slf4j
+public class DocumentConstructorTypeNameExistsException extends GlobalAppException {
 
-@Data
-public class DocumentConstructorTypeNameExistsException extends RuntimeException {
-    private int status;
-    private String message;
-    private Date timestamp;
-
-    public DocumentConstructorTypeNameExistsException(int status, String message) {
-        this.status = status;
-        this.message = message;
-        this.timestamp = new Date();
+    public DocumentConstructorTypeNameExistsException(String name) {
+        super(422, "Document type " + name + " already exists.");
+        log.warn(message);
     }
 }
