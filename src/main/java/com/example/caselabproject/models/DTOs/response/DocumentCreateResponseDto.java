@@ -14,7 +14,7 @@ public class DocumentCreateResponseDto {
     private String name;
     private LocalDateTime creationDate;
 
-    public static DocumentCreateResponseDto mapFromEntity(Document document){
+    public static DocumentCreateResponseDto mapFromEntity(Document document) {
         return DocumentCreateResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())

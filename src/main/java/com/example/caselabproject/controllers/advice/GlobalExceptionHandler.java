@@ -1,7 +1,7 @@
 package com.example.caselabproject.controllers.advice;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.exceptions.GlobalAppException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
