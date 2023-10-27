@@ -16,14 +16,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Document {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     private String name;
+
     @Basic
     private LocalDateTime creationDate;
+
+    @Basic
+    private LocalDateTime updateDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")

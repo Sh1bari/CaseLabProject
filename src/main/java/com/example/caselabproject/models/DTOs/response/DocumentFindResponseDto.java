@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class DocumentCreateResponseDto {
+public class DocumentFindResponseDto {
 
     private Long id;
 
@@ -16,11 +16,14 @@ public class DocumentCreateResponseDto {
 
     private LocalDateTime creationDate;
 
-    public static DocumentCreateResponseDto mapFromEntity(Document document) {
-        return DocumentCreateResponseDto.builder()
+    private LocalDateTime updateDate;
+
+    public static DocumentFindResponseDto mapFromEntity(Document document) {
+        return DocumentFindResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .creationDate(document.getCreationDate())
+                .updateDate(document.getUpdateDate())
                 .build();
     }
 }
