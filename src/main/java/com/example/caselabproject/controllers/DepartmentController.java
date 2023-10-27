@@ -9,6 +9,7 @@ import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("department")
+@RequestMapping("/department")
 @RequiredArgsConstructor
 public class DepartmentController {
 
@@ -36,18 +37,18 @@ public class DepartmentController {
 
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<DepartmentResponseDto> deleteDepartment(@PathVariable Long id) {
-        DepartmentResponseDto responseDto = departmentService.updateRecordState(id);
+    public ResponseEntity<?> deleteDepartment(@PathVariable Long id) {
+        departmentService.deleteDepartment(id);
         return ResponseEntity
-                .created(URI.create("/api/department/" + responseDto.getId()))
-                .body(responseDto);
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DepartmentResponseDto> getDepartmentById(@PathVariable Long id) {
         DepartmentResponseDto responseDto = departmentService.getById(id);
         return ResponseEntity
-                .created(URI.create("/api/department/" + responseDto.getId()))
+                .status(HttpStatus.OK)
                 .body(responseDto);
     }
 
@@ -57,7 +58,7 @@ public class DepartmentController {
         List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(page);
 
         return ResponseEntity
-                .created(URI.create("/api/department/"))
+                .status(HttpStatus.OK)
                 .body(responseDto);
     }
 

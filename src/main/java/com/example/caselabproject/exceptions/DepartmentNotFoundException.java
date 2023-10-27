@@ -3,7 +3,7 @@ package com.example.caselabproject.exceptions;
 
 public class DepartmentNotFoundException extends GlobalAppException {
 
-    public DepartmentNotFoundException(int status, String message) {
-        super(status, message);
+    public DepartmentNotFoundException(Long id) {
+        super(404, "Department not found with id: " + id);
     }
 }

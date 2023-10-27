@@ -12,7 +12,7 @@ import java.net.URI;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/doctype")
+@RequestMapping("/docType")
 public class DocumentConstructorTypeController {
     @Autowired
     private DocumentConstructorTypeService typeService;

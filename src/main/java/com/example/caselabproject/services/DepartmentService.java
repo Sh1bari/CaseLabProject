@@ -13,7 +13,7 @@ import java.util.List;
 public interface DepartmentService {
     DepartmentResponseDto create(@Valid DepartmentRequestDto departmentRequestDto);
 
-    DepartmentResponseDto updateRecordState(Long departmentId);
+    void deleteDepartment(Long departmentId);
 
     DepartmentResponseDto getById(Long departmentId);
 

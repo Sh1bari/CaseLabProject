@@ -4,7 +4,7 @@ server:
     context-path: /api
 jwt:
   secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
-  lifetime: 10m
+  lifetime: 30m
 spring:
   sql:
     init:

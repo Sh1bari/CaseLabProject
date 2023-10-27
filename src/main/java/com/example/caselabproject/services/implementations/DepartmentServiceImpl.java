@@ -52,25 +52,23 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentResponseDto updateRecordState(Long departmentId) {
+    public void deleteDepartment(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(404, "Department not found with ID: " + departmentId));
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
 
         if (department.getRecordState().equals(RecordState.DELETED)) {
-            throw new DepartmentStatusException(400, "Department " + departmentId + " already has the status DELETED");
+            throw new DepartmentStatusException(409, "Department " + departmentId + " already has the status DELETED");
         }
 
         department.setRecordState(RecordState.DELETED);
         departmentRepository.save(department);
-
-        return DepartmentResponseDto.mapFromEntity(department);
     }
 
 
     @Override
     public DepartmentResponseDto getById(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(404, "Department not found with ID: " + departmentId));
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
 
         return DepartmentResponseDto.mapFromEntity(department);
     }
