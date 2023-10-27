@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -28,7 +27,6 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     private final DocumentConstructorTypeRepository typeRepository;
 
     @Override
-    @Transactional
     public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
         typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
@@ -48,7 +46,6 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     }
 
     @Override
-    @Transactional
     public void deleteById(Long id) {
         DocumentConstructorType documentType = typeRepository.findById(id)
                 .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
@@ -58,7 +55,6 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     }
 
     @Override
-    @Transactional
     public DocumentConstructorTypeResponseDto getById(Long id) {
         DocumentConstructorType constructorType = typeRepository.findById(id)
                 .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));

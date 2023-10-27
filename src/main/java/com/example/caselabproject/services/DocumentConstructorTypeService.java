@@ -22,9 +22,9 @@ public interface DocumentConstructorTypeService {
 
     @Transactional
     void deleteById(@Min(1L) Long id);
-
+    @Transactional
     DocumentConstructorTypeResponseDto getById(@Min(1L) Long id);
-
+    @Transactional
     List<DocumentConstructorTypeResponseDto> getAllContaining(
             @NotNull String name, @NotNull RecordState state,
             @Min(0) Integer page, @Min(1) Integer size);
