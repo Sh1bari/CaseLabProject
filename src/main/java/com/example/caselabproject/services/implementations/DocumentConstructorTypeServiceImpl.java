@@ -11,10 +11,14 @@ import com.example.caselabproject.repositories.DocumentConstructorTypeRepository
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,6 +58,28 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                     documentType.setRecordState(RecordState.DELETED);
                     typeRepository.save(documentType);
                 });
+    }
+
+    @Override
+    @Transactional
+    public DocumentConstructorTypeResponseDto getById(Long id) {
+        DocumentConstructorType constructorType = typeRepository.findById(id)
+                .orElseThrow(() -> new DocumentConstructorTypeIdNotExistsException(
+                        404, "Document type with " + id + " id doesn't exist"));
+
+        return DocumentConstructorTypeResponseDto.mapFromEntity(constructorType);
+    }
+
+    @Override
+    public List<DocumentConstructorTypeResponseDto> getAllContaining(
+            String name, RecordState state, Integer page, Integer size) {
+        Page<DocumentConstructorType> documentTypes =
+                typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(
+                        name, state, PageRequest.of(page, size, Sort.by("name").ascending()));
+
+        return documentTypes
+                .map(DocumentConstructorTypeResponseDto::mapFromEntity)
+                .toList();
     }
 
     private DocumentConstructorType saveInternal(DocumentConstructorType typeToSave) {
