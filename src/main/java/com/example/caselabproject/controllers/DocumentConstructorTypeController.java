@@ -21,6 +21,7 @@ public class DocumentConstructorTypeController {
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
+
         DocumentConstructorTypeResponseDto responseDto = typeService.create(documentTypeRequestDto);
         return ResponseEntity
                 .created(URI.create("/api/doctype/" + responseDto.getId()))
