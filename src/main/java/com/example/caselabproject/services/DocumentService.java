@@ -16,7 +16,7 @@ public interface DocumentService {
 
     DocumentUpdateResponseDto updateDocument(Document document);
 
-    List<Document> filteredDocument(int limit, int offset);
+    List<Document> filteredDocument(Integer page);
 
     void deleteDocument(Long id);
 }

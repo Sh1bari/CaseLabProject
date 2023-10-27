@@ -13,12 +13,11 @@ public class DocumentCreateRequestDto {
     @NotBlank
     private String name;
 
-    private LocalDateTime creationDate;
-
     public Document mapToEntity() {
         return Document.builder()
                 .name(this.name)
                 .creationDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
                 .build();
     }
 }

@@ -8,9 +8,11 @@ import com.example.caselabproject.models.DTOs.response.DocumentUpdateResponseDto
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.net.URI;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class DocumentController {
     private DocumentService documentService;
 
     @PostMapping("/")
-    ResponseEntity<DocumentCreateResponseDto> create(
+    public ResponseEntity<DocumentCreateResponseDto> create(
             @RequestBody DocumentCreateRequestDto requestDto) {
         DocumentCreateResponseDto responseDto = documentService.createDocument(requestDto);
         return ResponseEntity
@@ -31,20 +33,20 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<DocumentFindResponseDto> find(@PathVariable Long id) {
+    public ResponseEntity<DocumentFindResponseDto> find(@PathVariable Long id) {
         DocumentFindResponseDto responseDto = documentService.findDocument(id);
         return ResponseEntity
-                .created(URI.create("/api/doc/" + responseDto.getId()))
+                .status(HttpStatus.OK)
                 .body(responseDto);
     }
 
     @GetMapping("/filter")
-    List<Document> filteredSearch(@RequestParam int limit, @RequestParam int offset) {
-        return documentService.filteredDocument(limit, offset);
+    public ResponseEntity<List<Document>> filteredSearch(@RequestParam(name = "page") @Min(0) Integer page) {
+        return ResponseEntity.ok(documentService.filteredDocument(page));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<DocumentUpdateResponseDto> update(
+    public ResponseEntity<DocumentUpdateResponseDto> update(
             @RequestBody DocumentUpdateRequestDto requestDto, @PathVariable Long id) {
         Document document = requestDto.mapToEntity();
         document.setId(id);

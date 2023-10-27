@@ -25,6 +25,8 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
 
+    private final Integer limit = 20;
+
     @Override
     public DocumentCreateResponseDto createDocument(DocumentCreateRequestDto request) {
 
@@ -49,9 +51,9 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> filteredDocument(int limit, int offset) {
+    public List<Document> filteredDocument(Integer page) {
 
-        Pageable pageable = PageRequest.of(offset, limit, Sort.unsorted());
+        Pageable pageable = PageRequest.of(page, limit);
 
         return documentRepository.findAll(pageable).getContent();
     }
