@@ -1,7 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.DocumentConstructorTypeIdNotExistsException;
 import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.exceptions.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
@@ -61,8 +61,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     @Transactional
     public DocumentConstructorTypeResponseDto getById(Long id) {
         DocumentConstructorType constructorType = typeRepository.findById(id)
-                .orElseThrow(() -> new DocumentConstructorTypeIdNotExistsException(
-                        404, "Document type with " + id + " id doesn't exist"));
+                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
 
         return DocumentConstructorTypeResponseDto.mapFromEntity(constructorType);
     }

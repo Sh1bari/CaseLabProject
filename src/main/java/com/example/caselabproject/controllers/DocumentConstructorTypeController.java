@@ -6,7 +6,6 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRe
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
