@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,8 +26,9 @@ public class DocumentController {
 
     @PostMapping("/")
     public ResponseEntity<DocumentCreateResponseDto> create(
+            Principal principal,
             @RequestBody DocumentCreateRequestDto requestDto) {
-        DocumentCreateResponseDto responseDto = documentService.createDocument(requestDto);
+        DocumentCreateResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);
@@ -41,23 +43,29 @@ public class DocumentController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<Document>> filteredSearch(@RequestParam(name = "page") @Min(0) Integer page) {
-        return ResponseEntity.ok(documentService.filteredDocument(page));
+    public ResponseEntity<List<Document>> filteredSearch(@RequestParam(name = "page")Integer page) {
+        List<Document> response = documentService.filteredDocument(page);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<DocumentUpdateResponseDto> update(
-            @RequestBody DocumentUpdateRequestDto requestDto, @PathVariable Long id) {
-        Document document = requestDto.mapToEntity();
-        document.setId(id);
-        DocumentUpdateResponseDto responseDto = documentService.updateDocument(document);
+            Principal principal,
+            @RequestBody DocumentUpdateRequestDto requestDto,
+            @PathVariable Long id) {
+        DocumentUpdateResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(Principal principal, @PathVariable Long id) {
         documentService.deleteDocument(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

@@ -12,8 +12,6 @@ public class DocumentUpdateRequestDto {
     @NotBlank
     private String name;
 
-    private LocalDateTime updateDate;
-
     public Document mapToEntity() {
         return Document.builder()
                 .name(this.name)
