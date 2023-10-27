@@ -1,0 +1,53 @@
+2023-10-27 06:10:54 INFO  [main] c.e.c.CaseLabProjectApplication - Starting CaseLabProjectApplication using Java 19.0.1 on DESKTOP-UTMMH3A with PID 17220 (C:\Users\Theke\Desktop\java\CaseLabProject\target\classes started by Theke in C:\Users\Theke\Desktop\java\CaseLabProject)
+2023-10-27 06:10:54 DEBUG [main] c.e.c.CaseLabProjectApplication - Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-10-27 06:10:54 INFO  [main] c.e.c.CaseLabProjectApplication - No active profile set, falling back to 1 default profile: "default"
+2023-10-27 06:10:55 DEBUG [main] c.e.c.configs.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2023-10-27 06:10:57 INFO  [main] c.e.c.CaseLabProjectApplication - Started CaseLabProjectApplication in 3.405 seconds (JVM running for 3.961)
+2023-10-27 06:11:12 INFO  [main] c.e.c.CaseLabProjectApplication - Starting CaseLabProjectApplication using Java 19.0.1 on DESKTOP-UTMMH3A with PID 17124 (C:\Users\Theke\Desktop\java\CaseLabProject\target\classes started by Theke in C:\Users\Theke\Desktop\java\CaseLabProject)
+2023-10-27 06:11:12 DEBUG [main] c.e.c.CaseLabProjectApplication - Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-10-27 06:11:12 INFO  [main] c.e.c.CaseLabProjectApplication - No active profile set, falling back to 1 default profile: "default"
+2023-10-27 06:11:13 DEBUG [main] c.e.c.configs.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2023-10-27 06:11:15 INFO  [main] c.e.c.CaseLabProjectApplication - Started CaseLabProjectApplication in 3.614 seconds (JVM running for 4.135)
+2023-10-27 06:11:26 INFO  [main] c.e.c.CaseLabProjectApplication - Starting CaseLabProjectApplication using Java 19.0.1 on DESKTOP-UTMMH3A with PID 12948 (C:\Users\Theke\Desktop\java\CaseLabProject\target\classes started by Theke in C:\Users\Theke\Desktop\java\CaseLabProject)
+2023-10-27 06:11:26 DEBUG [main] c.e.c.CaseLabProjectApplication - Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-10-27 06:11:26 INFO  [main] c.e.c.CaseLabProjectApplication - No active profile set, falling back to 1 default profile: "default"
+2023-10-27 06:11:27 DEBUG [main] c.e.c.configs.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2023-10-27 06:11:30 INFO  [main] c.e.c.CaseLabProjectApplication - Started CaseLabProjectApplication in 3.534 seconds (JVM running for 4.039)
+2023-10-27 06:11:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-27 06:11:54 INFO  [main] c.e.c.CaseLabProjectApplication - Starting CaseLabProjectApplication using Java 19.0.1 on DESKTOP-UTMMH3A with PID 18580 (C:\Users\Theke\Desktop\java\CaseLabProject\target\classes started by Theke in C:\Users\Theke\Desktop\java\CaseLabProject)
+2023-10-27 06:11:54 DEBUG [main] c.e.c.CaseLabProjectApplication - Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-10-27 06:11:54 INFO  [main] c.e.c.CaseLabProjectApplication - No active profile set, falling back to 1 default profile: "default"
+2023-10-27 06:11:55 DEBUG [main] c.e.c.configs.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2023-10-27 06:11:57 INFO  [main] c.e.c.CaseLabProjectApplication - Started CaseLabProjectApplication in 3.43 seconds (JVM running for 3.934)
+2023-10-27 06:12:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-27 06:12:37 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-27 06:15:26 INFO  [main] c.e.c.CaseLabProjectApplication - Starting CaseLabProjectApplication using Java 19.0.1 on DESKTOP-UTMMH3A with PID 19156 (C:\Users\Theke\Desktop\java\CaseLabProject\target\classes started by Theke in C:\Users\Theke\Desktop\java\CaseLabProject)
+2023-10-27 06:15:26 DEBUG [main] c.e.c.CaseLabProjectApplication - Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-10-27 06:15:26 INFO  [main] c.e.c.CaseLabProjectApplication - No active profile set, falling back to 1 default profile: "default"
+2023-10-27 06:15:27 DEBUG [main] c.e.c.configs.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2023-10-27 06:15:29 INFO  [main] c.e.c.CaseLabProjectApplication - Started CaseLabProjectApplication in 3.556 seconds (JVM running for 4.062)
+2023-10-27 06:16:14 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:17:59 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:20:08 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:20:17 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:24:06 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:24:49 ERROR [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
+  Подробности: Ключ "(name)=(doctype-1)" уже существует.
+2023-10-27 06:24:49 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:25:43 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-27 06:26:17 WARN  [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-27 06:26:17 ERROR [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
+  Подробности: Ключ "(name)=(doctype-1)" уже существует.
+2023-10-27 06:26:17 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:28:32 [31mWARN [0;39m [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-27 06:28:32 [1;31mERROR[0;39m [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
+  Подробности: Ключ "(name)=(doctype-1)" уже существует.
+2023-10-27 06:28:32 [31mWARN [0;39m [http-nio-8082-exec-1] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:28:33 [31mWARN [0;39m [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-27 06:28:33 [1;31mERROR[0;39m [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
+  Подробности: Ключ "(name)=(doctype-1)" уже существует.
+2023-10-27 06:28:33 [31mWARN [0;39m [http-nio-8082-exec-3] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-27 06:30:16 WARN  [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-27 06:30:16 ERROR [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
+  Подробности: Ключ "(name)=(doctype-1)" уже существует.
+2023-10-27 06:30:16 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
