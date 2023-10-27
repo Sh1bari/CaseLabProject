@@ -1,9 +1,10 @@
 package com.example.caselabproject.controllers;
 
-import com.example.caselabproject.models.DTOs.request.UserRequestDto;
+import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.response.UserResponseDto;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,13 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable("id") Long id) {
         UserResponseDto userResponseDto = userService.getById(id);
         return ResponseEntity
-                .ok(userResponseDto);
+                .status(HttpStatus.OK)
+                .body(userResponseDto);
     }
 
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserCreateRequestDto userRequestDto) {
         UserResponseDto userResponseDto = userService.create(userRequestDto);
         return ResponseEntity
                 .created(URI.create("api/user/" + userResponseDto.getId()))

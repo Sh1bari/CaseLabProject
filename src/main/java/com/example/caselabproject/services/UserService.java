@@ -1,14 +1,20 @@
 package com.example.caselabproject.services;
 
+import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserRequestDto;
 import com.example.caselabproject.models.DTOs.response.UserResponseDto;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.constraints.Min;
 
 public interface UserService {
 
-    UserResponseDto getById(Long id);
+    @Transactional(readOnly = true)
+    UserResponseDto getById(@Min(1L) Long id);
 
-    UserResponseDto create(UserRequestDto userRequestDto);
-
+    @Transactional
+    UserResponseDto create(UserCreateRequestDto userRequestDto);
+    @Transactional
     UserResponseDto updateById(Long id, UserRequestDto userRequestDto);
 
     void deleteById(Long id);

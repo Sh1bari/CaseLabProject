@@ -11,15 +11,15 @@ public class UserResponseDto {
 
     private Long id;
     private String position;
-    private RecordState recordState;
     private String username;
+    private String department;
 
     public static UserResponseDto mapFromEntity(User user) {
         return UserResponseDto.builder()
                 .id(user.getId())
                 .position(user.getPosition())
-                .recordState(user.getRecordState())
                 .username(user.getUsername())
+                .department(user.getDepartment().getName())
                 .build();
     }
 }

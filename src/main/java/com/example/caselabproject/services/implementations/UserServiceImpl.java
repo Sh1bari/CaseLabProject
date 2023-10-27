@@ -2,9 +2,8 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.UserExistsException;
 import com.example.caselabproject.exceptions.UserNotFoundException;
-import com.example.caselabproject.models.DTOs.request.UserRequestDto;
+import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.response.UserResponseDto;
-import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.UserRepository;
@@ -23,15 +22,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public UserResponseDto getById(Long id) {
         return UserResponseDto.mapFromEntity(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @Override
-    @Transactional
-    public UserResponseDto create(UserRequestDto userRequestDto) {
+    public UserResponseDto create(UserCreateRequestDto userRequestDto) {
         User user = userRequestDto.mapToEntity();
         try {
             userRepository.save(user);
