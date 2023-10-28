@@ -1,12 +1,14 @@
 package com.example.caselabproject.models.entities;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "auth_user_info")
 public class AuthUserInfo {
 

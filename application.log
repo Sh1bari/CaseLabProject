@@ -51,3 +51,8 @@
 2023-10-27 06:30:16 ERROR [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
   Подробности: Ключ "(name)=(doctype-1)" уже существует.
 2023-10-27 06:30:16 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
+2023-10-28 03:02:06 WARN  [http-nio-8082-exec-1] c.e.c.e.RoleNameNotFoundException - Can not find role with namestring
+2023-10-28 03:02:37 WARN  [http-nio-8082-exec-1] c.e.c.e.RoleNameNotFoundException - Can not find role with name string
+2023-10-28 03:10:49 WARN  [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-28 03:10:49 ERROR [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_r43af9ap4edm43mmtq01oddj6"
+  Подробности: Ключ "(username)=(string)" уже существует.

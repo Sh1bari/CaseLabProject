@@ -1,9 +1,8 @@
 package com.example.caselabproject.controllers.advice;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
-import com.example.caselabproject.exceptions.DocumentCreateException;
 import com.example.caselabproject.exceptions.GlobalAppException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,15 +16,22 @@ import javax.validation.ConstraintViolationException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({
-            MethodArgumentNotValidException.class,
             ConstraintViolationException.class,
             HttpMessageNotReadableException.class,
             MethodArgumentTypeMismatchException.class
     })
     public ResponseEntity<AppError> onValidationExceptions(RuntimeException exception) {
         return ResponseEntity
-                .badRequest()
+                .status(HttpStatus.BAD_REQUEST)
                 .body(new AppError(400, exception.getMessage()));
+    }
+    @ExceptionHandler({
+            MethodArgumentNotValidException.class
+    })
+    public ResponseEntity<AppError> onValidationExceptionsMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new AppError(400, exception.getBindingResult().getAllErrors().get(0).getDefaultMessage()));
     }
 
     @ExceptionHandler({
