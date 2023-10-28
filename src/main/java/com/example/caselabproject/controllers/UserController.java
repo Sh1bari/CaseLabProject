@@ -54,6 +54,9 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+    /**
+     * исправить dto
+     */
     /*@PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserResponseDto> updateUserById(
