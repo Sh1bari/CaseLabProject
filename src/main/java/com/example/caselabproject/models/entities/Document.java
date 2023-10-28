@@ -44,7 +44,7 @@ public class Document {
     private RecordState recordState;
 
     @ElementCollection
-    @CollectionTable(name = "document_field", joinColumns = @JoinColumn(name = "document_id"))
+    @CollectionTable(name = "document_field_value", joinColumns = @JoinColumn(name = "document_id"))
     @MapKeyJoinColumn(name = "field_id")
     @Column(name = "value")
     @ToString.Exclude
