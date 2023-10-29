@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,18 +52,18 @@ public class WordFileGeneratorImpl implements WordFileGenerator {
         }
 
         return generateDocument(type.getName(), type.getPrefix(), document.getId(),
-                params, position, fullName);
+                document.getCreationDate(), params, position, fullName);
     }
 
-    private byte[] generateDocument(String title, String prefix, Long id, Map<String, String> params,
-                                    String creatorPosition, String creatorFullName) {
+    private byte[] generateDocument(String title, String prefix, Long id, LocalDateTime creationDate,
+                                    Map<String, String> params, String creatorPosition, String creatorFullName) {
         try (XWPFDocument document = new XWPFDocument();
              ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
             // Установка полей
             setPageFields(document);
 
             // Создание шапки документа
-            createHeader(prefix, id, document);
+            createHeader(prefix, id, creationDate, document);
 
             // Создание параграфа с заголовком
             createTitle(title, document);
@@ -87,12 +88,15 @@ public class WordFileGeneratorImpl implements WordFileGenerator {
     /**
      * Создает шапку документа.
      */
-    private void createHeader(String prefix, Long id, XWPFDocument document) {
+    private void createHeader(String prefix, Long id, LocalDateTime creationDate, XWPFDocument document) {
         XWPFParagraph headerParagraph = document.createParagraph();
         headerParagraph.setAlignment(ParagraphAlignment.LEFT);
 
         XWPFRun headerRun = headerParagraph.createRun();
         headerRun.setText("Код документа: " + prefix + id);
+
+        headerRun.addBreak();
+        headerRun.setText("от " + creationDate.toLocalDate());
     }
 
     /**
