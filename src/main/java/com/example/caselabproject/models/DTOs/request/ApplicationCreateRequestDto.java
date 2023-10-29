@@ -9,13 +9,15 @@ import java.time.LocalDateTime;
 @Data
 public class ApplicationCreateRequestDto {
     private LocalDateTime deadlineDate;
-    private Document document;
+    private Long documentId;
 
-    public Application mapToEntity(){
+    public Application mapToEntity() {
         Application application = new Application();
         application.setCreationDate(LocalDateTime.now());
         application.setDeadlineDate(this.deadlineDate);
-        application.setDocument(document);
+        application.setDocument(Document.builder()
+                .id(documentId)
+                .build());
         return application;
     }
 }

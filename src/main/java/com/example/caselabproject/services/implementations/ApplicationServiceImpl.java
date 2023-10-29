@@ -10,7 +10,9 @@ import com.example.caselabproject.models.DTOs.response.ApplicationDeleteResponse
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
+import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.repositories.ApplicationRepository;
+import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
     private ApplicationRepository applicationRepository;
+    private DocumentRepository documentRepository;
 
     @Autowired
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository){
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository, DocumentRepository documentRepository){
         this.applicationRepository = applicationRepository;
+        this.documentRepository = documentRepository;
     }
 
     @Override
     public ApplicationCreateResponseDto createApplication(ApplicationCreateRequestDto request) {
         Application application = request.mapToEntity();
         try {
+            //TODO добавить исключение DocumentDoesNotExistEcxeption
+            Document document = documentRepository.findById(application.getDocument().getId())
+                    .orElseThrow(null);
+            application.setDocument(document);
             applicationRepository.save(application);
         } catch (ApplicationCreateException e){
             throw new ApplicationCreateException();
