@@ -48,5 +48,4 @@ public class Document {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
-
 }

@@ -2,10 +2,7 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentFindResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentUpdateResponseDto;
-import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,39 +21,39 @@ public class DocumentController {
     private DocumentService documentService;
 
     @PostMapping("/")
-    public ResponseEntity<DocumentCreateResponseDto> create(
+    public ResponseEntity<DocumentResponseDto> create(
             Principal principal,
             @RequestBody DocumentCreateRequestDto requestDto) {
-        DocumentCreateResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
+        DocumentResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentFindResponseDto> find(@PathVariable Long id) {
-        DocumentFindResponseDto responseDto = documentService.findDocument(id);
+    public ResponseEntity<DocumentResponseDto> find(@PathVariable Long id) {
+        DocumentResponseDto responseDto = documentService.findDocument(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<DocumentCreateResponseDto>> filteredSearch(
+    public ResponseEntity<List<DocumentResponseDto>> filteredSearch(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "name", required = false, defaultValue = "") String name) {
-        List<DocumentCreateResponseDto> response = documentService.filteredDocument(page, name);
+        List<DocumentResponseDto> response = documentService.filteredDocument(page, name);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DocumentUpdateResponseDto> update(
+    public ResponseEntity<DocumentResponseDto> update(
             Principal principal,
             @RequestBody DocumentUpdateRequestDto requestDto,
             @PathVariable Long id) {
-        DocumentUpdateResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
+        DocumentResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);

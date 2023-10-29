@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class FileCreateResponseDto {
+public class FileResponseDto {
 
     private Long id;
 
@@ -18,8 +18,8 @@ public class FileCreateResponseDto {
 
     private String type;
 
-    public static FileCreateResponseDto mapFromEntity(File file) {
-        return FileCreateResponseDto.builder()
+    public static FileResponseDto mapFromEntity(File file) {
+        return FileResponseDto.builder()
                 .id(file.getId())
                 .name(file.getName())
                 .size(file.getSize())
