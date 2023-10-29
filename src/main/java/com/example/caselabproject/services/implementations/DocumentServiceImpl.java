@@ -1,9 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.DocumentCreateException;
-import com.example.caselabproject.exceptions.DocumentDoesNotExistException;
-import com.example.caselabproject.exceptions.NoDocumentPageFoundException;
-import com.example.caselabproject.exceptions.UserByPrincipalUsernameDoesNotExistException;
+import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
@@ -16,6 +13,7 @@ import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DocumentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,16 +28,14 @@ import java.util.List;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
-    private final UserRepository userRepo;
-
-    private final Integer limit = 20;
+    private final UserRepository userRepository;
 
     @Override
     public DocumentCreateResponseDto createDocument(String username, DocumentCreateRequestDto request) {
 
         Document document = request.mapToEntity();
         document.setRecordState(RecordState.ACTIVE);
-        User user = userRepo.findByUsernameAndRecordState(username, RecordState.ACTIVE)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByPrincipalUsernameDoesNotExistException(username));
         document.setCreator(user);
 
@@ -63,41 +59,59 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> filteredDocument(Integer page) {
+    public List<DocumentCreateResponseDto> filteredDocument(Integer page, String name) {
 
-        Pageable pageable = PageRequest.of(page, limit);
-        List<Document> documentList = documentRepository.findAll(pageable).getContent();
-        if(documentList.isEmpty()){
-            throw new NoDocumentPageFoundException(page);
-        }else return documentList;
-    }
+        int limit = 20;
 
-    @Override
-    public DocumentUpdateResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long id) {
+        Page<Document> documents;
 
-        /*if (!documentRepository.existsById(document.getId())) {
-            throw new DocumentDoesNotExistException(document.getId());
+        if (!name.isEmpty()) {
+            documents = documentRepository
+                    .findAllByNameContainingIgnoreCase(name,
+                            PageRequest.of(page, limit, Sort.by("name").ascending()));
+        } else {
+            documents = documentRepository.findAll(PageRequest.of(page, limit));
         }
 
-        Document updateDocument = documentRepository.findById(document.getId())
-                .orElseThrow(() -> new DocumentDoesNotExistException(document.getId()));
+        if (documents.isEmpty()) {
+            throw new NoDocumentPageFoundException(page);
+        }
 
-        updateDocument.setName(document.getName());
-        updateDocument.setUpdateDate(document.getUpdateDate());
-        documentRepository.save(updateDocument);
-
-        return DocumentUpdateResponseDto.mapFromEntity(document);*/
-        return null;
+        return documents.map(DocumentCreateResponseDto::mapFromEntity).toList();
     }
 
     @Override
-    public boolean deleteDocument(Long documentId) {
+    public DocumentUpdateResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long documentId) {
 
-        /*if (!documentRepository.existsById(documentId)) {
+        if (!documentRepository.existsById(documentId)) {
             throw new DocumentDoesNotExistException(documentId);
         }
 
-        documentRepository.deleteById(documentId);*/
-        return false;
+        if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
+            throw new DocumentAccessException(username);
+        }
+
+        Document updateDocument = documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+
+        updateDocument.setName(request.getName());
+        updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
+        documentRepository.save(updateDocument);
+
+        return DocumentUpdateResponseDto.mapFromEntity(updateDocument);
+    }
+
+    @Override
+    public void deleteDocument(String username, Long documentId) {
+
+        if (!documentRepository.existsById(documentId)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
+        if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
+            throw new DocumentAccessException(username);
+        }
+
+        documentRepository.deleteById(documentId);
     }
 }

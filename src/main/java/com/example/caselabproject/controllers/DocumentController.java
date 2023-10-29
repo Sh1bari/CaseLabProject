@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Min;
 import java.net.URI;
 import java.security.Principal;
 import java.util.List;
@@ -43,8 +42,10 @@ public class DocumentController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<Document>> filteredSearch(@RequestParam(name = "page")Integer page) {
-        List<Document> response = documentService.filteredDocument(page);
+    public ResponseEntity<List<DocumentCreateResponseDto>> filteredSearch(
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "name", required = false, defaultValue = "") String name) {
+        List<DocumentCreateResponseDto> response = documentService.filteredDocument(page, name);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -63,7 +64,7 @@ public class DocumentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(Principal principal, @PathVariable Long id) {
-        documentService.deleteDocument(id);
+        documentService.deleteDocument(principal.getName(), id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();

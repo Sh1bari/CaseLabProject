@@ -17,9 +17,9 @@ public interface DocumentService {
 
     DocumentFindResponseDto findDocument(@Min(1L) Long documentId);
 
-    DocumentUpdateResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long id);
+    List<DocumentCreateResponseDto> filteredDocument(@Min(0) Integer page, String name);
 
-    List<Document> filteredDocument(@Min(0) Integer page);
+    DocumentUpdateResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long documentId);
 
-    boolean deleteDocument(Long id);
+    void deleteDocument(String username, @Min(1L) Long documentId);
 }
