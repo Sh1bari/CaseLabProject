@@ -31,5 +31,3 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
-file:
-  temp-dir: /content/temp/
