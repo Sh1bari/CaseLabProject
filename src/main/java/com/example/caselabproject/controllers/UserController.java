@@ -7,7 +7,6 @@ import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,10 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
+    /**
+     * Description:
+     * @author
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -33,9 +35,12 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(userResponseDto);
     }
-
+    /**
+     * Description:
+     * @author
+     */
     @PostMapping("/")
-    @Secured("ROLE_ADMIN")
+    //@Secured("ROLE_ADMIN")
     public ResponseEntity<UserCreateResponseDto> createUser(
             @RequestBody @Valid UserCreateRequestDto userRequestDto) {
         UserCreateResponseDto userResponseDto = userService.create(userRequestDto);
@@ -43,32 +48,55 @@ public class UserController {
                 .created(URI.create("api/user/" + userResponseDto.getId()))
                 .body(userResponseDto);
     }
-
+    /**
+     * Description:
+     * @author
+     */
     @PutMapping("/{id}")
-    @Secured("ROLE_ADMIN")
+    //@Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
-            @RequestBody UserUpdateRequestDto userRequestDto) {
+            @RequestBody @Valid UserUpdateRequestDto userRequestDto) {
         UserUpdateResponseDto userUpdateResponseDto = userService.updateById(id, userRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userUpdateResponseDto);
     }
-
+    /**
+     * Description:
+     * @author
+     */
     @DeleteMapping("/{id}")
-    @Secured("ROLE_ADMIN")
-    public ResponseEntity<UserDeleteResponseDto> deleteUserById(@PathVariable("id") Long id) {
+    //@Secured("ROLE_ADMIN")
+    public ResponseEntity<?> deleteUserById(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         userService.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+    @PostMapping("/{id}/recover")
+    //@Secured("ROLE_ADMIN")
+    public ResponseEntity<UserRecoverResponseDto> recoverUserById(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
+        UserRecoverResponseDto res = userService.recoverById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
+    }
 
 
     @GetMapping("/{id}/docs")
-    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
+            @PathVariable("id")@Min(value = 1L, message = "Id can't be less than 1") Long id) {
+        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByCreatorId(id);
+        if (documentCreateResponseDto.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.findDocsByCreatorId(id));
+                .body(documentCreateResponseDto);
     }
 }

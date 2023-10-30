@@ -56,3 +56,8 @@
 2023-10-28 03:10:49 WARN  [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
 2023-10-28 03:10:49 ERROR [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_r43af9ap4edm43mmtq01oddj6"
   Подробности: Ключ "(username)=(string)" уже существует.
+2023-10-31 01:36:10 WARN  [http-nio-8082-exec-8] c.e.c.e.RoleNameNotFoundException - Can not find role with name string
+2023-10-31 01:36:30 WARN  [http-nio-8082-exec-7] c.e.c.e.RoleNameNotFoundException - Can not find role with name ROLE_USERNAME
+2023-10-31 01:37:02 WARN  [http-nio-8082-exec-10] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-10-31 01:37:02 ERROR [http-nio-8082-exec-10] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_r43af9ap4edm43mmtq01oddj6"
+  Подробности: Ключ "(username)=(Sh1bari)" уже существует.
