@@ -15,10 +15,12 @@ import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 
 @Service
@@ -60,17 +62,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserUpdateResponseDto updateById(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        if(userUpdateRequestDto.getPosition() != null) {
+        if (userUpdateRequestDto.getPosition() != null) {
             user.setPosition(userUpdateRequestDto.getPosition());
         }
-        if(userUpdateRequestDto.getUsername() != null) {
+        if (userUpdateRequestDto.getUsername() != null) {
             user.setUsername(userUpdateRequestDto.getUsername());
         }
-        if(userUpdateRequestDto.getDepartmentId() != null) {
+        if (userUpdateRequestDto.getDepartmentId() != null) {
             user.setDepartment(departmentRepo.findById(userUpdateRequestDto.getDepartmentId())
                     .orElseThrow(() -> new DepartmentNotFoundException(userUpdateRequestDto.getDepartmentId())));
         }
-        if(userUpdateRequestDto.getRoles() != null) {
+        if (userUpdateRequestDto.getRoles() != null) {
             user.setRoles(roleService.findRolesByRoleDtoList(userUpdateRequestDto.getRoles()));
         }
         if (userUpdateRequestDto.getPassword() != null) {
@@ -129,11 +131,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByCreatorId(Long id) {
-        if(existById(id)) {
+    public List<DocumentCreateResponseDto> findDocsByCreatorIdByPage(Long id,
+                                                                     String name,
+                                                                     Pageable pageable) {
+        if (existById(id)) {
             List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentRepository.findAllByCreator_id(id));
+                    .mapFromListOfEntities(documentRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
             return documentCreateResponseDtoList;
-        }else throw new UserNotFoundException(id);
+        } else throw new UserNotFoundException(id);
     }
 }
