@@ -1,39 +1,41 @@
 package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.DTOs.RoleDto;
+import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
-import lombok.AllArgsConstructor;
-import com.example.caselabproject.models.enums.RecordState;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Description:
+ *
+ * @author Vladimir Krasnov
+ */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserCreateResponseDto {
+public class UserRecoverResponseDto {
 
     private Long id;
     private String position;
     private String username;
     private String email;
+    private Department department;
     private List<RoleDto> roles;
     private String firstName;
     private String lastName;
     private String patronymic;
     private LocalDate birthDate;
 
-    public static UserCreateResponseDto mapFromEntity(User user) {
-        return UserCreateResponseDto.builder()
+    public static UserRecoverResponseDto mapFromEntity(User user) {
+        return UserRecoverResponseDto.builder()
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
                 .email(user.getAuthUserInfo().getEmail())
+                .department(user.getDepartment())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())
