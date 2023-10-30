@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {
-    List<DocumentCreateResponseDto> findAllByUserId(Long id);
+    List<DocumentCreateResponseDto> findAllByCreator_id(Long id);
 }

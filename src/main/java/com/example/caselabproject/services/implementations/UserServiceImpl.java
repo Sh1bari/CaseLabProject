@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public List<DocumentCreateResponseDto> findDocsByCreatorId(Long id) {
-        List<DocumentCreateResponseDto> documentCreateResponseDtos = documentRepository.findAllByUserId(id);
+        List<DocumentCreateResponseDto> documentCreateResponseDtos = documentRepository.findAllByCreator_id(id);
         return documentCreateResponseDtos;
     }
 }
