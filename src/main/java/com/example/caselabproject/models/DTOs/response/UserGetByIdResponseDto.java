@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @Builder
 public class UserGetByIdResponseDto {
+
     private Long id;
     private String position;
     private String username;
