@@ -561,3 +561,9 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-10-29 16:09:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-10-29 16:09:45 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-10-29 16:11:00 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:19:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:33:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:49:40 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:04:51 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:05:03 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:06:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout

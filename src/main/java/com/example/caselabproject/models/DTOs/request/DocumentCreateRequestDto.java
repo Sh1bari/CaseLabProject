@@ -1,7 +1,6 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Document;
-import com.example.caselabproject.models.entities.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
