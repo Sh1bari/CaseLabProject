@@ -15,11 +15,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleDto {
-
     @NotBlank
     private String name;
 
-    public static RoleDto mapFromEntity(Role role) {
+    public static RoleDto mapFromEntity(Role role){
         return RoleDto.builder()
                 .name(role.getName())
                 .build();

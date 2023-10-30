@@ -4,13 +4,13 @@ import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import org.springframework.data.domain.Pageable;
+import com.example.caselabproject.models.DTOs.response.UserCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import java.util.List;
-
 @Validated
 public interface UserService {
 
@@ -22,7 +22,8 @@ public interface UserService {
 
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
-
+    /*@Transactional
+    UserResponseDto updateById(Long id, UserRequestDto userRequestDto);*/
     @Transactional
     UserUpdateResponseDto updateById(@Min(value = 1L, message = "Id can't be less than 1") Long id, @Valid UserUpdateRequestDto userUpdateRequestDto);
 

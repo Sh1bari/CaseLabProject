@@ -4,8 +4,8 @@ import com.example.caselabproject.exceptions.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.UserExistsException;
 import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.response.UserCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
@@ -22,22 +22,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Validated
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final DocumentRepository documentRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepo;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        return UserGetByIdResponseDto.mapFromEntity(user);
+        return UserGetByIdResponseDto.mapFromEntity(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @Override
@@ -60,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserUpdateResponseDto updateById(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+    public UserResponseDto updateById(Long id, UserRequestDto userRequestDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         if (userUpdateRequestDto.getPosition() != null) {
             user.setPosition(userUpdateRequestDto.getPosition());
@@ -103,22 +101,20 @@ public class UserServiceImpl implements UserService {
             user.getPersonalUserInfo().setBirthDate(userUpdateRequestDto.getBirthDate());
         }
 
-
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
             throw new UserExistsException(userUpdateRequestDto.getUsername());
         }
-        return UserUpdateResponseDto.mapFromEntity(user);
+        return UserResponseDto.mapFromEntity(user);
     }
 
     @Override
     @Transactional
-    public UserDeleteResponseDto deleteById(Long id) {
+    public void deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setRecordState(RecordState.DELETED);
         userRepository.save(user);
-        return UserDeleteResponseDto.mapFromEntity(user);
     }
 
     @Override
@@ -140,4 +136,5 @@ public class UserServiceImpl implements UserService {
             return documentCreateResponseDtoList;
         } else throw new UserNotFoundException(id);
     }
+
 }

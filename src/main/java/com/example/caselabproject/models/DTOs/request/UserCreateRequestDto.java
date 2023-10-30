@@ -5,8 +5,14 @@ import com.example.caselabproject.models.entities.AuthUserInfo;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
-import lombok.Data;
+import com.example.caselabproject.services.RoleService;
+import com.example.caselabproject.services.implementations.RoleServiceImpl;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -21,21 +27,22 @@ import java.util.List;
 public class UserCreateRequestDto {
 
     private String position;
-    @NotBlank(message = "Username must not be blank")
+    @NotBlank
     private String username;
-    @NotBlank(message = "Password must not be blank")
+    @NotBlank
     private String password;
     @Email(message = "Email is not valid")
     private String email;
-    @NotEmpty(message = "Roles must not be empty")
+
+    @NotEmpty
     private List<@Valid RoleDto> roles;
-    @NotBlank(message = "First name must not be blank")
+    @NotBlank
     private String firstName;
-    @NotBlank(message = "Last name must not be blank")
+    @NotBlank
     private String lastName;
 
     private String patronymic;
-    @Past(message = "Date of birth can't be more than current date")
+    @Past(message = "Date of birth cant be more than current date")
     private LocalDate birthDate;
 
     public User mapToEntity() {

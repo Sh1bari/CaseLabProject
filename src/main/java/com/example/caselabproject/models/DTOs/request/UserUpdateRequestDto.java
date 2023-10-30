@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 @Validated
 public class UserUpdateRequestDto {
-
     private String position;
     private String username;
 
@@ -27,13 +26,13 @@ public class UserUpdateRequestDto {
     private String email;
     private List<@Valid RoleDto> roles;
     private String firstName;
+
     private String lastName;
 
     private String patronymic;
-    @Past(message = "Date of birth can't be more than current date")
+    @Past(message = "Date of birth cant be more than current date")
     private LocalDate birthDate;
-
-
+  
     public User mapToEntity() {
         User user = User.builder()
                 .position(position)
@@ -52,4 +51,5 @@ public class UserUpdateRequestDto {
         user.getAuthUserInfo().setUser(user);
         return user;
     }
+
 }
