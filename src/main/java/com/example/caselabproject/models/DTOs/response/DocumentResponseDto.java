@@ -5,37 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
-public class DocumentCreateResponseDto {
+public class DocumentResponseDto {
 
     private Long id;
+
     private String name;
 
     private LocalDateTime creationDate;
+
     private LocalDateTime updateDate;
 
-    public static DocumentCreateResponseDto mapFromEntity(Document document) {
-        return DocumentCreateResponseDto.builder()
+    public static DocumentResponseDto mapFromEntity(Document document) {
+        return DocumentResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .build();
-    }
-
-    public static List<DocumentCreateResponseDto> mapFromListOfEntities(List<Document> document) {
-        List<DocumentCreateResponseDto> res = new ArrayList<>();
-        document.forEach(o -> {
-            res.add(DocumentCreateResponseDto.builder()
-                    .id(o.getId())
-                    .name(o.getName())
-                    .creationDate(o.getCreationDate())
-                    .build());
-        });
-        return res;
     }
 }

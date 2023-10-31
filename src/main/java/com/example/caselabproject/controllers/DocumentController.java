@@ -2,6 +2,7 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,10 @@ public class DocumentController {
     private DocumentService documentService;
 
     @PostMapping("/")
-    public ResponseEntity<DocumentResponseDto> create(
+    public ResponseEntity<DocumentCreateResponseDto> create(
             Principal principal,
             @RequestBody DocumentCreateRequestDto requestDto) {
-        DocumentResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
+        DocumentCreateResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);

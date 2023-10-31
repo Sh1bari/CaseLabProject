@@ -2,15 +2,16 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
+import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import java.util.List;
 
 public interface DocumentService {
 
-    DocumentResponseDto createDocument(String username, @Valid DocumentCreateRequestDto request);
+    DocumentCreateResponseDto createDocument(String username, @Valid DocumentCreateRequestDto request);
 
     DocumentResponseDto findDocument(@Min(1L) Long documentId);
 

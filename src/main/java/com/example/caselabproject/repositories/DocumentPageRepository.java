@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface DocumentPageRepository extends PagingAndSortingRepository<Document, Long> {
     List<Document> findAllByCreator_id(Long id);
+    Page<Document> findAllByNameContainingIgnoreCase(String name, Pageable pageable);
+
 
     Page<Document> findAllByCreator_idAndNameContainingIgnoreCase(Long id, String name, Pageable pageable);
 }
