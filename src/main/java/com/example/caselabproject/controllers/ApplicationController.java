@@ -79,7 +79,7 @@ public class ApplicationController {
                 .status(HttpStatus.NO_CONTENT)
                 .body(responseDto);
     }
-
+    @Operation(summary = "Get application by id")
     @GetMapping("/{id}")
     public ResponseEntity<ApplicationFindResponseDto> findApplicationById(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
