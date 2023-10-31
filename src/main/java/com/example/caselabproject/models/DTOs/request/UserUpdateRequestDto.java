@@ -7,9 +7,9 @@ import com.example.caselabproject.models.entities.User;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Past;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.List;
 

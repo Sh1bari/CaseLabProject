@@ -3,7 +3,7 @@ package com.example.caselabproject.models.entities;
 import com.example.caselabproject.models.enums.RecordState;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

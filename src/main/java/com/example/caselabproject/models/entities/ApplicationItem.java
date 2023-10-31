@@ -3,7 +3,7 @@ package com.example.caselabproject.models.entities;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

@@ -4,7 +4,7 @@ import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.entities.Role;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 public interface RoleService {

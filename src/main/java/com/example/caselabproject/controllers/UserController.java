@@ -1,9 +1,16 @@
 package com.example.caselabproject.controllers;
 
+import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.exceptions.GlobalAppException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -11,8 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+
+import java.awt.print.Book;
 import java.net.URI;
 import java.util.List;
 
@@ -44,6 +53,14 @@ public class UserController {
      *
      * @author
      */
+    @Operation(summary = "Create new user, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User created",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserCreateResponseDto.class)) }),
+            @ApiResponse(responseCode = "409", description = "User exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/")
     //@Secured("ROLE_ADMIN")
     public ResponseEntity<UserCreateResponseDto> createUser(
