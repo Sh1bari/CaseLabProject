@@ -6,7 +6,7 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 
