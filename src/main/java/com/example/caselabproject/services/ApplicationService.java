@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface ApplicationService {
     ApplicationCreateResponseDto createApplication(@NotBlank String username, @Valid ApplicationCreateRequestDto request);
-    ApplicationUpdateResponseDto updateApplication(Long id, ApplicationUpdateRequestDto request);
-    ApplicationDeleteResponseDto deleteApplication(ApplicationDeleteRequestDto request);
+    ApplicationUpdateResponseDto updateApplication(@Min(value = 1L, message = "Id cant be less than 1") Long id, @NotBlank String username, @Valid ApplicationUpdateRequestDto request);
+    ApplicationDeleteResponseDto deleteApplication(@Min(value = 1L, message = "Id cant be less than 1") Long id, @NotBlank String username);
     ApplicationFindResponseDto getApplicationById(@Min(value = 1L, message = "Id cant be less than 1")Long id);
 }

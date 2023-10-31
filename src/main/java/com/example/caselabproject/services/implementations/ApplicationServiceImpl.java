@@ -1,9 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationCreateException;
-import com.example.caselabproject.exceptions.ApplicationDoesNotExistException;
-import com.example.caselabproject.exceptions.UserByUsernameNotFoundException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationDeleteRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
@@ -31,7 +28,6 @@ import org.springframework.stereotype.Service;
 public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
-    private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
 
 
@@ -48,22 +44,34 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationUpdateResponseDto updateApplication(Long id, ApplicationUpdateRequestDto request) {
+    public ApplicationUpdateResponseDto updateApplication(Long id, String username,
+                                                          ApplicationUpdateRequestDto request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
-        updateApplication.setDeadlineDate(application.getDeadlineDate());
-        applicationRepository.save(updateApplication);
+        if (!user.getUsername().equals(application.getCreatorId().getUsername())){
+            throw new UserNotCreatorException(username);
+        } else {
+            updateApplication.setDeadlineDate(application.getDeadlineDate());
+            applicationRepository.save(updateApplication);
+        }
 
         return ApplicationUpdateResponseDto.mapFromEntity(application);
     }
 
     @Override
-    public ApplicationDeleteResponseDto deleteApplication(ApplicationDeleteRequestDto request){
-        Application application = request.mapToEntity();
-        Application deleteApplication = applicationRepository.findById(application.getId())
-                .orElseThrow(() -> new ApplicationDoesNotExistException(application.getId()));
-        applicationRepository.delete(deleteApplication);
+    public ApplicationDeleteResponseDto deleteApplication(Long id, String username){
+        Application application = applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
+        if (!application.getCreatorId().getUsername().equals(user.getUsername())){
+            throw new UserNotCreatorException(username);
+        } else {
+            applicationRepository.delete(application);
+        }
 
         return ApplicationDeleteResponseDto.mapFromEntity(application);
     }
