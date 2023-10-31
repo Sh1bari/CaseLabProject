@@ -53,6 +53,11 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webmvc-core</artifactId>
+            <version>1.7.0</version> <!-- Укажите актуальную версию -->
+        </dependency>
 
 
         <!--Slf4j-->
@@ -94,7 +99,7 @@
             <version>0.9.1</version>
         </dependency>
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
+            <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version> <!-- Используйте актуальную версию -->
         </dependency>

@@ -15,6 +15,7 @@ import com.example.caselabproject.services.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +36,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentCreateResponseDto createDocument(String username, DocumentCreateRequestDto request) {
 
         Document document = request.mapToEntity();
+
         document.setRecordState(RecordState.ACTIVE);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByPrincipalUsernameDoesNotExistException(username));
@@ -60,22 +62,20 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<DocumentResponseDto> filteredDocument(Integer page, String name) {
-
-        int limit = 20;
+    public List<DocumentResponseDto> filteredDocument(Pageable pageable, String name) {
 
         Page<Document> documents;
 
         if (!name.isEmpty()) {
             documents = documentPageRepository
                     .findAllByNameContainingIgnoreCase(name,
-                            PageRequest.of(page, limit, Sort.by("name").ascending()));
+                            pageable);
         } else {
-            documents = documentRepository.findAll(PageRequest.of(page, limit));
+            documents = documentRepository.findAll(pageable);
         }
 
         if (documents.isEmpty()) {
-            throw new NoDocumentPageFoundException(page);
+            throw new NoDocumentPageFoundException(pageable.getPageNumber());
         }
 
         return documents.map(DocumentResponseDto::mapFromEntity).toList();

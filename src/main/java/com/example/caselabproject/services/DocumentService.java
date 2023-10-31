@@ -7,6 +7,8 @@ import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface DocumentService {
@@ -15,7 +17,7 @@ public interface DocumentService {
 
     DocumentResponseDto findDocument(@Min(1L) Long documentId);
 
-    List<DocumentResponseDto> filteredDocument(@Min(0) Integer page, String name);
+    List<DocumentResponseDto> filteredDocument(Pageable pageable, String name);
 
     DocumentResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long documentId);
 

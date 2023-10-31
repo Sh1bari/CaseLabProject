@@ -3,6 +3,8 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.models.DTOs.JwtRequest;
 import com.example.caselabproject.models.DTOs.RegistrationUserDto;
 import com.example.caselabproject.services.security.SecurityAuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -16,7 +18,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class AuthController {
     private final SecurityAuthService authService;
-
+    @Operation(summary = "Login")
     @PostMapping("/login")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         return authService.createAuthToken(authRequest);
@@ -29,6 +31,7 @@ public class AuthController {
 
     @Secured("ROLE_USER")
     @PostMapping("/reset-token")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<?> resetToken(Principal principal) {
         return authService.resetToken(principal.getName());
     }
