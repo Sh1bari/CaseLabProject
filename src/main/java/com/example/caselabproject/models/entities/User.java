@@ -3,11 +3,12 @@ package com.example.caselabproject.models.entities;
 import com.example.caselabproject.models.enums.RecordState;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")

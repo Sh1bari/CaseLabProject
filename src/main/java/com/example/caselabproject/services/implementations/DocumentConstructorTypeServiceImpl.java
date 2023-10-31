@@ -10,6 +10,7 @@ import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -66,7 +67,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
 
     @Override
     public List<DocumentConstructorTypeResponseDto> getAllContaining(String name,
-                                                                     RecordState state,
+                                                                     @NotNull(message = "state must not be null.") RecordState state,
                                                                      Integer page,
                                                                      Integer size) {
         Page<DocumentConstructorType> documentTypes =

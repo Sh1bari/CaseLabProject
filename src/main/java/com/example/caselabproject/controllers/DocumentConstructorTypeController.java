@@ -5,6 +5,7 @@ import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeReq
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
