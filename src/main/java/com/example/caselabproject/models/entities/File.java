@@ -1,8 +1,7 @@
 package com.example.caselabproject.models.entities;
 
-import lombok.Data;
-
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Data

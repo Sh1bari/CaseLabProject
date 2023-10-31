@@ -1,9 +1,8 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.FieldType;
-import lombok.Data;
-
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Data

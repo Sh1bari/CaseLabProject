@@ -1,9 +1,9 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

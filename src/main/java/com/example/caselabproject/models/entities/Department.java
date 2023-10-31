@@ -1,9 +1,9 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.RecordState;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

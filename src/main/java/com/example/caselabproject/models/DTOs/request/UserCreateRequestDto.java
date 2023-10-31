@@ -5,14 +5,14 @@ import com.example.caselabproject.models.entities.AuthUserInfo;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
-import lombok.Data;
-import org.springframework.validation.annotation.Validated;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
+import lombok.Data;
+import org.springframework.validation.annotation.Validated;
+
 import java.time.LocalDate;
 import java.util.List;
 
