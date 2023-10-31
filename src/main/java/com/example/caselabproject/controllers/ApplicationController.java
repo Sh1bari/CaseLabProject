@@ -7,8 +7,10 @@ import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponse
 import com.example.caselabproject.models.DTOs.response.ApplicationDeleteResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
+import com.example.caselabproject.services.ApplicationService;
 import com.example.caselabproject.services.implementations.ApplicationServiceImpl;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +18,16 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/application")
 public class ApplicationController {
-    private ApplicationServiceImpl applicationService;
-    private static final String PATH = "/api/application";
 
-    @Autowired
-    public ApplicationController(ApplicationServiceImpl applicationService) {
-        this.applicationService = applicationService;
-    }
+    private final ApplicationService applicationService;
+    private static final String PATH = "/api/application";
 
     @PostMapping("/")
     public ResponseEntity<ApplicationCreateResponseDto> create(
-            @RequestBody ApplicationCreateRequestDto requestDto
-    ) {
+            @RequestBody ApplicationCreateRequestDto requestDto){
         ApplicationCreateResponseDto responseDto = applicationService.createApplication(requestDto);
         return ResponseEntity
                 .created(URI.create(PATH + responseDto.getId()))
@@ -37,9 +35,9 @@ public class ApplicationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApplicationUpdateResponseDto> update(@PathVariable Long id,
-            @RequestBody ApplicationUpdateRequestDto requestDto
-    ) {
+    public ResponseEntity<ApplicationUpdateResponseDto> update(
+            @PathVariable Long id,
+            @RequestBody ApplicationUpdateRequestDto requestDto){
         ApplicationUpdateResponseDto responseDto = applicationService.updateApplication(id, requestDto);
         return ResponseEntity
                 .created(URI.create(PATH + responseDto.getId()))
@@ -48,8 +46,7 @@ public class ApplicationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApplicationDeleteResponseDto> delete(
-            @RequestBody ApplicationDeleteRequestDto requestDto
-    ) {
+            @RequestBody ApplicationDeleteRequestDto requestDto){
         ApplicationDeleteResponseDto responseDto = applicationService.deleteApplication(requestDto);
 
         return ResponseEntity

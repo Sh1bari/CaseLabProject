@@ -14,21 +14,19 @@ import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.services.ApplicationService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
-    private ApplicationRepository applicationRepository;
-    private DocumentRepository documentRepository;
 
-    @Autowired
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository, DocumentRepository documentRepository){
-        this.applicationRepository = applicationRepository;
-        this.documentRepository = documentRepository;
-    }
+    private final ApplicationRepository applicationRepository;
+    private final DocumentRepository documentRepository;
+
 
     @Override
     public ApplicationCreateResponseDto createApplication(ApplicationCreateRequestDto request) {
