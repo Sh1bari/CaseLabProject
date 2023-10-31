@@ -6,11 +6,8 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRe
 import com.example.caselabproject.models.enums.RecordState;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import jakarta.validation.*;
 
 public interface DocumentConstructorTypeService {
 

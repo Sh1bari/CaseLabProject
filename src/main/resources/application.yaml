@@ -31,3 +31,8 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,4 +23,5 @@ public class Field {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private DocumentConstructorType documentConstructorType;
+
 }

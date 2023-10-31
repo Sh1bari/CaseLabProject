@@ -1,11 +1,12 @@
 package com.example.caselabproject.models.entities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -20,6 +21,9 @@ public class PersonalUserInfo {
     private String firstName;
     private String lastName;
     private String patronymic;
+
+    @Basic
+    private LocalDate birthDate;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")

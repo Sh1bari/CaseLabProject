@@ -18,13 +18,16 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/doctype")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class DocumentConstructorTypeController {
+
     private final DocumentConstructorTypeService typeService;
 
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
+
         DocumentConstructorTypeResponseDto responseDto = typeService.create(documentTypeRequestDto);
         return ResponseEntity
                 .created(URI.create("/api/doctype/" + responseDto.getId()))
