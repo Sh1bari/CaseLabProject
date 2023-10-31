@@ -2,8 +2,7 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
-
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 public interface DocumentConstructorTypeService {
 

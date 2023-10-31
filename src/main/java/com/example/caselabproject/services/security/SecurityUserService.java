@@ -24,26 +24,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SecurityUserService implements UserDetailsService {
-    private UserRepository userRepository;
-    private SecurityRoleService roleService;
-    private PasswordEncoder passwordEncoder;
 
-    private final AuthUserInfoRepository authUserInfoRepo;
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setRoleService(SecurityRoleService roleService) {
-        this.roleService = roleService;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userRepository;
+    private final SecurityRoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);

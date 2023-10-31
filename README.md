@@ -4,7 +4,7 @@
 Когда начинаете выполнять задачу, в google доке напротив неё пишете своё имя. 
 Ссылка на google документ с ТЗ: https://docs.google.com/document/d/1NoXTgT-kpQUOy9dmZnyT1L4Q3qsXYdHGp5AjlA9WbNE/edit?usp=drivesdk
 
-Swagger - http://localhost:8082/api/swagger-ui/
+Swagger - http://localhost:8082/api/swagger-ui/index.html
 
 Подключиться к БД по данным из application.yaml
 - запустить приложение для создания таблиц

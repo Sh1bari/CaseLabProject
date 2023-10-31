@@ -5,6 +5,7 @@ import com.example.caselabproject.models.DTOs.RegistrationUserDto;
 import com.example.caselabproject.services.security.SecurityAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class AuthController {
         return authService.createNewUser(registrationUserDto);
     }
 
+    @Secured("ROLE_USER")
     @PostMapping("/reset-token")
     public ResponseEntity<?> resetToken(Principal principal) {
         return authService.resetToken(principal.getName());
