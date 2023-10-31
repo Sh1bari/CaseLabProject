@@ -1,6 +1,7 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.services.WordFileGenerator;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class WordFileGenerationController {
     private final WordFileGenerator wordFileGenerator;
 
