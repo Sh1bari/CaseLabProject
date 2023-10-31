@@ -10,6 +10,7 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.UserPageRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
@@ -31,6 +32,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserPageRepository userPageRepository;
     private final DocumentRepository documentRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
@@ -168,7 +170,7 @@ public class UserServiceImpl implements UserService {
                                                                     String email,
                                                                     Pageable pageable) {
         List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
-                userRepository
+                userPageRepository
                         .findAllByRoles_nameAndDepartment_nameAndPersonalUserInfo_FirstNameAndPersonalUserInfo_LastNameAndPersonalUserInfo_PatronymicAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_Email(
                                 roleName,
                                 departmentName,
