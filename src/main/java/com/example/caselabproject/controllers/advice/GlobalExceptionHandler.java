@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new AppError(400, exception.getMessage()));
     }
+
     @ExceptionHandler({
             MethodArgumentNotValidException.class
     })

@@ -2,40 +2,31 @@ package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.entities.AuthUserInfo;
-import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;
-import com.example.caselabproject.models.enums.RecordState;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Validated
 public class UserUpdateRequestDto {
 
     private String position;
-    @NotBlank(message = "Username must not be blank")
     private String username;
 
-    private RecordState recordState;
+    private Long departmentId;
 
-    private Department department;
-
-    @NotBlank(message = "Password must not be blank")
     private String password;
     @Email(message = "Email is not valid")
     private String email;
-    @NotEmpty(message = "Roles must not be empty")
     private List<@Valid RoleDto> roles;
-    @NotBlank(message = "First name must not be blank")
     private String firstName;
-    @NotBlank(message = "Last name must not be blank")
     private String lastName;
 
     private String patronymic;
@@ -47,7 +38,6 @@ public class UserUpdateRequestDto {
         User user = User.builder()
                 .position(position)
                 .username(username)
-                .recordState(recordState)
                 .authUserInfo(AuthUserInfo.builder()
                         .email(email)
                         .build())
