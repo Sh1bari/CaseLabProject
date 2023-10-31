@@ -94,7 +94,7 @@ public class UserController {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .build();
-        }//
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
