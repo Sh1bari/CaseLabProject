@@ -43,8 +43,8 @@ public class WordFileGeneratorImpl implements WordFileGenerator {
         String position = document.getCreator().getPosition();
 
         PersonalUserInfo personalUserInfo = document.getCreator().getPersonalUserInfo();
-        String fullName = personalUserInfo.getLastName() + personalUserInfo.getFirstName() +
-                personalUserInfo.getPatronymic();
+        String fullName = personalUserInfo.getLastName() + " " + personalUserInfo.getFirstName() +
+                " " + personalUserInfo.getPatronymic();
 
         Map<String, String> params = new HashMap<>();
         for (Map.Entry<Field, String> fieldValue : document.getFieldsValues().entrySet()) {
