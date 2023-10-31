@@ -171,22 +171,26 @@
 2023-10-31 09:32:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
 2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:37:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:37:55 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:39:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:39:31 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJleHAiOjE2OTg3MjcwMzgsImlhdCI6MTY5ODcyNTIzOH0.63bGgRSVr0QffbdtwHBPmYTbkRDrrgLlV0ZhZkqs6vs
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:42:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:42:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:48:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:52:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:54:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:01:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:02:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:48:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:52:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:54:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:01:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:02:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 12:08:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 12:34:35 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 12:35:07 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 12:35:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead

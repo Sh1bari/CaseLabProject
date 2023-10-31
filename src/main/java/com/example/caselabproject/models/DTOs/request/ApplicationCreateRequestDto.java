@@ -2,22 +2,22 @@ package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.Document;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class ApplicationCreateRequestDto {
+    @Future(message = "Deadline cant be less than now")
     private LocalDateTime deadlineDate;
-    private Long documentId;
 
     public Application mapToEntity() {
-        Application application = new Application();
-        application.setCreationDate(LocalDateTime.now());
-        application.setDeadlineDate(this.deadlineDate);
-        application.setDocument(Document.builder()
-                .id(documentId)
-                .build());
-        return application;
+        return Application.builder()
+                .creationDate(LocalDateTime.now())
+                .deadlineDate(deadlineDate)
+                .build();
+
     }
 }

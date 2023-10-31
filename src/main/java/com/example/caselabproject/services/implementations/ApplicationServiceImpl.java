@@ -2,6 +2,8 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.ApplicationCreateException;
 import com.example.caselabproject.exceptions.ApplicationDoesNotExistException;
+import com.example.caselabproject.exceptions.UserByUsernameNotFoundException;
+import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationDeleteRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
@@ -11,8 +13,10 @@ import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDt
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,20 +30,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final DocumentRepository documentRepository;
+    private UserRepository userRepository;
 
 
     @Override
-    public ApplicationCreateResponseDto createApplication(ApplicationCreateRequestDto request) {
+    public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(()-> new UserByUsernameNotFoundException(username));
         Application application = request.mapToEntity();
-        try {
-            //TODO добавить исключение DocumentDoesNotExistEcxeption
-            Document document = documentRepository.findById(application.getDocument().getId())
-                    .orElseThrow(null);
-            application.setDocument(document);
-            applicationRepository.save(application);
-        } catch (ApplicationCreateException e){
-            throw new ApplicationCreateException();
-        }
+        application.setCreatorId(user);
+        applicationRepository.save(application);
         return ApplicationCreateResponseDto.mapFromEntity(application);
     }
 
