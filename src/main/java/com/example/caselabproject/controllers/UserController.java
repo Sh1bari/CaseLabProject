@@ -10,12 +10,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,7 @@ import java.util.List;
 @CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@SecurityRequirement(name = "bearerAuth")
 @Validated
 public class UserController {
 
@@ -59,7 +62,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserCreateResponseDto> createUser(
             @RequestBody @Valid UserCreateRequestDto userRequestDto) {
         UserCreateResponseDto userResponseDto = userService.create(userRequestDto);
@@ -74,7 +77,7 @@ public class UserController {
      * @author
      */
     @PutMapping("/{id}")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid UserUpdateRequestDto userRequestDto) {
@@ -90,7 +93,7 @@ public class UserController {
      * @author
      */
     @DeleteMapping("/{id}")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         userService.deleteById(id);

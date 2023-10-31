@@ -3,6 +3,7 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.models.DTOs.JwtRequest;
 import com.example.caselabproject.models.DTOs.RegistrationUserDto;
 import com.example.caselabproject.services.security.SecurityAuthService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -27,6 +28,7 @@ public class AuthController {
         return authService.createNewUser(registrationUserDto);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @Secured("ROLE_USER")
     @PostMapping("/reset-token")
     public ResponseEntity<?> resetToken(Principal principal) {
