@@ -5,9 +5,9 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +25,6 @@ public class UserController {
 
     private final UserService userService;
 
-    /**
-     * Description:
-     *
-     * @author
-     */
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -39,13 +34,8 @@ public class UserController {
                 .body(userResponseDto);
     }
 
-    /**
-     * Description:
-     *
-     * @author
-     */
     @PostMapping("/")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserCreateResponseDto> createUser(
             @RequestBody @Valid UserCreateRequestDto userRequestDto) {
         UserCreateResponseDto userResponseDto = userService.create(userRequestDto);
@@ -54,62 +44,31 @@ public class UserController {
                 .body(userResponseDto);
     }
 
-    /**
-     * Description:
-     *
-     * @author
-     */
     @PutMapping("/{id}")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
-            @RequestBody @Valid UserUpdateRequestDto userRequestDto) {
+            @RequestBody UserUpdateRequestDto userRequestDto) {
         UserUpdateResponseDto userUpdateResponseDto = userService.updateById(id, userRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userUpdateResponseDto);
     }
 
-    /**
-     * Description:
-     *
-     * @author
-     */
     @DeleteMapping("/{id}")
-    //@Secured("ROLE_ADMIN")
-    public ResponseEntity<?> deleteUserById(
-            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<UserDeleteResponseDto> deleteUserById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
 
-    @PostMapping("/{id}/recover")
-    //@Secured("ROLE_ADMIN")
-    public ResponseEntity<UserRecoverResponseDto> recoverUserById(
-            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
-        UserRecoverResponseDto res = userService.recoverById(id);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(res);
-    }
-
 
     @GetMapping("/{id}/docs")
-    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
-            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page,
-            @RequestParam(name = "name", required = false, defaultValue = "") String name) {
-        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByCreatorIdByPage(id, name, PageRequest.of(page, limit));
-        if (documentCreateResponseDto.isEmpty()) {
-            return ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
-                    .build();
-        }
+    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(@PathVariable("id") Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(documentCreateResponseDto);
+                .body(userService.findDocsByCreatorId(id));
     }
 }
