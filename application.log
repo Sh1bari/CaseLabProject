@@ -51,724 +51,529 @@
 2023-10-27 06:30:16 ERROR [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_hn3pboxeicghr1yr5fjdpkxgb"
   Подробности: Ключ "(name)=(doctype-1)" уже существует.
 2023-10-27 06:30:16 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type doctype-1 already exists.
-2023-10-28 03:02:06 WARN  [http-nio-8082-exec-1] c.e.c.e.RoleNameNotFoundException - Can not find role with namestring
-2023-10-28 03:02:37 WARN  [http-nio-8082-exec-1] c.e.c.e.RoleNameNotFoundException - Can not find role with name string
-2023-10-28 03:10:49 WARN  [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
-2023-10-28 03:10:49 ERROR [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_r43af9ap4edm43mmtq01oddj6"
-  Подробности: Ключ "(username)=(string)" уже существует.
-2023-10-31 01:36:10 WARN  [http-nio-8082-exec-8] c.e.c.e.RoleNameNotFoundException - Can not find role with name string
-2023-10-31 01:36:30 WARN  [http-nio-8082-exec-7] c.e.c.e.RoleNameNotFoundException - Can not find role with name ROLE_USERNAME
-2023-10-31 01:37:02 WARN  [http-nio-8082-exec-10] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
-2023-10-31 01:37:02 ERROR [http-nio-8082-exec-10] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_r43af9ap4edm43mmtq01oddj6"
-  Подробности: Ключ "(username)=(Sh1bari)" уже существует.
-2023-10-31 07:12:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:12:57 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:13:01 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:00 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:26:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:05 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:28:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:29:03 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:31:54 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:33:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:34:40 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:35:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 07:35:09 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 08:34:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:34:40 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:35:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:37:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:38:45 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:41:31 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:42:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:52:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:53:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:54:28 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:55:18 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:55:31 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:56:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 08:57:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:00:01 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:00:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:03:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:04:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:08:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:22:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:22:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:23:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:25:09 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2023-10-31 09:32:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:32:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:37:55 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:39:31 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJleHAiOjE2OTg3MjcwMzgsImlhdCI6MTY5ODcyNTIzOH0.63bGgRSVr0QffbdtwHBPmYTbkRDrrgLlV0ZhZkqs6vs
-2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
-2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:42:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:48:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:52:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:54:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:01:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:02:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:31:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:31:42 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:35:12 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:45:52 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:46:54 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:48:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:48:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:51:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:51:59 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:18 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:18 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:29 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 10:52:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 10:52:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:00:25 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:00:25 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:08:20 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:09:03 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:29 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:33 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:09:35 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:09:35 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:13:14 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:14 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:15 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:16 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:35 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:13:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:50 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:51 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:51 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:55 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:55 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:13:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:13:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:15:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:16:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:16:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:03 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:03 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:20 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:17:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:09 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:25 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:25 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:42 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:18:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:18:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:21:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:21:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:41 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:23:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:23:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:26 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:26:30 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:27:12 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:29 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:35 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:29:48 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:29:48 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:04 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:04 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:30:22 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:30:22 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:24 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:31:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:31:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:32:10 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:32:10 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:35:11 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:35:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:35:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:38:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:38:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:13 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:13 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDMzMjgsImlhdCI6MTY5ODc0MTUyOH0.HHnAK3tbXF4T-qUM0gDspP8buZNu2sgXQyf2wb7kaNE
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:37 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:57 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:39:58 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:40:18 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:43:43 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:43:43 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:44:10 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:44:10 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDM2MjMsImlhdCI6MTY5ODc0MTgyM30.YIB7tEJwOiSJofZNtIz5rF7XSDaQjAXeQ6JP88WjDjk
-2023-10-31 11:44:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:45:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:45:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:06 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:46:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 11:54:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:07 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:17 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:17 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
-2023-10-31 11:54:45 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:45 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
-2023-10-31 11:54:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:54:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
-2023-10-31 11:58:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
-2023-10-31 11:58:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
-2023-10-31 11:59:01 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:02:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-29 14:24:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-29 14:32:24 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-29 14:55:35 WARN  [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42883
+2023-10-29 14:55:35 ERROR [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: функция upper(bytea) не существует
+  Подсказка: Функция с данными именем и типами аргументов не найдена. Возможно, вам следует добавить явные приведения типов.
+  Позиция: 379
+2023-10-29 14:55:43 WARN  [http-nio-8082-exec-8] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42883
+2023-10-29 14:55:43 ERROR [http-nio-8082-exec-8] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: функция upper(bytea) не существует
+  Подсказка: Функция с данными именем и типами аргументов не найдена. Возможно, вам следует добавить явные приведения типов.
+  Позиция: 379
+2023-10-29 15:03:57 WARN  [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42883
+2023-10-29 15:03:57 ERROR [http-nio-8082-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: функция upper(bytea) не существует
+  Подсказка: Функция с данными именем и типами аргументов не найдена. Возможно, вам следует добавить явные приведения типов.
+  Позиция: 378
+2023-10-29 15:25:59 ERROR [http-nio-8082-exec-3] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+2023-10-29 15:25:59 ERROR [http-nio-8082-exec-3] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.resolveConstructor(ConstructorNode.java:182)
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.prepare(ConstructorNode.java:144)
+	at org.hibernate.hql.internal.ast.HqlSqlWalker.processConstructor(HqlSqlWalker.java:1271)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExpr(HqlSqlBaseWalker.java:2409)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExprList(HqlSqlBaseWalker.java:2275)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectClause(HqlSqlBaseWalker.java:1534)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:611)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:339)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:287)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:276)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:112)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:162)
+	at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:636)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:748)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:811)
+	at org.hibernate.query.criteria.internal.CriteriaQueryImpl$1.buildCompiledQuery(CriteriaQueryImpl.java:314)
+	at org.hibernate.query.criteria.internal.compile.CriteriaCompiler.compile(CriteriaCompiler.java:170)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:774)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:114)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:362)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:315)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:292)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:241)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.doCreateQuery(PartTreeJpaQuery.java:106)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.createQuery(AbstractJpaQuery.java:233)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$PagedExecution.doExecute(JpaQueryExecution.java:177)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:90)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:156)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:144)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:160)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:145)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy2/jdk.proxy2.$Proxy139.findAllByNameContainingIgnoreCase(Unknown Source)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl.filteredDocument(DocumentServiceImpl.java:77)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$FastClassBySpringCGLIB$$9992765e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:123)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$EnhancerBySpringCGLIB$$194ea79d.filteredDocument(<generated>)
+	at com.example.caselabproject.controllers.DocumentController.filteredSearch(DocumentController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at com.example.caselabproject.configs.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+2023-10-29 15:41:09 ERROR [http-nio-8082-exec-3] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+2023-10-29 15:41:09 ERROR [http-nio-8082-exec-3] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.resolveConstructor(ConstructorNode.java:182)
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.prepare(ConstructorNode.java:144)
+	at org.hibernate.hql.internal.ast.HqlSqlWalker.processConstructor(HqlSqlWalker.java:1271)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExpr(HqlSqlBaseWalker.java:2409)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExprList(HqlSqlBaseWalker.java:2275)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectClause(HqlSqlBaseWalker.java:1534)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:611)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:339)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:287)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:276)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:112)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:162)
+	at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:636)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:748)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:811)
+	at org.hibernate.query.criteria.internal.CriteriaQueryImpl$1.buildCompiledQuery(CriteriaQueryImpl.java:314)
+	at org.hibernate.query.criteria.internal.compile.CriteriaCompiler.compile(CriteriaCompiler.java:170)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:774)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:114)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:362)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:315)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:292)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:241)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.doCreateQuery(PartTreeJpaQuery.java:106)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.createQuery(AbstractJpaQuery.java:233)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$PagedExecution.doExecute(JpaQueryExecution.java:177)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:90)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:156)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:144)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:160)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:145)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy2/jdk.proxy2.$Proxy139.findAllByNameContainingIgnoreCase(Unknown Source)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl.filteredDocument(DocumentServiceImpl.java:77)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$FastClassBySpringCGLIB$$9992765e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:123)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$EnhancerBySpringCGLIB$$194ea79d.filteredDocument(<generated>)
+	at com.example.caselabproject.controllers.DocumentController.filteredSearch(DocumentController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at com.example.caselabproject.configs.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+2023-10-29 15:42:43 ERROR [http-nio-8082-exec-4] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+2023-10-29 15:42:43 ERROR [http-nio-8082-exec-4] o.h.hql.internal.ast.ErrorTracker -  Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]
+org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appropriate constructor on class [com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto]. Expected arguments are: long, java.lang.String, java.time.LocalDateTime
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.resolveConstructor(ConstructorNode.java:182)
+	at org.hibernate.hql.internal.ast.tree.ConstructorNode.prepare(ConstructorNode.java:144)
+	at org.hibernate.hql.internal.ast.HqlSqlWalker.processConstructor(HqlSqlWalker.java:1271)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExpr(HqlSqlBaseWalker.java:2409)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExprList(HqlSqlBaseWalker.java:2275)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectClause(HqlSqlBaseWalker.java:1534)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:611)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:339)
+	at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:287)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:276)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:112)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:162)
+	at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:636)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:748)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:811)
+	at org.hibernate.query.criteria.internal.CriteriaQueryImpl$1.buildCompiledQuery(CriteriaQueryImpl.java:314)
+	at org.hibernate.query.criteria.internal.compile.CriteriaCompiler.compile(CriteriaCompiler.java:170)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:774)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:114)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:362)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:315)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.createQuery(Unknown Source)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:292)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.createQuery(PartTreeJpaQuery.java:241)
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.doCreateQuery(PartTreeJpaQuery.java:106)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.createQuery(AbstractJpaQuery.java:233)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$PagedExecution.doExecute(JpaQueryExecution.java:177)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:90)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:156)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:144)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:160)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:145)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy2/jdk.proxy2.$Proxy139.findAllByNameContainingIgnoreCase(Unknown Source)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl.filteredDocument(DocumentServiceImpl.java:77)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$FastClassBySpringCGLIB$$9992765e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:123)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.example.caselabproject.services.implementations.DocumentServiceImpl$$EnhancerBySpringCGLIB$$194ea79d.filteredDocument(<generated>)
+	at com.example.caselabproject.controllers.DocumentController.filteredSearch(DocumentController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at com.example.caselabproject.configs.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+2023-10-29 16:08:41 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-29 16:09:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-29 16:09:45 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-29 16:11:00 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:19:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:33:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 18:49:40 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:04:51 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:05:03 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-30 19:06:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-10-31 13:12:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 13:43:18 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 13:56:28 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 13:57:53 WARN  [http-nio-8082-exec-9] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-10 does not exist
+2023-10-31 13:58:30 WARN  [http-nio-8082-exec-4] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-10-31 13:58:30 WARN  [http-nio-8082-exec-4] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-10-31 13:58:30 WARN  [http-nio-8082-exec-4] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-10-31 13:58:30 WARN  [http-nio-8082-exec-4] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-10-31 14:01:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 14:01:59 WARN  [http-nio-8082-exec-4] c.e.c.e.NoDocumentPageFoundException - No content found by page 0

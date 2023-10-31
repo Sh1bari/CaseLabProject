@@ -5,8 +5,10 @@ import com.example.caselabproject.models.DTOs.request.FileUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import com.example.caselabproject.services.FileService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,8 @@ public class FileController {
 
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
-            Principal principal, @RequestBody FileCreateRequestDto request, @PathVariable Long docId) {
+            Principal principal, @RequestBody @Valid FileCreateRequestDto request,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
         List<FileResponseDto> response = fileService.addFile(principal.getName(), request, docId);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + docId + "/file/"))
@@ -34,9 +37,10 @@ public class FileController {
 
     @GetMapping("/")
     public ResponseEntity<List<FileResponseDto>> getFileByDocumentId(
-            @PathVariable Long docId,
-            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
-        List<FileResponseDto> response = fileService.getFiles(docId, page);
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "offset", required = false, defaultValue = "20") Integer offset) {
+        List<FileResponseDto> response = fileService.getFiles(docId, PageRequest.of(page, offset));
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -44,8 +48,9 @@ public class FileController {
 
     @PutMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
-            Principal principal, @RequestBody FileUpdateRequestDto request,
-            @PathVariable Long docId, @PathVariable Long fileId) {
+            Principal principal, @RequestBody @Valid FileUpdateRequestDto request,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
         List<FileResponseDto> response = fileService.updateFile(principal.getName(), request, docId, fileId);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + docId + "/file/"))
@@ -54,7 +59,9 @@ public class FileController {
 
     @DeleteMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> delete(
-            Principal principal, @PathVariable Long docId, @PathVariable Long fileId) {
+            Principal principal,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
         List<FileResponseDto> response = fileService.deleteFile(principal.getName(), docId, fileId);
         return ResponseEntity
                 .status(HttpStatus.OK)

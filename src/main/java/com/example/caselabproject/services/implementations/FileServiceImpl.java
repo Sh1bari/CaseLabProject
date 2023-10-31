@@ -12,7 +12,7 @@ import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -49,21 +49,19 @@ public class FileServiceImpl implements FileService {
             document.setUpdateDate(LocalDateTime.now());
             documentRepository.save(document);
         } catch (Exception e) {
-            throw new FileAddException();
+            throw new FileConnectToDocumentException();
         }
 
         return document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList();
     }
 
     @Override
-    public List<FileResponseDto> getFiles(Long documentId, Integer page) {
+    public List<FileResponseDto> getFiles(Long documentId, Pageable pageable) {
 
-        int limit = 20;
-
-        Page<File> files = fileRepository.findAllByDocument_Id(documentId, PageRequest.of(page, limit));
+        Page<File> files = fileRepository.findAllByDocument_Id(documentId, pageable);
 
         if (files.isEmpty()) {
-            throw new NoFilesPageFoundException(page);
+            throw new NoFilesPageFoundException(pageable.getPageNumber());
         }
 
         return files.map(FileResponseDto::mapFromEntity).toList();

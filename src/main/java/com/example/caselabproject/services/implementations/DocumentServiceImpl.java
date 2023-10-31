@@ -8,15 +8,14 @@ import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.repositories.DocumentPageRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -28,7 +27,10 @@ import java.util.List;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
+
     private final DocumentPageRepository documentPageRepository;
+
+    private final DocumentConstructorTypeRepository documentConstructorTypeRepository;
 
     private final UserRepository userRepository;
 
@@ -42,6 +44,10 @@ public class DocumentServiceImpl implements DocumentService {
                 .orElseThrow(() -> new UserByPrincipalUsernameDoesNotExistException(username));
         document.setCreator(user);
 
+        document.setDocumentConstructorType(documentConstructorTypeRepository
+                .findByName(request.getConstructorTypeName()).orElseThrow(
+                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
+                ));
 
         try {
             documentRepository.save(document);
@@ -103,7 +109,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public void deleteDocument(String username, Long documentId) {
+    public boolean deleteDocument(String username, Long documentId) {
 
         if (!documentRepository.existsById(documentId)) {
             throw new DocumentDoesNotExistException(documentId);
@@ -114,5 +120,7 @@ public class DocumentServiceImpl implements DocumentService {
         }
 
         documentRepository.deleteById(documentId);
+
+        return true;
     }
 }
