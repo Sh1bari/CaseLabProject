@@ -8,6 +8,7 @@ import com.example.caselabproject.models.DTOs.response.ApplicationDeleteResponse
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,5 +17,5 @@ public interface ApplicationService {
     ApplicationCreateResponseDto createApplication(@NotBlank String username, @Valid ApplicationCreateRequestDto request);
     ApplicationUpdateResponseDto updateApplication(Long id, ApplicationUpdateRequestDto request);
     ApplicationDeleteResponseDto deleteApplication(ApplicationDeleteRequestDto request);
-    ApplicationFindResponseDto getApplicationById(Long id);
+    ApplicationFindResponseDto getApplicationById(@Min(value = 1L, message = "Id cant be less than 1")Long id);
 }

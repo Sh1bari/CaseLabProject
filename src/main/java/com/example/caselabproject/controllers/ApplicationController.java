@@ -11,7 +11,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @Validated
 @RequestMapping("/application")
+@SecurityRequirement(name = "bearerAuth")
 public class ApplicationController {
     //TODO validation
 
@@ -41,6 +44,9 @@ public class ApplicationController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApplicationCreateResponseDto.class))}),
             @ApiResponse(responseCode = "404", description = "User by username not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "400", description = "Deadline cant be less than now",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/")
@@ -75,10 +81,9 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApplicationFindResponseDto> findById(
-            @PathVariable Long id) {
+    public ResponseEntity<ApplicationFindResponseDto> findApplicationById(
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         ApplicationFindResponseDto responseDto = applicationService.getApplicationById(id);
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);

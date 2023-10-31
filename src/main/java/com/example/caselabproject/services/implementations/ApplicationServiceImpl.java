@@ -14,6 +14,8 @@ import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponse
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.ApplicationStatus;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -30,7 +32,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final DocumentRepository documentRepository;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -38,6 +40,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()-> new UserByUsernameNotFoundException(username));
         Application application = request.mapToEntity();
+        application.setRecordState(RecordState.ACTIVE);
+        application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
         application.setCreatorId(user);
         applicationRepository.save(application);
         return ApplicationCreateResponseDto.mapFromEntity(application);

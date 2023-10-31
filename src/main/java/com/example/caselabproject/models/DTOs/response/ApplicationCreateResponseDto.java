@@ -20,7 +20,7 @@ public class ApplicationCreateResponseDto {
                 .id(application.getId())
                 .deadlineDate(application.getDeadlineDate())
                 .creationDate(application.getCreationDate())
-                .creatorId(application.getId())
+                .creatorId(application.getCreatorId().getId())
                 .build();
     }
 }
