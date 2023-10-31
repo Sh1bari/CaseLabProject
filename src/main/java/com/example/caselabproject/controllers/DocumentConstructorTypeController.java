@@ -21,7 +21,7 @@ import java.util.List;
 public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
-    @PostMapping
+    @PostMapping("/")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
@@ -33,7 +33,7 @@ public class DocumentConstructorTypeController {
 
     /**
      * Важно добавить изменение fields
-     * @author Sh1bari
+     * @author
      */
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
