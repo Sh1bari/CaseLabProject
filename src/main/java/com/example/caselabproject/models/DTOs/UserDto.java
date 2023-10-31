@@ -14,10 +14,11 @@ public class UserDto {
     private String username;
     private String email;
 
-    public static UserDto mapFromEntity(User user){
+    public static UserDto mapFromEntity(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .email(user.getAuthUserInfo().getEmail())
                 .build();
     }
 }

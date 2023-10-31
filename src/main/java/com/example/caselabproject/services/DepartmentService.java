@@ -13,11 +13,11 @@ import java.util.List;
 public interface DepartmentService {
     DepartmentResponseDto create(@Valid DepartmentRequestDto departmentRequestDto);
 
-    void deleteDepartment(Long departmentId);
+    void updateRecordState(Long departmentId);
 
     DepartmentResponseDto getById(Long departmentId);
 
-    List<DepartmentResponseDto> getAllDepartmentsPageByPage(Integer page);
+    List<DepartmentResponseDto> getAllDepartmentsPageByPage(Integer page,String name);
 
 
     List<User> GetAllUsersFilteredByDepartment(RecordState recordState, Long departmentId);

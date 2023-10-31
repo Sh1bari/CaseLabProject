@@ -1,9 +1,12 @@
 package com.example.caselabproject.exceptions;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DepartmentCreateException extends GlobalAppException {
 
-    public DepartmentCreateException(int status, String message) {
-        super(status, message);
+    public DepartmentCreateException() {
+        super(500, "Can not create department!");
+        log.warn(message);
     }
 }

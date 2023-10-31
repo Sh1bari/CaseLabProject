@@ -3,12 +3,9 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.models.DTOs.UserDto;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
-import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -37,8 +34,8 @@ public class DepartmentController {
 
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<?> deleteDepartment(@PathVariable Long id) {
-        departmentService.deleteDepartment(id);
+    public ResponseEntity<?> updateRecordStateOfDepartment(@PathVariable Long id) {
+        departmentService.updateRecordState(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -54,8 +51,10 @@ public class DepartmentController {
 
     @GetMapping("/")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(@RequestParam(name = "page", defaultValue = "0") Integer page) {
-        List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(page);
+    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "name", required = false) String name) {
+        List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(page, name);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
