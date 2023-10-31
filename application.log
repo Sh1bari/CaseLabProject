@@ -772,3 +772,9 @@
 2023-10-31 11:58:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
 2023-10-31 11:59:01 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 12:02:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:28:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:32:23 WARN  [http-nio-8082-exec-9] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:33:06 WARN  [http-nio-8082-exec-3] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:28:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:32:23 WARN  [http-nio-8082-exec-9] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:33:06 WARN  [http-nio-8082-exec-3] c.e.c.exceptions.CustomUserException - No users found with the given criteria
