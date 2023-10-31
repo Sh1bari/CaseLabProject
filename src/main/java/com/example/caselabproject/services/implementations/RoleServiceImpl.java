@@ -15,11 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepo;
-
     @Override
     public List<Role> findRolesByRoleDtoList(List<RoleDto> roleDtoList) {
         List<Role> roleList = new ArrayList<>();
-        roleDtoList.forEach(o -> {
+        roleDtoList.forEach(o->{
             roleList.add(roleRepo.findByName(o.getName())
                     .orElseThrow(() -> new RoleNameNotFoundException(o.getName())));
         });

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public abstract class GlobalAppException extends RuntimeException {
+public abstract class GlobalAppException extends RuntimeException{
     protected int status;
     protected String message;
     protected Date timestamp;

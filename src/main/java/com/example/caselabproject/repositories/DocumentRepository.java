@@ -1,11 +1,11 @@
 package com.example.caselabproject.repositories;
 
-import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.entities.Document;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface DocumentRepository extends JpaRepository<Document, Long> {
-    List<DocumentCreateResponseDto> findAllByCreator_id(Long id);
+public interface DocumentRepository extends PagingAndSortingRepository<Document, Long> {
+    List<Document> findAllByCreator_id(Long id);
 }
