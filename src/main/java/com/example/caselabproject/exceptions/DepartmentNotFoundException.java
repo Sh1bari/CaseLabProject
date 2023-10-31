@@ -1,6 +1,5 @@
 package com.example.caselabproject.exceptions;
 
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 /**
