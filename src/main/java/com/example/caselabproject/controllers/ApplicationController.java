@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.security.Principal;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
-@Validated
 @RequestMapping("/application")
 @SecurityRequirement(name = "bearerAuth")
 public class ApplicationController {
@@ -59,21 +59,25 @@ public class ApplicationController {
                 .created(URI.create("/api/application" + responseDto.getId()))
                 .body(responseDto);
     }
-
+    @Secured("ROLE_USER")
     @PutMapping("/{id}")
     public ResponseEntity<ApplicationUpdateResponseDto> update(
-            @PathVariable Long id,
-            @RequestBody ApplicationUpdateRequestDto requestDto){
-        ApplicationUpdateResponseDto responseDto = applicationService.updateApplication(id, requestDto);
+            Principal principal,
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestBody @Valid ApplicationUpdateRequestDto requestDto){
+        ApplicationUpdateResponseDto responseDto = applicationService.updateApplication(id, principal.getName(),
+                requestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
     }
 
+    @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApplicationDeleteResponseDto> delete(
-            @RequestBody ApplicationDeleteRequestDto requestDto){
-        ApplicationDeleteResponseDto responseDto = applicationService.deleteApplication(requestDto);
+            Principal principal,
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id){
+        ApplicationDeleteResponseDto responseDto = applicationService.deleteApplication(id, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
