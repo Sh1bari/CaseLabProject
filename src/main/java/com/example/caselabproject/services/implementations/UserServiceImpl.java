@@ -9,7 +9,7 @@ import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.DocumentPageRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
@@ -29,7 +29,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final DocumentRepository documentRepository;
+    private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepo;
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
                                                                      Pageable pageable) {
         if (existById(id)) {
             List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
+                    .mapFromListOfEntities(documentPageRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
             return documentCreateResponseDtoList;
         } else throw new UserNotFoundException(id);
     }

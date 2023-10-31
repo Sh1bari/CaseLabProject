@@ -1,13 +1,12 @@
 package com.example.caselabproject.models.DTOs;
 
 import com.example.caselabproject.models.entities.Role;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotBlank;
 
 @Builder
 @Data

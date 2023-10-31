@@ -3,6 +3,7 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,15 @@ import java.net.URI;
 
 @RestController
 @CrossOrigin
-@RequiredArgsConstructor
 @RequestMapping("/doctype")
+@RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class DocumentConstructorTypeController {
 
     private final DocumentConstructorTypeService typeService;
 
     @PostMapping("/")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeResponseDto> createDocumentType(
             @RequestBody DocumentConstructorTypeRequestDto documentTypeRequestDto) {
 
