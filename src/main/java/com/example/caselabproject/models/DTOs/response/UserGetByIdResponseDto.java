@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,5 +35,23 @@ public class UserGetByIdResponseDto {
                 .patronymic(user.getPersonalUserInfo().getPatronymic())
                 .birthDate(user.getPersonalUserInfo().getBirthDate())
                 .build();
+    }
+
+    public static List<UserGetByIdResponseDto> mapFromEntities(List<User> users) {
+        List<UserGetByIdResponseDto> responseDtos = new ArrayList<>();
+        users.forEach(user -> responseDtos.add(
+                UserGetByIdResponseDto.builder()
+                        .id(user.getId())
+                        .position(user.getPosition())
+                        .username(user.getUsername())
+                        .email(user.getAuthUserInfo().getEmail())
+                        .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
+                        .firstName(user.getPersonalUserInfo().getFirstName())
+                        .lastName(user.getPersonalUserInfo().getLastName())
+                        .patronymic(user.getPersonalUserInfo().getPatronymic())
+                        .birthDate(user.getPersonalUserInfo().getBirthDate())
+                        .build()
+        ));
+        return responseDtos;
     }
 }

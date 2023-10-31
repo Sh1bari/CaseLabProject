@@ -9,7 +9,7 @@ import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
-import com.example.caselabproject.repositories.DocumentPageRepository;
+import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,7 +31,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final DocumentPageRepository documentPageRepository;
+    private final DocumentRepository documentRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepo;
@@ -131,13 +133,52 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByCreatorIdByPage(Long id,
-                                                                     String name,
-                                                                     Pageable pageable) {
-        if (existById(id)) {
+    public List<DocumentCreateResponseDto> findDocsByFiltersByPage(Long creatorId,
+                                                                   String name,
+                                                                   LocalDateTime creationDateFrom,
+                                                                   LocalDateTime creationDateTo,
+                                                                   Long documentConstructorTypeId,
+                                                                   RecordState recordState,
+                                                                   Pageable pageable) {
+        if (existById(creatorId)) {
             List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentPageRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
+                    .mapFromListOfEntities(documentRepository
+                            .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                                    creatorId,
+                                    name,
+                                    creationDateFrom,
+                                    creationDateTo,
+                                    documentConstructorTypeId,
+                                    recordState,
+                                    pageable).toList());
             return documentCreateResponseDtoList;
-        } else throw new UserNotFoundException(id);
+        } else {
+            throw new UserNotFoundException(creatorId);
+        }
+    }
+
+    @Override
+    public List<UserGetByIdResponseDto> findAllUsersByFiltersByPage(String roleName,
+                                                                    String departmentName,
+                                                                    String firstName,
+                                                                    String lastName,
+                                                                    String patronymic,
+                                                                    LocalDate birthDateFrom,
+                                                                    LocalDate birthDateTo,
+                                                                    String email,
+                                                                    Pageable pageable) {
+        List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
+                userRepository
+                        .findAllByRoles_nameAndDepartment_nameAndPersonalUserInfo_FirstNameAndPersonalUserInfo_LastNameAndPersonalUserInfo_PatronymicAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_Email(
+                                roleName,
+                                departmentName,
+                                firstName,
+                                lastName,
+                                patronymic,
+                                birthDateFrom,
+                                birthDateTo,
+                                email,
+                                pageable).toList());
+        return userCreateResponseDtoList;
     }
 }

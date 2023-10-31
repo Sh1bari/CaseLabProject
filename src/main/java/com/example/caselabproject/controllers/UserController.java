@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,6 +23,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -115,11 +118,24 @@ public class UserController {
 
     @GetMapping("/{id}/docs")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
-            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
+            @RequestParam(name = "name", required = false, defaultValue = "") String name,
+            @RequestParam(name = "dateFrom", required = false) LocalDateTime creationDateFrom,
+            @RequestParam(name = "dateTo", required = false) LocalDateTime creationDateTo,
+            @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
+            @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page,
-            @RequestParam(name = "name", required = false, defaultValue = "") String name) {
-        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByCreatorIdByPage(id, name, PageRequest.of(page, limit));
+            @RequestParam(name = "page", defaultValue = "0") Integer page
+    ) {
+        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
+                creatorId,
+                name,
+                creationDateFrom,
+                creationDateTo,
+                documentConstructorTypeId,
+                recordState,
+                PageRequest.of(page, limit)
+        );
         if (documentCreateResponseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
@@ -128,5 +144,39 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
+            @RequestParam(name = "roleName") String roleName,
+            @RequestParam(name = "departmentName") String departmentName,
+            @RequestParam(name = "firstName") String firstName,
+            @RequestParam(name = "lastName") String lastName,
+            @RequestParam(name = "patronymic") String patronymic,
+            @RequestParam(name = "birthDateFrom") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo") LocalDate birthDateTo,
+            @RequestParam(name = "email") String email,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
+            @RequestParam(name = "page", defaultValue = "0") Integer page
+    ) {
+        List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
+                roleName,
+                departmentName,
+                firstName,
+                lastName,
+                patronymic,
+                birthDateFrom,
+                birthDateTo,
+                email,
+                PageRequest.of(page, limit)
+        );
+        if (userGetByIdResponseDtoList.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userGetByIdResponseDtoList);
     }
 }
