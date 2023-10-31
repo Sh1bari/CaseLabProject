@@ -1,12 +1,9 @@
 package com.example.caselabproject.models.entities;
 
 import com.example.caselabproject.models.enums.RecordState;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -29,6 +26,5 @@ public class Department {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
-
 
 }

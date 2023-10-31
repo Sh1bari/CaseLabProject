@@ -1,6 +1,5 @@
 package com.example.caselabproject.repositories;
 
-import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import org.springframework.data.jpa.repository.JpaRepository;
