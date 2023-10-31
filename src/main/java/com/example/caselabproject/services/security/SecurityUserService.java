@@ -22,10 +22,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SecurityUserService implements UserDetailsService {
-    private final AuthUserInfoRepository authUserInfoRepo;
     private UserRepository userRepository;
     private SecurityRoleService roleService;
     private PasswordEncoder passwordEncoder;
+
+    private final AuthUserInfoRepository authUserInfoRepo;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {

@@ -14,17 +14,21 @@ import java.util.List;
 public interface UserService {
 
     @Transactional(readOnly = true)
-    UserGetByIdResponseDto getById(@Min(1L) Long id);
+    UserGetByIdResponseDto getById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
+    @Transactional
+    boolean existById(Long id);
 
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
 
     @Transactional
-    UserUpdateResponseDto updateById(Long id, UserUpdateRequestDto userUpdateRequestDto);
+    UserUpdateResponseDto updateById(@Min(value = 1L, message = "Id can't be less than 1")Long id,@Valid UserUpdateRequestDto userUpdateRequestDto);
 
     @Transactional
-    UserDeleteResponseDto deleteById(Long id);
+    UserDeleteResponseDto deleteById(@Min(value = 1L, message = "Id can't be less than 1")Long id);
+    @Transactional
+    UserRecoverResponseDto recoverById(@Min(value = 1L, message = "Id can't be less than 1")Long id);
 
     @Transactional
-    List<DocumentCreateResponseDto> findDocsByCreatorId(Long id);
+    List<DocumentCreateResponseDto> findDocsByCreatorId(@Min(value = 1L, message = "Id can't be less than 1")Long id);
 }

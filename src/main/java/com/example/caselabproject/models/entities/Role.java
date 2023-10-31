@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.example.caselabproject.models.DTOs.RoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

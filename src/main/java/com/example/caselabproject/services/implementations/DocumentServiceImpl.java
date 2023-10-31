@@ -16,13 +16,12 @@ import org.springframework.validation.annotation.Validated;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepo;
-
     @Override
     public DocumentCreateResponseDto createDocument(DocumentCreateRequestDto request) {
         Document document = request.mapToEntity();
         try {
             documentRepo.save(document);
-        } catch (Exception e) {
+        }catch (Exception e){
             throw new DocumentCreateException(500, "Can not create document!");
         }
         return DocumentCreateResponseDto.mapFromEntity(document);
