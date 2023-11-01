@@ -1,5 +1,6 @@
 package com.example.caselabproject.controllers;
 
+import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
@@ -9,6 +10,10 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUp
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -29,9 +34,19 @@ import java.util.List;
 @Validated
 @SecurityRequirement(name = "bearerAuth")
 public class DocumentConstructorTypeController {
-
     private final DocumentConstructorTypeService typeService;
-    @Operation(summary = "Create new document type")
+
+    // TODO: 30.10.2023
+    // we get state == null, while creating a new doctype. Should instantiate
+    //      with state = state.active?
+    //
+    // add functionality about message while validating
+    // getAllDocumentTypes() should validate?
+
+    @Operation(summary = "Create new document type, secured by admin")
+    @ApiResponses(value = @ApiResponse(responseCode = "201", description = "Document type created",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = DocumentConstructorTypeCreateResponseDto.class))}))
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeCreateResponseDto> createDocumentType(
@@ -42,7 +57,20 @@ public class DocumentConstructorTypeController {
                 .body(responseDto);
     }
 
+    /**
+     * Важно добавить изменение fields
+     *
+     * @author
+     */
     //TODO Изменение fields (проверка имеется ли хотя бы 1 document у documentType)
+    @Operation(summary = "Rename an existing document type, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document type renamed",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> renameDocumentType(
@@ -53,7 +81,17 @@ public class DocumentConstructorTypeController {
                 .status(HttpStatus.OK)
                 .body(response);
     }
-    @Operation(summary = "Delete document type by id")
+
+    @Operation(summary = "Delete a document type, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Document type deleted",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Document type with provided id already deleted",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteDocumentType(
@@ -63,7 +101,18 @@ public class DocumentConstructorTypeController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-    @Operation(summary = "Recover document type by id")
+
+    @Operation(summary = "Recover document type by id, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document type recovered",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentConstructorTypeRecoverResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Document type with provided id already active",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeRecoverResponseDto> recoverDocumentType(
@@ -75,6 +124,13 @@ public class DocumentConstructorTypeController {
     }
 
     @Operation(summary = "Get document type by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document type found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentConstructorTypeByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}")
     public ResponseEntity<DocumentConstructorTypeByIdResponseDto> getDocumentType(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -83,7 +139,15 @@ public class DocumentConstructorTypeController {
                 .status(HttpStatus.OK)
                 .body(response);
     }
+
     @Operation(summary = "Get document types by filters")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Page with document types found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "404", description = "Page with document types not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/filtered")
     public ResponseEntity<List<DocumentConstructorTypeByIdResponseDto>> getAllDocumentTypes(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
@@ -92,7 +156,6 @@ public class DocumentConstructorTypeController {
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
         List<DocumentConstructorTypeByIdResponseDto> response =
                 typeService.getAllContaining(name, state, page, size);
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);

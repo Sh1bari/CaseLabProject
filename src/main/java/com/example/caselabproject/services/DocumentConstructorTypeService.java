@@ -2,7 +2,10 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -13,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface DocumentConstructorTypeService {
-
     @Transactional
     DocumentConstructorTypeCreateResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
@@ -23,6 +25,7 @@ public interface DocumentConstructorTypeService {
 
     @Transactional
     void deleteById(@Min(value = 1L, message = "id can't be less than 1") Long id);
+
     @Transactional
     DocumentConstructorTypeRecoverResponseDto recoverById(@Min(value = 1L, message = "id can't be less than 1") Long id);
 
