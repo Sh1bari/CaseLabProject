@@ -1,11 +1,9 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.DocumentConstructorTypeNameExistsException;
-import com.example.caselabproject.exceptions.DocumentConstructorTypeNotFoundException;
-import com.example.caselabproject.exceptions.DocumentConstructorTypePageNotFoundException;
+import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeResponseDto;
+import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
@@ -29,44 +27,58 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     private final DocumentConstructorTypeRepository typeRepository;
 
     @Override
-    public DocumentConstructorTypeResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
+    public DocumentConstructorTypeCreateResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
         typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
-        return DocumentConstructorTypeResponseDto
+        return DocumentConstructorTypeCreateResponseDto
                 .mapFromEntity(saveDocumentConstructorType(typeToSave));
     }
 
     @Override
-    public DocumentConstructorTypeResponseDto updateById(Long id,
-                                                         DocumentConstructorTypePatchRequestDto typeRequestDto) {
+    public DocumentConstructorTypeUpdateResponseDto updateById(Long id,
+                                                               DocumentConstructorTypePatchRequestDto typeRequestDto) {
         DocumentConstructorType documentType = typeRepository.findById(id).orElseThrow(
                 () -> new DocumentConstructorTypeNotFoundException(id));
 
         documentType.setName(typeRequestDto.getName());
         documentType = saveDocumentConstructorType(documentType);
 
-        return DocumentConstructorTypeResponseDto.mapFromEntity(documentType);
+        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(documentType);
     }
 
     @Override
     public void deleteById(Long id) {
         DocumentConstructorType documentType = typeRepository.findById(id)
                 .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
-
+        if(documentType.getRecordState().equals(RecordState.DELETED)){
+            throw new DocumentConstructorTypeAlreadyDeletedException(id);
+        }
         documentType.setRecordState(RecordState.DELETED);
         typeRepository.save(documentType);
     }
 
     @Override
-    public DocumentConstructorTypeResponseDto getById(Long id) {
-        DocumentConstructorType constructorType = typeRepository.findById(id)
+    public DocumentConstructorTypeRecoverResponseDto recoverById(Long id) {
+        DocumentConstructorType documentType = typeRepository.findById(id)
                 .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
-
-        return DocumentConstructorTypeResponseDto.mapFromEntity(constructorType);
+        if(documentType.getRecordState().equals(RecordState.ACTIVE)){
+            throw new DocumentConstructorTypeAlreadyActiveException(id);
+        }
+        documentType.setRecordState(RecordState.ACTIVE);
+        DocumentConstructorType res = typeRepository.save(documentType);
+        return DocumentConstructorTypeRecoverResponseDto.mapFromEntity(res);
     }
 
     @Override
-    public List<DocumentConstructorTypeResponseDto> getAllContaining(String name,
+    public DocumentConstructorTypeByIdResponseDto getById(Long id) {
+        DocumentConstructorType constructorType = typeRepository.findById(id)
+                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
+
+        return DocumentConstructorTypeByIdResponseDto.mapFromEntity(constructorType);
+    }
+
+    @Override
+    public List<DocumentConstructorTypeByIdResponseDto> getAllContaining(String name,
                                                                      @NotNull(message = "state must not be null.") RecordState state,
                                                                      Integer page,
                                                                      Integer size) {
@@ -75,7 +87,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                         PageRequest.of(page, size, Sort.by("name").ascending()))
                                 .orElseThrow(()-> new DocumentConstructorTypePageNotFoundException(page));
         return documentTypes
-                .map(DocumentConstructorTypeResponseDto::mapFromEntity)
+                .map(DocumentConstructorTypeByIdResponseDto::mapFromEntity)
                 .toList();
     }
 
