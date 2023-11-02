@@ -2,6 +2,11 @@ package com.example.caselabproject.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Indicates, that a document type with a provided name already exists.
+ *
+ * @see com.example.caselabproject.models.entities.DocumentConstructorType
+ */
 @Slf4j
 public class DocumentConstructorTypeNameExistsException extends GlobalAppException {
     public DocumentConstructorTypeNameExistsException(String name) {
