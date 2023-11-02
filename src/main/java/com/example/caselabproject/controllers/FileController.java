@@ -1,17 +1,15 @@
 package com.example.caselabproject.controllers;
 
-import com.example.caselabproject.models.DTOs.request.FileCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.FileUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import com.example.caselabproject.services.FileService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.security.Principal;
@@ -27,16 +25,17 @@ public class FileController {
 
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
-            Principal principal, @RequestBody @Valid FileCreateRequestDto request,
+            @RequestParam("file") MultipartFile file,
+            Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
-        List<FileResponseDto> response = fileService.addFile(principal.getName(), request, docId);
+        List<FileResponseDto> response = fileService.addFile(principal.getName(), file, docId);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + docId + "/file/"))
                 .body(response);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<FileResponseDto>> getFileByDocumentId(
+    public ResponseEntity<List<FileResponseDto>> getFilesByDocumentId(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "offset", required = false, defaultValue = "20") Integer offset) {
@@ -46,19 +45,34 @@ public class FileController {
                 .body(response);
     }
 
+    @GetMapping("/{fileId}/download")
+    public ResponseEntity<?> downloadFile(@PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
+                                          @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
+        FileDownloadResponseDto response = fileService.downloadFile(docId, fileId);
+        byte[] file = response.getBytes();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(response.getType()))
+                .contentLength(file.length)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        ContentDisposition.attachment().filename(response.getName()).toString())
+                .body(file);
+    }
+
     @PutMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
-            Principal principal, @RequestBody @Valid FileUpdateRequestDto request,
+            @RequestParam("file") MultipartFile file,
+            Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
-        List<FileResponseDto> response = fileService.updateFile(principal.getName(), request, docId, fileId);
+        List<FileResponseDto> response = fileService.updateFile(principal.getName(), file, docId, fileId);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + docId + "/file/"))
                 .body(response);
     }
 
     @DeleteMapping("/{fileId}")
-    public ResponseEntity<List<FileResponseDto>> delete(
+    public ResponseEntity<List<FileResponseDto>> deleteFile(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {

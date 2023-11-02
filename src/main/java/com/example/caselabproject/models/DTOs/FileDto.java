@@ -10,9 +10,12 @@ public class FileDto {
 
     private Long id;
 
+    private String name;
+
     public static FileDto mapFromEntity(File file) {
         return FileDto.builder()
                 .id(file.getId())
+                .name(file.getName())
                 .build();
     }
 }

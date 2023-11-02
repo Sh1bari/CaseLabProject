@@ -1,8 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.request.FileCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.FileUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.File;
@@ -15,7 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,13 +32,16 @@ public class FileServiceImpl implements FileService {
     private final UserRepository userRepository;
 
     @Override
-    public List<FileResponseDto> addFile(String username, FileCreateRequestDto request, Long documentId) {
+    public List<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
         }
 
-        File file = request.mapToEntity();
+        File file = new File();
+
+        multipartFileToFile(multipartFile, file);
+
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
         file.setDocument(document);
@@ -68,7 +72,17 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileResponseDto> updateFile(String username, FileUpdateRequestDto request,
+    public FileDownloadResponseDto downloadFile(Long documentId, Long fileId) {
+
+        File file = fileRepository.findById(fileId).orElseThrow(
+                () -> new FileNotExistException(fileId)
+        );
+
+        return FileDownloadResponseDto.mapFromEntity(file);
+    }
+
+    @Override
+    public List<FileResponseDto> updateFile(String username, MultipartFile file,
                                             Long documentId, Long fileId) {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
@@ -79,7 +93,7 @@ public class FileServiceImpl implements FileService {
                 () -> new FileNotExistException(fileId)
         );
 
-        updateFile.setName(request.getName());
+        multipartFileToFile(file, updateFile);
 
         fileRepository.save(updateFile);
 
@@ -113,4 +127,15 @@ public class FileServiceImpl implements FileService {
     }
 
 
+    private void multipartFileToFile(MultipartFile multipartFile, File file) {
+        try {
+            file.setName(multipartFile.getOriginalFilename());
+            file.setType(multipartFile.getContentType());
+            file.setBytes(multipartFile.getBytes());
+            file.setSize(multipartFile.getSize());
+            file.setPath("idk");
+        } catch (IOException e) {
+            throw new FileIsEmptyException(multipartFile.getOriginalFilename());
+        }
+    }
 }

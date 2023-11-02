@@ -577,3 +577,64 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-10-31 13:58:30 WARN  [http-nio-8082-exec-4] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
 2023-10-31 14:01:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 14:01:59 WARN  [http-nio-8082-exec-4] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-01 13:06:13 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:07:02 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 13:09:03 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:09:13 WARN  [http-nio-8082-exec-4] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-01 13:12:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:19:01 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:21:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:36:24 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:36:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 13:52:47 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:57:13 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:57:19 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 13:58:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:58:31 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 13:58:41 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 13:59:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 13:59:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 14:10:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:22:48 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:23:23 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 14:23:50 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 14:28:52 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:30:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 14:53:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:55:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:57:20 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 14:58:25 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:01:37 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:03:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:03:14 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 15:04:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:07:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:09:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:11:34 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 15:11:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 18:27:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-01 18:27:10 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-01 18:36:23 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 09:49:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 09:49:58 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 09:53:40 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:04:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:13:48 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:21:16 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:23:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:23:14 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:23:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:23:49 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:24:30 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:24:37 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:25:48 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:31:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:32:13 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:32:54 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:33:43 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:38:23 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:58:36 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-02 10:59:02 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:59:10 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:59:44 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-02 10:59:47 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Token timeout

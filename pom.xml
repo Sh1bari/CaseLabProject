@@ -59,7 +59,6 @@
             <version>1.7.0</version> <!-- Укажите актуальную версию -->
         </dependency>
 
-
         <!--Slf4j-->
         <dependency>
             <groupId>org.docx4j</groupId>

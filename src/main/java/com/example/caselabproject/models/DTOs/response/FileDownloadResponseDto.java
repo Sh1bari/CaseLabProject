@@ -4,9 +4,10 @@ import com.example.caselabproject.models.entities.File;
 import lombok.Builder;
 import lombok.Data;
 
+
 @Data
 @Builder
-public class FileResponseDto {
+public class FileDownloadResponseDto {
 
     private Long id;
 
@@ -14,15 +15,18 @@ public class FileResponseDto {
 
     private String type;
 
+    private byte[] bytes;
+
     private Long size;
 
     private String path;
 
-    public static FileResponseDto mapFromEntity(File file) {
-        return FileResponseDto.builder()
+    public static FileDownloadResponseDto mapFromEntity(File file) {
+        return FileDownloadResponseDto.builder()
                 .id(file.getId())
                 .name(file.getName())
                 .type(file.getType())
+                .bytes(file.getBytes())
                 .size(file.getSize())
                 .path(file.getPath())
                 .build();

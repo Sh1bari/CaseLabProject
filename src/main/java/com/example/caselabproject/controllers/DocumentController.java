@@ -72,7 +72,7 @@ public class DocumentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(Principal principal,
+    public ResponseEntity<?> deleteDocument(Principal principal,
                                     @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         documentService.deleteDocument(principal.getName(), id);
         return ResponseEntity
