@@ -9,7 +9,6 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUp
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,7 @@ public interface DocumentConstructorTypeService {
     DocumentConstructorTypeCreateResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
     @Transactional
-    DocumentConstructorTypeUpdateResponseDto updateById(@Min(value = 1L, message = "id can't be less than 1") Long id,
+    DocumentConstructorTypeUpdateResponseDto renameById(@Min(value = 1L, message = "id can't be less than 1") Long id,
                                                         @Valid DocumentConstructorTypePatchRequestDto typeRequestDto);
 
     /**
@@ -34,8 +33,7 @@ public interface DocumentConstructorTypeService {
      * by changing its state to {@link com.example.caselabproject.models.enums.RecordState#DELETED}.
      *
      * @see com.example.caselabproject.models.entities.DocumentConstructorType
-     */
-    /**
+     *
      * Full update of an DocumentConstructorType entity.
      * If type has related documents, method throws a RuntimeException,
      * because document relates on fields from type.
@@ -79,7 +77,7 @@ public interface DocumentConstructorTypeService {
      */
     @Transactional
     List<DocumentConstructorTypeByIdResponseDto> getAllContaining(
-            @NotBlank(message = "name must not be null and must contain at least one non-whitespace character.") String name,
+            @NotNull(message = "name must not be null.") String name,
             @NotNull(message = "state must not be null.") RecordState state,
             @Min(value = 0L, message = "page can't be less than 0") Integer page,
             @Min(value = 1L, message = "size can't be less than 1") Integer size);
