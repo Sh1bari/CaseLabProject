@@ -3,12 +3,14 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
+import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -23,7 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTypeService {
-
     private final DocumentConstructorTypeRepository typeRepository;
 
     @Override
@@ -39,10 +40,8 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                                                                DocumentConstructorTypePatchRequestDto typeRequestDto) {
         DocumentConstructorType documentType = typeRepository.findById(id).orElseThrow(
                 () -> new DocumentConstructorTypeNotFoundException(id));
-
         documentType.setName(typeRequestDto.getName());
         documentType = saveDocumentConstructorType(documentType);
-
         return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(documentType);
     }
 
@@ -73,7 +72,6 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     public DocumentConstructorTypeByIdResponseDto getById(Long id) {
         DocumentConstructorType constructorType = typeRepository.findById(id)
                 .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
-
         return DocumentConstructorTypeByIdResponseDto.mapFromEntity(constructorType);
     }
 

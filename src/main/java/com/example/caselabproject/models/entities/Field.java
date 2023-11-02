@@ -3,8 +3,9 @@ package com.example.caselabproject.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import jakarta.persistence.*;
-
+/**
+ * Поле документа.
+ */
 @Entity
 @Data
 @Builder
@@ -16,8 +17,14 @@ public class Field {
     @Column(name = "id")
     private Long id;
 
+    /**
+     * Название поля документа. Например, ИНН или номер телефона.
+     */
     private String name;
 
+    /**
+     * Ссылка на тип документа, который содержит данное поле.
+     */
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "document_constructor_type_id")
     @ToString.Exclude
