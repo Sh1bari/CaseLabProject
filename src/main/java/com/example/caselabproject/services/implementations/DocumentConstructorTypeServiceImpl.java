@@ -79,7 +79,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
 
     @Override
     public List<DocumentConstructorTypeByIdResponseDto> getAllContaining(String name,
-                                                                     @NotNull(message = "state must not be null.") RecordState state,
+                                                                     RecordState state,
                                                                      Integer page,
                                                                      Integer size) {
         Page<DocumentConstructorType> documentTypes =

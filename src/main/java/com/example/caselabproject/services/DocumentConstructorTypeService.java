@@ -31,7 +31,7 @@ public interface DocumentConstructorTypeService {
 
     @Transactional
     List<DocumentConstructorTypeByIdResponseDto> getAllContaining(
-            @NotBlank(message = "name must not be null and must contain at least one non-whitespace character.") String name,
+            @NotNull(message = "name must not be null and must contain at least one non-whitespace character.") String name,
             @NotNull(message = "state must not be null.") RecordState state,
             @Min(value = 0L, message = "page can't be less than 0") Integer page,
             @Min(value = 1L, message = "size can't be less than 1") Integer size);
