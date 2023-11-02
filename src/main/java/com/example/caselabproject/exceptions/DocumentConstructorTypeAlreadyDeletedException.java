@@ -3,9 +3,10 @@ package com.example.caselabproject.exceptions;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Description:
+ * Indicates, that a document type was already deleted
+ * (can't be changed to {@link com.example.caselabproject.models.enums.RecordState#DELETED} again).
  *
- * @author Vladimir Krasnov
+ * @see com.example.caselabproject.models.entities.DocumentConstructorType
  */
 @Slf4j
 public class DocumentConstructorTypeAlreadyDeletedException extends GlobalAppException {
