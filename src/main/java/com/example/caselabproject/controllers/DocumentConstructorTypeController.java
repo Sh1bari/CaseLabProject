@@ -57,12 +57,17 @@ public class DocumentConstructorTypeController {
                 .body(responseDto);
     }
 
-    /**
-     * Важно добавить изменение fields
-     *
-     * @author
-     */
-    //TODO Изменение fields (проверка имеется ли хотя бы 1 document у documentType)
+    @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentType(
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestBody @Valid DocumentConstructorTypeRequestDto request) {
+        DocumentConstructorTypeUpdateResponseDto response = typeService.updateById(id, request);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
     @Operation(summary = "Rename an existing document type, secured by admin")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Document type renamed",
@@ -71,12 +76,12 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> renameDocumentType(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid DocumentConstructorTypePatchRequestDto request) {
-        DocumentConstructorTypeUpdateResponseDto response = typeService.updateById(id, request);
+        DocumentConstructorTypeUpdateResponseDto response = typeService.renameById(id, request);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
