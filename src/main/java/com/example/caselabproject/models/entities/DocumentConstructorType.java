@@ -6,6 +6,10 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Тип документа, по которому конструируется его набор полей. Также используется
+ * при генерации word файла документа.
+ */
 @Entity
 @Data
 @Builder
@@ -17,22 +21,35 @@ public class DocumentConstructorType {
     @Column(name = "id")
     private Long id;
 
+    /**
+     * Название документа. Оно же является заголовком документа при генерации его word файла.
+     * Примеры: приказ, служебная записка, договор ГПХ.
+     */
     @Column(unique = true)
     private String name;
 
     /**
-     * Префикс кода документа, после которого следует номер. Код документа = prefix + document_id
+     * Префикс кода документа, после которого следует номер. Код документа = prefix + document_id.
      */
     private String prefix;
 
+    /**
+     * Список полей, которые должен содержать документ.
+     */
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Field> fields;
 
+    /**
+     * Состояние типа документа: удален или активен. По умолчанию, при создании типа, статус ACTIVE.
+     */
     @Enumerated(EnumType.STRING)
     private RecordState recordState = RecordState.ACTIVE;
 
+    /**
+     * Список документов, имеющих данный тип.
+     */
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
