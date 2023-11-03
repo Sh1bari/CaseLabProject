@@ -57,6 +57,16 @@ public class DocumentConstructorTypeController {
                 .body(responseDto);
     }
 
+    @Operation(summary = "Update an existing document type, secured by admin")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Document type changed",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Document type already has associated documents",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentType(
