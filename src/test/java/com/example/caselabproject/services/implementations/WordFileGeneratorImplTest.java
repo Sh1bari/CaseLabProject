@@ -1,11 +1,10 @@
-package com.example.caselabproject.services;
+package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.repositories.DocumentRepository;
-import com.example.caselabproject.services.implementations.WordFileGeneratorImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,24 +14,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class WordFileGeneratorTest {
+class WordFileGeneratorImplTest {
 
     @Mock
     private DocumentRepository documentRepository;
 
-    @InjectMocks
-    private WordFileGeneratorImpl wordFileGenerator;
+    private WordFileGeneratorImpl underTest;
+
+    @BeforeEach
+    void setUp() {
+        underTest = new WordFileGeneratorImpl(documentRepository);
+    }
 
     @Test
-    void generateWordFileForDocumentById_generatedFileSizeGreaterThanZero_Test() {
+    void generateWordFileForDocumentById_generatedFileSizeGreaterThanZero() {
         when(documentRepository.findById(1L))
                 .thenReturn(Optional.of(getDocument()));
-        byte[] wordFile = wordFileGenerator.generateWordFileForDocumentById(1L);
-        assertTrue(wordFile.length > 0, "Размер сгенерированного файла больше 0");
+        byte[] wordFile = underTest.generateWordFileForDocumentById(1L);
+        assertThat(wordFile).hasSizeGreaterThan(0);
     }
 
     private Document getDocument() {

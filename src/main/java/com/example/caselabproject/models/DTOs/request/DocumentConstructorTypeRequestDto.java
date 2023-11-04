@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class DocumentConstructorTypeRequestDto {
@@ -20,12 +22,12 @@ public class DocumentConstructorTypeRequestDto {
 
     @NotNull(message = "fields must not be null.")
     @UniqueElements(message = "fields must contain only unique elements.")
-    private List<@Valid FieldRequestDto> fields;
+    private List<@Valid FieldRequestDto> fields = new ArrayList<>();
 
     public DocumentConstructorType mapToEntity() {
         return DocumentConstructorType.builder()
                 .name(this.name)
-                .fields(this.fields.stream().map(FieldRequestDto::mapToEntity).toList())
+                .fields(this.fields.stream().map(FieldRequestDto::mapToEntity).collect(Collectors.toList()))
                 .prefix(this.prefix)
                 .build();
     }

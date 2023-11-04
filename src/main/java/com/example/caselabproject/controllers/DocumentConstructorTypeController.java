@@ -36,13 +36,6 @@ import java.util.List;
 public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
-    // TODO: 30.10.2023
-    // we get state == null, while creating a new doctype. Should instantiate
-    //      with state = state.active?
-    //
-    // add functionality about message while validating
-    // getAllDocumentTypes() should validate?
-
     @Operation(summary = "Create new document type, secured by admin")
     @ApiResponses(value = @ApiResponse(responseCode = "201", description = "Document type created",
             content = {@Content(mediaType = "application/json",
@@ -57,13 +50,28 @@ public class DocumentConstructorTypeController {
                 .body(responseDto);
     }
 
-    /**
-     * Важно добавить изменение fields
-     *
-     * @author
-     */
-    //TODO Изменение fields (проверка имеется ли хотя бы 1 document у documentType)
-    @Operation(summary = "Rename an existing document type, secured by admin")
+    @Operation(summary = "Update an existing document type, secured by admin")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Document type changed",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Document type already has associated documents",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentType(
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestBody @Valid DocumentConstructorTypeRequestDto request) {
+        DocumentConstructorTypeUpdateResponseDto response = typeService.update(id, request);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @Operation(summary = "Updates an existing document type by changing its name and prefix, secured by admin")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Document type renamed",
                     content = {@Content(mediaType = "application/json",
@@ -71,12 +79,12 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> renameDocumentType(
+    public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentTypeNameAndPrefix(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid DocumentConstructorTypePatchRequestDto request) {
-        DocumentConstructorTypeUpdateResponseDto response = typeService.updateById(id, request);
+        DocumentConstructorTypeUpdateResponseDto response = typeService.updateNameAndPrefix(id, request);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -117,10 +125,10 @@ public class DocumentConstructorTypeController {
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeRecoverResponseDto> recoverDocumentType(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
-        DocumentConstructorTypeRecoverResponseDto res = typeService.recoverById(id);
+        DocumentConstructorTypeRecoverResponseDto response = typeService.recoverById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(res);
+                .body(response);
     }
 
     @Operation(summary = "Get document type by id")

@@ -4,6 +4,7 @@ import com.example.caselabproject.models.enums.RecordState;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,19 +40,21 @@ public class DocumentConstructorType {
     @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Field> fields;
+    @Builder.Default
+    private List<Field> fields = new ArrayList<>();
 
     /**
      * Состояние типа документа: удален или активен. По умолчанию, при создании типа, статус ACTIVE.
      */
     @Enumerated(EnumType.STRING)
-    private RecordState recordState = RecordState.ACTIVE;
+    private RecordState recordState;
 
     /**
      * Список документов, имеющих данный тип.
      */
-    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Document> documents;
+    @Builder.Default
+    private List<Document> documents = new ArrayList<>();
 }
