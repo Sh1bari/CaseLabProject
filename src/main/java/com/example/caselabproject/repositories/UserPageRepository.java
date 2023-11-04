@@ -11,9 +11,8 @@ import java.time.LocalDate;
 @Repository
 public interface UserPageRepository extends PagingAndSortingRepository<User, Long> {
 
-    Page<User> findAllByRoles_nameAndDepartment_nameAndPersonalUserInfo_FirstNameAndPersonalUserInfo_LastNameAndPersonalUserInfo_PatronymicAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_Email(
+    Page<User> findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
             String roleName,
-            String departmentName,
             String firstname,
             String lastName,
             String patronymic,

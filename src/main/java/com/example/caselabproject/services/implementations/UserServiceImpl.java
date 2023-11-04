@@ -6,6 +6,7 @@ import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
@@ -24,7 +25,9 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -171,9 +174,8 @@ public class UserServiceImpl implements UserService {
                                                                     Pageable pageable) {
         List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
                 userPageRepository
-                        .findAllByRoles_nameAndDepartment_nameAndPersonalUserInfo_FirstNameAndPersonalUserInfo_LastNameAndPersonalUserInfo_PatronymicAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_Email(
+                        .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
                                 roleName,
-                                departmentName,
                                 firstName,
                                 lastName,
                                 patronymic,
@@ -181,6 +183,10 @@ public class UserServiceImpl implements UserService {
                                 birthDateTo,
                                 email,
                                 pageable).toList());
+        if(!departmentName.equals("")) {
+            Department department = departmentRepo.findByName(departmentName).orElseThrow(()->new DepartmentNotFoundException(departmentName));
+            userCreateResponseDtoList =  userCreateResponseDtoList.stream().filter(o-> o.getDepartmentId().equals(department.getId())).toList();
+        }
         return userCreateResponseDtoList;
     }
 }

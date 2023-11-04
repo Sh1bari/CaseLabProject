@@ -201,14 +201,14 @@ public class UserController {
      */
     @GetMapping("/")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
-            @RequestParam(name = "roleName", required = false) String roleName,
-            @RequestParam(name = "departmentName", required = false) String departmentName,
-            @RequestParam(name = "firstName", required = false) String firstName,
-            @RequestParam(name = "lastName", required = false) String lastName,
-            @RequestParam(name = "patronymic", required = false) String patronymic,
-            @RequestParam(name = "birthDateFrom", required = false) LocalDate birthDateFrom,
-            @RequestParam(name = "birthDateTo", required = false) LocalDate birthDateTo,
-            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
+            @RequestParam(name = "departmentName", required = false, defaultValue = "") String departmentName,
+            @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
+            @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
+            @RequestParam(name = "patronymic", required = false, defaultValue = "") String patronymic,
+            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
+            @RequestParam(name = "email", required = false, defaultValue = "") String email,
             @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
     ) {
