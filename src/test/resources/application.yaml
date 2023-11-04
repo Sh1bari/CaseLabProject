@@ -1,0 +1,41 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /api
+jwt:
+  secret: bnMzOHNmPTYoY2x0dXQhJHlAJjcoYT1sXnI0JSt6bCUmbSEkIXopJHJ0NGR0MXg1KSY=
+  lifetime: 30m
+spring:
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  sql:
+    init:
+      mode: always
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2://mem:CaseLabTest;DB_CLOSE_DELAY=-1
+    username: admin
+    password: 0000
+  jpa:
+    openInView: true
+    show-sql: true
+    generateDdl: true
+    database: h2
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+  main:
+    allow-circular-references: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
