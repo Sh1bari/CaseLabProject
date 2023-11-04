@@ -7,11 +7,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Repository
 public interface UserPageRepository extends PagingAndSortingRepository<User, Long> {
-
 
     Page<User> findAllByRoles_nameAndDepartment_nameAndPersonalUserInfo_FirstNameAndPersonalUserInfo_LastNameAndPersonalUserInfo_PatronymicAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_Email(
             String roleName,
@@ -24,5 +22,4 @@ public interface UserPageRepository extends PagingAndSortingRepository<User, Lon
             String email,
             Pageable pageable
     );
-
 }

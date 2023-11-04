@@ -27,6 +27,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The type User controller.
+ */
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
@@ -37,10 +40,13 @@ public class UserController {
 
     private final UserService userService;
 
+
     /**
-     * Description:
+     * Gets user by id.
      *
-     * @author
+     * @param id the id
+     * @return the user by id
+     * @author Igor Golovkov
      */
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
@@ -51,10 +57,13 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+
     /**
-     * Description:
+     * Creates user.
      *
-     * @author
+     * @param userRequestDto the user request dto
+     * @return the response entity
+     * @author Igor Golovkov
      */
     @Operation(summary = "Create new user, secured by admin")
     @ApiResponses(value = {
@@ -74,10 +83,14 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+
     /**
-     * Description:
+     * Updates user by id.
      *
-     * @author
+     * @param id             the id of user to get
+     * @param userRequestDto the user request dto
+     * @return the response entity
+     * @author Igor Golovkov
      */
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
@@ -90,10 +103,13 @@ public class UserController {
                 .body(userUpdateResponseDto);
     }
 
+
     /**
-     * Description:
+     * Deletes user by id.
      *
-     * @author
+     * @param id the id
+     * @return the response entity
+     * @author Igor Golovkov
      */
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
@@ -105,6 +121,13 @@ public class UserController {
                 .build();
     }
 
+    /**
+     * Recovers user by id.
+     *
+     * @param id the id
+     * @return the response entity
+     * @author Igor Golovkov
+     */
     @PostMapping("/{id}/recover")
     //@Secured("ROLE_ADMIN")
     public ResponseEntity<UserRecoverResponseDto> recoverUserById(
@@ -116,6 +139,20 @@ public class UserController {
     }
 
 
+    /**
+     * Gets docs by creator id.
+     *
+     * @param creatorId                 the creator id
+     * @param name                      the name
+     * @param creationDateFrom          the creation date from
+     * @param creationDateTo            the creation date to
+     * @param documentConstructorTypeId the document constructor type id
+     * @param recordState               the record state
+     * @param limit                     the limit
+     * @param page                      the page
+     * @return the docs by creator id
+     * @author Igor Golovkov
+     */
     @GetMapping("/{id}/docs")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
@@ -146,18 +183,34 @@ public class UserController {
                 .body(documentCreateResponseDto);
     }
 
+    /**
+     * Gets all users by filters.
+     *
+     * @param roleName       the role name
+     * @param departmentName the department name
+     * @param firstName      the first name
+     * @param lastName       the last name
+     * @param patronymic     the patronymic
+     * @param birthDateFrom  the birthdate from
+     * @param birthDateTo    the birthdate to
+     * @param email          the email
+     * @param limit          the limit
+     * @param page           the page
+     * @return the all users by filters
+     * @author Igor Golovkov
+     */
     @GetMapping("/")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
-            @RequestParam(name = "roleName") String roleName,
-            @RequestParam(name = "departmentName") String departmentName,
-            @RequestParam(name = "firstName") String firstName,
-            @RequestParam(name = "lastName") String lastName,
-            @RequestParam(name = "patronymic") String patronymic,
-            @RequestParam(name = "birthDateFrom") LocalDate birthDateFrom,
-            @RequestParam(name = "birthDateTo") LocalDate birthDateTo,
-            @RequestParam(name = "email") String email,
+            @RequestParam(name = "roleName", required = false) String roleName,
+            @RequestParam(name = "departmentName", required = false) String departmentName,
+            @RequestParam(name = "firstName", required = false) String firstName,
+            @RequestParam(name = "lastName", required = false) String lastName,
+            @RequestParam(name = "patronymic", required = false) String patronymic,
+            @RequestParam(name = "birthDateFrom", required = false) LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false) LocalDate birthDateTo,
+            @RequestParam(name = "email", required = false) String email,
             @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
     ) {
         List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
                 roleName,
