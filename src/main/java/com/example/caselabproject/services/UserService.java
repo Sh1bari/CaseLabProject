@@ -36,4 +36,7 @@ public interface UserService {
     List<DocumentCreateResponseDto> findDocsByCreatorIdByPage(@Min(value = 1L, message = "Id can't be less than 1") Long id,
                                                               String name,
                                                               Pageable pageable);
+    @Transactional
+    List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(@Min(value = 1L, message = "Id can't be less than1") Long id,
+                                                                       Pageable pageable);
 }

@@ -8,6 +8,7 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.ApplicationPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.DocumentPageRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepo;
+    private final ApplicationPageRepository applicationPageRepository;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
@@ -138,6 +140,15 @@ public class UserServiceImpl implements UserService {
             List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
                     .mapFromListOfEntities(documentPageRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
             return documentCreateResponseDtoList;
+        } else throw new UserNotFoundException(id);
+    }
+
+    @Override
+    @Transactional
+    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, Pageable pageable) {
+        if (existById(id)) {
+            return ApplicationFindResponseDto
+                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_id(id, pageable).toList());
         } else throw new UserNotFoundException(id);
     }
 }

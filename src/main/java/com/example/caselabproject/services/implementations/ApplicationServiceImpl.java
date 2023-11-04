@@ -51,6 +51,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+        if (application.getRecordState() != updateApplication.getRecordState()){
+            throw new UpdateApplicationStatusException();
+        }
         if (!user.getUsername().equals(application.getCreatorId().getUsername())){
             throw new UserNotCreatorException(username);
         } else {

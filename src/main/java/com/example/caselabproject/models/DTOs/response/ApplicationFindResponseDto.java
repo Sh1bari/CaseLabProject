@@ -45,4 +45,31 @@ public class ApplicationFindResponseDto {
                 .applicationItems(applicationItemDto)
                 .build();
     }
+
+    public static List<ApplicationFindResponseDto> mapFromListEntity(List<Application> applications){
+        List<ApplicationFindResponseDto> res = new ArrayList<>(applications.size());
+        applications.forEach(o -> {
+            Long documentId = null;
+            Document document = o.getDocument();
+            if (document != null){
+                documentId = document.getId();
+            }
+            List<ApplicationItemDto> applicationItemDtos = new ArrayList<>();
+            for (ApplicationItem applicationItem : o.getApplicationItems()) {
+                applicationItemDtos.add(ApplicationItemDto.builder()
+                        .id(applicationItem.getId())
+                        .build());
+            }
+            res.add(ApplicationFindResponseDto.builder()
+                    .id(o.getId())
+                    .documentId(documentId)
+                    .creationDate(o.getCreationDate())
+                    .deadlineDate(o.getDeadlineDate())
+                    .creatorId(o.getCreatorId().getId())
+                    .applicationItems(applicationItemDtos)
+                    .build()
+            );
+        });
+        return res;
+    }
 }
