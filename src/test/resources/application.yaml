@@ -17,7 +17,7 @@ spring:
       mode: always
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2://mem:CaseLabTest;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:CaseLabTest;DB_CLOSE_DELAY=-1
     username: admin
     password: 0000
   jpa:
@@ -25,7 +25,7 @@ spring:
     show-sql: true
     generateDdl: true
     database: h2
-    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+    databasePlatform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         enable_lazy_load_no_trans: true

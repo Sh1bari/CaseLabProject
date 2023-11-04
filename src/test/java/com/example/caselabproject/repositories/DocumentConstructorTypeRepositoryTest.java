@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class DocumentConstructorTypeRepositoryTest {
@@ -48,7 +48,7 @@ class DocumentConstructorTypeRepositoryTest {
                         PageRequest.of(0, 2));
 
         // then
-        assertThat(actual.getContent().size()).isEqualTo(1);
+        assertThat(actual.getContent()).hasSize(1);
     }
 
     @Test
@@ -75,6 +75,6 @@ class DocumentConstructorTypeRepositoryTest {
                         PageRequest.of(0, 2));
 
         // then
-        assertThat(actual.getContent().size()).isEqualTo(1);
+        assertThat(actual.getContent()).hasSize(1);
     }
 }
