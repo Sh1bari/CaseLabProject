@@ -74,7 +74,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
         typeToUpdate.setName(updated.getName());
         typeToUpdate.setPrefix(updated.getPrefix());
         // Обновляем поля. Мы не можем просто использовать typeToUpdate.setFields(),
-        // так как List, в котором в Hibernate хранятся связанные сущности Field - Unmodifiable.
+        // так как List, в котором в Hibernate хранятся связанные сущности Field - Immutable.
         List<Field> fields = typeToUpdate.getFields();
         fields.clear();
         fields.addAll(updated.getFields());
@@ -92,7 +92,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
         }
 
         typeToDelete.setRecordState(RecordState.DELETED);
-        typeRepository.save(typeToDelete);
+        saveInternal(typeToDelete);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
 
         typeToRecover.setRecordState(RecordState.ACTIVE);
         return DocumentConstructorTypeRecoverResponseDto.mapFromEntity(
-                typeRepository.save(typeToRecover));
+                saveInternal(typeToRecover));
     }
 
     @Override
