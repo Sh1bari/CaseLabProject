@@ -24,31 +24,37 @@ public interface DocumentConstructorTypeService {
     @Transactional
     DocumentConstructorTypeCreateResponseDto create(@Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
+    /**
+     * Updates an existing document type (found by <code>id</code>) by changing its name and prefix.
+     *
+     * @see com.example.caselabproject.models.entities.DocumentConstructorType
+     */
     @Transactional
-    DocumentConstructorTypeUpdateResponseDto renameById(@Min(value = 1L, message = "id can't be less than 1") Long id,
-                                                        @Valid DocumentConstructorTypePatchRequestDto typeRequestDto);
+    DocumentConstructorTypeUpdateResponseDto updateNameAndPrefix(
+            @Min(value = 1L, message = "id can't be less than 1") Long id,
+            @Valid DocumentConstructorTypePatchRequestDto patch);
+
+    /**
+     * Full update of an DocumentConstructorType entity.
+     * If type has related documents, method throws a RuntimeException,
+     * because document references fields from type, that will be lost after update.
+     * @see DocumentConstructorTypeUpdateResponseDto
+     * @see DocumentConstructorTypeRequestDto
+     * @see com.example.caselabproject.models.entities.Document
+     * @see com.example.caselabproject.models.entities.Field
+     * @see com.example.caselabproject.models.entities.DocumentConstructorType
+     */
+    @Transactional
+    DocumentConstructorTypeUpdateResponseDto update(
+            @Min(value = 1L, message = "id can't be less than 1") Long id,
+            @Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
     /**
      * Deletes an existing document type (found by <code>id</code>)
      * by changing its state to {@link com.example.caselabproject.models.enums.RecordState#DELETED}.
      *
      * @see com.example.caselabproject.models.entities.DocumentConstructorType
-     *
-     * Full update of an DocumentConstructorType entity.
-     * If type has related documents, method throws a RuntimeException,
-     * because document relates on fields from type.
-     *
-     * @param id             DocumentConstructorType entity identifier. Must be higher or equal to 1.
-     * @param typeRequestDto DTO with name, prefix and fields.
-     * @return response DTO.
-     * @see DocumentConstructorTypeUpdateResponseDto
-     * @see DocumentConstructorTypeRequestDto
      */
-    @Transactional
-    DocumentConstructorTypeUpdateResponseDto updateById(
-            @Min(value = 1L, message = "id can't be less than 1") Long id,
-            @Valid DocumentConstructorTypeRequestDto typeRequestDto);
-
     @Transactional
     void deleteById(@Min(value = 1L, message = "id can't be less than 1") Long id);
 
@@ -59,7 +65,8 @@ public interface DocumentConstructorTypeService {
      * @see com.example.caselabproject.models.entities.DocumentConstructorType
      */
     @Transactional
-    DocumentConstructorTypeRecoverResponseDto recoverById(@Min(value = 1L, message = "id can't be less than 1") Long id);
+    DocumentConstructorTypeRecoverResponseDto recoverById(
+            @Min(value = 1L, message = "id can't be less than 1") Long id);
 
     /**
      * Finds an existing document type by <code>id</code>.
@@ -67,7 +74,8 @@ public interface DocumentConstructorTypeService {
      * @see com.example.caselabproject.models.entities.DocumentConstructorType
      */
     @Transactional
-    DocumentConstructorTypeByIdResponseDto getById(@Min(value = 1L, message = "id can't be less than 1") Long id);
+    DocumentConstructorTypeByIdResponseDto getById(
+            @Min(value = 1L, message = "id can't be less than 1") Long id);
 
     /**
      * Finds a {@link List} of existing document types

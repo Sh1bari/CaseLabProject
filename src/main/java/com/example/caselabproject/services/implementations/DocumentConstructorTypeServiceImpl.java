@@ -8,6 +8,7 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCr
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
@@ -32,73 +33,85 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     @Override
     public DocumentConstructorTypeCreateResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
+
         typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
         typeToSave.setRecordState(RecordState.ACTIVE);
+
         return DocumentConstructorTypeCreateResponseDto
                 .mapFromEntity(saveInternal(typeToSave));
     }
 
     @Override
-    public DocumentConstructorTypeUpdateResponseDto renameById(Long id,
-                                                               DocumentConstructorTypePatchRequestDto typeRequestDto) {
+    public DocumentConstructorTypeUpdateResponseDto updateNameAndPrefix(
+            Long id,
+            DocumentConstructorTypePatchRequestDto patch) {
         DocumentConstructorType documentType = findByIdInternal(id);
-        documentType.setName(typeRequestDto.getName());
-        documentType = saveInternal(documentType);
-        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(documentType);
+
+        documentType.setName(patch.getName());
+        documentType.setPrefix(patch.getPrefix());
+
+        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
+                saveInternal(documentType));
     }
 
     @Override
-    public DocumentConstructorTypeUpdateResponseDto updateById(
+    public DocumentConstructorTypeUpdateResponseDto update(
             Long id, DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToUpdate = findByIdInternal(id);
 
         // проверяем, что тип, который нужно обновить, не используется в документах
         if (documentRepository.existsByDocumentConstructorType(typeToUpdate)) {
-            //если используется
+            // если используется
             throw new DocumentConstructorTypeHasAssociatedDocumentsException(id);
-        } else {
-            // если не используется:
-
-            // удаляем старую версию
-            typeRepository.deleteById(id);
-            typeRepository.flush();
-
-            // сохраняем новую версию
-            DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
-            typeToSave.setRecordState(RecordState.ACTIVE);
-            typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
-            return DocumentConstructorTypeUpdateResponseDto
-                    .mapFromEntity(saveInternal(typeToSave));
         }
+
+        // преобразуем DTO с обновленными полями в entity
+        DocumentConstructorType updated = typeRequestDto.mapToEntity();
+        // устанавливаем ссылку на обновляемую сущность в каждом поле
+        updated.getFields().forEach(field -> field.setDocumentConstructorType(typeToUpdate));
+
+        // обновляем существующую entity
+        typeToUpdate.setName(updated.getName());
+        typeToUpdate.setPrefix(updated.getPrefix());
+        // Обновляем поля. Мы не можем просто использовать typeToUpdate.setFields(),
+        // так как List, в котором в Hibernate хранятся связанные сущности Field - Unmodifiable.
+        List<Field> fields = typeToUpdate.getFields();
+        fields.clear();
+        fields.addAll(updated.getFields());
+
+        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
+                saveInternal(typeToUpdate));
     }
 
     @Override
     public void deleteById(Long id) {
-        DocumentConstructorType documentType = typeRepository.findById(id)
-                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
-        if (documentType.getRecordState().equals(RecordState.DELETED)) {
+        DocumentConstructorType typeToDelete = findByIdInternal(id);
+
+        if (typeToDelete.getRecordState().equals(RecordState.DELETED)) {
             throw new DocumentConstructorTypeAlreadyDeletedException(id);
         }
-        documentType.setRecordState(RecordState.DELETED);
-        typeRepository.save(documentType);
+
+        typeToDelete.setRecordState(RecordState.DELETED);
+        typeRepository.save(typeToDelete);
     }
 
     @Override
     public DocumentConstructorTypeRecoverResponseDto recoverById(Long id) {
-        DocumentConstructorType documentType = typeRepository.findById(id)
-                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(id));
-        if (documentType.getRecordState().equals(RecordState.ACTIVE)) {
+        DocumentConstructorType typeToRecover = findByIdInternal(id);
+
+        if (typeToRecover.getRecordState().equals(RecordState.ACTIVE)) {
             throw new DocumentConstructorTypeAlreadyActiveException(id);
         }
-        documentType.setRecordState(RecordState.ACTIVE);
-        DocumentConstructorType res = typeRepository.save(documentType);
-        return DocumentConstructorTypeRecoverResponseDto.mapFromEntity(res);
+
+        typeToRecover.setRecordState(RecordState.ACTIVE);
+        return DocumentConstructorTypeRecoverResponseDto.mapFromEntity(
+                typeRepository.save(typeToRecover));
     }
 
     @Override
     public DocumentConstructorTypeByIdResponseDto getById(Long id) {
-        DocumentConstructorType constructorType = findByIdInternal(id);
-        return DocumentConstructorTypeByIdResponseDto.mapFromEntity(constructorType);
+        return DocumentConstructorTypeByIdResponseDto.mapFromEntity(
+                findByIdInternal(id));
     }
 
     @Override
@@ -109,9 +122,12 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
         Page<DocumentConstructorType> documentTypes =
                 typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, state,
                         PageRequest.of(page, size, Sort.by("name").ascending()));
+
+        // если страница пуста, то выбрасываем исключение
         if (documentTypes.getSize() == 0) {
             throw new DocumentConstructorTypePageNotFoundException(page);
         }
+
         return documentTypes
                 .map(DocumentConstructorTypeByIdResponseDto::mapFromEntity)
                 .toList();
@@ -123,7 +139,9 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
      */
     private DocumentConstructorType saveInternal(DocumentConstructorType typeToSave) {
         try {
-            return typeRepository.save(typeToSave);
+            // при использовании просто save(), мы не сможем обработать ограничение
+            // уникальности, поэтому используем saveAndFlush().
+            return typeRepository.saveAndFlush(typeToSave);
         } catch (DataIntegrityViolationException ex) {
             throw new DocumentConstructorTypeNameExistsException(typeToSave.getName());
         }
