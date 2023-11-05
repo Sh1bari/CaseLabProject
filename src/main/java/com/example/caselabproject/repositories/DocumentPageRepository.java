@@ -13,6 +13,7 @@ public interface DocumentPageRepository extends PagingAndSortingRepository<Docum
     List<Document> findAllByCreator_id(Long id);
 
     Page<Document> findAllByCreator_idAndNameContainingIgnoreCase(Long id, String name, Pageable pageable);
+
     Page<Document> findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
             Long creatorId,
             String name,

@@ -14,6 +14,7 @@ public class DepartmentNotFoundException extends GlobalAppException {
         super(404, "Department not found with id " + departmentId);
         log.warn(message);
     }
+
     public DepartmentNotFoundException(String name) {
         super(404, "Department not found with name " + name);
         log.warn(message);

@@ -208,7 +208,7 @@ public class UserController {
             @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 1") Integer page
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
     ) {
         List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
                 creatorId,
@@ -264,7 +264,7 @@ public class UserController {
             @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
             @RequestParam(name = "email", required = false, defaultValue = "") String email,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 1") Integer page
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
     ) {
         List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
                 roleName,
