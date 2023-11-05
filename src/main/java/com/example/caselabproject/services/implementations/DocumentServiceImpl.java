@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.DocumentCreateException;
 import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.repositories.DocumentPageRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.services.DocumentService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepo;
+    private final DocumentPageRepository documentPageRepo;
+
 
     @Override
     public DocumentCreateResponseDto createDocument(DocumentCreateRequestDto request) {
