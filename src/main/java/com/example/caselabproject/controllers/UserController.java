@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,8 +23,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The type User controller.
+ */
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
@@ -34,11 +40,22 @@ public class UserController {
 
     private final UserService userService;
 
+
     /**
-     * Description:
+     * Gets user by id.
      *
-     * @author
+     * @param id the id
+     * @return the user by id
+     * @author Igor Golovkov
      */
+    @Operation(summary = "Find user with given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -48,10 +65,13 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+
     /**
-     * Description:
+     * Creates user.
      *
-     * @author
+     * @param userRequestDto the user request dto
+     * @return the response entity
+     * @author Igor Golovkov
      */
     @Operation(summary = "Create new user, secured by admin")
     @ApiResponses(value = {
@@ -71,11 +91,26 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+
     /**
-     * Description:
+     * Updates user by id.
      *
-     * @author
+     * @param id             the id of user to get
+     * @param userRequestDto the user request dto
+     * @return the response entity
+     * @author Igor Golovkov
      */
+    @Operation(summary = "Update existing user with given id, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "409", description = "User with given data exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
@@ -87,11 +122,22 @@ public class UserController {
                 .body(userUpdateResponseDto);
     }
 
+
     /**
-     * Description:
+     * Deletes user by id.
      *
-     * @author
+     * @param id the id
+     * @return the response entity
+     * @author Igor Golovkov
      */
+    @Operation(summary = "Change record state of user with given id to DELETED, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "User's record state changed to DELETED",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
@@ -102,8 +148,23 @@ public class UserController {
                 .build();
     }
 
+    /**
+     * Recovers user by id.
+     *
+     * @param id the id
+     * @return the response entity
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Change record state of user with given id to ACTIVE, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User's record state changed to ACTIVE",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserRecoverResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/{id}/recover")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserRecoverResponseDto> recoverUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         UserRecoverResponseDto res = userService.recoverById(id);
@@ -113,13 +174,51 @@ public class UserController {
     }
 
 
+    /**
+     * Gets docs by creator id.
+     *
+     * @param creatorId                 the creator id
+     * @param name                      the name
+     * @param creationDateFrom          the creation date from
+     * @param creationDateTo            the creation date to
+     * @param documentConstructorTypeId the document constructor type id
+     * @param recordState               the record state
+     * @param limit                     the limit
+     * @param page                      the page
+     * @return the docs by creator id
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Get all documents of user (creator) with given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Documents got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "204", description = "Documents of user with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/docs")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
-            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page,
-            @RequestParam(name = "name", required = false, defaultValue = "") String name) {
-        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByCreatorIdByPage(id, name, PageRequest.of(page, limit));
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
+            @RequestParam(name = "name", required = false, defaultValue = "") String name,
+            @RequestParam(name = "dateFrom", required = false) LocalDateTime creationDateFrom,
+            @RequestParam(name = "dateTo", required = false) LocalDateTime creationDateTo,
+            @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
+            @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
+    ) {
+        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
+                creatorId,
+                name,
+                creationDateFrom,
+                creationDateTo,
+                documentConstructorTypeId,
+                recordState,
+                PageRequest.of(page, limit)
+        );
         if (documentCreateResponseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
@@ -128,5 +227,63 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
+    }
+
+    /**
+     * Gets all users by filters.
+     *
+     * @param roleName       the role name
+     * @param departmentName the department name
+     * @param firstName      the first name
+     * @param lastName       the last name
+     * @param patronymic     the patronymic
+     * @param birthDateFrom  the birthdate from
+     * @param birthDateTo    the birthdate to
+     * @param email          the email
+     * @param limit          the limit
+     * @param page           the page
+     * @return the all users by filters
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Get all users filtered by values of their attributes or not filtered if filters not given")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Users got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "204", description = "Users not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @GetMapping("/")
+    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
+            @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
+            @RequestParam(name = "departmentName", required = false, defaultValue = "") String departmentName,
+            @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
+            @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
+            @RequestParam(name = "patronymic", required = false, defaultValue = "") String patronymic,
+            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
+            @RequestParam(name = "email", required = false, defaultValue = "") String email,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
+    ) {
+        List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
+                roleName,
+                departmentName,
+                firstName,
+                lastName,
+                patronymic,
+                birthDateFrom,
+                birthDateTo,
+                email,
+                PageRequest.of(page, limit)
+        );
+        if (userGetByIdResponseDtoList.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userGetByIdResponseDtoList);
     }
 }
