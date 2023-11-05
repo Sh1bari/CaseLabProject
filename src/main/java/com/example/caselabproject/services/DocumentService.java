@@ -4,11 +4,13 @@ import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Validated
@@ -18,7 +20,11 @@ public interface DocumentService {
 
     DocumentResponseDto findDocument(@Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
-    List<DocumentResponseDto> filteredDocument(Pageable pageable, String name);
+    List<DocumentResponseDto> filteredDocument(Pageable pageable,
+                                               String name,
+                                               RecordState recordState,
+                                               LocalDateTime startDate,
+                                               LocalDateTime endDate);
 
     DocumentResponseDto updateDocument(String username,
                                        @Valid DocumentUpdateRequestDto request,

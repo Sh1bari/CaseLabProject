@@ -638,3 +638,8 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-11-02 10:59:10 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-11-02 10:59:44 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-11-02 10:59:47 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-04 20:29:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 12:21:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 12:36:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 12:36:47 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 12:38:55 WARN  [http-nio-8082-exec-9] c.e.c.e.NoDocumentPageFoundException - No content found by page 0

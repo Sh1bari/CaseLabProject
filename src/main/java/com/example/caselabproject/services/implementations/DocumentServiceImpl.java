@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,16 +69,21 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<DocumentResponseDto> filteredDocument(Pageable pageable, String name) {
+    public List<DocumentResponseDto> filteredDocument(Pageable pageable,
+                                                      String name,
+                                                      RecordState state,
+                                                      LocalDateTime start,
+                                                      LocalDateTime end) {
 
         Page<Document> documents;
 
-        if (!name.isEmpty()) {
+        if (!(name.length() == 0)) {
             documents = documentPageRepository
-                    .findAllByNameContainingIgnoreCase(name,
-                            pageable);
+                    .findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
+                            name, pageable, start, end, state);
         } else {
-            documents = documentRepository.findAll(pageable);
+            documents = documentPageRepository.findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
+                    pageable, start, end, state);
         }
 
         if (documents.isEmpty()) {
