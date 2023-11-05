@@ -3,6 +3,7 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
+import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
@@ -32,7 +33,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     private final UserRepository userRepository;
-    private final Integer limit = 10;
 
 
     /**
@@ -47,9 +47,10 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return DTO {@link DepartmentResponseDto} ответа, представляющее созданный департамент.
      * @throws DepartmentNameExistsException если департамент с указанным именем уже существует.
      * @throws DepartmentCreateException     если произошла ошибка при создании департамента.
+     * @author
      */
     @Override
-    public DepartmentResponseDto create(@Valid DepartmentRequestDto requestDto) {
+    public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
         try {
             Department department = requestDto.mapToEntity();
             department.setRecordState(RecordState.ACTIVE);
@@ -69,26 +70,52 @@ public class DepartmentServiceImpl implements DepartmentService {
     /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.
      * <p>
-     * Этот метод ищет департамент по его ID и устанавливает его статус записи как "УДАЛЁННЫЙ".
+     * Этот метод ищет департамент по его ID и устанавливает его статус записи как "DELETED".
      * Если департамент не найден, будет выброшено исключение {@link DepartmentNotFoundException}.
-     * Если статус записи департамента уже является "УДАЛЁННЫМ", будет выброшено исключение {@link DepartmentStatusException}.
+     * Если статус записи департамента уже является "DELETED", будет выброшено исключение {@link DepartmentStatusException}.
      * </p>
      *
-     * @param departmentId ID департамента, статус записи которого нужно обновить.
+     * @param departmentId ID департамента, статус записи которого нужно удалить.
      * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
-     * @throws DepartmentStatusException   если статус записи департамента уже является "УДАЛЁННЫМ".
+     * @throws DepartmentStatusException   если статус записи департамента уже является "DELETED".
      */
     @Override
-    public void updateRecordState(Long departmentId) {
+    public boolean deleteDepartment(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
 
         if (department.getRecordState().equals(RecordState.DELETED)) {
-            throw new DepartmentStatusException(departmentId);
+            throw new DepartmentStatusException(departmentId, RecordState.DELETED);
         }
 
         department.setRecordState(RecordState.DELETED);
         departmentRepository.save(department);
+        return true;
+    }
+    /**
+     * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
+     * <p>
+     * Этот метод ищет департамент по его ID и устанавливает его статус записи как "ACTIVE".
+     * Если департамент не найден, будет выброшено исключение {@link DepartmentNotFoundException}.
+     * Если статус записи департамента уже является "ACTIVE", будет выброшено исключение {@link DepartmentStatusException}.
+     * </p>
+     *
+     * @param departmentId ID департамента, статус записи которого нужно восстановить.
+     * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
+     * @throws DepartmentStatusException   если статус записи департамента уже является "ACTIVE".
+     */
+    @Override
+    public DepartmentResponseDto recoverDepartment(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+
+        if (department.getRecordState().equals(RecordState.ACTIVE)) {
+            throw new DepartmentStatusException(departmentId, RecordState.ACTIVE);
+        }
+
+        department.setRecordState(RecordState.ACTIVE);
+        departmentRepository.save(department);
+        return DepartmentResponseDto.mapFromEntity(department);
     }
 
     /**
@@ -119,22 +146,15 @@ public class DepartmentServiceImpl implements DepartmentService {
      * Если имя не указано или пусто, будет возвращен список всех департаментов на указанной странице.
      * </p>
      *
-     * @param page Номер страницы для пагинации.
+     * @param pageable Модель страницы для пагинации.
      * @param name Имя для фильтрации списка департаментов.
      * @return Список {@link DepartmentResponseDto}, представляющий найденные департаменты.
      */
     @Override
-    public List<DepartmentResponseDto> getAllDepartmentsPageByPage(Integer page, String name) {
-        Pageable pageable = PageRequest.of(page, limit);
+    public List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState) {
 
-        Page<Department> departments;
-
-        if (name != null && !name.isEmpty()) {
-            departments = departmentRepository.findDepartmentsByNameContaining(name, pageable);
-        } else {
-            departments = departmentRepository.findAll(pageable);
-        }
-
+        Page<Department> departments =
+                departmentRepository.findDepartmentsByNameContainingAndRecordState(name, pageable, recordState);
 
         return departments.getContent().stream()
                 .map(DepartmentResponseDto::mapFromEntity)
@@ -145,25 +165,16 @@ public class DepartmentServiceImpl implements DepartmentService {
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
      * <p>
      * Этот метод осуществляет поиск пользователей в базе данных, соответствующих указанному статусу записи
-     * и принадлежащих к указанному департаменту. Если ни одного пользователя не найдено по указанным критериям,
-     * будет выброшено исключение {@link CustomUserException}.
+     * и принадлежащих к указанному департаменту.
      * </p>
      *
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
      * @return Список {@link User}, представляющий найденных пользователей.
-     * @throws CustomUserException если не найдено ни одного пользователя по указанным критериям или
-     *                             для указанного ID департамента.
      */
     @Override
-    public List<User> GetAllUsersFilteredByDepartment(RecordState recordState, Long departmentId) {
-        List<User> users = userRepository.findByRecordStateAndDepartment_Id(recordState, departmentId)
-                .orElseThrow(CustomUserException::new);
-
-        if (users.isEmpty()) {
-            throw new CustomUserException();
-        }
-
+    public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId) {
+        List<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_Id(recordState, departmentId).stream().map(UserGetByIdResponseDto::mapFromEntity).toList();
         return users;
     }
 
