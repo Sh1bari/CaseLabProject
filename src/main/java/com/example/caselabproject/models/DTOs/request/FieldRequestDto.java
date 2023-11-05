@@ -1,9 +1,8 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Field;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
 public class FieldRequestDto {

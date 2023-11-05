@@ -38,6 +38,7 @@ public interface DocumentConstructorTypeService {
      * Full update of an DocumentConstructorType entity.
      * If type has related documents, method throws a RuntimeException,
      * because document references fields from type, that will be lost after update.
+     *
      * @see DocumentConstructorTypeUpdateResponseDto
      * @see DocumentConstructorTypeRequestDto
      * @see com.example.caselabproject.models.entities.Document
