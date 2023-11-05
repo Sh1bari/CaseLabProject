@@ -1,4 +1,4 @@
-package com.example.caselabproject;
+package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.UserExistsException;
 import com.example.caselabproject.exceptions.UserNotFoundException;
