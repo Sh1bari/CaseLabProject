@@ -48,6 +48,14 @@ public class UserController {
      * @return the user by id
      * @author Igor Golovkov
      */
+    @Operation(summary = "Find user with given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -92,6 +100,17 @@ public class UserController {
      * @return the response entity
      * @author Igor Golovkov
      */
+    @Operation(summary = "Update existing user with given id, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "409", description = "User with given data exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
@@ -111,6 +130,14 @@ public class UserController {
      * @return the response entity
      * @author Igor Golovkov
      */
+    @Operation(summary = "Change record state of user with given id to DELETED, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "User's record state changed to DELETED",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
@@ -128,8 +155,16 @@ public class UserController {
      * @return the response entity
      * @author Igor Golovkov
      */
+    @Operation(summary = "Change record state of user with given id to ACTIVE, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User's record state changed to ACTIVE",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserRecoverResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/{id}/recover")
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserRecoverResponseDto> recoverUserById(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         UserRecoverResponseDto res = userService.recoverById(id);
@@ -153,6 +188,17 @@ public class UserController {
      * @return the docs by creator id
      * @author Igor Golovkov
      */
+    @Operation(summary = "Get all documents of user (creator) with given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Documents got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "204", description = "Documents of user with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/docs")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
@@ -161,8 +207,8 @@ public class UserController {
             @RequestParam(name = "dateTo", required = false) LocalDateTime creationDateTo,
             @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 1") Integer page
     ) {
         List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
                 creatorId,
@@ -199,6 +245,14 @@ public class UserController {
      * @return the all users by filters
      * @author Igor Golovkov
      */
+    @Operation(summary = "Get all users filtered by values of their attributes or not filtered if filters not given")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Users got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "204", description = "Users not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
             @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
@@ -209,8 +263,8 @@ public class UserController {
             @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
             @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
             @RequestParam(name = "email", required = false, defaultValue = "") String email,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 1") Integer page
     ) {
         List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
                 roleName,
