@@ -1,24 +1,34 @@
 package com.example.caselabproject.models.entities;
 
-import com.example.caselabproject.models.enums.FieldType;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+/**
+ * Поле документа.
+ */
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "document_constructor_type_id")
-    private DocumentConstructorType documentConstructorType;
-
+    /**
+     * Название поля документа. Например, ИНН или номер телефона.
+     */
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private FieldType fieldType;
+    /**
+     * Ссылка на тип документа, который содержит данное поле.
+     */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "document_constructor_type_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DocumentConstructorType documentConstructorType;
 
 }
