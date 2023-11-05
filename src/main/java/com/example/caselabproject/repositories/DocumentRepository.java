@@ -13,13 +13,4 @@ import java.util.List;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     List<Document> findAllByCreator_id(Long id);
-
-    Page<Document> findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
-            Long creatorId,
-            String name,
-            LocalDateTime creationDateFrom,
-            LocalDateTime creationDateTo,
-            Long documentConstructorTypeId,
-            RecordState recordState,
-            Pageable pageable);
 }
