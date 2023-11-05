@@ -153,9 +153,7 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "200", description = "Page with document types found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class))}),
-            @ApiResponse(responseCode = "404", description = "Page with document types not found",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AppError.class))})})
+            @ApiResponse(responseCode = "204", description = "Page with document types not found")})
     @GetMapping("/filter")
     public ResponseEntity<List<DocumentConstructorTypeByIdResponseDto>> getAllDocumentTypes(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
@@ -164,6 +162,11 @@ public class DocumentConstructorTypeController {
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
         List<DocumentConstructorTypeByIdResponseDto> response =
                 typeService.getAllContaining(name, state, page, size);
+        if(response.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(response);
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);

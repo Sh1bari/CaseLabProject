@@ -123,11 +123,6 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                 typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, state,
                         PageRequest.of(page, size, Sort.by("name").ascending()));
 
-        // если страница пуста, то выбрасываем исключение
-        if (documentTypes.getContent().isEmpty()) {
-            throw new PageNotFoundException(page);
-        }
-
         return documentTypes
                 .map(DocumentConstructorTypeByIdResponseDto::mapFromEntity)
                 .toList();
