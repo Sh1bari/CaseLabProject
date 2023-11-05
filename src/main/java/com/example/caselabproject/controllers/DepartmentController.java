@@ -64,7 +64,9 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}/users")
-    public ResponseEntity<List<UserDto>> getAllUsersInDepartment(@PathVariable Long id, @RequestParam RecordState recordState) {
+    public ResponseEntity<List<UserDto>> getAllUsersInDepartment(
+            @PathVariable Long id,
+            @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") String recordState) {
         List<UserDto> responseDto = departmentService.GetAllUsersFilteredByDepartment(recordState, id).stream().map(UserDto::mapFromEntity).toList();
 
         return ResponseEntity
