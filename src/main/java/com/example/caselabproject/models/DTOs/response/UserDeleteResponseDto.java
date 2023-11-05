@@ -3,6 +3,7 @@ package com.example.caselabproject.models.DTOs.response;
 import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class UserDeleteResponseDto {
     private String position;
     private String username;
     private String email;
+    private RecordState recordState;
     private Department department;
     private List<RoleDto> roles;
     private String firstName;
@@ -30,6 +32,7 @@ public class UserDeleteResponseDto {
                 .position(user.getPosition())
                 .username(user.getUsername())
                 .email(user.getAuthUserInfo().getEmail())
+                .recordState(user.getRecordState())
                 .department(user.getDepartment())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
