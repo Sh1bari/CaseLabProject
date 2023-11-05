@@ -25,11 +25,10 @@ public class UserGetByIdResponseDto {
     private LocalDate birthDate;
 
     public static UserGetByIdResponseDto mapFromEntity(User user) {
-        return UserGetByIdResponseDto.builder()
+        UserGetByIdResponseDto userDto = UserGetByIdResponseDto.builder()
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
-                .departmentId(user.getDepartment().getId())
                 .email(user.getAuthUserInfo().getEmail())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
@@ -37,6 +36,13 @@ public class UserGetByIdResponseDto {
                 .patronymic(user.getPersonalUserInfo().getPatronymic())
                 .birthDate(user.getPersonalUserInfo().getBirthDate())
                 .build();
+        Long departmentId = null;
+        try {
+            departmentId = user.getDepartment().getId();
+        } catch (Exception ignored) {
+        }
+        userDto.setDepartmentId(departmentId);
+        return userDto;
     }
 
     public static List<UserGetByIdResponseDto> mapFromEntities(List<User> users) {
@@ -54,11 +60,14 @@ public class UserGetByIdResponseDto {
                     .birthDate(user.getPersonalUserInfo().getBirthDate())
                     .build();
             Long departmentId = null;
-            try{
+            try {
                 departmentId = user.getDepartment().getId();
-            }catch (Exception e){}
+            } catch (Exception ignored) {
+
+            }
             userDto.setDepartmentId(departmentId);
-            responseDtos.add(userDto);});
+            responseDtos.add(userDto);
+        });
         return responseDtos;
     }
 }

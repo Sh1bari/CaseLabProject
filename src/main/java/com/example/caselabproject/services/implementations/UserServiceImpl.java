@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
-        User user = userRequestDto.mapToEntity();
-        user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
-        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+    public UserCreateResponseDto create(UserCreateRequestDto userCreateRequestDto) {
+        User user = userCreateRequestDto.mapToEntity();
+        user.setRoles(roleService.findRolesByRoleDtoList(userCreateRequestDto.getRoles()));
+        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userCreateRequestDto.getPassword()));
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
@@ -85,32 +85,24 @@ public class UserServiceImpl implements UserService {
         if (userUpdateRequestDto.getPassword() != null) {
             user.getAuthUserInfo().setPassword(userUpdateRequestDto.getPassword());
         }
-
         if (userUpdateRequestDto.getEmail() != null) {
             user.getAuthUserInfo().setEmail(userUpdateRequestDto.getEmail());
         }
-
         if (userUpdateRequestDto.getUsername() != null) {
             user.setUsername(userUpdateRequestDto.getUsername());
         }
-
         if (userUpdateRequestDto.getFirstName() != null) {
             user.getPersonalUserInfo().setFirstName(userUpdateRequestDto.getFirstName());
         }
-
         if (userUpdateRequestDto.getPatronymic() != null) {
             user.getPersonalUserInfo().setPatronymic(userUpdateRequestDto.getPatronymic());
         }
-
         if (userUpdateRequestDto.getLastName() != null) {
             user.getPersonalUserInfo().setLastName(userUpdateRequestDto.getLastName());
         }
-
         if (userUpdateRequestDto.getBirthDate() != null) {
             user.getPersonalUserInfo().setBirthDate(userUpdateRequestDto.getBirthDate());
         }
-
-
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
@@ -183,9 +175,14 @@ public class UserServiceImpl implements UserService {
                                 birthDateTo,
                                 email,
                                 pageable).toList());
-        if(!departmentName.equals("")) {
-            Department department = departmentRepo.findByName(departmentName).orElseThrow(()->new DepartmentNotFoundException(departmentName));
-            userCreateResponseDtoList =  userCreateResponseDtoList.stream().filter(o-> o.getDepartmentId().equals(department.getId())).toList();
+        if (!departmentName.isEmpty()) {
+            Department department = departmentRepo
+                    .findByName(departmentName)
+                    .orElseThrow(() -> new DepartmentNotFoundException(departmentName));
+            userCreateResponseDtoList = userCreateResponseDtoList
+                    .stream()
+                    .filter(o -> o.getDepartmentId().equals(department.getId()))
+                    .toList();
         }
         return userCreateResponseDtoList;
     }
