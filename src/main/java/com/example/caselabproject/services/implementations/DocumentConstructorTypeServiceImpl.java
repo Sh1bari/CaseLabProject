@@ -124,8 +124,8 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                         PageRequest.of(page, size, Sort.by("name").ascending()));
 
         // если страница пуста, то выбрасываем исключение
-        if (documentTypes.getSize() == 0) {
-            throw new DocumentConstructorTypePageNotFoundException(page);
+        if (documentTypes.getContent().isEmpty()) {
+            throw new PageNotFoundException(page);
         }
 
         return documentTypes

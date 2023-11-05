@@ -156,7 +156,7 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "404", description = "Page with document types not found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
-    @GetMapping("/filtered")
+    @GetMapping("/filter")
     public ResponseEntity<List<DocumentConstructorTypeByIdResponseDto>> getAllDocumentTypes(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "state", required = false, defaultValue = "ACTIVE") RecordState state,

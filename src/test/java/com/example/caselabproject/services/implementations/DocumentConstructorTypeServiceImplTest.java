@@ -318,7 +318,7 @@ class DocumentConstructorTypeServiceImplTest {
 
         // then
         assertThatThrownBy(() -> underTest.getAllContaining(name, recordState, page, size))
-                .isInstanceOf(DocumentConstructorTypePageNotFoundException.class)
+                .isInstanceOf(PageNotFoundException.class)
                 .hasMessageContaining("Page with number " + page + " not found");
     }
 }
