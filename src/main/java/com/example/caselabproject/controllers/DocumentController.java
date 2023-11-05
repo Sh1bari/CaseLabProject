@@ -52,9 +52,9 @@ public class DocumentController {
     @GetMapping("/filter")
     public ResponseEntity<List<DocumentResponseDto>> filteredSearch(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(name = "offset", required = false, defaultValue = "20") Integer offset,
+            @RequestParam(name = "offset", required = false, defaultValue = "20") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name) {
-        List<DocumentResponseDto> response = documentService.filteredDocument(PageRequest.of(page, offset), name);
+        List<DocumentResponseDto> response = documentService.filteredDocument(PageRequest.of(page, limit), name);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -67,7 +67,7 @@ public class DocumentController {
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
         return ResponseEntity
-                .created(URI.create("/api/doc/" + responseDto.getId()))
+                .status(HttpStatus.OK)
                 .body(responseDto);
     }
 

@@ -26,14 +26,14 @@ public class DocumentResponseDto {
 
     private List<FileDto> files;
 
-    private String documentConstructorTypeName;
+    private Long documentConstructorTypeId;
 
     public static DocumentResponseDto mapFromEntity(Document document) {
 
-        String documentConstructorTypeName = null;
+        Long documentConstructorTypeId = null;
 
         try {
-            documentConstructorTypeName = document.getDocumentConstructorType().getName();
+            documentConstructorTypeId = document.getDocumentConstructorType().getId();
         } catch (Exception e) {
             log.warn("DocumentConstructorType name is empty");
         }
@@ -41,7 +41,7 @@ public class DocumentResponseDto {
         return DocumentResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
-                .documentConstructorTypeName(documentConstructorTypeName)
+                .documentConstructorTypeId(documentConstructorTypeId)
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
