@@ -209,8 +209,8 @@ public class UserController {
             @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
             @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
             @RequestParam(name = "email", required = false, defaultValue = "") String email,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+            @RequestParam(name = "limit", required = false, defaultValue = "30")@Min(value = 1, message = "Limit cant be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0")@Min(value = 0, message = "Page cant be less than 0") Integer page
     ) {
         List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
                 roleName,
