@@ -1,5 +1,9 @@
 package com.example.caselabproject.repositories;
-
+/**
+ * Description:
+ *
+ * @author Nikita Khodov
+ */
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.enums.RecordState;
 import org.springframework.data.domain.Page;

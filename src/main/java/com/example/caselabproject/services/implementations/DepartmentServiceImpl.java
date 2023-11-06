@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return DTO {@link DepartmentResponseDto} ответа, представляющее созданный департамент.
      * @throws DepartmentNameExistsException если департамент с указанным именем уже существует.
      * @throws DepartmentCreateException     если произошла ошибка при создании департамента.
-     * @author
+     * @author Khodov Nikita
      */
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
@@ -78,6 +79,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param departmentId ID департамента, статус записи которого нужно удалить.
      * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
      * @throws DepartmentStatusException   если статус записи департамента уже является "DELETED".
+     * @author Khodov Nikita
      */
     @Override
     public boolean deleteDepartment(Long departmentId) {
@@ -92,6 +94,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.save(department);
         return true;
     }
+
     /**
      * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
      * <p>
@@ -103,6 +106,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param departmentId ID департамента, статус записи которого нужно восстановить.
      * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
      * @throws DepartmentStatusException   если статус записи департамента уже является "ACTIVE".
+     * @author Khodov Nikita
      */
     @Override
     public DepartmentResponseDto recoverDepartment(Long departmentId) {
@@ -128,6 +132,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param departmentId ID департамента, который нужно получить.
      * @return DTO {@link DepartmentResponseDto} ответа, представляющее найденный департамент.
      * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
+     * @author Khodov Nikita
      */
     @Override
     public DepartmentResponseDto getById(Long departmentId) {
@@ -147,8 +152,9 @@ public class DepartmentServiceImpl implements DepartmentService {
      * </p>
      *
      * @param pageable Модель страницы для пагинации.
-     * @param name Имя для фильтрации списка департаментов.
+     * @param name     Имя для фильтрации списка департаментов.
      * @return Список {@link DepartmentResponseDto}, представляющий найденные департаменты.
+     * @author Khodov Nikita
      */
     @Override
     public List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState) {
@@ -171,6 +177,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
      * @return Список {@link User}, представляющий найденных пользователей.
+     * @author Khodov Nikita
      */
     @Override
     public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId) {
