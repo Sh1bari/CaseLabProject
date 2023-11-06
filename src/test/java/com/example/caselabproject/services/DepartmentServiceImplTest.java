@@ -65,9 +65,7 @@ public class DepartmentServiceImplTest {
 
     @Test
     void create_Test() {
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
-        requestDto.setName("Name");
-        departmentService.create(requestDto);
+        createDepartment();
 
         List<Department> list = departmentRepository.findAll();
 
@@ -76,9 +74,8 @@ public class DepartmentServiceImplTest {
 
     @Test
     void deleteDepartment_Test() {
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
-        requestDto.setName("Name");
-        departmentService.create(requestDto);
+
+        createDepartment();
 
         List<Department> departmentList = departmentRepository.findAll();
 
@@ -96,9 +93,7 @@ public class DepartmentServiceImplTest {
     @Test
     void recoverDepartment_Test() {
 
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
-        requestDto.setName("Name");
-        departmentService.create(requestDto);
+        createDepartment();
 
         List<Department> departmentList = departmentRepository.findAll();
 
@@ -119,14 +114,21 @@ public class DepartmentServiceImplTest {
 
     @Test
     void getById_Test() {
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
-        requestDto.setName("Name");
-        departmentService.create(requestDto);
+        DepartmentRequestDto requestDto = createDepartment();
 
         DepartmentResponseDto departmentResponseDto = departmentService.getById(1L);
 
         Assertions.assertEquals(departmentResponseDto.getName(), requestDto.getName());
 
+    }
+
+    DepartmentRequestDto createDepartment() {
+
+        DepartmentRequestDto requestDto = new DepartmentRequestDto();
+        requestDto.setName("Name");
+        departmentService.create(requestDto);
+
+        return requestDto;
     }
 
 }
