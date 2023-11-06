@@ -823,41 +823,5 @@
 2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
 2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
 2023-11-07 00:59:49 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
-2023-11-07 01:06:48 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:06:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:06:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:06:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:06:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:06:52 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
-2023-11-07 01:13:14 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:13:16 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:16 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:13:16 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:16 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:13:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:13:35 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:35 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:13:35 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:35 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:13:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:13:50 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:50 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:13:50 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:13:50 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:14:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:14:07 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:14:07 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:14:07 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:14:07 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:14:09 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
-2023-11-07 01:18:48 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:18:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:18:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:18:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:18:49 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
-2023-11-07 01:18:52 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
-2023-11-07 01:20:20 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 01:20:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:20:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
-2023-11-07 01:20:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2023-11-07 01:20:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 01:16:47 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 01:19:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
