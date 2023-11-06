@@ -2,25 +2,21 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationDeleteRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationDeleteResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
-import com.example.caselabproject.models.entities.Application;
-import com.example.caselabproject.models.entities.Document;
-import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.entities.*;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,12 +25,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
+    private final ApplicationItemRepository applicationItemRepository;
 
 
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()-> new UserByUsernameNotFoundException(username));
+                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
         Application application = request.mapToEntity();
         application.setRecordState(RecordState.ACTIVE);
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
@@ -51,10 +48,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
-        if (application.getRecordState() != updateApplication.getRecordState()){
-            throw new UpdateApplicationStatusException();
-        }
-        if (!user.getUsername().equals(application.getCreatorId().getUsername())){
+        if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
@@ -65,18 +59,18 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDeleteResponseDto deleteApplication(Long id, String username){
+    public ApplicationResponseDto deleteApplication(Long id, String username) {
         Application application = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByUsernameNotFoundException(username));
-        if (!application.getCreatorId().getUsername().equals(user.getUsername())){
+        if (!application.getCreatorId().getUsername().equals(user.getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
             applicationRepository.delete(application);
         }
 
-        return ApplicationDeleteResponseDto.mapFromEntity(application);
+        return ApplicationResponseDto.mapFromEntity(application);
     }
 
     @Override
@@ -84,5 +78,36 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application getApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
+    }
+
+    @Override
+    public ApplicationUpdateStatusAndCommentResponseDto updateApplicationStatusAndComment(
+            Long id,
+            String userName,
+            ApplicationItemStatus status,
+            String comment) {
+        Application oldApplication = applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+        List<ApplicationItem> applicationItems = oldApplication.getApplicationItems();
+        User user = userRepository.findByUsername(userName)
+                .orElseThrow(() -> new UserByUsernameNotFoundException(userName));
+        ApplicationItem applicationItem = applicationItems.stream()
+                .filter(o -> o.getApplication().getId().equals(oldApplication.getId()) &&
+                        o.getDepartment().getId().equals(user.getDepartment().getId()))
+                .findFirst()
+                .orElseThrow(() -> new ApplicationItemDoesNotFoundException());
+        applicationItems.remove(applicationItem);
+        applicationItems.remove(applicationItem);
+        if (comment != null) {
+            applicationItem.setComment(comment);
+        }
+        if (status != null) {
+            applicationItem.setStatus(status);
+        }
+        applicationItem.setApplication(oldApplication);
+        applicationItems.add(applicationItem);
+        applicationRepository.save(oldApplication);
+
+        return ApplicationUpdateStatusAndCommentResponseDto.mapFromEntity(applicationItem);
     }
 }

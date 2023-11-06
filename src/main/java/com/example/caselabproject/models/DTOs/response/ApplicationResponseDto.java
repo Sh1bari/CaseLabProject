@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ApplicationDeleteResponseDto {
+public class ApplicationResponseDto {
     private Long id;
-    public static ApplicationDeleteResponseDto mapFromEntity(Application application){
-        return ApplicationDeleteResponseDto.builder()
+    public static ApplicationResponseDto mapFromEntity(Application application){
+        return ApplicationResponseDto.builder()
                 .id(application.getId())
                 .build();
     }

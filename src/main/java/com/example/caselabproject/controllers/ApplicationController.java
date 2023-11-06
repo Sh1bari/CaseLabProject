@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.services.ApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,8 +30,6 @@ import java.security.Principal;
 @RequestMapping("/application")
 @SecurityRequirement(name = "bearerAuth")
 public class ApplicationController {
-    //TODO validation
-
     private final ApplicationService applicationService;
 
     /**
@@ -73,10 +72,10 @@ public class ApplicationController {
 
     @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApplicationDeleteResponseDto> delete(
+    public ResponseEntity<ApplicationResponseDto> delete(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id){
-        ApplicationDeleteResponseDto responseDto = applicationService.deleteApplication(id, principal.getName());
+        ApplicationResponseDto responseDto = applicationService.deleteApplication(id, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -90,5 +89,19 @@ public class ApplicationController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApplicationUpdateStatusAndCommentResponseDto> updateStatusAndComment(
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestParam(required = false) String comment,
+            Principal principal,
+            @RequestParam(required = false) ApplicationItemStatus status){
+        ApplicationUpdateStatusAndCommentResponseDto response = applicationService
+                .updateApplicationStatusAndComment(id, principal.getName(), status, comment);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 }
