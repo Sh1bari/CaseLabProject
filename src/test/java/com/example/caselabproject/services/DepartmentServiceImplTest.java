@@ -1,15 +1,13 @@
 package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
+import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.implementations.DepartmentServiceImpl;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -59,9 +57,10 @@ public class DepartmentServiceImplTest {
         userRepository.deleteAll();
     }
 
-    @BeforeAll
-    static void beforeAll() {
-        postgres.start();
+
+    @AfterAll
+    static void afterAll() {
+        postgres.stop();
     }
 
     @Test
@@ -81,14 +80,15 @@ public class DepartmentServiceImplTest {
         requestDto.setName("Name");
         departmentService.create(requestDto);
 
-        Department department1 = departmentRepository.findById(1L).get();
+        List<Department> departmentList = departmentRepository.findAll();
 
-        Assertions.assertEquals(RecordState.ACTIVE, department1.getRecordState());
+        Long id = departmentList.get(0).getId();
 
-        departmentService.deleteDepartment(1L);
+        Assertions.assertEquals(RecordState.ACTIVE, departmentList.get(0).getRecordState());
 
-        Department department2 = departmentRepository.findById(1L).get();
+        departmentService.deleteDepartment(id);
 
+        Department department2 = departmentRepository.findById(id).get();
 
         Assertions.assertEquals(RecordState.DELETED, department2.getRecordState());
     }
@@ -100,16 +100,33 @@ public class DepartmentServiceImplTest {
         requestDto.setName("Name");
         departmentService.create(requestDto);
 
-        departmentService.deleteDepartment(1L);
+        List<Department> departmentList = departmentRepository.findAll();
 
-        Department department1 = departmentRepository.findById(1L).get();
+        Long id = departmentList.get(0).getId();
+
+        departmentService.deleteDepartment(id);
+
+        Department department1 = departmentRepository.findById(id).get();
 
         Assertions.assertEquals(RecordState.DELETED, department1.getRecordState());
 
-        departmentService.recoverDepartment(1L);
+        departmentService.recoverDepartment(id);
 
-        Department department2 = departmentRepository.findById(1L).get();
+        Department department2 = departmentRepository.findById(id).get();
 
         Assertions.assertEquals(RecordState.ACTIVE, department2.getRecordState());
     }
+
+    @Test
+    void getById_Test() {
+        DepartmentRequestDto requestDto = new DepartmentRequestDto();
+        requestDto.setName("Name");
+        departmentService.create(requestDto);
+
+        DepartmentResponseDto departmentResponseDto = departmentService.getById(1L);
+
+        Assertions.assertEquals(departmentResponseDto.getName(), requestDto.getName());
+
+    }
+
 }
