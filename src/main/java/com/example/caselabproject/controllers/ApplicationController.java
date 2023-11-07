@@ -2,9 +2,7 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
-import com.example.caselabproject.models.enums.ApplicationItemStatus;
+
 import com.example.caselabproject.services.ApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -72,14 +70,14 @@ public class ApplicationController {
 
     @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApplicationResponseDto> delete(
+    public ResponseEntity<?> delete(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id){
-        ApplicationResponseDto responseDto = applicationService.deleteApplication(id, principal.getName());
+        applicationService.deleteApplication(id, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .body(responseDto);
+                .build();
     }
     @Operation(summary = "Get application by id")
     @GetMapping("/{id}")
@@ -90,7 +88,6 @@ public class ApplicationController {
                 .status(HttpStatus.OK)
                 .body(responseDto);
     }
-
     @Secured("ROLE_ADMIN")
     @PatchMapping("/{id}")
     public ResponseEntity<ApplicationUpdateStatusAndCommentResponseDto> updateStatusAndComment(

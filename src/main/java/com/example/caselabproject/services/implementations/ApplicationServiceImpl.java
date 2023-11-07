@@ -10,6 +10,12 @@ import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
+import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
+import com.example.caselabproject.models.entities.Application;
+import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.repositories.RoleRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
-
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
     private final ApplicationItemRepository applicationItemRepository;
@@ -32,6 +38,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByUsernameNotFoundException(username));
+
         Application application = request.mapToEntity();
         application.setRecordState(RecordState.ACTIVE);
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
@@ -48,7 +55,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
-        if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
+        if (!user.getUsername().equals(application.getCreatorId().getUsername())){
             throw new UserNotCreatorException(username);
         } else {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
@@ -59,18 +66,28 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationResponseDto deleteApplication(Long id, String username) {
+    public boolean deleteApplication(Long id, String username){
         Application application = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByUsernameNotFoundException(username));
-        if (!application.getCreatorId().getUsername().equals(user.getUsername())) {
+        AtomicBoolean isAdmin = new AtomicBoolean(false);
+        user.getRoles().forEach(o->{
+            if(o.getName().equals("ROLE_ADMIN")){
+                isAdmin.set(true);
+            }
+        });
+        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()){
             throw new UserNotCreatorException(username);
         } else {
-            applicationRepository.delete(application);
+            if(!application.getRecordState().equals(RecordState.DELETED)) {
+                application.setRecordState(RecordState.DELETED);
+            }else {
+                throw new ApplicationAlreadyDeletedException(application.getId());
+            }
+            applicationRepository.save(application);
         }
-
-        return ApplicationResponseDto.mapFromEntity(application);
+        return true;
     }
 
     @Override

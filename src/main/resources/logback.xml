@@ -7,8 +7,15 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE_CONTROLLERS" class="ch.qos.logback.core.FileAppender">
         <file>application.log</file> <!-- Путь и имя файла логов -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %(%-5level) [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_HIBERNATE" class="ch.qos.logback.core.FileAppender">
+        <file>hibernate.log</file> <!-- Путь и имя файла логов -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <charset>utf-8</charset>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %(%-5level) [%thread] %logger{36} - %msg%n</pattern>
@@ -20,9 +27,9 @@
         <appender-ref ref="CONSOLE" />
     </root>
     <logger name="com.example" level="warn">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE_CONTROLLERS" />
     </logger>
     <logger name="org.hibernate" level="warn">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE_HIBERNATE" />
     </logger>
 </configuration>

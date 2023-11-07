@@ -8,7 +8,6 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.ApplicationPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.DocumentPageRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -22,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,6 +31,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserPageRepository userPageRepository;
+    private final DocumentRepository documentRepository;
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
@@ -48,10 +51,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
-        User user = userRequestDto.mapToEntity();
-        user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
-        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+    public UserCreateResponseDto create(UserCreateRequestDto userCreateRequestDto) {
+        User user = userCreateRequestDto.mapToEntity();
+        user.setRoles(roleService.findRolesByRoleDtoList(userCreateRequestDto.getRoles()));
+        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userCreateRequestDto.getPassword()));
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
@@ -133,14 +136,61 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByCreatorIdByPage(Long id,
-                                                                     String name,
-                                                                     Pageable pageable) {
-        if (existById(id)) {
+    public List<DocumentCreateResponseDto> findDocsByFiltersByPage(Long creatorId,
+                                                                   String name,
+                                                                   LocalDateTime creationDateFrom,
+                                                                   LocalDateTime creationDateTo,
+                                                                   Long documentConstructorTypeId,
+                                                                   RecordState recordState,
+                                                                   Pageable pageable) {
+        if (existById(creatorId)) {
             List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentPageRepository.findAllByCreator_idAndNameContainingIgnoreCase(id, name, pageable).toList());
+                    .mapFromListOfEntities(documentPageRepository
+                            .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                                    creatorId,
+                                    name,
+                                    creationDateFrom,
+                                    creationDateTo,
+                                    documentConstructorTypeId,
+                                    recordState,
+                                    pageable).toList());
             return documentCreateResponseDtoList;
-        } else throw new UserNotFoundException(id);
+        } else {
+            throw new UserNotFoundException(creatorId);
+        }
+    }
+
+    @Override
+    public List<UserGetByIdResponseDto> findAllUsersByFiltersByPage(String roleName,
+                                                                    String departmentName,
+                                                                    String firstName,
+                                                                    String lastName,
+                                                                    String patronymic,
+                                                                    LocalDate birthDateFrom,
+                                                                    LocalDate birthDateTo,
+                                                                    String email,
+                                                                    Pageable pageable) {
+        List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
+                userPageRepository
+                        .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
+                                roleName,
+                                firstName,
+                                lastName,
+                                patronymic,
+                                birthDateFrom,
+                                birthDateTo,
+                                email,
+                                pageable).toList());
+        if (!departmentName.isEmpty()) {
+            Department department = departmentRepo
+                    .findByName(departmentName)
+                    .orElseThrow(() -> new DepartmentNotFoundException(departmentName));
+            userCreateResponseDtoList = userCreateResponseDtoList
+                    .stream()
+                    .filter(o -> o.getDepartmentId().equals(department.getId()))
+                    .toList();
+        }
+        return userCreateResponseDtoList;
     }
 
     @Override
