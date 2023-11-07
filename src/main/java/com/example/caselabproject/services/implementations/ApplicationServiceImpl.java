@@ -78,7 +78,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             if(!application.getRecordState().equals(RecordState.DELETED)) {
                 application.setRecordState(RecordState.DELETED);
             }else {
-                throw new
+                throw new ApplicationAlreadyDeletedException(application.getId());
             }
             applicationRepository.save(application);
         }
