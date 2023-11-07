@@ -7,7 +7,6 @@ import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -58,10 +57,12 @@ public interface UserService {
                                                              String email,
                                                              Pageable pageable
     );
+
     @Transactional
     List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
             Pageable pageable);
+
     @Transactional
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByUserIdByPage(
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,

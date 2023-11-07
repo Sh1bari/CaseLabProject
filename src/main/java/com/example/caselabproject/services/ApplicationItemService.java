@@ -7,7 +7,6 @@ import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResp
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -30,11 +29,11 @@ public interface ApplicationItemService {
     ApplicationItemGetByIdResponseDto getApplicationItemById(
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
-            @NotBlank(message = "Application creator username cant be blank.")String username);
+            @NotBlank(message = "Application creator username cant be blank.") String username);
 
     @Transactional
     ApplicationItemTakeResponseDto takeApplicationItem(
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
-            @NotBlank(message = "Application creator username cant be blank.")String username);
+            @NotBlank(message = "Application creator username cant be blank.") String username);
 }

@@ -9,6 +9,7 @@ public class UserNotFoundException extends GlobalAppException {
         super(404, "User with id " + id + " not found.");
         log.warn(message);
     }
+
     public UserNotFoundException(String username) {
         super(404, "User with username " + username + " not found.");
         log.warn(message);

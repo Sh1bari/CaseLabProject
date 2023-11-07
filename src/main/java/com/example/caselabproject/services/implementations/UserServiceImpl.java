@@ -26,7 +26,6 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -55,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existById(Long id) {
         boolean exists = userRepository.existsById(id);
-        if(!exists){
+        if (!exists) {
             throw new UserNotFoundException(id);
         }
         return true;
@@ -222,16 +221,16 @@ public class UserServiceImpl implements UserService {
             String username) {
         AtomicBoolean isAdmin = new AtomicBoolean(false);
         User userByUsername = getUserByUsername(username);
-        userByUsername.getRoles().forEach(o->{
-            if(o.getName().equals("ROLE_ADMIN")){
+        userByUsername.getRoles().forEach(o -> {
+            if (o.getName().equals("ROLE_ADMIN")) {
                 isAdmin.set(true);
             }
         });
         User userById = getUserById(id);
         //Can be read only by admins, himself and from the same department
-        if(!isAdmin.get() &&
+        if (!isAdmin.get() &&
                 !userByUsername.getId().equals(id) &&
-                !userById.getDepartment().getId().equals(userByUsername.getDepartment().getId())){
+                !userById.getDepartment().getId().equals(userByUsername.getDepartment().getId())) {
             throw new ApplicationItemPermissionException();
         }
         Page<ApplicationItem> applicationItemPage = applicationItemPageRepo
@@ -241,26 +240,28 @@ public class UserServiceImpl implements UserService {
                         applicationName,
                         pageable);
         List<ApplicationItem> res;
-        if(status!=null){
+        if (status != null) {
             res = applicationItemPage.getContent()
                     .stream()
-                    .filter(o->o.getStatus().equals(status))
+                    .filter(o -> o.getStatus().equals(status))
                     .toList();
-        }else {
+        } else {
             res = applicationItemPage.getContent();
         }
         return res.stream()
                 .map(ApplicationItemGetByIdResponseDto::mapFromEntity)
                 .toList();
     }
-    private User getUserByUsername(String username){
+
+    private User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()->new UserNotFoundException(username));
+                .orElseThrow(() -> new UserNotFoundException(username));
         return user;
     }
-    private User getUserById(Long id){
+
+    private User getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(()->new UserNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundException(id));
         return user;
     }
 }

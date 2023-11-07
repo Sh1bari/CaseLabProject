@@ -37,7 +37,7 @@ public class SecurityUserService implements UserDetailsService {
         User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' is not found", username)
         ));
-        if(user.getRecordState().equals(RecordState.DELETED)){
+        if (user.getRecordState().equals(RecordState.DELETED)) {
             throw new DeletedUserException(username);
         }
         return new org.springframework.security.core.userdetails.User(

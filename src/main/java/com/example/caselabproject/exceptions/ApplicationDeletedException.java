@@ -1,6 +1,5 @@
 package com.example.caselabproject.exceptions;
 
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -9,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vladimir Krasnov
  */
 @Slf4j
-public class ApplicationDeletedException extends GlobalAppException{
+public class ApplicationDeletedException extends GlobalAppException {
     public ApplicationDeletedException(Long applicationId) {
         super(409, "Application with id " + applicationId + " has been deleted.");
     }

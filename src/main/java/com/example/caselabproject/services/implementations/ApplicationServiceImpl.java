@@ -1,28 +1,26 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.ApplicationAlreadyDeletedException;
+import com.example.caselabproject.exceptions.ApplicationNotFoundException;
+import com.example.caselabproject.exceptions.UserNotCreatorException;
+import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
-import com.example.caselabproject.models.entities.*;
-import com.example.caselabproject.models.enums.ApplicationItemStatus;
-import com.example.caselabproject.models.enums.ApplicationStatus;
-import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.ApplicationItemRepository;
-import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.User;
-import com.example.caselabproject.repositories.RoleRepository;
+import com.example.caselabproject.models.enums.ApplicationStatus;
+import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.ApplicationItemRepository;
+import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
@@ -55,7 +53,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationNotFoundException(id));
-        if (!user.getUsername().equals(application.getCreatorId().getUsername())){
+        if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
@@ -66,23 +64,23 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public boolean deleteApplication(Long id, String username){
+    public boolean deleteApplication(Long id, String username) {
         Application application = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationNotFoundException(id));
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
         AtomicBoolean isAdmin = new AtomicBoolean(false);
-        user.getRoles().forEach(o->{
-            if(o.getName().equals("ROLE_ADMIN")){
+        user.getRoles().forEach(o -> {
+            if (o.getName().equals("ROLE_ADMIN")) {
                 isAdmin.set(true);
             }
         });
-        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()){
+        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()) {
             throw new UserNotCreatorException(username);
         } else {
-            if(!application.getRecordState().equals(RecordState.DELETED)) {
+            if (!application.getRecordState().equals(RecordState.DELETED)) {
                 application.setRecordState(RecordState.DELETED);
-            }else {
+            } else {
                 throw new ApplicationAlreadyDeletedException(application.getId());
             }
             applicationRepository.save(application);

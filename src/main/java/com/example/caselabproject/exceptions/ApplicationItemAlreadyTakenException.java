@@ -1,6 +1,5 @@
 package com.example.caselabproject.exceptions;
 
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -9,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Vladimir Krasnov
  */
 @Slf4j
-public class ApplicationItemAlreadyTakenException extends GlobalAppException{
+public class ApplicationItemAlreadyTakenException extends GlobalAppException {
     public ApplicationItemAlreadyTakenException(Long applicationItemId) {
         super(409, "Application item with id " + applicationItemId + " has been already taken.");
     }

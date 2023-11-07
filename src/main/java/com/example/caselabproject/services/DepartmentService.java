@@ -12,8 +12,6 @@ import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
-
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +53,8 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    boolean deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1")Long departmentId);
+    boolean deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+
     /**
      * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
      * <p>
@@ -70,7 +69,8 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1")Long departmentId);
+    DepartmentResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+
     /**
      * Возвращает департамент по указанному ID в виде {@link DepartmentResponseDto}.
      * <p>
@@ -84,7 +84,8 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1")Long departmentId);
+    DepartmentResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+
     /**
      * Возвращает список департаментов с пагинацией и возможностью фильтрации по имени.
      * <p>
@@ -101,6 +102,7 @@ public interface DepartmentService {
      */
     @Transactional
     List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
+
     /**
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
      * <p>
@@ -116,6 +118,7 @@ public interface DepartmentService {
     @Transactional
     List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+
     @Transactional(readOnly = true)
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,

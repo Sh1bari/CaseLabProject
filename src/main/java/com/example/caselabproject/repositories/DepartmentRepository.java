@@ -12,5 +12,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Page<Department> findAll(Pageable pageable);
 
     Page<Department> findDepartmentsByNameContainingAndRecordState(String name, Pageable pageable, RecordState recordState);
+
     Optional<Department> findByName(String name);
 }

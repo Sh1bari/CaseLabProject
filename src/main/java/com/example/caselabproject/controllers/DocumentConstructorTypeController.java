@@ -2,11 +2,11 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
+import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -162,7 +162,7 @@ public class DocumentConstructorTypeController {
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
         List<DocumentConstructorTypeByIdResponseDto> response =
                 typeService.getAllContaining(name, state, page, size);
-        if(response.isEmpty()){
+        if (response.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .body(response);

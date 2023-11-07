@@ -1,6 +1,9 @@
 package com.example.caselabproject.models.DTOs;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Description:

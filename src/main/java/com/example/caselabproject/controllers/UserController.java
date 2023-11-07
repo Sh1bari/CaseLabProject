@@ -29,7 +29,6 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * The type User controller.
@@ -208,8 +207,8 @@ public class UserController {
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
-            @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01") LocalDateTime creationDateFrom,
-            @RequestParam(name = "dateTo", required = false, defaultValue = "3000-01-01") LocalDateTime creationDateTo,
+            @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateFrom,
+            @RequestParam(name = "dateTo", required = false, defaultValue = "3000-01-01T23:59:59") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateTo,
             @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
@@ -265,8 +264,8 @@ public class UserController {
             @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
             @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
             @RequestParam(name = "patronymic", required = false, defaultValue = "") String patronymic,
-            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateFrom,
-            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateTo,
+            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateTo,
             @RequestParam(name = "email", required = false, defaultValue = "") String email,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
@@ -305,18 +304,19 @@ public class UserController {
     public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page){
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page) {
         List<ApplicationFindResponseDto> applicationFindResponseDto = userService.findApplicationsByCreatorIdByPage(id, PageRequest.of(page, limit));
-        if (applicationFindResponseDto.isEmpty()){
+        if (applicationFindResponseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .body(applicationFindResponseDto);
-        }else {
+        } else {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(applicationFindResponseDto);
         }
     }
+
     @Operation(summary = "Get application items by user id", description = "Secured by authorized users, can be read only by admins, creator or employees in the same department")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Application items by user id",
@@ -338,8 +338,8 @@ public class UserController {
             @RequestParam(name = "status", required = false) ApplicationItemStatus status,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page,
-            Principal principal){
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page,
+            Principal principal) {
 
         List<ApplicationItemGetByIdResponseDto> applicationItemGetByIdResponseDtoList = userService
                 .findApplicationItemsByUserIdByPage(
@@ -349,11 +349,11 @@ public class UserController {
                         recordState,
                         PageRequest.of(page, limit),
                         principal.getName());
-        if (applicationItemGetByIdResponseDtoList.isEmpty()){
+        if (applicationItemGetByIdResponseDtoList.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .build();
-        }else {
+        } else {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(applicationItemGetByIdResponseDtoList);

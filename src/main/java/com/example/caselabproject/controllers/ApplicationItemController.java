@@ -2,7 +2,6 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
@@ -14,7 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,6 +35,7 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class ApplicationItemController {
     private final ApplicationItemService applicationItemService;
+
     @Operation(summary = "Send application to departments or users", description = "Secured by authorized users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Application sent",
@@ -50,14 +50,15 @@ public class ApplicationItemController {
                             schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/application/{id}/applicationItem")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<CreateApplicationItemResponseDto>> createApplicationItems(@PathVariable(name = "id")Long id,
-                                                                                   Principal principal,
-                                                                                   @RequestBody List<@Valid CreateApplicationItemRequestDto> applicationItemList){
+    public ResponseEntity<List<CreateApplicationItemResponseDto>> createApplicationItems(@PathVariable(name = "id") Long id,
+                                                                                         Principal principal,
+                                                                                         @RequestBody List<@Valid CreateApplicationItemRequestDto> applicationItemList) {
         List<CreateApplicationItemResponseDto> res = applicationItemService.createApplicationItem(applicationItemList, id, principal.getName());
         return ResponseEntity
                 .created(URI.create("/api/application/" + id + "/applicationItem/"))
                 .body(res);
     }
+
     @Operation(summary = "Get application item by id", description = "Secured by authorized users, can be read only by admins, creator and employees in the department")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Application item by id",
@@ -70,9 +71,9 @@ public class ApplicationItemController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
-    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId")Long applicationId,
-                                                                                    @PathVariable(name = "id")Long id,
-                                                                                    Principal principal){
+    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId") Long applicationId,
+                                                                                    @PathVariable(name = "id") Long id,
+                                                                                    Principal principal) {
         ApplicationItemGetByIdResponseDto res = applicationItemService.getApplicationItemById(applicationId, id, principal.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -96,8 +97,8 @@ public class ApplicationItemController {
 
     @PostMapping("/application/{applicationId}/applicationItem/{id}/take")
     @Secured("ROLE_USER")
-    public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(@PathVariable(name = "applicationId")Long applicationId,
-                                                                              @PathVariable(name = "id")Long id,
+    public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(@PathVariable(name = "applicationId") Long applicationId,
+                                                                              @PathVariable(name = "id") Long id,
                                                                               Principal principal) {
         ApplicationItemTakeResponseDto res = applicationItemService.takeApplicationItem(applicationId, id, principal.getName());
         return ResponseEntity

@@ -13,7 +13,7 @@ public class ApplicationUpdateStatusAndCommentResponseDto {
     private ApplicationItemStatus status;
     private String comment;
 
-    public static ApplicationUpdateStatusAndCommentResponseDto mapFromEntity(ApplicationItem applicationItem){
+    public static ApplicationUpdateStatusAndCommentResponseDto mapFromEntity(ApplicationItem applicationItem) {
         return ApplicationUpdateStatusAndCommentResponseDto.builder()
                 .application(ApplicationResponseDto.mapFromEntity(applicationItem.getApplication()))
                 .id(applicationItem.getId())

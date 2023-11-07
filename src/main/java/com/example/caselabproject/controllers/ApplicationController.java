@@ -2,13 +2,10 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationUpdateStatusAndCommentResponseDto;
-import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.services.ApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

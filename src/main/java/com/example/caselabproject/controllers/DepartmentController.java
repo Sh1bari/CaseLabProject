@@ -1,7 +1,6 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.UserDto;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
@@ -238,8 +237,8 @@ public class DepartmentController {
             @RequestParam(name = "status", required = false) ApplicationItemStatus status,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page,
-            Principal principal){
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page,
+            Principal principal) {
         List<ApplicationItemGetByIdResponseDto> res = departmentService
                 .findApplicationItemsByDepartmentIdByPage(
                         id,
