@@ -31,11 +31,11 @@ public class User {
     private AuthUserInfo authUserInfo;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"))
     private List<Role> roles;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
@@ -49,5 +49,8 @@ public class User {
 
     @OneToMany(mappedBy = "creatorId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Application> applications;
+
+    @OneToMany(mappedBy = "toUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    private List<ApplicationItem> applicationItems;
 
 }

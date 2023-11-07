@@ -37,7 +37,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         Application application = request.mapToEntity();
         application.setRecordState(RecordState.ACTIVE);
@@ -51,10 +51,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationUpdateResponseDto updateApplication(Long id, String username,
                                                           ApplicationUpdateRequestDto request) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
+                .orElseThrow(() -> new UserNotFoundException(username));
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
         if (!user.getUsername().equals(application.getCreatorId().getUsername())){
             throw new UserNotCreatorException(username);
         } else {
@@ -68,9 +68,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public boolean deleteApplication(Long id, String username){
         Application application = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserByUsernameNotFoundException(username));
+                .orElseThrow(() -> new UserNotFoundException(username));
         AtomicBoolean isAdmin = new AtomicBoolean(false);
         user.getRoles().forEach(o->{
             if(o.getName().equals("ROLE_ADMIN")){
@@ -93,7 +93,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationFindResponseDto getApplicationById(Long id) {
         Application getApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
 

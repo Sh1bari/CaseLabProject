@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION add_check_status_constraint() RETURNS VOID AS $$
 DECLARE
     tbl_name TEXT;
-    table_names TEXT[] := ARRAY['users', 'application', 'department', 'document', 'document_constructor_type'];
+    table_names TEXT[] := ARRAY['users', 'application', 'department', 'document', 'document_constructor_type', 'application_item'];
 BEGIN
     FOREACH tbl_name IN ARRAY table_names
         LOOP
