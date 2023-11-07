@@ -7,6 +7,7 @@ import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +27,7 @@ public interface DocumentService {
      * @throws DocumentConstructorTypeNameNotFoundException если не найден DocumentConstructorType.
      */
     @Transactional
-    DocumentCreateResponseDto createDocument(String username, @Valid DocumentRequestDto request);
+    DocumentCreateResponseDto createDocument(@NotBlank(message = "Username cant be blank.") String username, @Valid DocumentRequestDto request);
 
     /**
      * Позволяет найти документ по его ID.

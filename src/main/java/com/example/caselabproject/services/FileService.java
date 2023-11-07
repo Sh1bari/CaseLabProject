@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +26,7 @@ public interface FileService {
      * @throws FileConnectToDocumentException если добавить файл к документу не получилось
      */
     @Transactional
-    List<FileResponseDto> addFile(String username, MultipartFile file,
+    List<FileResponseDto> addFile(@NotBlank(message = "Username cant be blank.") String username, MultipartFile file,
                                   @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
     /**
