@@ -830,3 +830,8 @@
 2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
 2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
 2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 18:26:55 WARN  [main] c.e.c.e.DepartmentCreateException - Can not create department!
+2023-11-07 18:27:26 WARN  [main] c.e.c.e.DepartmentCreateException - Can not create department!
+2023-11-07 23:46:38 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
+2023-11-08 00:41:30 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
+2023-11-08 00:41:47 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
