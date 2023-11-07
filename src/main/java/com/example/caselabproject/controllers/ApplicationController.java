@@ -28,6 +28,11 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.security.Principal;
 
+/**
+ * Description:
+ *
+ * @author Tribushko Danil
+ */
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -36,11 +41,7 @@ import java.security.Principal;
 public class ApplicationController {
     private final ApplicationService applicationService;
 
-    /**
-     * Description:
-     * @author
-     */
-    @Operation(summary = "Create new application")
+    @Operation(summary = "Create new application", description = "Secured by authorized users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Application created",
                     content = {@Content(mediaType = "application/json",
@@ -55,18 +56,32 @@ public class ApplicationController {
     @Secured("ROLE_USER")
     public ResponseEntity<ApplicationCreateResponseDto> create(
             Principal principal,
-            @RequestBody @Valid ApplicationCreateRequestDto requestDto){
+            @RequestBody @Valid ApplicationCreateRequestDto requestDto) {
         ApplicationCreateResponseDto responseDto = applicationService.createApplication(principal.getName(), requestDto);
         return ResponseEntity
                 .created(URI.create("/api/application" + responseDto.getId()))
                 .body(responseDto);
     }
+
+    @Operation(summary = "Update application, secured by user", description = "Secured by authorized users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Application updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User by provided id username not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "400", description = "Deadline cant be less than now",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+
+    })
     @Secured("ROLE_USER")
     @PutMapping("/{id}")
     public ResponseEntity<ApplicationUpdateResponseDto> update(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
-            @RequestBody @Valid ApplicationUpdateRequestDto requestDto){
+            @RequestBody @Valid ApplicationUpdateRequestDto requestDto) {
         ApplicationUpdateResponseDto responseDto = applicationService.updateApplication(id, principal.getName(),
                 requestDto);
         return ResponseEntity
@@ -74,18 +89,40 @@ public class ApplicationController {
                 .body(responseDto);
     }
 
+    @Operation(summary = "Delete application", description = "Secured by authorized users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Application deleted",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Application with provided id is not found/" +
+                    "User with provided id is not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "403", description = "User with provided id is not creator",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Application already deleted")
+    })
     @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(
             Principal principal,
-            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id){
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         applicationService.deleteApplication(id, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+
     @Operation(summary = "Get application by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationFindResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Application with provided id is not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @GetMapping("/{id}")
     public ResponseEntity<ApplicationFindResponseDto> findApplicationById(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {

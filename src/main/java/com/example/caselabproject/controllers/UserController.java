@@ -26,6 +26,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The type User controller.
@@ -228,6 +229,7 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
     }
+
     /**
      * Gets all users by filters.
      *
@@ -285,17 +287,26 @@ public class UserController {
                 .body(userGetByIdResponseDtoList);
     }
 
+    @Operation(summary = "Get user's application by page")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Page with applications found",
+                    content = {@Content(mediaType = "applications/json",
+                            schema = @Schema(implementation = ApplicationFindResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User by provided id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @GetMapping("/{id}/applications")
     public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page){
+            @RequestParam(name = "page", defaultValue = "0") Integer page) {
         List<ApplicationFindResponseDto> applicationFindResponseDro = userService.findApplicationsByCreatorIdByPage(id, PageRequest.of(page, limit));
-        if (applicationFindResponseDro.isEmpty()){
+        if (applicationFindResponseDro.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .body(applicationFindResponseDro);
-        }else {
+        } else {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(applicationFindResponseDro);

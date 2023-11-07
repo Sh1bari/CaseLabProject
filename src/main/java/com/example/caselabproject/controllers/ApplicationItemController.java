@@ -58,17 +58,25 @@ public class ApplicationItemController {
                 .body(res);
     }
 
+    @Operation(summary = "Get application item by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application item found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Application with provided id not found/" +
+                    "User with provided id not found/Application item with provided id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
-    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId")Long applicationId,
-                                                                                    @PathVariable(name = "id")Long id,
-                                                                                    Principal principal){
+    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId") Long applicationId,
+                                                                                    @PathVariable(name = "id") Long id,
+                                                                                    Principal principal) {
         ApplicationItemGetByIdResponseDto res = applicationItemService.getApplicationItemById(applicationId, id, principal.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(res);
     }
-
-
 
 
 }
