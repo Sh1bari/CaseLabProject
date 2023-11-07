@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -263,8 +265,8 @@ public class UserController {
             @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
             @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
             @RequestParam(name = "patronymic", required = false, defaultValue = "") String patronymic,
-            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
-            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
+            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDateTo,
             @RequestParam(name = "email", required = false, defaultValue = "") String email,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
@@ -350,11 +352,11 @@ public class UserController {
         if (applicationItemGetByIdResponseDtoList.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(applicationFindResponseDro);
+                    .build();
         }else {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(applicationFindResponseDro);
+                    .body(applicationItemGetByIdResponseDtoList);
         }
     }
 }
