@@ -3,8 +3,10 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.UserDto;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +26,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -212,5 +215,46 @@ public class DepartmentController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
+    }
+
+    @Operation(summary = "Get application items by department id", description = "Secured by authorized users, can be read only by admins or employees in the department")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application items by department id",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "204", description = "No content with these filters found",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "User don't have enough rights for access to Application items",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "Department or user not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @GetMapping("/{id}/applicationItems")
+    @Secured("ROLE_USER")
+    public ResponseEntity<List<ApplicationItemGetByIdResponseDto>> getApplicationItemsById(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestParam(name = "applicationName", required = false, defaultValue = "") String applicationName,
+            @RequestParam(name = "status", required = false) ApplicationItemStatus status,
+            @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page,
+            Principal principal){
+        List<ApplicationItemGetByIdResponseDto> res = departmentService
+                .findApplicationItemsByDepartmentIdByPage(
+                        id,
+                        applicationName,
+                        status,
+                        recordState,
+                        PageRequest.of(page, limit),
+                        principal.getName());
+        if (res.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
     }
 }

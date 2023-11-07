@@ -5,10 +5,12 @@ import com.example.caselabproject.exceptions.DepartmentNameExistsException;
 import com.example.caselabproject.exceptions.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.DepartmentStatusException;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 
 
@@ -114,5 +116,13 @@ public interface DepartmentService {
     @Transactional
     List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    @Transactional(readOnly = true)
+    List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(
+            @Min(value = 1L, message = "Id can't be less than 1.") Long id,
+            String applicationName,
+            ApplicationItemStatus status,
+            RecordState recordState,
+            Pageable pageable,
+            String username);
 
 }

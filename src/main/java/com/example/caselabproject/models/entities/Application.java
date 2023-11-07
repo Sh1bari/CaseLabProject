@@ -22,6 +22,8 @@ public class Application {
     @Column(name = "id")
     private Long id;
 
+    private String name;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "creator_id")
     private User creatorId;

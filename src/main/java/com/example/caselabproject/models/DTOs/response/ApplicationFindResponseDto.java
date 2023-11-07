@@ -16,6 +16,7 @@ import java.util.List;
 @Builder
 public class ApplicationFindResponseDto {
     private Long id;
+    private String name;
     private LocalDateTime creationDate;
     private LocalDateTime deadlineDate;
     private Long creatorId;
@@ -38,6 +39,7 @@ public class ApplicationFindResponseDto {
         }
         return ApplicationFindResponseDto.builder()
                 .id(application.getId())
+                .name(application.getName())
                 .documentId(documentId)
                 .creationDate(application.getCreationDate())
                 .deadlineDate(application.getDeadlineDate())

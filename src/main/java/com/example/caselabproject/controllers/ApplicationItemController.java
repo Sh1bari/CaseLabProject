@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,8 +58,19 @@ public class ApplicationItemController {
                 .created(URI.create("/api/application/" + id + "/applicationItem/"))
                 .body(res);
     }
-
+    @Operation(summary = "Get application item by id", description = "Secured by authorized users, can be read only by admins, creator and employees in the department")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application item by id",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "403", description = "User don't have enough rights for access to Application item",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "Application, application item or user not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId")Long applicationId,
                                                                                     @PathVariable(name = "id")Long id,
                                                                                     Principal principal){
@@ -68,7 +80,31 @@ public class ApplicationItemController {
                 .body(res);
     }
 
+    @Operation(summary = "Take application item by user", description = "Secured by authorized users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "403", description = "User don't have enough rights for access to Application item",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "Application or application item not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Application or application is DELETED/application item has been already taken",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
 
+    @PostMapping("/application/{applicationId}/applicationItem/{id}/take")
+    @Secured("ROLE_USER")
+    public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(@PathVariable(name = "applicationId")Long applicationId,
+                                                                              @PathVariable(name = "id")Long id,
+                                                                              Principal principal) {
+        ApplicationItemTakeResponseDto res = applicationItemService.takeApplicationItem(applicationId, id, principal.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
+    }
 
 
 }

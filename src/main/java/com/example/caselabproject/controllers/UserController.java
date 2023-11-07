@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -200,11 +202,12 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/docs")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
-            @RequestParam(name = "dateFrom", required = false) LocalDateTime creationDateFrom,
-            @RequestParam(name = "dateTo", required = false) LocalDateTime creationDateTo,
+            @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01") LocalDateTime creationDateFrom,
+            @RequestParam(name = "dateTo", required = false, defaultValue = "3000-01-01") LocalDateTime creationDateTo,
             @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
@@ -253,6 +256,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
             @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
             @RequestParam(name = "departmentName", required = false, defaultValue = "") String departmentName,
@@ -286,19 +290,62 @@ public class UserController {
     }
 
     @GetMapping("/{id}/applications")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
-            @RequestParam(name = "limit", required = false, defaultValue = "30") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") Integer page){
-        List<ApplicationFindResponseDto> applicationFindResponseDro = userService.findApplicationsByCreatorIdByPage(id, PageRequest.of(page, limit));
-        if (applicationFindResponseDro.isEmpty()){
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page){
+        List<ApplicationFindResponseDto> applicationFindResponseDto = userService.findApplicationsByCreatorIdByPage(id, PageRequest.of(page, limit));
+        if (applicationFindResponseDto.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(applicationFindResponseDro);
+                    .body(applicationFindResponseDto);
         }else {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(applicationFindResponseDro);
+                    .body(applicationFindResponseDto);
+        }
+    }
+    @Operation(summary = "Get application items by user id", description = "Secured by authorized users, can be read only by admins, creator or employees in the same department")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application items by user id",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemGetByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "204", description = "No content with these filters found",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "User don't have enough rights for access to Application items",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @GetMapping("/{id}/applicationItems")
+    @Secured("ROLE_USER")
+    public ResponseEntity<List<ApplicationItemGetByIdResponseDto>> getApplicationItemsByUserId(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestParam(name = "applicationName", required = false, defaultValue = "") String applicationName,
+            @RequestParam(name = "status", required = false) ApplicationItemStatus status,
+            @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", defaultValue = "0")@Min(value = 0L, message = "Page number can't be less than 0") Integer page,
+            Principal principal){
+
+        List<ApplicationItemGetByIdResponseDto> applicationItemGetByIdResponseDtoList = userService
+                .findApplicationItemsByUserIdByPage(
+                        id,
+                        applicationName,
+                        status,
+                        recordState,
+                        PageRequest.of(page, limit),
+                        principal.getName());
+        if (applicationItemGetByIdResponseDtoList.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(applicationItemGetByIdResponseDtoList);
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(applicationItemGetByIdResponseDtoList);
         }
     }
 }

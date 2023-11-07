@@ -2,11 +2,11 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import io.swagger.v3.oas.annotations.Operation;

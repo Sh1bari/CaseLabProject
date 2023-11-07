@@ -2,6 +2,7 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -27,6 +28,12 @@ public interface ApplicationItemService {
 
     @Transactional(readOnly = true)
     ApplicationItemGetByIdResponseDto getApplicationItemById(
+            @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
+            @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
+            @NotBlank(message = "Application creator username cant be blank.")String username);
+
+    @Transactional
+    ApplicationItemTakeResponseDto takeApplicationItem(
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
             @NotBlank(message = "Application creator username cant be blank.")String username);

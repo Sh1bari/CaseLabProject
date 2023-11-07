@@ -3,6 +3,7 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
@@ -96,28 +97,60 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                                     Long applicationItemId,
                                                                     String username) {
         AtomicBoolean isAdmin = new AtomicBoolean(false);
-        User user = userRepo.findByUsername(username)
-                .orElseThrow(()->new UserNotFoundException(username));
+        User user = getUserByUsername(username);
         user.getRoles().forEach(o->{
             if(o.getName().equals("ROLE_ADMIN")){
                 isAdmin.set(true);
             }
         });
-        Application application = applicationRepo.findById(applicationId)
-                .orElseThrow(()->new ApplicationNotFoundException(applicationId));
-        ApplicationItem applicationItem = applicationItemRepo.findById(applicationItemId)
-                .orElseThrow(()-> new ApplicationItemNotFoundException(applicationItemId));
+        Application application = getApplicationById(applicationId);
+        ApplicationItem applicationItem = getApplicationItemById(applicationItemId);
         //Просмотр админам, создателю и всем в отделе
         if(!isAdmin.get() &&
                 !application.getCreatorId().getId().equals(user.getId()) &&
                 !applicationItem.getToDepartment().getId().equals(user.getDepartment().getId())){
             throw new ApplicationItemPermissionException(applicationItem.getId());
         }
-        ApplicationItem item =
-                applicationItemRepo.findById(applicationItemId)
-                        .orElseThrow(()->new ApplicationItemNotFoundException(applicationItemId));
 
-        return ApplicationItemGetByIdResponseDto.mapFromEntity(item);
+        return ApplicationItemGetByIdResponseDto.mapFromEntity(applicationItem);
+    }
+
+    @Override
+    public ApplicationItemTakeResponseDto takeApplicationItem(Long applicationId, Long applicationItemId, String username) {
+        User user = getUserByUsername(username);
+        Application application = getApplicationById(applicationId);
+        ApplicationItem applicationItem = getApplicationItemById(applicationItemId);
+        departmentIsActive(user.getDepartment());
+        //RecordState check
+        applicationIsActive(application);
+        applicationItemIsActive(applicationItem);
+
+        if(!applicationItem.getToDepartment().getId().equals(user.getDepartment().getId())){
+            throw new ApplicationItemPermissionException(applicationItemId);
+        }
+        if(applicationItem.getToUser() != null){
+            throw new ApplicationItemAlreadyTakenException(applicationItemId);
+        }
+        applicationItem.setToUser(user);
+        applicationItemRepo.save(applicationItem);
+        return ApplicationItemTakeResponseDto.mapFromEntity(applicationItem);
+    }
+
+    private User getUserByUsername(String username){
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(()->new UserNotFoundException(username));
+        return user;
+    }
+
+    private Application getApplicationById(Long applicationId){
+        Application application = applicationRepo.findById(applicationId)
+                .orElseThrow(()->new ApplicationNotFoundException(applicationId));
+        return application;
+    }
+    private ApplicationItem getApplicationItemById(Long applicationItemId){
+        ApplicationItem applicationItem = applicationItemRepo.findById(applicationItemId)
+                .orElseThrow(()-> new ApplicationItemNotFoundException(applicationItemId));
+        return applicationItem;
     }
 
     private boolean departmentIsActive(Department department){
@@ -126,14 +159,24 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         }
         return true;
     }
+    private boolean applicationIsActive(Application application){
+        if (application.getRecordState().equals(RecordState.DELETED)){
+            throw new ApplicationDeletedException(application.getId());
+        }
+        return true;
+    }
+    private boolean applicationItemIsActive(ApplicationItem applicationItem){
+        if (applicationItem.getRecordState().equals(RecordState.DELETED)){
+            throw new ApplicationItemDeletedException(applicationItem.getId());
+        }
+        return true;
+    }
 
     private boolean userAndDepartmentAreActive(User user){
         if(user.getRecordState().equals(RecordState.DELETED)){
             throw new UserDeletedException(user.getId());
         }
-        if (user.getDepartment().getRecordState().equals(RecordState.DELETED)){
-            throw new DepartmentDeletedException(user.getDepartment().getId());
-        }
+        departmentIsActive(user.getDepartment());
         return true;
     }
 

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ApplicationCreateResponseDto {
     private Long id;
+    private String name;
     private LocalDateTime creationDate;
     private LocalDateTime deadlineDate;
     private Long creatorId;
@@ -18,6 +19,7 @@ public class ApplicationCreateResponseDto {
     public static ApplicationCreateResponseDto mapFromEntity(Application application){
         return ApplicationCreateResponseDto.builder()
                 .id(application.getId())
+                .name(application.getName())
                 .deadlineDate(application.getDeadlineDate())
                 .creationDate(application.getCreationDate())
                 .creatorId(application.getCreatorId().getId())

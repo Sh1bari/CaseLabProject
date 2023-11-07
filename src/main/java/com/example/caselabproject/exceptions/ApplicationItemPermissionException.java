@@ -14,4 +14,8 @@ public class ApplicationItemPermissionException extends GlobalAppException{
         super(403, "You don't have enough rights for access to Application item with id " + id);
         log.warn(message);
     }
+    public ApplicationItemPermissionException() {
+        super(403, "You don't have enough rights for access to Application items");
+        log.warn(message);
+    }
 }

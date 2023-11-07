@@ -10,11 +10,13 @@ import java.time.LocalDateTime;
 @Builder
 public class ApplicationUpdateResponseDto {
     private Long id;
+    private String name;
     private LocalDateTime deadline;
 
     public static ApplicationUpdateResponseDto mapFromEntity(Application application){
         return ApplicationUpdateResponseDto.builder()
                 .id(application.getId())
+                .name(application.getName())
                 .deadline(application.getDeadlineDate())
                 .build();
     }
