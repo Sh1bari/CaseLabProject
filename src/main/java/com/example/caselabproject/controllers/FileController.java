@@ -1,8 +1,14 @@
 package com.example.caselabproject.controllers;
 
+import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import com.example.caselabproject.services.FileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +29,25 @@ public class FileController {
 
     private final FileService fileService;
 
+    @Operation(summary = "Add new file", description = " Add new file to document by document's Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "File added",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FileResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Document not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
             @RequestParam("file") MultipartFile file,
@@ -34,6 +59,25 @@ public class FileController {
                 .body(response);
     }
 
+    @Operation(summary = "Get file by document's id", description = "Retrieves list of files by document's ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of files retrieved successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FileResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "204", description = "No files found"),
+            @ApiResponse(responseCode = "404", description = "Document not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid pagination parameters",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @GetMapping("/")
     public ResponseEntity<List<FileResponseDto>> getFilesByDocumentId(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
@@ -45,6 +89,19 @@ public class FileController {
                 .body(response);
     }
 
+    @Operation(summary = "Download file by file's id", description = "Download file by document's ID and file's ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Files downloaded successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FileDownloadResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Document or file not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @GetMapping("/{fileId}/download")
     public ResponseEntity<?> downloadFile(@PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
                                           @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
@@ -59,6 +116,25 @@ public class FileController {
                 .body(file);
     }
 
+    @Operation(summary = "Update file by file's id", description = "Update file by document's ID and file's ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "File updated successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FileResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Document or file not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @PutMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
@@ -71,6 +147,16 @@ public class FileController {
                 .body(response);
     }
 
+    @Operation(summary = "Delete file by file's id", description = "Delete file by document's ID and file's ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "File deleted successfully"),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Document or file not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @DeleteMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> deleteFile(
             Principal principal,

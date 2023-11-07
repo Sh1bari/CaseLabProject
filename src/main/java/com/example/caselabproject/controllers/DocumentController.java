@@ -1,12 +1,16 @@
 package com.example.caselabproject.controllers;
 
-import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
+import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -30,18 +34,41 @@ public class DocumentController {
     private final DocumentService documentService;
 
     @Operation(summary = "Create new document")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Document created",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DocumentCreateResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @PostMapping("/")
     public ResponseEntity<DocumentCreateResponseDto> createDocument(
             Principal principal,
-            @RequestBody @Valid DocumentCreateRequestDto requestDto) {
+            @RequestBody @Valid DocumentRequestDto requestDto) {
         DocumentCreateResponseDto responseDto = documentService.createDocument(principal.getName(), requestDto);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + responseDto.getId()))
                 .body(responseDto);
     }
 
-    //TODO добавить в дто creator_name, List<FileDto>, *documentConstructorType_name*
-    @Operation(summary = "Get document by id")
+    @Operation(summary = "Get document by id", description = "Retrieves document by his ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document found and returned successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DocumentResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Document not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @GetMapping("/{id}")
     public ResponseEntity<DocumentResponseDto> findDocument(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -51,6 +78,20 @@ public class DocumentController {
                 .body(responseDto);
     }
 
+    @Operation(summary = "Get list of documents", description = "Retrieves a list of documents with pagination and optional filters")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of documents retrieved successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DocumentResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "204", description = "No documents found"),
+            @ApiResponse(responseCode = "400", description = "Invalid pagination parameters",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @GetMapping("/filter")
     public ResponseEntity<List<DocumentResponseDto>> filteredSearch(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -66,10 +107,29 @@ public class DocumentController {
                 .body(response);
     }
 
+    @Operation(summary = "Update document by id", description = "Update document by his ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document updated successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DocumentResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid input",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Document not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @PutMapping("/{id}")
     public ResponseEntity<DocumentResponseDto> updateDocument(
             Principal principal,
-            @RequestBody @Valid DocumentUpdateRequestDto requestDto,
+            @RequestBody @Valid DocumentRequestDto requestDto,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
         return ResponseEntity
@@ -77,9 +137,20 @@ public class DocumentController {
                 .body(responseDto);
     }
 
+    @Operation(summary = "Delete document by id", description = "Delete document by his ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Document deleted successfully"),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Document not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDocument(Principal principal,
-                                            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
+    public ResponseEntity<?> deleteDocument(
+            Principal principal,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         documentService.deleteDocument(principal.getName(), id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

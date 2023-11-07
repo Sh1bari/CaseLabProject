@@ -1,8 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.request.DocumentCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.entities.Document;
@@ -36,7 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final UserRepository userRepository;
 
     @Override
-    public DocumentCreateResponseDto createDocument(String username, DocumentCreateRequestDto request) {
+    public DocumentCreateResponseDto createDocument(String username, DocumentRequestDto request) {
 
         Document document = request.mapToEntity();
 
@@ -94,7 +93,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public DocumentResponseDto updateDocument(String username, DocumentUpdateRequestDto request, Long documentId) {
+    public DocumentResponseDto updateDocument(String username, DocumentRequestDto request, Long documentId) {
 
         if (!documentRepository.existsById(documentId)) {
             throw new DocumentDoesNotExistException(documentId);
@@ -107,8 +106,13 @@ public class DocumentServiceImpl implements DocumentService {
         Document updateDocument = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
-        updateDocument.setName(request.getName());
         updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
+        updateDocument.setName(request.getName());
+        updateDocument.setDocumentConstructorType(documentConstructorTypeRepository
+                .findByName(request.getConstructorTypeName()).orElseThrow(
+                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
+                ));
+
         documentRepository.save(updateDocument);
 
         return DocumentResponseDto.mapFromEntity(updateDocument);
