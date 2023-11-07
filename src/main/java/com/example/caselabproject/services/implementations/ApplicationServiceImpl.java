@@ -97,7 +97,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
 
-    @Override
+    /*@Override
     public ApplicationUpdateStatusAndCommentResponseDto updateApplicationStatusAndComment(
             Long id,
             String userName,
@@ -126,5 +126,5 @@ public class ApplicationServiceImpl implements ApplicationService {
         applicationRepository.save(oldApplication);
 
         return ApplicationUpdateStatusAndCommentResponseDto.mapFromEntity(applicationItem);
-    }
+    }*/
 }

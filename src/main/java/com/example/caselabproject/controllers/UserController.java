@@ -228,6 +228,62 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
     }
+    /**
+     * Gets all users by filters.
+     *
+     * @param roleName       the role name
+     * @param departmentName the department name
+     * @param firstName      the first name
+     * @param lastName       the last name
+     * @param patronymic     the patronymic
+     * @param birthDateFrom  the birthdate from
+     * @param birthDateTo    the birthdate to
+     * @param email          the email
+     * @param limit          the limit
+     * @param page           the page
+     * @return the all users by filters
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Get all users filtered by values of their attributes or not filtered if filters not given")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Users got",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
+            @ApiResponse(responseCode = "204", description = "Users not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @GetMapping("/")
+    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
+            @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
+            @RequestParam(name = "departmentName", required = false, defaultValue = "") String departmentName,
+            @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
+            @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
+            @RequestParam(name = "patronymic", required = false, defaultValue = "") String patronymic,
+            @RequestParam(name = "birthDateFrom", required = false, defaultValue = "1970-01-01") LocalDate birthDateFrom,
+            @RequestParam(name = "birthDateTo", required = false, defaultValue = "3000-01-01") LocalDate birthDateTo,
+            @RequestParam(name = "email", required = false, defaultValue = "") String email,
+            @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
+    ) {
+        List<UserGetByIdResponseDto> userGetByIdResponseDtoList = userService.findAllUsersByFiltersByPage(
+                roleName,
+                departmentName,
+                firstName,
+                lastName,
+                patronymic,
+                birthDateFrom,
+                birthDateTo,
+                email,
+                PageRequest.of(page, limit));
+        if (userGetByIdResponseDtoList.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userGetByIdResponseDtoList);
+    }
 
     @GetMapping("/{id}/applications")
     public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(

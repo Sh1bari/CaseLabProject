@@ -36,20 +36,28 @@ public interface UserService {
     UserRecoverResponseDto recoverById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional
-    List<DocumentCreateResponseDto> findDocsByCreatorIdByPage(@Min(value = 1L, message = "Id can't be less than 1") Long id,
-                                                              String name,
-                                                              Pageable pageable);
-    @Transactional
-    List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(@Min(value = 1L, message = "Id can't be less than1") Long id,
-                                                                       Pageable pageable);
     List<DocumentCreateResponseDto> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
-                                                   Pageable pageable);
+                                                            Long creatorId,
+                                                            String name,
+                                                            LocalDateTime creationDateFrom,
+                                                            LocalDateTime creationDateTo,
+                                                            Long documentConstructorTypeId,
+                                                            RecordState recordState,
+                                                            Pageable pageable);
 
     @Transactional
     List<UserGetByIdResponseDto> findAllUsersByFiltersByPage(String roleName,
-                                          LocalDate birthDateTo,
+                                                             String departmentName,
+                                                             String firstName,
+                                                             String lastName,
+                                                             String patronymic,
+                                                             LocalDate birthDateFrom,
+                                                             LocalDate birthDateTo,
                                                              String email,
                                                              Pageable pageable
     );
+    @Transactional
+    List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(@Min(value = 1L, message = "Id can't be less than1") Long id,
+                                                                       Pageable pageable);
 }
 

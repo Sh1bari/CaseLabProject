@@ -6,11 +6,10 @@ import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.DepartmentRepository;
-import com.example.caselabproject.repositories.DocumentPageRepository;
-import com.example.caselabproject.repositories.UserRepository;
+import com.example.caselabproject.repositories.*;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -51,10 +50,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserCreateResponseDto create(UserCreateRequestDto userCreateRequestDto) {
-        User user = userCreateRequestDto.mapToEntity();
-        user.setRoles(roleService.findRolesByRoleDtoList(userCreateRequestDto.getRoles()));
-        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userCreateRequestDto.getPassword()));
+    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
+        User user = userRequestDto.mapToEntity();
+        user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
+        user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
@@ -194,7 +193,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, Pageable pageable) {
         if (existById(id)) {
             return ApplicationFindResponseDto
