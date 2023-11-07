@@ -77,11 +77,11 @@ public class ApplicationController {
     public ResponseEntity<ApplicationDeleteResponseDto> delete(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id){
-        ApplicationDeleteResponseDto responseDto = applicationService.deleteApplication(id, principal.getName());
+        applicationService.deleteApplication(id, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .body(responseDto);
+                .build();
     }
     @Operation(summary = "Get application by id")
     @GetMapping("/{id}")

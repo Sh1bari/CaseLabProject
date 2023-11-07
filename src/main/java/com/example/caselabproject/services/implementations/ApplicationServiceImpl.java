@@ -2,30 +2,29 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationDeleteRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationDeleteResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
-import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.RoleRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
+    private final RoleRepository roleRepository;
 
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
@@ -62,18 +61,28 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDeleteResponseDto deleteApplication(Long id, String username){
+    public boolean deleteApplication(Long id, String username){
         Application application = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationDoesNotExistException(id));
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserByUsernameNotFoundException(username));
-        if (!application.getCreatorId().getUsername().equals(user.getUsername())){
+        AtomicBoolean isAdmin = new AtomicBoolean(false);
+        user.getRoles().forEach(o->{
+            if(o.getName().equals("ROLE_ADMIN")){
+                isAdmin.set(true);
+            }
+        });
+        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()){
             throw new UserNotCreatorException(username);
         } else {
-            applicationRepository.delete(application);
+            if(!application.getRecordState().equals(RecordState.DELETED)) {
+                application.setRecordState(RecordState.DELETED);
+            }else {
+                throw new
+            }
+            applicationRepository.save(application);
         }
-
-        return ApplicationDeleteResponseDto.mapFromEntity(application);
+        return true;
     }
 
     @Override
