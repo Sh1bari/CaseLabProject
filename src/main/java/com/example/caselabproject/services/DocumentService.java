@@ -7,6 +7,7 @@ import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,7 +17,9 @@ import java.util.List;
 @Validated
 public interface DocumentService {
 
-    DocumentCreateResponseDto createDocument(String username, @Valid DocumentCreateRequestDto request);
+    DocumentCreateResponseDto createDocument(
+            @NotBlank(message = "Username cant be blank.") String username,
+            @Valid DocumentCreateRequestDto request);
 
     DocumentResponseDto findDocument(@Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
