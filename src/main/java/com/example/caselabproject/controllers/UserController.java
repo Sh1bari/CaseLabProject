@@ -4,7 +4,6 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
-import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,6 +27,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The type User controller.
@@ -231,6 +231,7 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(documentCreateResponseDto);
     }
+
     /**
      * Gets all users by filters.
      *
@@ -256,7 +257,6 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/")
-    @Secured("ROLE_USER")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersByFilters(
             @RequestParam(name = "roleName", required = false, defaultValue = "") String roleName,
             @RequestParam(name = "departmentName", required = false, defaultValue = "") String departmentName,
@@ -289,6 +289,15 @@ public class UserController {
                 .body(userGetByIdResponseDtoList);
     }
 
+    @Operation(summary = "Get user's application by page")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Page with applications found",
+                    content = {@Content(mediaType = "applications/json",
+                            schema = @Schema(implementation = ApplicationFindResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User by provided id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @GetMapping("/{id}/applications")
     @Secured("ROLE_USER")
     public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(
@@ -341,11 +350,11 @@ public class UserController {
         if (applicationItemGetByIdResponseDtoList.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(applicationItemGetByIdResponseDtoList);
+                    .body(applicationFindResponseDro);
         }else {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(applicationItemGetByIdResponseDtoList);
+                    .body(applicationFindResponseDro);
         }
     }
 }

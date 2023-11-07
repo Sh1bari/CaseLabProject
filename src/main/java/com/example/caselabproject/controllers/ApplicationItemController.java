@@ -4,7 +4,6 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,7 +69,6 @@ public class ApplicationItemController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
-    @Secured("ROLE_USER")
     public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId")Long applicationId,
                                                                                     @PathVariable(name = "id")Long id,
                                                                                     Principal principal){
