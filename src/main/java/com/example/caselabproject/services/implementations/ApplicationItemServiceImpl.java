@@ -2,6 +2,7 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
@@ -9,6 +10,7 @@ import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Description:
@@ -30,11 +33,14 @@ import java.util.List;
 public class ApplicationItemServiceImpl implements ApplicationItemService {
 
     private final ApplicationRepository applicationRepo;
+    private final ApplicationItemRepository applicationItemRepo;
     private final DepartmentRepository departmentRepo;
     private final UserRepository userRepo;
 
     @Override
-    public List<CreateApplicationItemResponseDto> createApplicationItem(List<CreateApplicationItemRequestDto> req, Long applicationId, String username) {
+    public List<CreateApplicationItemResponseDto> createApplicationItem(List<CreateApplicationItemRequestDto> req,
+                                                                        Long applicationId,
+                                                                        String username) {
         List<CreateApplicationItemResponseDto> res = new ArrayList<>();
         Application application = applicationRepo.findById(applicationId)
                 .orElseThrow(()->new ApplicationNotFoundException(applicationId));
@@ -80,19 +86,48 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
             }
         });
         application.getApplicationItems().forEach(o->res.add(CreateApplicationItemResponseDto.builder()
-                        .applicationItemId(o.getId())
+                        .id(o.getId())
                         .build()));
         return res;
     }
 
-    private static boolean departmentIsActive(Department department){
+    @Override
+    public ApplicationItemGetByIdResponseDto getApplicationItemById(Long applicationId,
+                                                                    Long applicationItemId,
+                                                                    String username) {
+        AtomicBoolean isAdmin = new AtomicBoolean(false);
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(()->new UserNotFoundException(username));
+        user.getRoles().forEach(o->{
+            if(o.getName().equals("ROLE_ADMIN")){
+                isAdmin.set(true);
+            }
+        });
+        Application application = applicationRepo.findById(applicationId)
+                .orElseThrow(()->new ApplicationNotFoundException(applicationId));
+        ApplicationItem applicationItem = applicationItemRepo.findById(applicationItemId)
+                .orElseThrow(()-> new ApplicationItemNotFoundException(applicationItemId));
+        //Просмотр админам, создателю и всем в отделе
+        if(!isAdmin.get() &&
+                !application.getCreatorId().getId().equals(user.getId()) &&
+                !applicationItem.getToDepartment().getId().equals(user.getDepartment().getId())){
+            throw new ApplicationItemPermissionException(applicationItem.getId());
+        }
+        ApplicationItem item =
+                applicationItemRepo.findById(applicationItemId)
+                        .orElseThrow(()->new ApplicationItemNotFoundException(applicationItemId));
+
+        return ApplicationItemGetByIdResponseDto.mapFromEntity(item);
+    }
+
+    private boolean departmentIsActive(Department department){
         if (department.getRecordState().equals(RecordState.DELETED)){
             throw new DepartmentDeletedException(department.getId());
         }
         return true;
     }
 
-    private static boolean userAndDepartmentAreActive(User user){
+    private boolean userAndDepartmentAreActive(User user){
         if(user.getRecordState().equals(RecordState.DELETED)){
             throw new UserDeletedException(user.getId());
         }

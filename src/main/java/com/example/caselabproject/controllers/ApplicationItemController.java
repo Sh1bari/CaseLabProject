@@ -3,6 +3,7 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +12,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +35,7 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class ApplicationItemController {
     private final ApplicationItemService applicationItemService;
-    @Operation(summary = "Send application to departments or users")
+    @Operation(summary = "Send application to departments or users", description = "Secured by authorized users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Application sent",
                     content = {@Content(mediaType = "application/json",
@@ -48,12 +51,24 @@ public class ApplicationItemController {
     @Secured("ROLE_USER")
     public ResponseEntity<List<CreateApplicationItemResponseDto>> createApplicationItems(@PathVariable(name = "id")Long id,
                                                                                    Principal principal,
-                                                                                   @RequestBody List<CreateApplicationItemRequestDto> applicationItemList){
+                                                                                   @RequestBody List<@Valid CreateApplicationItemRequestDto> applicationItemList){
         List<CreateApplicationItemResponseDto> res = applicationItemService.createApplicationItem(applicationItemList, id, principal.getName());
         return ResponseEntity
                 .created(URI.create("/api/application/" + id + "/applicationItem/"))
                 .body(res);
     }
+
+    @GetMapping("/application/{applicationId}/applicationItem/{id}")
+    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId")Long applicationId,
+                                                                                    @PathVariable(name = "id")Long id,
+                                                                                    Principal principal){
+        ApplicationItemGetByIdResponseDto res = applicationItemService.getApplicationItemById(applicationId, id, principal.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
+    }
+
+
 
 
 }

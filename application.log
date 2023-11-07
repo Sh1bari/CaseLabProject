@@ -210,3 +210,4 @@
 2023-11-07 08:47:06 WARN  [http-nio-8082-exec-8] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 10 in department with id 3
 2023-11-07 09:04:24 WARN  [http-nio-8082-exec-2] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 2 in department with id 2
 2023-11-07 09:11:41 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 4
+2023-11-07 10:13:41 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationNotFoundException - Application with id 9 not found
