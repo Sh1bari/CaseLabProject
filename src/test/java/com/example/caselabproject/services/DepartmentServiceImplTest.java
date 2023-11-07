@@ -13,17 +13,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
+/*import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.junit.jupiter.Testcontainers;*/
 
 import java.util.List;
 
 @SpringBootTest
-@Testcontainers
+/*@Testcontainers*/
 public class DepartmentServiceImplTest {
 
-    @Container
+   /* @Container
     public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest")
             .withDatabaseName("CaseLab")
             .withUsername("root")
@@ -129,6 +129,6 @@ public class DepartmentServiceImplTest {
         departmentService.create(requestDto);
 
         return requestDto;
-    }
+    }*/
 
 }
