@@ -8,7 +8,8 @@ import lombok.Data;
 @Builder
 public class ApplicationResponseDto {
     private Long id;
-    public static ApplicationResponseDto mapFromEntity(Application application){
+
+    public static ApplicationResponseDto mapFromEntity(Application application) {
         return ApplicationResponseDto.builder()
                 .id(application.getId())
                 .build();

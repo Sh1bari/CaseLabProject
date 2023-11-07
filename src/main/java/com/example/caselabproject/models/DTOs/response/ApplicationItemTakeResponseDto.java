@@ -3,7 +3,10 @@ package com.example.caselabproject.models.DTOs.response;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -29,9 +32,9 @@ public class ApplicationItemTakeResponseDto {
 
     public static ApplicationItemTakeResponseDto mapFromEntity(ApplicationItem applicationItem) {
         Long toUserId = null;
-        try{
+        try {
             toUserId = applicationItem.getToUser().getId();
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         return ApplicationItemTakeResponseDto.builder()
                 .id(applicationItem.getId())

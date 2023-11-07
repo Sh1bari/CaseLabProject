@@ -8,7 +8,8 @@ import lombok.Data;
 @Builder
 public class ApplicationDeleteResponseDto {
     private Long id;
-    public static ApplicationDeleteResponseDto mapFromEntity(Application application){
+
+    public static ApplicationDeleteResponseDto mapFromEntity(Application application) {
         return ApplicationDeleteResponseDto.builder()
                 .id(application.getId())
                 .build();

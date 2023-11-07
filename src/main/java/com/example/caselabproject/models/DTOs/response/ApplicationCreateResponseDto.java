@@ -1,7 +1,6 @@
 package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.entities.Application;
-import com.example.caselabproject.models.entities.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,7 +15,7 @@ public class ApplicationCreateResponseDto {
     private LocalDateTime deadlineDate;
     private Long creatorId;
 
-    public static ApplicationCreateResponseDto mapFromEntity(Application application){
+    public static ApplicationCreateResponseDto mapFromEntity(Application application) {
         return ApplicationCreateResponseDto.builder()
                 .id(application.getId())
                 .name(application.getName())

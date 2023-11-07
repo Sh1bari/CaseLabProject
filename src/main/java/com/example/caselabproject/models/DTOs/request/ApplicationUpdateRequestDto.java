@@ -13,6 +13,7 @@ public class ApplicationUpdateRequestDto {
     private String name;
     @Future(message = "Deadline cant be less than now")
     private LocalDateTime deadline;
+
     public Application mapToEntity() {
         return Application.builder()
                 .name(name)

@@ -19,5 +19,5 @@ public interface ApplicationService {
     ApplicationUpdateResponseDto updateApplication(@Min(value = 1L, message = "Id cant be less than 1") Long id, @NotBlank String username, @Valid ApplicationUpdateRequestDto request);
     boolean deleteApplication(@Min(value = 1L, message = "Id cant be less than 1") Long id, @NotBlank String username);
     ApplicationFindResponseDto getApplicationById(@Min(value = 1L, message = "Id cant be less than 1")Long id);
-    //ApplicationUpdateStatusAndCommentResponseDto updateApplicationStatusAndComment(@Min(value = 1L, message = "Id cant be less than 1")Long id, String userName, ApplicationItemStatus status, String comment);
+
 }

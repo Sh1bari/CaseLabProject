@@ -1,9 +1,7 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Application;
-import com.example.caselabproject.models.entities.Document;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 

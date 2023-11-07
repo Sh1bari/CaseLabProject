@@ -133,17 +133,4 @@ public class ApplicationController {
     }
 
 
-    /*@Secured("ROLE_ADMIN")
-    @PatchMapping("/{id}")
-    public ResponseEntity<ApplicationUpdateStatusAndCommentResponseDto> updateStatusAndComment(
-            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
-            @RequestParam(required = false) String comment,
-            Principal principal,
-            @RequestParam(required = false) ApplicationItemStatus status){
-        ApplicationUpdateStatusAndCommentResponseDto response = applicationService
-                .updateApplicationStatusAndComment(id, principal.getName(), status, comment);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(response);
-    }*/
 }

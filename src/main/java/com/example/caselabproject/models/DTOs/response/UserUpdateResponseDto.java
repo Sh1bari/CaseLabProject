@@ -1,7 +1,6 @@
 package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.DTOs.RoleDto;
-import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import lombok.Builder;
 import lombok.Data;

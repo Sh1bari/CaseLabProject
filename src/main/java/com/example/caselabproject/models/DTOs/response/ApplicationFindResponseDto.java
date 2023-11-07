@@ -4,7 +4,6 @@ import com.example.caselabproject.models.DTOs.ApplicationItemDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Document;
-import com.example.caselabproject.models.entities.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,17 +23,17 @@ public class ApplicationFindResponseDto {
     private List<ApplicationItemDto> applicationItems;
 
 
-    public static ApplicationFindResponseDto mapFromEntity(Application application){
+    public static ApplicationFindResponseDto mapFromEntity(Application application) {
         List<ApplicationItemDto> applicationItemDto = new ArrayList<>();
-        application.getApplicationItems().forEach(o->{
+        application.getApplicationItems().forEach(o -> {
             applicationItemDto.add(ApplicationItemDto.builder()
                     .id(o.getId())
                     .build());
         });
         Long documentId = null;
-        try{
+        try {
             documentId = application.getDocument().getId();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return ApplicationFindResponseDto.builder()
@@ -48,12 +47,12 @@ public class ApplicationFindResponseDto {
                 .build();
     }
 
-    public static List<ApplicationFindResponseDto> mapFromListEntity(List<Application> applications){
+    public static List<ApplicationFindResponseDto> mapFromListEntity(List<Application> applications) {
         List<ApplicationFindResponseDto> res = new ArrayList<>(applications.size());
         applications.forEach(o -> {
             Long documentId = null;
             Document document = o.getDocument();
-            if (document != null){
+            if (document != null) {
                 documentId = document.getId();
             }
             List<ApplicationItemDto> applicationItemDtos = new ArrayList<>();
