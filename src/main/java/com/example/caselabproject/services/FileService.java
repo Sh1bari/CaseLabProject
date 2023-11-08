@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Validated
@@ -48,7 +49,7 @@ public interface FileService {
      */
     @Transactional
     FileDownloadResponseDto downloadFile(@Min(value = 1L, message = "Id can't be less than 1") Long documentId,
-                                         @Min(value = 1L, message = "Id can't be less than 1") Long fileId);
+                                         @Min(value = 1L, message = "Id can't be less than 1") Long fileId) throws IOException;
 
     /**
      * Позволяет пользователю создавшему документ обновить файл привязанный к документу.

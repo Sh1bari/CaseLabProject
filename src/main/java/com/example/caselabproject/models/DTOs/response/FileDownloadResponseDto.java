@@ -26,7 +26,6 @@ public class FileDownloadResponseDto {
                 .id(file.getId())
                 .name(file.getName())
                 .type(file.getType())
-                .bytes(file.getBytes())
                 .size(file.getSize())
                 .path(file.getPath())
                 .build();

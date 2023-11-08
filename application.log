@@ -655,3 +655,74 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-11-06 09:20:57 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
 2023-11-06 09:29:48 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
 2023-11-06 09:32:10 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-07 20:18:33 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-08 12:36:26 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 12:37:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:13:03 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:15:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:17:02 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:18:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:24:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:28:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:28:40 WARN  [http-nio-8082-exec-7] c.e.c.e.DocumentDoesNotExistException - Document with id:46 does not exist!
+2023-11-08 13:28:55 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:29:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:32:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:33:14 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:34:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:35:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:37:06 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:37:35 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:41:09 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:41:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:41:52 WARN  [http-nio-8082-exec-3] c.e.c.e.NoFilesPageFoundException - No content found by page 0
+2023-11-08 13:42:00 WARN  [http-nio-8082-exec-7] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-08 13:47:45 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:51:07 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:54:29 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:55:04 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:55:05 WARN  [http-nio-8082-exec-7] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-08 13:55:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 13:56:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 13:57:02 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 17:43:23 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 17:53:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 17:54:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 17:57:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 17:58:19 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:00:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-08 18:01:09 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:01:23 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:01:23 WARN  [http-nio-8082-exec-6] c.e.c.e.NoFilesPageFoundException - No content found by page 0
+2023-11-08 18:01:28 WARN  [http-nio-8082-exec-7] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-08 18:01:50 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:02:56 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:03:27 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:03:53 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:04 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:12 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:23 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:31 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:04:34 WARN  [http-nio-8082-exec-6] c.e.c.e.NoDocumentPageFoundException - No content found by page 1
+2023-11-08 18:04:56 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:03 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:22 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:27 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:32 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:46 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:05:58 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:06:04 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:06:39 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:06:39 WARN  [http-nio-8082-exec-7] c.e.c.e.NoFilesPageFoundException - No content found by page 0
+2023-11-08 18:07:02 WARN  [http-nio-8082-exec-8] c.e.c.e.DocumentDoesNotExistException - Document with id:11 does not exist!
+2023-11-08 18:07:07 WARN  [http-nio-8082-exec-9] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-08 18:07:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 18:07:11 WARN  [http-nio-8082-exec-4] c.e.c.e.NoFilesPageFoundException - No content found by page 0
+2023-11-08 18:07:18 WARN  [http-nio-8082-exec-1] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-08 18:07:30 WARN  [http-nio-8082-exec-5] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-08 19:03:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 19:04:03 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 19:04:03 WARN  [http-nio-8082-exec-9] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-08 19:04:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-08 19:04:13 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout

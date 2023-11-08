@@ -19,8 +19,6 @@ public class File {
 
     private String type;
 
-    private byte[] bytes;
-
     private Long size;
 
     private String path;

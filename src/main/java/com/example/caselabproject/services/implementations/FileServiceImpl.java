@@ -10,6 +10,7 @@ import com.example.caselabproject.repositories.FileRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.FileService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,7 +42,15 @@ public class FileServiceImpl implements FileService {
 
         File file = new File();
 
-        multipartFileToFile(multipartFile, file);
+        try {
+            FileUtils.writeByteArrayToFile(
+                    new java.io.File("src\\main\\resources\\files\\"
+                            + multipartFile.getOriginalFilename()),
+                    multipartFile.getBytes());
+            multipartFileToFile(multipartFile, file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
@@ -72,13 +82,20 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileDownloadResponseDto downloadFile(Long documentId, Long fileId) {
+    public FileDownloadResponseDto downloadFile(Long documentId, Long fileId) throws IOException {
 
         File file = fileRepository.findById(fileId).orElseThrow(
                 () -> new FileNotExistException(fileId)
         );
 
-        return FileDownloadResponseDto.mapFromEntity(file);
+        java.io.File downloadFile = new java.io.File(file.getPath());
+
+
+        FileDownloadResponseDto responseDto = FileDownloadResponseDto.mapFromEntity(file);
+
+        responseDto.setBytes(FileUtils.readFileToByteArray(downloadFile));
+
+        return responseDto;
     }
 
     @Override
@@ -93,7 +110,14 @@ public class FileServiceImpl implements FileService {
                 () -> new FileNotExistException(fileId)
         );
 
-        multipartFileToFile(file, updateFile);
+        try {
+            FileUtils.writeByteArrayToFile(new java.io.File(
+                            "src/main/resources/files/" + file.getOriginalFilename()),
+                    file.getBytes());
+            multipartFileToFile(file, updateFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         fileRepository.save(updateFile);
 
@@ -114,28 +138,27 @@ public class FileServiceImpl implements FileService {
             throw new DocumentAccessException(username);
         }
 
-        if (!fileRepository.existsById(fileId)) {
-            throw new FileNotExistException(fileId);
-        }
-
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
-        fileRepository.deleteById(fileId);
+        File file = fileRepository.findById(fileId)
+                .orElseThrow(() -> new FileNotExistException(fileId));
+
+        List<File> files = document.getFiles();
+
+        files.remove(file);
+        document.setFiles(files);
+        document.setUpdateDate(LocalDateTime.now());
+        documentRepository.save(document);
 
         return document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList();
     }
 
 
     private void multipartFileToFile(MultipartFile multipartFile, File file) {
-        try {
-            file.setName(multipartFile.getOriginalFilename());
-            file.setType(multipartFile.getContentType());
-            file.setBytes(multipartFile.getBytes());
-            file.setSize(multipartFile.getSize());
-            file.setPath("idk");
-        } catch (IOException e) {
-            throw new FileIsEmptyException(multipartFile.getOriginalFilename());
-        }
+        file.setName(multipartFile.getOriginalFilename());
+        file.setType(multipartFile.getContentType());
+        file.setSize(multipartFile.getSize());
+        file.setPath("src\\main\\resources\\files\\" + multipartFile.getOriginalFilename());
     }
 }

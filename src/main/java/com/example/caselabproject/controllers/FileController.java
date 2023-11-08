@@ -17,8 +17,10 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -104,7 +106,7 @@ public class FileController {
     })
     @GetMapping("/{fileId}/download")
     public ResponseEntity<?> downloadFile(@PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
-                                          @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
+                                          @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) throws IOException {
         FileDownloadResponseDto response = fileService.downloadFile(docId, fileId);
         byte[] file = response.getBytes();
         return ResponseEntity
