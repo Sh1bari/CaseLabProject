@@ -162,13 +162,8 @@ public class DocumentConstructorTypeController {
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
         List<DocumentConstructorTypeByIdResponseDto> response =
                 typeService.getAllContaining(name, state, page, size);
-        if (response.isEmpty()) {
-            return ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
-                    .body(response);
-        }
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(response.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK)
                 .body(response);
     }
 }
