@@ -15,7 +15,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -303,22 +306,4 @@ class DocumentConstructorTypeServiceImplTest {
                 .findAllByNameContainingIgnoreCaseAndRecordState(
                         name, recordState, pageable);
     }
-
-    /*@Test
-    void getAllContaining_willThrowWhenPageIsEmpty() {
-        // given
-        String name = "Приказ";
-        RecordState recordState = RecordState.ACTIVE;
-        int page = 10;
-        int size = 20;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-
-        given(typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, recordState, pageable))
-                .willReturn(Page.empty());
-
-        // then
-        assertThatThrownBy(() -> underTest.getAllContaining(name, recordState, page, size))
-                .isInstanceOf(PageNotFoundException.class)
-                .hasMessageContaining("Page with number " + page + " not found");
-    }*/
 }
