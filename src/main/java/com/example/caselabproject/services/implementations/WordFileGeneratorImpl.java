@@ -31,6 +31,8 @@ public class WordFileGeneratorImpl implements WordFileGenerator {
      *
      * @param documentId идентификатор документа, для которого необходимо сгенерировать word файл.
      * @return документ в виде массива байт.
+     * @throws DocumentDoesNotExistException если документ с documentId не найден
+     * @throws WordFileCreationException если во время генерации документа возникло {@link IOException}
      */
     @Override
     public byte[] generateWordFileForDocumentById(Long documentId) {
