@@ -39,6 +39,9 @@ public class WordFileGenerationController {
                             schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "500", description = "Could not create word file for document",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})
     })
     @GetMapping("/doc/{id}/generate")
