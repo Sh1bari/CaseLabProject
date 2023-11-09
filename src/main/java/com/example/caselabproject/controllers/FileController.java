@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -31,7 +30,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    @Operation(summary = "Add new file", description = " Add new file to document by document's Id")
+    @Operation(summary = "Add new file", description = "Add new file to document by document's Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "File added",
                     content = {

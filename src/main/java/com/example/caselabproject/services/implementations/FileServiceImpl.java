@@ -18,8 +18,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -36,15 +38,21 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
 
+        Document document = documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
         }
 
         File file = new File();
 
+        file.setDocument(document);
+
         try {
             FileUtils.writeByteArrayToFile(
                     new java.io.File("src\\main\\resources\\files\\"
+                            + document.getId() + "_"
                             + multipartFile.getOriginalFilename()),
                     multipartFile.getBytes());
             multipartFileToFile(multipartFile, file);
@@ -52,15 +60,16 @@ public class FileServiceImpl implements FileService {
             throw new RuntimeException(e);
         }
 
-        Document document = documentRepository.findById(documentId)
-                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
-        file.setDocument(document);
+        List<File> files = document.getFiles();
+
+        // Эта строка нужна для того, чтобы в выводе списка файлов не было дубликтов
+        files.size();
+
+        files.add(file);
+        document.setFiles(files);
+        document.setUpdateDate(LocalDateTime.now());
 
         try {
-            List<File> files = document.getFiles();
-            files.add(file);
-            document.setFiles(files);
-            document.setUpdateDate(LocalDateTime.now());
             documentRepository.save(document);
         } catch (Exception e) {
             throw new FileConnectToDocumentException();
@@ -112,7 +121,7 @@ public class FileServiceImpl implements FileService {
 
         try {
             FileUtils.writeByteArrayToFile(new java.io.File(
-                            "src/main/resources/files/" + file.getOriginalFilename()),
+                            "src/main/resources/files/" + updateFile.getId() + "_" + file.getOriginalFilename()),
                     file.getBytes());
             multipartFileToFile(file, updateFile);
         } catch (IOException e) {
@@ -146,6 +155,14 @@ public class FileServiceImpl implements FileService {
 
         List<File> files = document.getFiles();
 
+        Path filePath = Paths.get(file.getPath());
+
+        try {
+            Files.delete(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete file from the filesystem");
+        }
+
         files.remove(file);
         document.setFiles(files);
         document.setUpdateDate(LocalDateTime.now());
@@ -159,6 +176,6 @@ public class FileServiceImpl implements FileService {
         file.setName(multipartFile.getOriginalFilename());
         file.setType(multipartFile.getContentType());
         file.setSize(multipartFile.getSize());
-        file.setPath("src\\main\\resources\\files\\" + multipartFile.getOriginalFilename());
+        file.setPath("src\\main\\resources\\files\\" + file.getDocument().getId() + "_" + multipartFile.getOriginalFilename());
     }
 }
