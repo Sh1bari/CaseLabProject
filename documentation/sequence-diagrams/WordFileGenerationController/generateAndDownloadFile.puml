@@ -1,0 +1,41 @@
+@startuml
+
+autonumber
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "WordFileGenerationController" as controller
+participant "WordFileGenerator" as service
+database "Database" as db
+end box
+
+front -> controller++: GET api/doc/{id}/generate
+controller -> controller: Check auth
+alt "User is authenticated"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: generateWordFileForDocumentById()
+        service -> db++: findDocumentById()
+        alt "Document is found"
+            db --> service: Found document
+            service -> service: Generate Word file
+            alt "File created successfully"
+                service --> controller: Generated file
+                controller --> front: 200: generated file
+            else "Error creating file"
+                service --> controller: Exception
+                controller --> front: 500: Could not create word file
+            end
+        else "Document not found"
+            db --> service--: Empty result
+            service --> controller--: Exception
+            controller --> front: 404: Document not found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Bad request
+else "User isn't authenticated"
+    controller --> front--: 401: User is not authenticated
+end
+
+@enduml
