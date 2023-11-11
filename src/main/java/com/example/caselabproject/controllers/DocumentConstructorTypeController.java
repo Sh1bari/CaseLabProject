@@ -191,6 +191,7 @@ public class DocumentConstructorTypeController {
                             schema = @Schema(implementation = AppError.class))})
     })
     @GetMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<DocumentConstructorTypeByIdResponseDto> getDocumentType(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentConstructorTypeByIdResponseDto response = typeService.getById(id);
@@ -213,6 +214,7 @@ public class DocumentConstructorTypeController {
                             schema = @Schema(implementation = AppError.class))}),
     })
     @GetMapping("/filter")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<DocumentConstructorTypeByIdResponseDto>> getAllDocumentTypes(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "state", required = false, defaultValue = "ACTIVE") RecordState state,

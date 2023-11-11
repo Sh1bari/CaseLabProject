@@ -1,0 +1,35 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+autonumber
+
+front -> controller++: GET /api/{id}
+controller -> controller: Check user role
+alt "User has any role"
+    alt "Request is valid"
+        controller -> service++: getById(id)
+        service -> db++: findById(id)
+        alt "Document type is found"
+            db --> service: document type
+            service --> controller: document type
+            controller --> front: 200: Document type found
+        else
+            db --> service--: error: document constructor type not found
+            service --> controller--: exception
+            controller --> front: 404: Document type isn't found
+        end
+    else "Request is not valid"
+        controller --> front: 400: Invalid path variable
+    end
+else "User doesn't have any role"
+    controller -> front--: 401: User is not authenticated
+end
+
+@enduml
