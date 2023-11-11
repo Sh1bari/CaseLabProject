@@ -38,24 +38,22 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
 
-        Document document = documentRepository.findById(documentId)
-                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
-
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
         }
+
+        Document document = documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
         File file = new File();
 
         file.setDocument(document);
 
         try {
-            FileUtils.writeByteArrayToFile(
-                    new java.io.File("src\\main\\resources\\files\\"
-                            + document.getId() + "_"
-                            + multipartFile.getOriginalFilename()),
-                    multipartFile.getBytes());
             multipartFileToFile(multipartFile, file);
+            FileUtils.writeByteArrayToFile(
+                    new java.io.File(file.getPath()),
+                    multipartFile.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -93,12 +91,15 @@ public class FileServiceImpl implements FileService {
     @Override
     public FileDownloadResponseDto downloadFile(Long documentId, Long fileId) throws IOException {
 
+        if (!documentRepository.existsById(documentId)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
         File file = fileRepository.findById(fileId).orElseThrow(
                 () -> new FileNotExistException(fileId)
         );
 
         java.io.File downloadFile = new java.io.File(file.getPath());
-
 
         FileDownloadResponseDto responseDto = FileDownloadResponseDto.mapFromEntity(file);
 
@@ -121,8 +122,10 @@ public class FileServiceImpl implements FileService {
 
         try {
             FileUtils.writeByteArrayToFile(new java.io.File(
-                            "src/main/resources/files/" + updateFile.getId() + "_" + file.getOriginalFilename()),
-                    file.getBytes());
+                    "src\\main\\resources\\fileBase\\"
+                            + updateFile.getDocument().getCreator().getUsername() + "\\"
+                            + "docId_" + updateFile.getDocument().getId() + "_"
+                            + file.getOriginalFilename()), file.getBytes());
             multipartFileToFile(file, updateFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -172,10 +175,13 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    private void multipartFileToFile(MultipartFile multipartFile, File file) {
+    private void multipartFileToFile(MultipartFile multipartFile, File file) throws IOException {
         file.setName(multipartFile.getOriginalFilename());
         file.setType(multipartFile.getContentType());
         file.setSize(multipartFile.getSize());
-        file.setPath("src\\main\\resources\\files\\" + file.getDocument().getId() + "_" + multipartFile.getOriginalFilename());
+        file.setPath("src\\main\\resources\\fileBase\\"
+                + file.getDocument().getCreator().getUsername() + "\\"
+                + "docId_" + file.getDocument().getId() + "_"
+                + multipartFile.getOriginalFilename());
     }
 }

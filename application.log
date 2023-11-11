@@ -776,3 +776,102 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-11-09 18:44:56 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-11-09 18:45:12 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-11-09 18:49:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 17:02:51 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 17:04:22 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 17:10:52 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-10 17:53:39 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-10 18:09:45 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 18:13:34 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-10 18:21:32 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:22:38 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:23:47 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:24:35 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:25:14 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:25:54 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 18:29:23 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 21:09:45 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 21:10:56 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-10 21:13:16 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-10 21:15:59 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-10 21:40:07 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:51:15 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:51:52 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:52:12 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:55:49 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:59:13 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 21:59:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 22:01:28 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-10 22:03:24 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-10 22:03:36 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-10 22:04:01 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-10 22:04:18 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-10 22:04:18 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-10 22:04:18 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 22:04:18 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 22:43:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:45:20 WARN  [http-nio-8082-exec-10] c.e.c.e.NoFilesPageFoundException - No content found by page 0
+2023-11-10 22:46:12 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:46:17 WARN  [http-nio-8082-exec-1] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-10 22:46:26 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentDoesNotExistException - Document with id:2 does not exist!
+2023-11-10 22:48:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:49:31 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:51:13 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:54:36 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 22:57:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 23:01:12 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 23:01:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 23:06:30 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 23:16:15 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-10 23:22:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 17:17:14 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 17:18:21 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 17:19:36 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-11 17:37:47 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-11 17:37:53 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 17:38:45 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 17:39:00 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 17:39:07 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-11 17:40:15 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 17:40:59 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 17:53:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 17:56:16 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 17:56:53 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-11 17:57:45 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 17:58:34 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 18:01:37 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-11 18:22:53 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 18:23:38 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:38:27 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:42:24 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:43:04 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:45:58 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-11 18:53:22 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-11 18:53:22 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-11 18:53:22 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:53:22 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:55:13 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-11 18:55:13 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-11 18:55:13 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-11 19:04:58 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
