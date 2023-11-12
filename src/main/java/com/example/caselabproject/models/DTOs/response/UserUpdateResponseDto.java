@@ -1,7 +1,6 @@
 package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.DTOs.RoleDto;
-import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class UserUpdateResponseDto {
     private String position;
     private String username;
     private String email;
-    private Department department;
+    private Long departmentId;
     private List<RoleDto> roles;
     private String firstName;
     private String lastName;
@@ -30,7 +29,7 @@ public class UserUpdateResponseDto {
                 .position(user.getPosition())
                 .username(user.getUsername())
                 .email(user.getAuthUserInfo().getEmail())
-                .department(user.getDepartment())
+                .departmentId(user.getDepartment().getId())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())

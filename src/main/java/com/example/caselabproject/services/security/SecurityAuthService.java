@@ -29,7 +29,7 @@ public class SecurityAuthService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Неправильный логин или пароль"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Incorrect login or password"), HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtils.generateToken(userDetails);

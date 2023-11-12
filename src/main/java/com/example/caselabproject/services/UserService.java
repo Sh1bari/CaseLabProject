@@ -3,6 +3,7 @@ package com.example.caselabproject.services;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -56,5 +57,19 @@ public interface UserService {
                                                              String email,
                                                              Pageable pageable
     );
+
+    @Transactional
+    List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(
+            @Min(value = 1L, message = "Id can't be less than 1.") Long id,
+            Pageable pageable);
+
+    @Transactional
+    List<ApplicationItemGetByIdResponseDto> findApplicationItemsByUserIdByPage(
+            @Min(value = 1L, message = "Id can't be less than 1.") Long id,
+            String applicationName,
+            ApplicationItemStatus status,
+            RecordState recordState,
+            Pageable pageable,
+            String username);
 }
 

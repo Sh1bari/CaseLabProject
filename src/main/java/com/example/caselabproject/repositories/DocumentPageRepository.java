@@ -7,10 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface DocumentPageRepository extends PagingAndSortingRepository<Document, Long> {
-    List<Document> findAllByCreator_id(Long id);
+
+    Page<Document> findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
+            String name, Pageable pageable, LocalDateTime start, LocalDateTime end, RecordState state);
+
+    Page<Document> findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
+            Pageable pageable, LocalDateTime start, LocalDateTime end, RecordState state);
 
     Page<Document> findAllByCreator_idAndNameContainingIgnoreCase(Long id, String name, Pageable pageable);
 

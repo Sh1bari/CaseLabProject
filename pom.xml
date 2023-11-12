@@ -32,7 +32,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -42,17 +41,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -65,6 +53,7 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
         </dependency>
+
 
         <!--Slf4j-->
         <dependency>
@@ -83,6 +72,7 @@
             </exclusions>
         </dependency>
 
+
         <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -90,11 +80,16 @@
             <optional>true</optional>
         </dependency>
 
-        <!--PostgreSql-->
+        <!--Database-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!--JWT-->
@@ -108,6 +103,7 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version> <!-- Используйте актуальную версию -->
         </dependency>
+
         <!-- Poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -118,7 +114,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.13.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
