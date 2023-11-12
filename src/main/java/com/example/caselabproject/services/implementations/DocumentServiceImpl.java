@@ -52,7 +52,7 @@ public class DocumentServiceImpl implements DocumentService {
         try {
             documentRepository.save(document);
         } catch (Exception e) {
-            throw new DocumentCreateException();
+            throw new DocumentCreateException(document.getName());
         }
 
         return DocumentCreateResponseDto.mapFromEntity(document);
