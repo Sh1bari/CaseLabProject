@@ -8,6 +8,7 @@ import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.repositories.ApplicationItemPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.implementations.DepartmentServiceImpl;
@@ -45,11 +46,13 @@ public class DepartmentServiceImplTestMock {
 
 
     private DepartmentServiceImpl departmentService;
+    @Mock
+    private ApplicationItemPageRepository applicationItemPageRepo;
 
 
     @BeforeEach
     void setUp() {
-        departmentService = new DepartmentServiceImpl(departmentRepository, userRepository);
+        departmentService = new DepartmentServiceImpl(departmentRepository, userRepository, applicationItemPageRepo);
     }
 
 
