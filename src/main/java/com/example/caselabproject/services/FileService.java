@@ -78,7 +78,7 @@ public interface FileService {
      * @throws DocumentAccessException если этот файл пытается удалить не создатель документа.
      */
     @Transactional
-    List<FileResponseDto> deleteFile(String username,
+    boolean deleteFile(String username,
                                      @Min(value = 1L, message = "Id can't be less than 1") Long documentId,
                                      @Min(value = 1L, message = "Id can't be less than 1") Long fileId);
 }

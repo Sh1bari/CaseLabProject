@@ -159,13 +159,13 @@ public class FileController {
                     })
     })
     @DeleteMapping("/{fileId}")
-    public ResponseEntity<List<FileResponseDto>> deleteFile(
+    public ResponseEntity<?> deleteFile(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
-        List<FileResponseDto> response = fileService.deleteFile(principal.getName(), docId, fileId);
+        fileService.deleteFile(principal.getName(), docId, fileId);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(response);
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

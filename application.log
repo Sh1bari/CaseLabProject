@@ -875,3 +875,6 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
 2023-11-11 18:55:13 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
 2023-11-11 19:04:58 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-12 19:58:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-12 19:58:37 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-12 19:59:25 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout

@@ -64,6 +64,10 @@ public class DocumentServiceImpl implements DocumentService {
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
+        if (document.getRecordState().equals(RecordState.DELETED)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
         return DocumentResponseDto.mapFromEntity(document);
     }
 
@@ -121,15 +125,19 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public boolean deleteDocument(String username, Long documentId) {
 
-        if (!documentRepository.existsById(documentId)) {
-            throw new DocumentDoesNotExistException(documentId);
-        }
-
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
         }
 
-        documentRepository.deleteById(documentId);
+        Document document = documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+
+        if (document.getRecordState().equals(RecordState.DELETED)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
+        document.setRecordState(RecordState.DELETED);
+        documentRepository.save(document);
 
         return true;
     }

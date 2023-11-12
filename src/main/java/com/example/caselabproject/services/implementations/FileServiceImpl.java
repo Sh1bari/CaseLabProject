@@ -144,7 +144,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileResponseDto> deleteFile(String username, Long documentId, Long fileId) {
+    public boolean deleteFile(String username, Long documentId, Long fileId) {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
@@ -171,7 +171,7 @@ public class FileServiceImpl implements FileService {
         document.setUpdateDate(LocalDateTime.now());
         documentRepository.save(document);
 
-        return document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList();
+        return true;
     }
 
 
