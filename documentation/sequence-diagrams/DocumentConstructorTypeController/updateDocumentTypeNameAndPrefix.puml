@@ -10,7 +10,7 @@ end box
 
 'autonumber
 
-front -> controller++: PATCH /api/{id}
+front -> controller++: PATCH /api/doctype/{id}
 controller -> controller: Check user role
 alt "User has ADMIN role"
     controller -> controller: Validate request

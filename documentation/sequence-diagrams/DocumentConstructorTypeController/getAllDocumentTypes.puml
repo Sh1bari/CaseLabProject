@@ -10,7 +10,7 @@ end box
 
 autonumber
 
-front -> controller++: GET /api/filter
+front -> controller++: GET /api/doctype/filter
 controller -> controller: Check user role
 alt "User has any role"
         alt "Request is valid"
