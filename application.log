@@ -171,44 +171,667 @@
 2023-10-31 09:32:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
 2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:33:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:37:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000026: PostgreSQL95Dialect has been deprecated; use org.hibernate.dialect.PostgreSQLDialect instead
-2023-10-31 09:37:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:37:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:37:55 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
-2023-10-31 09:39:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:39:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:39:31 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJleHAiOjE2OTg3MjcwMzgsImlhdCI6MTY5ODcyNTIzOH0.63bGgRSVr0QffbdtwHBPmYTbkRDrrgLlV0ZhZkqs6vs
 2023-10-31 09:39:38 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:39:47 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:42:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:42:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - проверка
 2023-10-31 09:42:54 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3MzYxNzEsImlhdCI6MTY5ODczNDM3MX0.NR6pLaFODaUdNz7Fp_K84m9AgSctO_P8wEWiVRCFU_M
-2023-10-31 09:48:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:52:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 09:54:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:01:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 10:02:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [jakarta.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:08:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:34:35 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:35:07 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:35:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:36:28 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:39:26 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:41:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:45:11 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:45:54 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:47:14 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:48:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:49:52 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 12:58:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 13:01:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-10-31 13:01:41 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationDoesNotExistException - 404: Applicationd with id:1 does not exist!
-2023-10-31 13:02:11 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-11-07 08:46:38 WARN  [http-nio-8082-exec-3] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 0 in department with id 0
-2023-11-07 08:47:06 WARN  [http-nio-8082-exec-8] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 10 in department with id 3
-2023-11-07 09:04:24 WARN  [http-nio-8082-exec-2] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 2 in department with id 2
-2023-11-07 09:11:41 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 4
-2023-11-07 10:13:41 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationNotFoundException - Application with id 9 not found
-2023-11-07 15:35:43 WARN  [http-nio-8082-exec-5] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
+2023-10-31 09:48:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:52:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 09:54:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:01:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:02:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:31:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:31:42 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:35:12 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:45:52 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:46:54 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:48:39 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:48:49 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:51:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:51:59 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:18 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:18 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:29 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 10:52:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 10:52:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:00:25 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:00:25 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:08:20 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:09:03 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:29 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:33 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:09:35 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:09:35 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:13:14 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:14 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:15 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:16 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:35 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:13:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:50 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:51 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:51 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:55 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:55 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:13:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:13:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:15:08 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:16:05 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:16:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:03 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:03 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:20 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:33 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:17:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:09 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:25 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:25 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:42 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:18:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:18:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:21:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:21:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:04 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:41 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:23:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:23:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:26 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:26:30 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:27:12 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:29 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:35 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:29:48 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:29:48 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:04 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:04 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:30:22 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:30:22 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:24 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:31:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:31:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:32:10 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:32:10 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:35:11 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:35:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:35:24 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:34 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:38:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:38:48 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:01 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:13 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:13 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:27 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDMzMjgsImlhdCI6MTY5ODc0MTUyOH0.HHnAK3tbXF4T-qUM0gDspP8buZNu2sgXQyf2wb7kaNE
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:37 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:55 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:57 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:39:58 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:09 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:17 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:40:18 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:43:43 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:43:43 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:44:10 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:44:10 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDM2MjMsImlhdCI6MTY5ODc0MTgyM30.YIB7tEJwOiSJofZNtIz5rF7XSDaQjAXeQ6JP88WjDjk
+2023-10-31 11:44:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:36 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:45:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:45:45 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:06 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:46:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 11:54:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:06 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-5] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:07 WARN  [http-nio-8082-exec-9] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:17 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:17 WARN  [http-nio-8082-exec-10] c.e.c.configs.JwtRequestFilter - null
+2023-10-31 11:54:45 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:45 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
+2023-10-31 11:54:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:54:57 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
+2023-10-31 11:58:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - я тут
+2023-10-31 11:58:33 WARN  [http-nio-8082-exec-7] c.e.c.configs.JwtRequestFilter - Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2b3ZhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2OTg3NDQyNTcsImlhdCI6MTY5ODc0MjQ1N30.0UJq5_2mprW_NjPFDS3bGmyOYOPGU9Sk1uBVofYq-9Q
+2023-10-31 11:59:01 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 12:02:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:28:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:32:23 WARN  [http-nio-8082-exec-9] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:33:06 WARN  [http-nio-8082-exec-3] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:28:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-10-31 19:32:23 WARN  [http-nio-8082-exec-9] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-10-31 19:33:06 WARN  [http-nio-8082-exec-3] c.e.c.exceptions.CustomUserException - No users found with the given criteria
+2023-11-05 07:19:22 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 07:20:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-05 07:49:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:47:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:47:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:47:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:47:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:47:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:53:03 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:53:05 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:53:05 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:53:05 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:53:05 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:55:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:55:42 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:55:42 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:55:42 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:55:42 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:56:45 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:56:46 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:56:46 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:56:46 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:56:46 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:58:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:58:45 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:58:45 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:58:45 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:58:45 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:58:47 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
+2023-11-07 00:59:07 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:59:08 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:08 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:59:08 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:08 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:59:20 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:59:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:59:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:21 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:59:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 00:59:47 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 00:59:49 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
+2023-11-07 01:16:47 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 01:19:51 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 01:32:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_hn3pboxeicghr1yr5fjdpkxgb" of relation "document_constructor_type" does not exist, skipping
+2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-07 01:32:23 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2023-11-07 18:26:55 WARN  [main] c.e.c.e.DepartmentCreateException - Can not create department!
+2023-11-07 18:27:26 WARN  [main] c.e.c.e.DepartmentCreateException - Can not create department!
+2023-11-07 23:46:38 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
+2023-11-08 00:41:30 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
+2023-11-08 00:41:47 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
