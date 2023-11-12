@@ -34,6 +34,7 @@ alt "User is authenticated"
         end
     else "Request is invalid"
         controller --> front: 400: Bad request
+    end
 else "User isn't authenticated"
     controller --> front--: 401: User is not authenticated
 end
