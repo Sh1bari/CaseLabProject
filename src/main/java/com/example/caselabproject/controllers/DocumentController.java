@@ -137,7 +137,7 @@ public class DocumentController {
                 .body(responseDto);
     }
 
-    @Operation(summary = "Delete document by id", description = "Delete document by his ID")
+    @Operation(summary = "Delete document by id", description = "Delete document by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Document deleted successfully"),
             @ApiResponse(responseCode = "403", description = "Access denied"),
@@ -147,6 +147,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDocument(
             Principal principal,

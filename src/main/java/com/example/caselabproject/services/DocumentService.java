@@ -66,7 +66,7 @@ public interface DocumentService {
      * @throws DocumentConstructorTypeNameNotFoundException если не найден DocumentConstructorType.
      */
     @Transactional
-    DocumentResponseDto updateDocument(String username,
+    DocumentResponseDto updateDocument(@NotBlank(message = "Username cant be blank.")String username,
                                        @Valid DocumentRequestDto request,
                                        @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
@@ -79,6 +79,6 @@ public interface DocumentService {
      * @throws DocumentAccessException если этот документ пытается удалить не создатель документа.
      */
     @Transactional
-    boolean deleteDocument(String username,
+    boolean deleteDocument(@NotBlank(message = "Username cant be blank.")String username,
                            @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 }
