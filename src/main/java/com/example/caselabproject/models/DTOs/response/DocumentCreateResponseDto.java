@@ -13,14 +13,22 @@ import java.util.List;
 public class DocumentCreateResponseDto {
 
     private Long id;
+
     private String name;
+
     private LocalDateTime creationDate;
+
+    private LocalDateTime updateDate;
+
+    private Long creatorId;
 
     public static DocumentCreateResponseDto mapFromEntity(Document document) {
         return DocumentCreateResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .creationDate(document.getCreationDate())
+                .updateDate(document.getUpdateDate())
+                .creatorId(document.getCreator().getId())
                 .build();
     }
 
