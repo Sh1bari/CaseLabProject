@@ -99,16 +99,16 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public DocumentResponseDto updateDocument(String username, DocumentRequestDto request, Long documentId) {
 
-        if (!documentRepository.existsById(documentId)) {
-            throw new DocumentDoesNotExistException(documentId);
-        }
-
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
         }
 
         Document updateDocument = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+
+        if (updateDocument.getRecordState().equals(RecordState.DELETED)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
 
         updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
         updateDocument.setName(request.getName());
