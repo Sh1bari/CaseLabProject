@@ -878,3 +878,25 @@ org.hibernate.hql.internal.ast.DetailedSemanticException: Unable to locate appro
 2023-11-12 19:58:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-11-12 19:58:37 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-11-12 19:59:25 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-13 17:22:54 WARN  [http-nio-8082-exec-1] c.e.c.e.DocumentAccessException - User Farid does not have access to this document!
+2023-11-13 17:23:25 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-13 17:23:25 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentDoesNotExistException - Document with id:2 does not exist!
+2023-11-13 17:32:13 WARN  [http-nio-8082-exec-4] c.e.c.e.DocumentDoesNotExistException - Document with id:2 does not exist!
+2023-11-13 17:32:28 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-13 17:33:02 WARN  [http-nio-8082-exec-8] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-13 17:33:24 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-13 17:34:03 WARN  [http-nio-8082-exec-6] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:34:38 WARN  [http-nio-8082-exec-9] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:34:48 WARN  [http-nio-8082-exec-1] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:34:52 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:34:57 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:41:59 WARN  [http-nio-8082-exec-5] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:42:14 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentDoesNotExistException - Document with id:3 does not exist!
+2023-11-13 17:43:49 WARN  [http-nio-8082-exec-2] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:43:53 WARN  [http-nio-8082-exec-3] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:00 WARN  [http-nio-8082-exec-7] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:09 WARN  [http-nio-8082-exec-8] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:12 WARN  [http-nio-8082-exec-9] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:16 WARN  [http-nio-8082-exec-6] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:20 WARN  [http-nio-8082-exec-1] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!
+2023-11-13 17:44:24 WARN  [http-nio-8082-exec-4] c.e.c.e.DocumentDoesNotExistException - Document with id:4 does not exist!

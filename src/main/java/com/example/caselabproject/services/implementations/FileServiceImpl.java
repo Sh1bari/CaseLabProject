@@ -5,6 +5,7 @@ import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.File;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FileRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -45,6 +46,10 @@ public class FileServiceImpl implements FileService {
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
+        if (document.getRecordState().equals(RecordState.DELETED)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
         File file = new File();
 
         file.setDocument(document);
@@ -79,6 +84,10 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<FileResponseDto> getFiles(Long documentId, Pageable pageable) {
 
+        if (documentChecker(documentId)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
         Page<File> files = fileRepository.findAllByDocument_Id(documentId, pageable);
 
         if (files.isEmpty()) {
@@ -91,7 +100,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public FileDownloadResponseDto downloadFile(Long documentId, Long fileId) throws IOException {
 
-        if (!documentRepository.existsById(documentId)) {
+        if (!documentRepository.existsByIdAndRecordState(documentId, RecordState.ACTIVE)) {
             throw new DocumentDoesNotExistException(documentId);
         }
 
@@ -114,6 +123,10 @@ public class FileServiceImpl implements FileService {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
+        }
+
+        if (documentChecker(documentId)) {
+            throw new DocumentDoesNotExistException(documentId);
         }
 
         File updateFile = fileRepository.findById(fileId).orElseThrow(
@@ -153,6 +166,10 @@ public class FileServiceImpl implements FileService {
         Document document = documentRepository.findById(documentId)
                 .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
 
+        if (document.getRecordState().equals(RecordState.DELETED)) {
+            throw new DocumentDoesNotExistException(documentId);
+        }
+
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new FileNotExistException(fileId));
 
@@ -183,5 +200,12 @@ public class FileServiceImpl implements FileService {
                 + file.getDocument().getCreator().getUsername() + "\\"
                 + "docId_" + file.getDocument().getId() + "_"
                 + multipartFile.getOriginalFilename());
+    }
+
+    private boolean documentChecker(Long documentId) {
+        Document document = documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+
+        return (document.getRecordState().equals(RecordState.DELETED));
     }
 }
