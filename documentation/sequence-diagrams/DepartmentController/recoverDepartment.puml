@@ -1,0 +1,45 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DepartmentController " as controller
+participant "DepartmentController " as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: POST /api/department/{id}/recover
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: recoverDepartment(id)
+        service -> db++: findById(id)
+        alt "Department found"
+            db --> service: Department
+            service -> service: Check Department state
+            alt "Department state == DELETED"
+                service -> service: Set document Department = ACTIVE
+                service -> db: save(Department)
+                db --> service: Updated Department
+                service --> controller: success
+                controller --> front: 200: Department recovered
+            else "Department state == ACTIVE"
+                service --> controller: Error: Department already active
+                controller --> front: 409: Department already active
+            end
+        else "Department is not found"
+            db --> service--: Empty result
+            service --> controller--: Error: Department not found
+            controller --> front: 404: Department isn't found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Bad request
+    end
+else "User doesn't have ADMIN role""
+    controller --> front--: 403: "Access denied"
+end
+
+@enduml

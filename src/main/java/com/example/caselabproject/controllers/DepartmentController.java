@@ -115,6 +115,39 @@ public class DepartmentController {
                 .build();
     }
 
+    @Operation(summary = "Update department name by ID", description = "Updates the name of a specific department using its ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Department name updated successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DepartmentResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Invalid department ID or request format",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Access denied",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Department not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
+    @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<DepartmentResponseDto> updateDepartmentNameById(
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestBody @Valid DepartmentRequestDto departmentRequestDto) {
+        DepartmentResponseDto responseDto = departmentService.updateName(id, departmentRequestDto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
     @Operation(summary = "Get a department by ID", description = "Retrieves details of a specific department by its ID")
     @ApiResponses(value = {
@@ -135,6 +168,7 @@ public class DepartmentController {
                     })
     })
     @GetMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<DepartmentResponseDto> getDepartmentById(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         DepartmentResponseDto responseDto = departmentService.getById(id);
@@ -164,6 +198,7 @@ public class DepartmentController {
                     })
     })
     @GetMapping("/")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
@@ -200,6 +235,7 @@ public class DepartmentController {
                     })
     })
     @GetMapping("/{id}/users")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
