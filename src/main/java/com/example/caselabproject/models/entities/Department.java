@@ -17,7 +17,6 @@ public class Department {
     @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
     private String name;
 
     @Column(unique = true)

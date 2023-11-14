@@ -3034,3 +3034,13 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 2023-11-14 16:53:34 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-11-14 16:53:51 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Token timeout
 2023-11-14 16:56:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 18:46:57 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 18:46:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 18:46:58 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_gkrfp4eq0fpuprjhcfr6ebepa" в таблице "department" не существует, пропускается
+2023-11-14 18:47:40 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_gkrfp4eq0fpuprjhcfr6ebepa" в таблице "department" не существует, пропускается
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_hn3pboxeicghr1yr5fjdpkxgb" в таблице "document_constructor_type" не существует, пропускается
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_r43af9ap4edm43mmtq01oddj6" в таблице "users" не существует, пропускается
