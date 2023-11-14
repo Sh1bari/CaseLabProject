@@ -43,7 +43,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final UserRepository userRepository;
     private final ApplicationItemPageRepository applicationItemPageRepo;
 
-    //TODO проверить
+
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
 
@@ -53,7 +53,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department saveDepartment = saveInternal(department);
         saveDepartment.setSerialKey(generateUniqueSerialKey(saveDepartment));
-        //saveInternal(saveDepartment);
 
         return DepartmentResponseDto.mapFromEntity(saveDepartment);
 
