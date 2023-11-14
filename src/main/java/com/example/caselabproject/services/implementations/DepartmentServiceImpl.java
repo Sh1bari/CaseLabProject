@@ -53,7 +53,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department saveDepartment = saveInternal(department);
         saveDepartment.setSerialKey(generateUniqueSerialKey(saveDepartment));
-        saveInternal(saveDepartment);
+        //saveInternal(saveDepartment);
 
         return DepartmentResponseDto.mapFromEntity(saveDepartment);
 
@@ -204,7 +204,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             // при использовании просто save(), мы не сможем обработать ограничение
             // уникальности, поэтому используем saveAndFlush().
-            return departmentRepository.saveAndFlush(department);
+            return departmentRepository.save(department);
         } catch (DataIntegrityViolationException ex) {
             throw new DepartmentNameExistsException(department.getName());
         }

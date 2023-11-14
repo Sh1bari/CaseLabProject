@@ -3059,3 +3059,5 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
 2023-11-14 18:47:41 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_r43af9ap4edm43mmtq01oddj6" в таблице "users" не существует, пропускается
 >>>>>>>>> Temporary merge branch 2
+2023-11-14 19:34:10 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentNameExistsException - Department test already exists.
+2023-11-14 19:38:48 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentNameExistsException - Department test already exists.
