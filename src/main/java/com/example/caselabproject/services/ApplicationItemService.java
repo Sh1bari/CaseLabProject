@@ -1,12 +1,15 @@
 package com.example.caselabproject.services;
 
+import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemVoteResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -36,4 +39,10 @@ public interface ApplicationItemService {
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
             @NotBlank(message = "Application creator username cant be blank.") String username);
+    @Transactional
+    ApplicationItemVoteResponseDto voteApplicationItem(
+            @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
+            @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
+            @NotBlank(message = "Application creator username cant be blank.") String username,
+            @NotNull(message = "Vote model cant be null") ApplicationItemVoteRequestDto voteApplicationItem);
 }

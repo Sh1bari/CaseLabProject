@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
@@ -299,9 +300,9 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})
     })
-    @GetMapping("/{id}/applications")
+    @GetMapping(value = "/{id}/applications")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<ApplicationFindResponseDto>> getApplicationsByCreatorId(
+    public ResponseEntity<?> getApplicationsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page) {
@@ -309,10 +310,11 @@ public class UserController {
         if (applicationFindResponseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(applicationFindResponseDto);
+                    .build();
         } else {
             return ResponseEntity
                     .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
                     .body(applicationFindResponseDto);
         }
     }

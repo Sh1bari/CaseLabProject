@@ -34,6 +34,9 @@ public class Application {
     @Basic
     private LocalDateTime deadlineDate;
 
+    @Basic
+    private LocalDateTime resultDate;
+
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 

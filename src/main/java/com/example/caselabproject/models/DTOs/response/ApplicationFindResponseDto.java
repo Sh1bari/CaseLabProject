@@ -18,6 +18,7 @@ public class ApplicationFindResponseDto {
     private String name;
     private LocalDateTime creationDate;
     private LocalDateTime deadlineDate;
+    private LocalDateTime resultDate;
     private Long creatorId;
     private Long documentId;
     private List<ApplicationItemDto> applicationItems;
@@ -40,6 +41,7 @@ public class ApplicationFindResponseDto {
                 .id(application.getId())
                 .name(application.getName())
                 .documentId(documentId)
+                .resultDate(application.getResultDate())
                 .creationDate(application.getCreationDate())
                 .deadlineDate(application.getDeadlineDate())
                 .creatorId(application.getCreatorId().getId())
@@ -48,7 +50,7 @@ public class ApplicationFindResponseDto {
     }
 
     public static List<ApplicationFindResponseDto> mapFromListEntity(List<Application> applications) {
-        List<ApplicationFindResponseDto> res = new ArrayList<>(applications.size());
+        List<ApplicationFindResponseDto> res = new ArrayList<>();
         applications.forEach(o -> {
             Long documentId = null;
             Document document = o.getDocument();
@@ -63,9 +65,11 @@ public class ApplicationFindResponseDto {
             }
             res.add(ApplicationFindResponseDto.builder()
                     .id(o.getId())
+                    .name(o.getName())
                     .documentId(documentId)
                     .creationDate(o.getCreationDate())
                     .deadlineDate(o.getDeadlineDate())
+                    .resultDate(o.getResultDate())
                     .creatorId(o.getCreatorId().getId())
                     .applicationItems(applicationItemDtos)
                     .build()

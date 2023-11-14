@@ -1,9 +1,11 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
+import com.example.caselabproject.models.DTOs.response.ApplicationItemVoteResponseDto;
 import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,7 +27,7 @@ import java.security.Principal;
 import java.util.List;
 
 /**
- * Description:
+ * Description: application item controller
  *
  * @author Vladimir Krasnov
  */
@@ -71,6 +73,7 @@ public class ApplicationItemController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId") Long applicationId,
                                                                                     @PathVariable(name = "id") Long id,
                                                                                     Principal principal) {
@@ -94,13 +97,43 @@ public class ApplicationItemController {
             @ApiResponse(responseCode = "409", description = "Application or application is DELETED/application item has been already taken",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
-
     @PostMapping("/application/{applicationId}/applicationItem/{id}/take")
     @Secured("ROLE_USER")
     public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(@PathVariable(name = "applicationId") Long applicationId,
                                                                               @PathVariable(name = "id") Long id,
                                                                               Principal principal) {
         ApplicationItemTakeResponseDto res = applicationItemService.takeApplicationItem(applicationId, id, principal.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
+    }
+    @Operation(summary = "Vote application item by user", description = "Secured by authorized users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationItemVoteResponseDto.class))}),
+            @ApiResponse(responseCode = "403", description = "User don't have enough rights for access to Application item",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "Application, user or application item not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "409", description = "Application, department or application is DELETED",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PostMapping("/application/{applicationId}/applicationItem/{id}/vote")
+    @Secured("ROLE_USER")
+    public ResponseEntity<ApplicationItemVoteResponseDto> voteApplicationItem(
+            @PathVariable(name = "applicationId") Long applicationId,
+            @PathVariable(name = "id") Long id,
+            Principal principal,
+            @RequestBody @Valid ApplicationItemVoteRequestDto voteApplicationItem){
+        ApplicationItemVoteResponseDto res = applicationItemService.voteApplicationItem(
+                applicationId,
+                id,
+                principal.getName(),
+                voteApplicationItem);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(res);
