@@ -835,15 +835,3 @@
 2023-11-07 23:46:38 WARN  [main] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
 2023-11-08 00:41:30 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
 2023-11-08 00:41:47 WARN  [main] c.e.c.e.DepartmentStatusException - Department 1 already has the status ACTIVE
-2023-11-14 04:36:08 WARN  [http-nio-8082-exec-6] c.e.c.e.RoleNameNotFoundException - Can not find role with name ROLE_
-2023-11-14 05:01:35 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
-2023-11-14 05:13:38 WARN  [http-nio-8082-exec-3] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 2 in department with id 1
-2023-11-14 05:15:59 WARN  [http-nio-8082-exec-10] c.e.c.e.ApplicationItemPermissionException - You don't have enough rights for access to Application items
-2023-11-14 05:16:35 WARN  [http-nio-8082-exec-3] c.e.c.e.ApplicationNotFoundException - Application with id 1 not found
-2023-11-14 05:16:44 WARN  [http-nio-8082-exec-4] c.e.c.e.ApplicationNotFoundException - Application with id 2 not found
-2023-11-14 05:16:51 WARN  [http-nio-8082-exec-6] c.e.c.e.ApplicationNotFoundException - Application with id 2 not found
-2023-11-14 05:46:57 WARN  [http-nio-8082-exec-2] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
-2023-11-14 05:47:12 WARN  [http-nio-8082-exec-3] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
-2023-11-14 05:47:36 WARN  [http-nio-8082-exec-4] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
-2023-11-14 05:57:09 WARN  [http-nio-8082-exec-1] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
-2023-11-14 05:57:51 WARN  [http-nio-8082-exec-2] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 1
