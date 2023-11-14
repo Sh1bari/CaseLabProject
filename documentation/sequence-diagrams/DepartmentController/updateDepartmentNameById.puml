@@ -20,15 +20,15 @@ alt "User has ADMIN role"
         alt "Department found"
             db --> service: Department
             service -> service: Set new Department name
-            alt "New Department name is unique"
+            alt "New Department name"
                 service -> db: save(Department)
                 db --> service: Updated Department
                 service --> controller: Success
                 controller --> front: 200: Department updated
             else
-                db --> service: Error: unique constraint violation
+                db --> service: Error: validation problems
                 service --> controller: Exception
-                controller --> front: 422: Department name already exists
+                controller --> front: 422: Department with the \n specified name  SQL Validation exception
             end
         else "Department is not found"
             db --> service--: Empty result

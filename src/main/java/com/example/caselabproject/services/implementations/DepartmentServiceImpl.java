@@ -7,7 +7,6 @@ import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
@@ -18,15 +17,11 @@ import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.validation.Valid;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;
@@ -43,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final UserRepository userRepository;
     private final ApplicationItemPageRepository applicationItemPageRepo;
 
-    //TODO проверить
+
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
 
@@ -53,7 +48,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department saveDepartment = saveInternal(department);
         saveDepartment.setSerialKey(generateUniqueSerialKey(saveDepartment));
-        //saveInternal(saveDepartment);
+
 
         return DepartmentResponseDto.mapFromEntity(saveDepartment);
 
@@ -202,11 +197,10 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     private Department saveInternal(Department department) {
         try {
-            // при использовании просто save(), мы не сможем обработать ограничение
-            // уникальности, поэтому используем saveAndFlush().
+
             return departmentRepository.save(department);
         } catch (DataIntegrityViolationException ex) {
-            throw new DepartmentNameExistsException(department.getName());
+            throw new DepartmentSQLValidationException(department.getName());
         }
     }
 
