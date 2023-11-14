@@ -139,5 +139,4 @@ public class ApplicationItemController {
                 .body(res);
     }
 
-
 }

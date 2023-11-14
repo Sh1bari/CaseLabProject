@@ -86,3 +86,17 @@
 2023-11-14 05:57:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-11-14 05:58:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
 2023-11-14 19:05:17 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 19:08:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 19:33:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 19:34:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 19:34:01 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 19:34:01 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_1t68827l97cwyxo9r1u6t4p7d" в таблице "department" не существует, пропускается
+2023-11-14 19:34:01 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2023-11-14 19:34:01 WARN  [main] o.h.e.jdbc.spi.SqlExceptionHelper - ограничение "uk_gkrfp4eq0fpuprjhcfr6ebepa" в таблице "department" не существует, пропускается
+2023-11-14 19:34:10 WARN  [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-11-14 19:34:10 ERROR [http-nio-8082-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_1t68827l97cwyxo9r1u6t4p7d"
+  Подробности: Ключ "(name)=(test)" уже существует.
+2023-11-14 19:38:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-14 19:38:48 WARN  [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23505
+2023-11-14 19:38:48 ERROR [http-nio-8082-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_1t68827l97cwyxo9r1u6t4p7d"
+  Подробности: Ключ "(name)=(test)" уже существует.
