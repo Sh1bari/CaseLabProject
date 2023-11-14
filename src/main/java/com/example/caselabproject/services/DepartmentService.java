@@ -40,6 +40,24 @@ public interface DepartmentService {
     DepartmentResponseDto create(@Valid DepartmentRequestDto departmentRequestDto);
 
     /**
+     * Обновляет имя отдела с заданным идентификатором.
+     * <p>
+     * Этот метод находит отдел по его идентификатору и обновляет его имя,
+     * используя предоставленные данные из DTO. В случае успеха, возвращает
+     * DTO, отображающее обновленное состояние отдела.
+     * </p>
+     *
+     * @param departmentId Идентификатор отдела, который нужно обновить.
+     * @param departmentRequestDto DTO, содержащий новое имя для отдела.
+     * @return DepartmentResponseDto DTO, отображающее обновленное состояние отдела.
+     * @throws DepartmentNotFoundException если отдел с данным идентификатором не найден.
+     * @throws DepartmentCreateException   если возникла любая другая ошибка при обновлении отдела.
+     * @author Khodov Nikita
+     */
+    @Transactional
+    DepartmentResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
+
+    /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.
      * <p>
      * Этот метод ищет департамент по его ID и устанавливает его статус записи как "DELETED".

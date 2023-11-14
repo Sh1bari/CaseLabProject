@@ -1,0 +1,45 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DepartmentController" as controller
+participant "DepartmentService" as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: DELETE /api/department/{id}
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: deleteDepartment(id)
+        service -> db++: findById(departmentId)
+        alt "Department is found"
+            db --> service: Found Department
+            service -> service: Is Department status = ACTIVE?
+            alt "Status = ACTIVE"
+                service -> service: set Department status \n to the DELETED
+                service -> db: saveDepartment()
+                db --> service: Updated Department
+                service --> controller: success
+                controller --> front: 204: Department deleted
+            else "Status = No content"
+                service --> controller: Exception
+                controller --> front: 409: Department already deleted
+            end
+        else "Department not found"
+            db --> service--: Empty result
+            service --> controller: Exception
+            controller --> front: 404: Department not found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Bad request
+    end
+else
+    controller --> front--: 403: "Access denied"
+end
+
+@enduml
