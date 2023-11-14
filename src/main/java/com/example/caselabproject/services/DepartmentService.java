@@ -51,7 +51,6 @@ public interface DepartmentService {
      * @param departmentRequestDto DTO, содержащий новое имя для отдела.
      * @return DepartmentResponseDto DTO, отображающее обновленное состояние отдела.
      * @throws DepartmentNotFoundException если отдел с данным идентификатором не найден.
-     * @throws DepartmentCreateException   если возникла любая другая ошибка при обновлении отдела.
      * @author Khodov Nikita
      */
     @Transactional
