@@ -12,9 +12,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  sql:
-    init:
-      mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/CaseLab}
@@ -23,7 +20,7 @@ spring:
   jpa:
     openInView: true
     show-sql: false
-    generateDdl: true
+    generateDdl: false
     database: postgresql
     databasePlatform: org.hibernate.dialect.PostgreSQLDialect
     properties:
@@ -31,6 +28,8 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
+  liquibase:
+    enabled: true
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
