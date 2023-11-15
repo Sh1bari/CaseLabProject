@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  # Сервис для разворачивания контейнера с базой данных
+  database:
+    image: postgres:latest
+    pull_policy: missing
+    restart: on-failure
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=case_lab_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0000
+
+  # Сервис для разворачивания контейнера с приложением
+  webapi:
+    image: olegprog2020/case-lab-backend:1.0.0
+    pull_policy: missing
+    restart: always
+    volumes:
+      - /webapi
+    ports:
+      - "8082:8082"
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/case_lab_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=0000
+      - JWT_SECRET=984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
+      - JWT_LIFETIME=30m
