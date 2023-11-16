@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.example.caselabproject.models.enums.OrganizationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,5 +35,8 @@ public class Organization {
 
     @OneToMany(mappedBy = "organization", orphanRemoval = true)
     private List<Document> documents;
+
+    @Enumerated(EnumType.STRING)
+    private OrganizationStatus status;
 
 }
