@@ -44,7 +44,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
         application.setCreatorId(user);
         applicationRepository.save(application);
-        scheduler.save(application.getId(), user.getUsername(), application.getDeadlineDate());
+        scheduler.setScheduler(application.getId(), request.getDeadlineDate());
         return ApplicationCreateResponseDto.mapFromEntity(application);
     }
 
@@ -62,8 +62,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
             applicationRepository.save(updateApplication);
         }
-
-        // service.update(request.getDead())
+        scheduler.setScheduler(updateApplication.getId(), request.getDeadline());
         return ApplicationUpdateResponseDto.mapFromEntity(application);
     }
 
