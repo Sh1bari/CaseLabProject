@@ -43,7 +43,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final UserRepository userRepository;
     private final ApplicationItemPageRepository applicationItemPageRepo;
 
-
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
 
@@ -201,11 +200,9 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     private Department saveInternal(Department department) {
         try {
-            // при использовании просто save(), мы не сможем обработать ограничение
-            // уникальности, поэтому используем saveAndFlush().
             return departmentRepository.save(department);
         } catch (DataIntegrityViolationException ex) {
-            throw new DepartmentNameExistsException(department.getName());
+            throw new DepartmentSQLValidationException(department.getName());
         }
     }
 
