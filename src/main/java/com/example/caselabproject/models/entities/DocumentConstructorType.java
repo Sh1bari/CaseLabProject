@@ -57,4 +57,9 @@ public class DocumentConstructorType {
     @EqualsAndHashCode.Exclude
     @Builder.Default
     private List<Document> documents = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
 }

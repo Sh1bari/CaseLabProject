@@ -53,4 +53,14 @@ public class User {
     @OneToMany(mappedBy = "toUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<ApplicationItem> applicationItems;
 
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @JoinColumn(name = "created_organization_id")
+    private Organization createdOrganization;
+
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
 }

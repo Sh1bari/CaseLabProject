@@ -20,6 +20,9 @@ public class Department {
     @Column(name = "id")
     private Long id;
 
+    @OneToMany(mappedBy = "parentDepartment", orphanRemoval = true)
+    private List<Department> childDepartments;
+
     private String name;
 
     @Column(unique = true)
@@ -33,5 +36,14 @@ public class Department {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_department_id")
+    private Department parentDepartment;
+
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
 }

@@ -51,4 +51,8 @@ public class Application {
     private RecordState recordState;
 
 
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
 }
