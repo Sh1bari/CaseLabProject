@@ -28,9 +28,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
+
     private final ApplicationRepository applicationRepository;
+
     private final UserRepository userRepository;
+
     private final ApplicationItemRepository applicationItemRepository;
+
     private final ApplicationStatusScheduler scheduler;
 
 
