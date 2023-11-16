@@ -20,14 +20,14 @@ public class ApplicationScheduler {
 
     private final ApplicationItemServiceImpl applicationItemServiceImpl;
 
-    @Scheduled(cron = "0 */1 * * * *")
+    // ? @Transactional
+    @Scheduled(cron = "5 * * * * *") // every 5-th second of each minute
     public void setScheduler() {
-
         List<Application> applications = applicationRepository
                 .findAllByRecordStateAndApplicationStatusAndDeadlineDateBefore(
-                        RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, LocalDateTime.now()
-                );
+                        RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, LocalDateTime.now());
 
+        // check from here
         for (Application application : applications) {
             applicationItemServiceImpl.calcApplicationItemsResult(application);
         }
