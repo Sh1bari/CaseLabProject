@@ -17,7 +17,6 @@ import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
-import com.example.caselabproject.services.ApplicationStatusScheduler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationItemRepository applicationItemRepository;
 
-    private final ApplicationStatusScheduler scheduler;
-
 
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
@@ -48,7 +45,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
         application.setCreatorId(user);
         applicationRepository.save(application);
-        scheduler.setScheduler(application.getId(), request.getDeadlineDate());
         return ApplicationCreateResponseDto.mapFromEntity(application);
     }
 
@@ -66,7 +62,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
             applicationRepository.save(updateApplication);
         }
-        scheduler.setScheduler(updateApplication.getId(), request.getDeadline());
         return ApplicationUpdateResponseDto.mapFromEntity(application);
     }
 

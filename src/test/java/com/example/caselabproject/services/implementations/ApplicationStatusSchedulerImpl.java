@@ -5,7 +5,6 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
-import com.example.caselabproject.services.ApplicationStatusScheduler;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ import static org.mockito.Mockito.verify;
 class ApplicationStatusSchedulerImpl {
     @Autowired
     private ApplicationService service;
-
-    @Autowired
-    private ApplicationStatusScheduler scheduler;
 
     @Mock
     private UserRepository userRepository;

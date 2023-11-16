@@ -173,7 +173,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         return ApplicationItemVoteResponseDto.mapFromEntity(applicationItem);
     }
 
-    void calcApplicationItemsResult(Application application) {
+    public void calcApplicationItemsResult(Application application) {
         AtomicInteger pending = new AtomicInteger();
         AtomicInteger accepted = new AtomicInteger();
         AtomicInteger denied = new AtomicInteger();
@@ -188,9 +188,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                     }
                 });
         if(sum * 0.6 >= accepted.get() + denied.get()){
-            application.setApplicationStatus(ApplicationStatus.NOT_ENOUGH_VOTES);
+            application.setApplicationStatus(ApplicationStatus.DENIED);
         }else if(accepted.get() == denied.get()){
-            application.setApplicationStatus(ApplicationStatus.DRAW);
+            application.setApplicationStatus(ApplicationStatus.DENIED);
         } else if (accepted.get() > denied.get()) {
             application.setApplicationStatus(ApplicationStatus.ACCEPTED);
         }else if (accepted.get() < denied.get()) {
