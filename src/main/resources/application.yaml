@@ -3,8 +3,8 @@ server:
   servlet:
     context-path: /api
 jwt:
-  secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
-  lifetime: 30m
+  secret: ${JWT_SECRET:984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf}
+  lifetime: ${JWT_LIFETIME:30m}
 spring:
   output:
     ansi:
@@ -12,18 +12,15 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  sql:
-    init:
-      mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/CaseLab
-    username: root
-    password: 123
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/CaseLab}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:123}
   jpa:
     openInView: true
     show-sql: false
-    generateDdl: true
+    generateDdl: false
     database: postgresql
     databasePlatform: org.hibernate.dialect.PostgreSQLDialect
     properties:
@@ -31,6 +28,8 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
+  liquibase:
+    enabled: true
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
