@@ -1,17 +1,12 @@
 -- changeset minen: 34
 
-CREATE OR REPLACE FUNCTION add_check_status_constraint() RETURNS VOID AS $$
-DECLARE
-    tbl_name TEXT;
-    table_names TEXT[] := ARRAY['users', 'application', 'department', 'document', 'document_constructor_type', 'application_item'];
-BEGIN
-    FOREACH tbl_name IN ARRAY table_names
-        LOOP
-            IF NOT EXISTS (SELECT 1 FROM information_schema.table_constraints WHERE constraint_name = 'check_status' AND table_name = tbl_name) THEN
-                EXECUTE 'ALTER TABLE ' || tbl_name || ' ADD CONSTRAINT check_status CHECK (record_state IN (''DELETED'', ''ACTIVE''))';
-            END IF;
-        END LOOP;
-END
-$$ LANGUAGE plpgsql;
+ALTER TABLE "department" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
+ALTER TABLE "users" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
+ALTER TABLE "document_constructor_type" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
+ALTER TABLE "application" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
+ALTER TABLE "application_item" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
+ALTER TABLE "document" ADD CONSTRAINT record_state_check CHECK (record_state IN ('DELETED', 'ACTIVE'));
 
-select add_check_status_constraint();
+ALTER TABLE "application" ADD CONSTRAINT application_status_check CHECK (application_status IN ('WAITING_FOR_ANSWER', 'ACCEPTED', 'DENIED', 'DRAW', 'NOT_ENOUGH_VOTES'));
+
+ALTER TABLE "application_item" ADD CONSTRAINT application_item_status_check CHECK (status IN ('ACCEPTED', 'DENIED', 'PENDING'));
