@@ -18,93 +18,45 @@ class ApplicationRepositoryTest {
     @Autowired
     private ApplicationRepository underTest;
 
-//    @BeforeEach
-//    void setUp(@Autowired ApplicationRepository underTest) {
-//        this.underTest = underTest;
-//    }
-
     @Test /* Application#findAllByRecordStateAndApplicationStatusAndDeadlineDateBefore */
     void shouldReturnNotEmptyList_whenStateIsActiveAndStatusIsWaiting() {
         // given
-        final Application firstApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.ACTIVE)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusWeeks(1))
-                .build();
-        final Application secondApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.ACTIVE)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusMinutes(1))
-                .build();
-        final Application thirdApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.DELETED)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusDays(4))
-                .build();
-        final Application fourthApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.DELETED)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().plusHours(4))
-                .build();
-        final List<Application> givenApplications = List.of(firstApplication, secondApplication, thirdApplication, fourthApplication);
+        LocalDateTime now = LocalDateTime.now();
+        final Application first = getApplication(
+                RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, now.minusWeeks(1));
+        final Application second = getApplication(
+                RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, now.minusMinutes(1));
+        final Application third = getApplication(
+                RecordState.DELETED, ApplicationStatus.WAITING_FOR_ANSWER, now.minusWeeks(1));
+        final Application fourth = getApplication(
+                RecordState.DELETED, ApplicationStatus.WAITING_FOR_ANSWER, now.plusHours(4));
+        final Application fifth = getApplication(
+                RecordState.ACTIVE, ApplicationStatus.DENIED, now.minusWeeks(1));
+        final Application sixth = getApplication(
+                RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, now.plusMinutes(1));
+        final Application seventh = getApplication(
+                RecordState.DELETED, ApplicationStatus.WAITING_FOR_ANSWER, now.minusWeeks(1));
 
-        underTest.saveAll(givenApplications);
+        underTest.saveAll(List.of(first, second, third, fourth, fifth, sixth, seventh));
 
         // when
-        List<Application> actualApplications = underTest
+        final List<Application> actualApplications = underTest
                 .findAllByRecordStateAndApplicationStatusAndDeadlineDateBefore(
-                        RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, LocalDateTime.now());
+                        RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, now);
+
         // then
         assertThat(actualApplications)
                 .hasSize(2)
-                .contains(firstApplication, secondApplication);
+                .contains(first, second);
     }
 
-    @Test /* Application#findAllByRecordStateAndApplicationStatusAndDeadlineDateBefore */
-    void shouldReturnEmptyList_whenStateIsDeletedOrDeadlineAfterNow() {
-        // given
-        final Application firstApplication = Application.builder()
+    private Application getApplication(
+            RecordState state, ApplicationStatus status, LocalDateTime deadline) {
+        return Application.builder()
                 .name("something")
-                .recordState(RecordState.ACTIVE)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusWeeks(1))
+                .recordState(state)
+                .applicationStatus(status)
+                .deadlineDate(deadline)
                 .build();
-        final Application secondApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.ACTIVE)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusMinutes(1))
-                .build();
-        final Application thirdApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.DELETED)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().minusDays(4))
-                .build();
-        final Application fourthApplication = Application.builder()
-                .name("something")
-                .recordState(RecordState.DELETED)
-                .applicationStatus(ApplicationStatus.WAITING_FOR_ANSWER)
-                .deadlineDate(LocalDateTime.now().plusHours(4))
-                .build();
-        final List<Application> givenApplications = List.of(firstApplication, secondApplication, thirdApplication, fourthApplication);
-
-        underTest.saveAll(givenApplications);
-
-        // when
-        List<Application> actualApplications = underTest
-                .findAllByRecordStateAndApplicationStatusAndDeadlineDateBefore(
-                        RecordState.ACTIVE, ApplicationStatus.WAITING_FOR_ANSWER, LocalDateTime.now());
-
-        // then
-        assertThat(actualApplications).isEmpty();
-//        assertAll(
-//                () -> assertThat(actualApplications).hasSize(2),
-//                () -> assertThat(actualApplications).contains(firstApplication, secondApplication)
-//        );
     }
 }
