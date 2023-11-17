@@ -1,10 +1,15 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
-import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentChildDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentGetAllResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DepartmentService;
@@ -44,7 +49,7 @@ public class DepartmentController {
             @ApiResponse(responseCode = "201", description = "Department created",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = DepartmentResponseDto.class))
+                                    schema = @Schema(implementation = DepartmentCreateResponseDto.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Invalid input",
                     content = {
@@ -59,9 +64,11 @@ public class DepartmentController {
     })
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<DepartmentResponseDto> createNewDepartment(
-            @RequestBody @Valid DepartmentRequestDto departmentRequestDto) {
-        DepartmentResponseDto responseDto = departmentService.create(departmentRequestDto);
+    public ResponseEntity<DepartmentCreateResponseDto> createNewDepartment(
+            @RequestBody @Valid DepartmentCreateRequestDto departmentRequestDto,
+            Principal principal) {
+
+        DepartmentCreateResponseDto responseDto = departmentService.create(departmentRequestDto, principal.getName());
         return ResponseEntity
                 .created(URI.create("/api/department/" + responseDto.getId()))
                 .body(responseDto);
@@ -122,7 +129,7 @@ public class DepartmentController {
             @ApiResponse(responseCode = "200", description = "Department name updated successfully",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = DepartmentResponseDto.class))
+                                    schema = @Schema(implementation = DepartmentCreateResponseDto.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Invalid department ID or request format",
                     content = {
@@ -142,10 +149,10 @@ public class DepartmentController {
     })
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<DepartmentResponseDto> updateDepartmentNameById(
+    public ResponseEntity<DepartmentUpdateResponseDto> updateDepartmentNameById(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestBody @Valid DepartmentRequestDto departmentRequestDto) {
-        DepartmentResponseDto responseDto = departmentService.updateName(id, departmentRequestDto);
+        DepartmentUpdateResponseDto responseDto = departmentService.updateName(id, departmentRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
@@ -156,7 +163,7 @@ public class DepartmentController {
             @ApiResponse(responseCode = "200", description = "Department found and returned successfully",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = DepartmentResponseDto.class))
+                                    schema = @Schema(implementation = DepartmentCreateResponseDto.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Invalid department ID",
                     content = {
@@ -171,9 +178,50 @@ public class DepartmentController {
     })
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
-    public ResponseEntity<DepartmentResponseDto> getDepartmentById(
+    public ResponseEntity<DepartmentGetByIdResponseDto> getDepartmentById(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
-        DepartmentResponseDto responseDto = departmentService.getById(id);
+        DepartmentGetByIdResponseDto responseDto = departmentService.getById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
+
+    @Operation(summary = "Add a child department to an existing department",
+            description = "Adds a new child department to an existing department identified by the provided ID. Requires admin privileges.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Child department added successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DepartmentGetByIdResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "400",
+                    description = "Invalid request parameters or validation errors",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "Department not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "403",
+                    description = "Access denied for non-admin users",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
+    @PostMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<DepartmentGetByIdResponseDto> addChildDepartment(
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestBody @Valid DepartmentChildDto departmentChildDto) {
+
+        DepartmentGetByIdResponseDto responseDto = departmentService.setParentDepartment(id, departmentChildDto);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
@@ -185,7 +233,7 @@ public class DepartmentController {
             @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = DepartmentResponseDto.class))
+                                    schema = @Schema(implementation = DepartmentCreateResponseDto.class))
                     }),
             @ApiResponse(responseCode = "204", description = "No departments found"),
             @ApiResponse(responseCode = "400", description = "Invalid pagination parameters",
@@ -201,12 +249,12 @@ public class DepartmentController {
     })
     @GetMapping("/")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(
+    public ResponseEntity<List<DepartmentGetAllResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
+        List<DepartmentGetAllResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

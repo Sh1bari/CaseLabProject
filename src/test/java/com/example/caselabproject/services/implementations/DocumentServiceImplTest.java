@@ -1,7 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentRequestDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.User;

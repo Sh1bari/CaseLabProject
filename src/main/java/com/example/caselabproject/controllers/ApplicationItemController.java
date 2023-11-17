@@ -1,12 +1,12 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
-import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemVoteResponseDto;
-import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationItemVoteRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.CreateApplicationItemRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemTakeResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemVoteResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.CreateApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

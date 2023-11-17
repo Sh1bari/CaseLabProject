@@ -1,8 +1,10 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
-import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
-import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentCreateRequestDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentGetAllResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.DepartmentGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.AuthUserInfo;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
@@ -44,34 +46,46 @@ public class DepartmentServiceImplTestMock {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UserRepository userRepo;
+
 
     private DepartmentServiceImpl departmentService;
+
     @Mock
     private ApplicationItemPageRepository applicationItemPageRepo;
 
 
     @BeforeEach
     void setUp() {
-        departmentService = new DepartmentServiceImpl(departmentRepository, userRepository, applicationItemPageRepo);
+        departmentService = new DepartmentServiceImpl(departmentRepository, userRepository, applicationItemPageRepo, userRepo);
     }
 
 
     @Test
     void create_Test() {
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
+        DepartmentCreateRequestDto requestDto = new DepartmentCreateRequestDto();
         requestDto.setName("Name");
 
         Department department = requestDto.mapToEntity();
-        department.setRecordState(RecordState.ACTIVE);
-        department.setUsers(new ArrayList<>());
+        department.setId(1L);
+        User user = new User();
+        user.setUsername("User");
+        user.setId(1L);
 
-        DepartmentResponseDto responseDto = DepartmentResponseDto.mapFromEntity(department);
+        given(departmentRepository.save(any(Department.class))).willReturn(department);
 
-        DepartmentResponseDto responseDto1 = departmentService.create(requestDto);
+        given(userRepo.findByUsername(any())).willReturn(Optional.of(user));
+
+        DepartmentCreateResponseDto responseDto = DepartmentCreateResponseDto.mapFromEntity(department);
+
+        DepartmentCreateResponseDto responseDto1 = departmentService.create(requestDto, user.getUsername());
+
+        responseDto.setSerialKey(responseDto1.getSerialKey());
+
 
         Assertions.assertEquals(responseDto, responseDto1);
 
-        verify(departmentRepository).save(department);
     }
 
     @Test
@@ -84,12 +98,11 @@ public class DepartmentServiceImplTestMock {
         given(departmentRepository.findById(1L)).willReturn(Optional.of(department));
         given(departmentRepository.save(any(Department.class))).willReturn(department);
 
-        boolean result = departmentService.deleteDepartment(1L);
+        departmentService.deleteDepartment(1L);
         verify(departmentRepository).findById(1L);
 
         verify(departmentRepository).save(department);
 
-        assertTrue(result);
 
         assertEquals(RecordState.DELETED, department.getRecordState());
     }
@@ -120,14 +133,15 @@ public class DepartmentServiceImplTestMock {
         department.setId(1L);
         department.setRecordState(RecordState.ACTIVE);
         department.setUsers(new ArrayList<>());
+        department.setChildDepartments(new ArrayList<>());
 
 
-        DepartmentResponseDto responseDto = DepartmentResponseDto.mapFromEntity(department);
+        DepartmentGetByIdResponseDto responseDto = DepartmentGetByIdResponseDto.mapFromEntity(department);
 
         given(departmentRepository.findById(1L)).willReturn(Optional.of(department));
 
 
-        DepartmentResponseDto responseDto1 = departmentService.getById(1L);
+        DepartmentGetByIdResponseDto responseDto1 = departmentService.getById(1L);
 
         verify(departmentRepository).findById(1L);
 
@@ -158,7 +172,7 @@ public class DepartmentServiceImplTestMock {
                 anyString(), any(Pageable.class), any(RecordState.class))).willReturn(departmentPage);
 
 
-        List<DepartmentResponseDto> responseDtoList =
+        List<DepartmentGetAllResponseDto> responseDtoList =
                 departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE);
 
 
@@ -168,12 +182,12 @@ public class DepartmentServiceImplTestMock {
         assertNotNull(responseDtoList);
         assertEquals(2, responseDtoList.size());
 
-        DepartmentResponseDto responseDto1 = responseDtoList.get(0);
+        DepartmentGetAllResponseDto responseDto1 = responseDtoList.get(0);
         assertEquals(1L, responseDto1.getId());
         assertEquals("Department 1", responseDto1.getName());
 
 
-        DepartmentResponseDto responseDto2 = responseDtoList.get(1);
+        DepartmentGetAllResponseDto responseDto2 = responseDtoList.get(1);
         assertEquals(2L, responseDto2.getId());
         assertEquals("Department 2", responseDto2.getName());
 

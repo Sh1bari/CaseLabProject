@@ -1,12 +1,12 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
-import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemVoteResponseDto;
-import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationItemVoteRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.CreateApplicationItemRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemTakeResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemVoteResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.CreateApplicationItemResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;

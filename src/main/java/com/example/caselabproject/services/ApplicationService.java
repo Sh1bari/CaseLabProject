@@ -1,10 +1,10 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationUpdateResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

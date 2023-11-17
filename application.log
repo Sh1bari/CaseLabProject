@@ -3061,3 +3061,77 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 >>>>>>>>> Temporary merge branch 2
 2023-11-14 19:34:10 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentNameExistsException - Department test already exists.
 2023-11-14 19:38:48 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentNameExistsException - Department test already exists.
+2023-11-16 22:39:37 WARN  [http-nio-8082-exec-2] c.e.c.configs.JwtRequestFilter - Wrong token
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:20 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.NoDocumentPageFoundException - No content found by page 0
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeNameNotFoundException - DocumentConstructorType doctype-1 does not exist
+2023-11-17 00:56:20 WARN  [main] c.e.c.m.D.r.DocumentResponseDto - DocumentConstructorType name is empty
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeAlreadyActiveException - Document type with id 1 already active.
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeHasAssociatedDocumentsException - DocumentConstructorType with id 1 has associated documents.
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeNameExistsException - Document type Приказ already exists.
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeAlreadyDeletedException - Document type with id 1 already deleted.
+2023-11-17 00:56:20 WARN  [main] c.e.c.e.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.DocumentAccessException - User username does not have access to this document!
+2023-11-17 00:56:21 WARN  [main] c.e.c.e.FileNotExistException - File does not exist!
+2023-11-17 04:03:27 WARN  [http-nio-8082-exec-4] c.e.c.configs.JwtRequestFilter - Wrong token
+2023-11-17 04:03:53 WARN  [http-nio-8082-exec-7] c.e.c.e.DepartmentSQLValidationException - Department department-1  SQL Validation exception.
+2023-11-17 04:04:52 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentSQLValidationException - Department department-1  SQL Validation exception.
+2023-11-17 04:06:44 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentSQLValidationException - Department department-1  SQL Validation exception.
+2023-11-17 04:06:54 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentSQLValidationException - Department department-2  SQL Validation exception.
+2023-11-17 04:08:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-17 04:24:45 WARN  [http-nio-8082-exec-6] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-17 04:45:41 WARN  [http-nio-8082-exec-5] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:45:45 WARN  [http-nio-8082-exec-6] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:45:49 WARN  [http-nio-8082-exec-7] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:45:55 WARN  [http-nio-8082-exec-8] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:46:41 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:46:47 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 04:46:48 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:36:20 WARN  [http-nio-8082-exec-3] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-17 21:37:14 WARN  [http-nio-8082-exec-9] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 21:37:22 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:37:27 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:37:32 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 12 because 12 is already parent of 11
+2023-11-17 21:37:35 WARN  [http-nio-8082-exec-5] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 12 because 12 is already parent of 11
+2023-11-17 21:38:12 WARN  [http-nio-8082-exec-8] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:38:26 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:38:33 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentChildParentException - You cannot make a department 14 parent on 15 because 15 is already parent of 14
+2023-11-17 21:38:52 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:39:00 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 15 because 15 is already parent of 11
+2023-11-17 21:39:02 WARN  [http-nio-8082-exec-5] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 15 because 15 is already parent of 11
+2023-11-17 21:52:32 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 15 because 15 is already parent of 11
+2023-11-17 21:52:37 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 21:52:41 WARN  [http-nio-8082-exec-6] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 21:52:45 WARN  [http-nio-8082-exec-8] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 12 because 12 is already parent of 11
+2023-11-17 21:52:51 WARN  [http-nio-8082-exec-9] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:53:20 WARN  [http-nio-8082-exec-10] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:53:22 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:53:23 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:54:01 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentChildException - Department with id 12 is already a child of the department with id 11
+2023-11-17 21:54:04 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentChildException - Department with id 12 is already a child of the department with id 11
+2023-11-17 21:54:09 WARN  [http-nio-8082-exec-5] c.e.c.e.DepartmentParentException - Department has parent department.
+2023-11-17 21:54:15 WARN  [http-nio-8082-exec-6] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 21:54:19 WARN  [http-nio-8082-exec-8] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 13 because 13 is already parent of 11
+2023-11-17 21:54:20 WARN  [http-nio-8082-exec-9] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 13 because 13 is already parent of 11
+2023-11-17 22:08:41 WARN  [http-nio-8082-exec-3] c.e.c.e.DepartmentChildParentException - You cannot make a department 11 parent on 13 because 13 is already parent of 11
+2023-11-17 22:08:46 WARN  [http-nio-8082-exec-4] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 22:08:51 WARN  [http-nio-8082-exec-6] c.e.c.e.DepartmentChildParentException - You can't tie a department to yourself
+2023-11-17 22:09:33 WARN  [http-nio-8082-exec-10] c.e.c.e.DepartmentChildParentException - You cannot make a department 16 parent on 15 because 15 is already parent of 16
+2023-11-17 22:10:11 WARN  [main] c.e.c.e.UserNotFoundException - User with username User not found.
+2023-11-17 22:12:11 WARN  [main] c.e.c.e.UserNotFoundException - User with username User not found.
+2023-11-17 22:13:12 WARN  [main] c.e.c.e.UserNotFoundException - User with username User not found.

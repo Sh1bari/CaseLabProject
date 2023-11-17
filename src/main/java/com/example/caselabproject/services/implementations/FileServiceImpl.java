@@ -1,8 +1,8 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
+import com.example.caselabproject.models.DTOs.response.file.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.file.FileResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.File;
 import com.example.caselabproject.repositories.DocumentRepository;

@@ -1,9 +1,15 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserUpdateResponseDto;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.UserService;

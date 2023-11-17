@@ -1,22 +1,22 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.exceptions.DepartmentCreateException;
-import com.example.caselabproject.exceptions.DepartmentSQLValidationException;
-import com.example.caselabproject.exceptions.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.DepartmentStatusException;
-import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
-import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentChildDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.department.DepartmentRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.department.*;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import com.example.caselabproject.exceptions.*;
 
 import java.util.List;
 
@@ -25,19 +25,44 @@ public interface DepartmentService {
     /**
      * Создаёт новый департамент на основе предоставленного DTO.
      * <p>
-     * Этот метод преобразует {@link DepartmentRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
+     * Этот метод преобразует {@link DepartmentCreateRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
      * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentSQLValidationException}.
      * В случае любых других ошибок при создании будет выброшено исключение {@link DepartmentCreateException}.
      * </p>
      *
      * @param departmentRequestDto DTO запроса для создания департамента. Должно быть валидным.
-     * @return DTO {@link DepartmentResponseDto} ответа, представляющее созданный департамент.
+     * @return DTO {@link DepartmentCreateResponseDto} ответа, представляющее созданный департамент.
      * @throws DepartmentSQLValidationException ошибка при сохранении {@link Department} в базе данных.
      * @throws DepartmentCreateException        если произошла ошибка при создании департамента.
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto create(@Valid DepartmentRequestDto departmentRequestDto);
+    DepartmentCreateResponseDto create(@Valid DepartmentCreateRequestDto departmentRequestDto,
+                                       @NotBlank(message = "Department creator username can't be blank.") String username);
+
+
+    /**
+     * Назначает родительский департамент для указанного дочернего департамента.
+     * <p>
+     * Этот метод обновляет иерархию департаментов, устанавливая связь между родительским и дочерним департаментом.
+     * При попытке установить некорректную связь (например, привязать родительский департамент к своему дочернему,
+     * или привязать департамент к дочерним департаментам своего дочернего департамента) будет выброшено исключение
+     * {@link DepartmentChildParentException}. Также предусмотрена проверка на повторное присвоение родителя и
+     * попытки перезаписи уже существующего родительского департамента.
+     * </p>
+     *
+     * @param departmentId Идентификатор родительского департамента.
+     * @param DepartmentChildDto DTO дочернего департамента, который будет привязан.
+     * @return DTO {@link DepartmentGetByIdResponseDto} ответа, представляющее обновлённый родительский департамент.
+     * @throws DepartmentChildParentException если попытка установить связь не соответствует бизнес-логике.
+     * @throws DepartmentChildException если департамент уже содержится в списке дочерних департаментов.
+     * @throws DepartmentParentException если у дочернего департамента уже есть родительский департамент.
+     * @author Khodov Nikita
+     */
+    @Transactional
+    DepartmentGetByIdResponseDto setParentDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
+                                                     @Valid DepartmentChildDto DepartmentChildDto);
+
 
     /**
      * Обновляет имя отдела с заданным идентификатором.
@@ -49,12 +74,12 @@ public interface DepartmentService {
      *
      * @param departmentId         Идентификатор отдела, который нужно обновить.
      * @param departmentRequestDto DTO, содержащий новое имя для отдела.
-     * @return DepartmentResponseDto DTO, отображающее обновленное состояние отдела.
+     * @return {@link DepartmentUpdateResponseDto} DTO, отображающее обновленное состояние отдела.
      * @throws DepartmentNotFoundException если отдел с данным идентификатором не найден.
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
+    DepartmentUpdateResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.
@@ -70,7 +95,7 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    boolean deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentDeleteRecoverResponseDto deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
@@ -86,22 +111,22 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentDeleteRecoverResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
-     * Возвращает департамент по указанному ID в виде {@link DepartmentResponseDto}.
+     * Возвращает департамент по указанному ID в виде {@link DepartmentGetByIdResponseDto}.
      * <p>
      * Этот метод осуществляет поиск департамента в базе данных по его ID.
      * Если департамент с заданным ID не найден, будет выброшено исключение {@link DepartmentNotFoundException}.
      * </p>
      *
      * @param departmentId ID департамента, который нужно получить.
-     * @return DTO {@link DepartmentResponseDto} ответа, представляющее найденный департамент.
+     * @return DTO {@link DepartmentCreateResponseDto} ответа, представляющее найденный департамент.
      * @throws DepartmentNotFoundException если департамент с указанным ID не найден.
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentGetByIdResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Возвращает список департаментов с пагинацией и возможностью фильтрации по имени.
@@ -114,11 +139,11 @@ public interface DepartmentService {
      *
      * @param pageable Модель страницы для пагинации.
      * @param name     Имя для фильтрации списка департаментов.
-     * @return Список {@link DepartmentResponseDto}, представляющий найденные департаменты.
+     * @return Список {@link DepartmentGetAllResponseDto}, представляющий найденные департаменты.
      * @author Khodov Nikita
      */
     @Transactional
-    List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
+    List<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
 
     /**
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
