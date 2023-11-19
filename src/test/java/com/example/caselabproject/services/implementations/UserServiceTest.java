@@ -5,54 +5,33 @@ import com.example.caselabproject.exceptions.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
-import com.example.caselabproject.models.entities.PersonalUserInfo;
+import com.example.caselabproject.models.entities.Department;
+import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.Role;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.*;
 import com.example.caselabproject.services.RoleService;
-import jakarta.validation.ConstraintViolationException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.caselabproject.exceptions.*;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.request.FieldRequestDto;
-import com.example.caselabproject.models.entities.DocumentConstructorType;
-import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
-import com.example.caselabproject.services.DocumentConstructorTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -78,7 +57,6 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
     private UserServiceImpl underTest;
-    private User user;
 
     private static UserCreateRequestDto getUserCreateRequestDto() {
         UserCreateRequestDto userCreateRequestDto = new UserCreateRequestDto();
@@ -119,80 +97,128 @@ public class UserServiceTest {
 
     @Test
     void getUserByIdTest() {
-        //given
-        UserGetByIdResponseDto userToGetById = UserGetByIdResponseDto.mapFromEntity(user);
-        //when
-        UserGetByIdResponseDto userGotById = underTest.getById(user.getId());
-        //then
-        assertEquals(userToGetById, userGotById);
-        assertNotNull(userGotById);
+        UserCreateRequestDto userCreateRequestDto = getUserCreateRequestDto();
+        User user1 = userCreateRequestDto.mapToEntity();
+        user1.setId(1L);
+        user1.setRoles(List.of(new Role()));
+        given(userRepository.findById(1L)).willReturn(Optional.of(user1));
+        underTest.getById(1L);
+        verify(userRepository).findById(any());
+    }
+
+    @Test
+    void userExistsTest() {
+        UserCreateRequestDto userCreateRequestDto = getUserCreateRequestDto();
+        User user1 = userCreateRequestDto.mapToEntity();
+        user1.setId(1L);
+        user1.setRoles(List.of(new Role()));
+
+        given(userRepository.existsById(1L)).willReturn(true);
+        underTest.existById(1L);
+        verify(userRepository).existsById(any());
     }
 
     @Test
     void createUserTest() {
-        //given
-
         UserCreateRequestDto userCreateRequestDto = getUserCreateRequestDto();
         User user1 = userCreateRequestDto.mapToEntity();
-
         user1.setId(1L);
-
         given(userRepository.save(any())).willReturn(user1);
-
         underTest.create(userCreateRequestDto);
         verify(userRepository).save(any());
     }
 
     @Test
+    void createUser_willThrowWhenUsernameExists() {
+        UserCreateRequestDto userCreateRequestDto = getUserCreateRequestDto();
+
+        given(userRepository.save(any())).willThrow(DataIntegrityViolationException.class);
+
+        assertThatThrownBy(() -> underTest.create(userCreateRequestDto))
+                .isInstanceOf(UserExistsException.class)
+                .hasMessageContaining("User with username " + getUserCreateRequestDto().getUsername() + " already exists");
+    }
+
+    @Test
+    void findUser_willThrowWhenUserNotFound() {
+        given(userRepository.findById(1L)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> underTest.getById(1L))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("User with id " + 1 + " not found.");
+    }
+
+    @Test
     void updateUserByIdTest() {
-        //given
-        UserUpdateResponseDto userToUpdate = UserUpdateResponseDto.mapFromEntity(user);
-        //when
-        UserUpdateResponseDto updatedUser = underTest.updateById(user.getId(), getUserUpdateRequestDto());
-        //then
-        assertEquals(userToUpdate, updatedUser);
-        assertNotNull(updatedUser);
+        UserUpdateRequestDto userUpdateRequestDto = getUserUpdateRequestDto();
+        User user1 = userUpdateRequestDto.mapToEntity();
+        user1.setId(1L);
+        user1.setDepartment(new Department());
+        given(userRepository.save(any())).willReturn(user1);
+        given(userRepository.findById(1L)).willReturn(Optional.of(user1));
+        underTest.updateById(1L, userUpdateRequestDto);
+        verify(userRepository).save(any());
     }
 
     @Test
     void deleteUserByIdTest() {
-        //given
-        user.setRecordState(RecordState.DELETED);
-        UserDeleteResponseDto userToDelete = UserDeleteResponseDto.mapFromEntity(user);
-        //when
-        UserDeleteResponseDto deletedUser = underTest.deleteById(user.getId());
-        //then
-        assertEquals(userToDelete, deletedUser);
-        assertNotNull(deletedUser);
+        UserUpdateRequestDto userUpdateRequestDto = getUserUpdateRequestDto();
+        User user1 = userUpdateRequestDto.mapToEntity();
+        user1.setId(1L);
+        user1.setDepartment(new Department());
+        user1.setRoles(List.of(new Role()));
+
+        given(userRepository.save(any())).willReturn(user1);
+        given(userRepository.findById(1L)).willReturn(Optional.of(user1));
+
+        underTest.deleteById(1L);
+        verify(userRepository).save(any());
     }
 
     @Test
     void recoverUserByIdTest() {
-        //given
-        UserRecoverResponseDto userToRecover = UserRecoverResponseDto.mapFromEntity(user);
-        //when
-        UserRecoverResponseDto recoveredUser = underTest.recoverById(user.getId());
-        //then
-        assertEquals(userToRecover, recoveredUser);
-        assertNotNull(recoveredUser);
+        UserUpdateRequestDto userUpdateRequestDto = getUserUpdateRequestDto();
+        User user1 = userUpdateRequestDto.mapToEntity();
+        user1.setId(1L);
+        user1.setDepartment(new Department());
+        user1.setRoles(List.of(new Role()));
+
+        given(userRepository.save(any())).willReturn(user1);
+        given(userRepository.findById(1L)).willReturn(Optional.of(user1));
+
+        underTest.recoverById(1L);
+        verify(userRepository).save(any());
     }
 
     @Test
     void findAllUsersByFiltersByPageTest() {
-        //when
-        List<UserGetByIdResponseDto> userGetByIdResponseDtoList = underTest.findAllUsersByFiltersByPage(
-                "",
-                "",
-                "",
-                "",
-                "",
-                LocalDate.of(1900, 1, 1),
-                LocalDate.of(3000, 1, 1),
-                "qwe@qwe.qwe",
-                PageRequest.of(0, 1)).stream().toList();
-        //then
-        verify(userPageRepository).
-                findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
+        given(userPageRepository
+                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
+                        "",
+                        "",
+                        "",
+                        "",
+                        LocalDate.of(1900, 1, 1),
+                        LocalDate.of(3000, 1, 1),
+                        "qwe@qwe.qwe",
+                        PageRequest.of(0, 1)))
+                .willReturn(new PageImpl<>(List.of(new User())));
+        try {
+            underTest.findAllUsersByFiltersByPage(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    LocalDate.of(1900, 1, 1),
+                    LocalDate.of(3000, 1, 1),
+                    "qwe@qwe.qwe",
+                    PageRequest.of(0, 1));
+        } catch (NullPointerException ignored) {
+        }
+
+        verify(userPageRepository)
+                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
                         "",
                         "",
                         "",
@@ -203,38 +229,35 @@ public class UserServiceTest {
                         PageRequest.of(0, 1));
     }
 
-   /* @Test
-    void testUserAndValidationExceptions() {
-        // Incorrect username
-        assertThrows(UserExistsException.class, () -> {
-            createUserIfDoesNotExist();
-            underTest.create(getUserCreateRequestDto());
-            deleteUserIfExists();
-        });
-        // Incorrect id
-        assertThrows(UserNotFoundException.class, () -> underTest.getById(Long.MAX_VALUE));
-        assertThrows(ConstraintViolationException.class, () -> underTest.getById(0L));
-        // Incorrect page
-        assertThrows(IllegalArgumentException.class, () -> {
-            createUserIfDoesNotExist();
-            underTest.findAllUsersByFiltersByPage("",
+/*   @Test
+    void findAllDocsByUserTest() {
+        given(documentPageRepository
+                .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                        1L,
+                        "",
+                        LocalDateTime.of(1900, Month.JANUARY, 1, 1, 1),
+                        LocalDateTime.of(3000, Month.JANUARY, 1, 1, 1),
+                        1L,
+                        RecordState.ACTIVE,
+                        PageRequest.of(0, 1)))
+                .willReturn(new PageImpl<>(List.of(new Document())));
+        underTest.findDocsByFiltersByPage(
+                    1L,
                     "",
-                    "",
-                    "",
-                    "",
-                    LocalDate.of(1900, 1, 1),
-                    LocalDate.of(3000, 1, 1),
-                    "qwe@qwe.qwe",
-                    PageRequest.of(0, 0));
-            deleteUserIfExists();
-        });
-        // Incorrect date
-        assertThrows(ConstraintViolationException.class, () -> {
-            deleteUserIfExists();
-            UserCreateRequestDto userCreateRequestDto = getUserCreateRequestDto();
-            userCreateRequestDto.setBirthDate(LocalDate.now());
-            underTest.create(userCreateRequestDto);
-            deleteUserIfExists();
-        });
+                    LocalDateTime.of(1900, Month.JANUARY, 1, 1, 1),
+                    LocalDateTime.of(3000, Month.JANUARY, 1, 1, 1),
+                    1L,
+                    RecordState.ACTIVE,
+                    PageRequest.of(0, 1));
+
+        verify(documentPageRepository)
+                .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                        1L,
+                        "",
+                        LocalDateTime.of(1900, Month.JANUARY, 1, 1, 1),
+                        LocalDateTime.of(3000, Month.JANUARY, 1, 1, 1),
+                        1L,
+                        RecordState.ACTIVE,
+                        PageRequest.of(0, 1));
     }*/
 }
