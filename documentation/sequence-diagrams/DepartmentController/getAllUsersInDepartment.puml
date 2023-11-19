@@ -1,0 +1,33 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DepartmentController" as controller
+participant "DepartmentService" as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: GET /api/department/{id}/users
+controller -> controller: Check user role
+alt "User has any role"
+        alt "Request is valid"
+        controller -> service++: getAllUsersFilteredByDepartment(recordState, id)
+        service -> db++: getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId)
+        db --> service--: Got a list of Users
+        service --> controller--: list
+            alt "Department has such Users"
+                controller --> front: 200: List with Users found
+            else "Department doesn't have such Users"
+                controller --> front: 204: List with Users not found
+            end
+        else "Request is not valid"
+            controller --> front: 400: Invalid request parameter (parameters)
+        end
+else "User doesn't have any role"
+    controller -> front--: 401: User is not authenticated
+end
+
+@enduml

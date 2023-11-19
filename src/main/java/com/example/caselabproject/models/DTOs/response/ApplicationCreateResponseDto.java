@@ -13,6 +13,7 @@ public class ApplicationCreateResponseDto {
     private String name;
     private LocalDateTime creationDate;
     private LocalDateTime deadlineDate;
+    private LocalDateTime resultDate;
     private Long creatorId;
 
     public static ApplicationCreateResponseDto mapFromEntity(Application application) {
@@ -21,6 +22,7 @@ public class ApplicationCreateResponseDto {
                 .name(application.getName())
                 .deadlineDate(application.getDeadlineDate())
                 .creationDate(application.getCreationDate())
+                .resultDate(application.getResultDate())
                 .creatorId(application.getCreatorId().getId())
                 .build();
     }

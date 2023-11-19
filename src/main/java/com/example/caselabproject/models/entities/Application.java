@@ -34,6 +34,9 @@ public class Application {
     @Basic
     private LocalDateTime deadlineDate;
 
+    @Basic
+    private LocalDateTime resultDate;
+
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
@@ -47,5 +50,9 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
 
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
 }

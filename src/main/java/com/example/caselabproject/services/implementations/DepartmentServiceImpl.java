@@ -7,6 +7,7 @@ import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
+import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
@@ -17,13 +18,18 @@ import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.validation.Valid;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -37,24 +43,32 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final UserRepository userRepository;
     private final ApplicationItemPageRepository applicationItemPageRepo;
 
-
     @Override
     public DepartmentResponseDto create(DepartmentRequestDto requestDto) {
-        try {
-            Department department = requestDto.mapToEntity();
-            department.setRecordState(RecordState.ACTIVE);
-            department.setUsers(new ArrayList<>());
-            departmentRepository.save(department);
 
-            return DepartmentResponseDto.mapFromEntity(department);
+        Department department = requestDto.mapToEntity();
+        department.setRecordState(RecordState.ACTIVE);
+        department.setUsers(new ArrayList<>());
 
-        } catch (DataIntegrityViolationException ex) {
-            throw new DepartmentNameExistsException(requestDto.getName());
-        } catch (Exception e) {
-            throw new DepartmentCreateException();
-        }
+        Department saveDepartment = saveInternal(department);
+        saveDepartment.setSerialKey(generateUniqueSerialKey(saveDepartment));
+
+        return DepartmentResponseDto.mapFromEntity(saveDepartment);
 
     }
+
+    @Override
+    public DepartmentResponseDto updateName(Long departmentId, DepartmentRequestDto requestDto) {
+
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+
+        department.setName(requestDto.getName());
+
+        return DepartmentResponseDto.mapFromEntity(saveInternal(department));
+
+    }
+
 
     @Override
     public boolean deleteDepartment(Long departmentId) {
@@ -180,5 +194,35 @@ public class DepartmentServiceImpl implements DepartmentService {
         return true;
     }
 
+    /**
+     * Внутренний метод, позволяющий сохранить Department. Используется
+     * для избежания повторов кода.
+     */
+    private Department saveInternal(Department department) {
+        try {
+            return departmentRepository.save(department);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DepartmentSQLValidationException(department.getName());
+        }
+    }
+
+    /**
+     * Внутренний метод, позволяющий сгенерировать уникальный номер отдела.
+     */
+    private String generateUniqueSerialKey(Department department) {
+        Random random = new Random();
+        StringBuilder serialKey = new StringBuilder(3);
+
+        for (int i = 0; i < 3; i++) {
+            // Генерируем случайное число от 0 до 25 (для 26 букв алфавита)
+            char randomChar = (char) ('a' + random.nextInt(26));
+            serialKey.append(randomChar);
+        }
+
+        // Добавляем id в конец через дефис
+        serialKey.append('-').append(department.getId());
+
+        return serialKey.toString();
+    }
 
 }

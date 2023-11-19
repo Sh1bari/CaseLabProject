@@ -1,7 +1,7 @@
 package com.example.caselabproject.services;
 
 import com.example.caselabproject.exceptions.DepartmentCreateException;
-import com.example.caselabproject.exceptions.DepartmentNameExistsException;
+import com.example.caselabproject.exceptions.DepartmentSQLValidationException;
 import com.example.caselabproject.exceptions.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.DepartmentStatusException;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
@@ -26,18 +26,35 @@ public interface DepartmentService {
      * Создаёт новый департамент на основе предоставленного DTO.
      * <p>
      * Этот метод преобразует {@link DepartmentRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
-     * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentNameExistsException}.
+     * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentSQLValidationException}.
      * В случае любых других ошибок при создании будет выброшено исключение {@link DepartmentCreateException}.
      * </p>
      *
      * @param departmentRequestDto DTO запроса для создания департамента. Должно быть валидным.
      * @return DTO {@link DepartmentResponseDto} ответа, представляющее созданный департамент.
-     * @throws DepartmentNameExistsException если департамент с указанным именем уже существует.
-     * @throws DepartmentCreateException     если произошла ошибка при создании департамента.
+     * @throws DepartmentSQLValidationException ошибка при сохранении {@link Department} в базе данных.
+     * @throws DepartmentCreateException        если произошла ошибка при создании департамента.
      * @author Khodov Nikita
      */
     @Transactional
     DepartmentResponseDto create(@Valid DepartmentRequestDto departmentRequestDto);
+
+    /**
+     * Обновляет имя отдела с заданным идентификатором.
+     * <p>
+     * Этот метод находит отдел по его идентификатору и обновляет его имя,
+     * используя предоставленные данные из DTO. В случае успеха, возвращает
+     * DTO, отображающее обновленное состояние отдела.
+     * </p>
+     *
+     * @param departmentId         Идентификатор отдела, который нужно обновить.
+     * @param departmentRequestDto DTO, содержащий новое имя для отдела.
+     * @return DepartmentResponseDto DTO, отображающее обновленное состояние отдела.
+     * @throws DepartmentNotFoundException если отдел с данным идентификатором не найден.
+     * @author Khodov Nikita
+     */
+    @Transactional
+    DepartmentResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.

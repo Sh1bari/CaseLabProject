@@ -19,7 +19,14 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @OneToMany(mappedBy = "parentDepartment", orphanRemoval = true)
+    private List<Department> childDepartments;
+
     private String name;
+
+    @Column(unique = true)
+    private String serialKey;
 
     @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<User> users;
@@ -29,5 +36,14 @@ public class Department {
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_department_id")
+    private Department parentDepartment;
+
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
 }

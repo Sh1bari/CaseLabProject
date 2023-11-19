@@ -56,4 +56,8 @@ public class Document {
     @EqualsAndHashCode.Exclude
     private Map<Field, String> fieldsValues = new HashMap<>();
 
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
 }
