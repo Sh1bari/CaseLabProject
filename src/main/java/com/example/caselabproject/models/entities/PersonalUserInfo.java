@@ -1,10 +1,7 @@
 package com.example.caselabproject.models.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -25,6 +22,7 @@ public class PersonalUserInfo {
     @Basic
     private LocalDate birthDate;
 
+    @ToString.Exclude
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private User user;

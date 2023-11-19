@@ -137,19 +137,10 @@ public class UserServiceTest {
 
         user1.setId(1L);
 
-        user1.setPersonalUserInfo(new PersonalUserInfo(1L, "fn", "ln", "p", LocalDate.now(), user1));
-        given(userRepository.saveAndFlush(any())).willReturn(user1);
+        given(userRepository.save(any())).willReturn(user1);
 
         underTest.create(userCreateRequestDto);
-        verify(userRepository).saveAndFlush(any());
-/*        UserCreateResponseDto userToCreate = UserCreateResponseDto.mapFromEntity();
-        userToCreate.setRoles(getUserCreateRequestDto().getRoles());
-        //when
-        UserCreateResponseDto createdUser = underTest.create(getUserCreateRequestDto());
-        createdUser.setId(createdUser.getId() - 1);
-        //then
-        assertEquals(userToCreate, createdUser);
-        assertNotNull(createdUser);*/
+        verify(userRepository).save(any());
     }
 
     @Test
