@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService {
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-    private final DepartmentRepository departmentRepo;
+    private final DepartmentRepository departmentRepository;
     private final ApplicationPageRepository applicationPageRepository;
-    private final ApplicationItemRepository applicationItemRepo;
-    private final ApplicationItemPageRepository applicationItemPageRepo;
+    private final ApplicationItemRepository applicationItemRepository;
+    private final ApplicationItemPageRepository applicationItemPageRepository;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             user.setUsername(userUpdateRequestDto.getUsername());
         }
         if (userUpdateRequestDto.getDepartmentId() != null) {
-            user.setDepartment(departmentRepo.findById(userUpdateRequestDto.getDepartmentId())
+            user.setDepartment(departmentRepository.findById(userUpdateRequestDto.getDepartmentId())
                     .orElseThrow(() -> new DepartmentNotFoundException(userUpdateRequestDto.getDepartmentId())));
         }
         if (userUpdateRequestDto.getRoles() != null) {
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
                                 email,
                                 pageable).toList());
         if (!departmentName.isEmpty()) {
-            Department department = departmentRepo
+            Department department = departmentRepository
                     .findByName(departmentName)
                     .orElseThrow(() -> new DepartmentNotFoundException(departmentName));
             userCreateResponseDtoList = userCreateResponseDtoList
@@ -233,7 +233,7 @@ public class UserServiceImpl implements UserService {
                 !userById.getDepartment().getId().equals(userByUsername.getDepartment().getId())) {
             throw new ApplicationItemPermissionException();
         }
-        Page<ApplicationItem> applicationItemPage = applicationItemPageRepo
+        Page<ApplicationItem> applicationItemPage = applicationItemPageRepository
                 .findAllByToUser_idAndRecordStateAndApplication_NameContainsIgnoreCase(
                         id,
                         recordState,
