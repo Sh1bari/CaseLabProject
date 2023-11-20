@@ -1,9 +1,9 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationAlreadyDeletedException;
-import com.example.caselabproject.exceptions.ApplicationNotFoundException;
-import com.example.caselabproject.exceptions.UserNotCreatorException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.application.ApplicationAlreadyDeletedException;
+import com.example.caselabproject.exceptions.application.ApplicationNotFoundException;
+import com.example.caselabproject.exceptions.user.UserNotCreatorException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
@@ -94,35 +94,4 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .orElseThrow(() -> new ApplicationNotFoundException(id));
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
-
-    /*@Override
-    public ApplicationUpdateStatusAndCommentResponseDto updateApplicationStatusAndComment(
-            Long id,
-            String userName,
-            ApplicationItemStatus status,
-            String comment) {
-        Application oldApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
-        List<ApplicationItem> applicationItems = oldApplication.getApplicationItems();
-        User user = userRepository.findByUsername(userName)
-                .orElseThrow(() -> new UserByUsernameNotFoundException(userName));
-        ApplicationItem applicationItem = applicationItems.stream()
-                .filter(o -> o.getApplication().getId().equals(oldApplication.getId()) &&
-                        o.getDepartment().getId().equals(user.getDepartment().getId()))
-                .findFirst()
-                .orElseThrow(() -> new ApplicationItemDoesNotFoundException());
-        applicationItems.remove(applicationItem);
-        applicationItems.remove(applicationItem);
-        if (comment != null) {
-            applicationItem.setComment(comment);
-        }
-        if (status != null) {
-            applicationItem.setStatus(status);
-        }
-        applicationItem.setApplication(oldApplication);
-        applicationItems.add(applicationItem);
-        applicationRepository.save(oldApplication);
-
-        return ApplicationUpdateStatusAndCommentResponseDto.mapFromEntity(applicationItem);
-    }*/
 }

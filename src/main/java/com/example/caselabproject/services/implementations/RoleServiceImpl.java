@@ -1,6 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.RoleNameNotFoundException;
+import com.example.caselabproject.exceptions.role.RoleNameNotFoundException;
 import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.entities.Role;
 import com.example.caselabproject.repositories.RoleRepository;

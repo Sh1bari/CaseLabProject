@@ -1,9 +1,9 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationItemPermissionException;
-import com.example.caselabproject.exceptions.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.UserExistsException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
+import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.user.UserExistsException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;

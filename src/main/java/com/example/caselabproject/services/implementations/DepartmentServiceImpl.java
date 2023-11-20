@@ -1,13 +1,17 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
+import com.example.caselabproject.exceptions.department.DepartmentDeletedException;
+import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.department.DepartmentSQLValidationException;
+import com.example.caselabproject.exceptions.department.DepartmentStatusException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
 import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
@@ -18,15 +22,11 @@ import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.validation.Valid;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;

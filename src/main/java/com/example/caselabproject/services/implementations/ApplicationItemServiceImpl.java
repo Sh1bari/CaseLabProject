@@ -1,6 +1,14 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.application.ApplicationDeletedException;
+import com.example.caselabproject.exceptions.application.ApplicationNotFoundException;
+import com.example.caselabproject.exceptions.applicationItem.*;
+import com.example.caselabproject.exceptions.department.DepartmentDeletedException;
+import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.user.UserDeletedException;
+import com.example.caselabproject.exceptions.user.UserNotCreatorException;
+import com.example.caselabproject.exceptions.user.UserNotFoundByDepartmentException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;

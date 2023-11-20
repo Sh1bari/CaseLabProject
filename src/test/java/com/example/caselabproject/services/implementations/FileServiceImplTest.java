@@ -1,8 +1,8 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.DocumentAccessException;
-import com.example.caselabproject.exceptions.DocumentDoesNotExistException;
-import com.example.caselabproject.exceptions.FileNotExistException;
+import com.example.caselabproject.exceptions.document.DocumentAccessException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.file.FileNotExistException;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.File;

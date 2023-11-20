@@ -1,6 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.documentConsType.*;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
