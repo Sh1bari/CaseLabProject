@@ -1,9 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationAlreadyDeletedException;
-import com.example.caselabproject.exceptions.ApplicationNotFoundException;
-import com.example.caselabproject.exceptions.UserNotCreatorException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.*;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
@@ -53,7 +50,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = request.mapToEntity();
         Application updateApplication = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationNotFoundException(id));
-        if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        } else if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
@@ -75,7 +74,9 @@ public class ApplicationServiceImpl implements ApplicationService {
                 isAdmin.set(true);
             }
         });
-        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()) {
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        } else if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()) {
             throw new UserNotCreatorException(username);
         } else {
             if (!application.getRecordState().equals(RecordState.DELETED)) {

@@ -51,7 +51,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 .orElseThrow(() -> new ApplicationNotFoundException(applicationId));
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
-        if (!application.getCreatorId().getId().equals(user.getId())) {
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        } else if (!application.getCreatorId().getId().equals(user.getId())) {
             throw new UserNotCreatorException(username);
         }
         req.forEach(o -> {
@@ -108,6 +110,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
             }
         });
         Application application = getApplicationById(applicationId);
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        }
         ApplicationItem applicationItem = getApplicationItemByApplicationAndId(application, applicationItemId);
         //Просмотр админам, создателю и всем в отделе
         if (!isAdmin.get() &&
@@ -125,12 +130,14 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                               String username) {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        }
         ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
         departmentIsActive(user.getDepartment());
         //RecordState check
         applicationIsActive(application);
         applicationItemIsActive(applicationItem);
-
         if (!applicationItem.getToDepartment().getId().equals(user.getDepartment().getId())) {
             throw new ApplicationItemPermissionException(applicationItemId);
         }
@@ -149,6 +156,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                               ApplicationItemVoteRequestDto voteApplicationItem) {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
+        if (!(user.getOrganization().getId().equals(application.getOrganization().getId()))) {
+            throw new AlienOrganizationException(user.getUsername(), application.getName());
+        }
         applicationIsActive(application);
         ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
         applicationItemIsActive(applicationItem);
