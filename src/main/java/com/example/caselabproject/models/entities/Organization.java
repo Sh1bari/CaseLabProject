@@ -16,6 +16,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     private String name;
 
     @OneToOne(mappedBy = "createdOrganization", orphanRemoval = true)
