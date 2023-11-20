@@ -214,7 +214,7 @@ public class DepartmentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DepartmentGetByIdResponseDto> addChildDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,

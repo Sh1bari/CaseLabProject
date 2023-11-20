@@ -15,7 +15,7 @@ public class DepartmentGetByIdResponseDto {
     private String serialKey;
     private Integer amountOfEmployee;
     private Long parentId;
-    List<Long> childDepartmentsId;
+    private List<Long> childDepartmentsId;
 
 
     public static DepartmentGetByIdResponseDto mapFromEntity(Department department) {
@@ -23,8 +23,7 @@ public class DepartmentGetByIdResponseDto {
                 .id(department.getId())
                 .name(department.getName())
                 .serialKey(department.getSerialKey())
-                .amountOfEmployee((int) department.getUsers()
-                        .stream()
+                .amountOfEmployee((int) department.getUsers().stream()
                         .filter(user -> user.getRecordState() == RecordState.ACTIVE)
                         .count())
                 .parentId(checkParentId(department))
