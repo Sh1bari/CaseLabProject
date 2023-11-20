@@ -1,6 +1,11 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.document.DocumentAccessException;
+import com.example.caselabproject.exceptions.document.DocumentCreateException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
+import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
@@ -45,8 +50,8 @@ public class DocumentServiceImpl implements DocumentService {
         document.setCreator(user);
 
         document.setDocumentConstructorType(documentConstructorTypeRepository
-                .findByName(request.getConstructorTypeName()).orElseThrow(
-                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
+                .findById(request.getConstructorTypeId()).orElseThrow(
+                        () -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId())
                 ));
 
         try {
@@ -96,6 +101,7 @@ public class DocumentServiceImpl implements DocumentService {
         return documents.map(DocumentResponseDto::mapFromEntity).toList();
     }
 
+
     @Override
     public DocumentResponseDto updateDocument(String username, DocumentRequestDto request, Long documentId) {
 
@@ -113,8 +119,8 @@ public class DocumentServiceImpl implements DocumentService {
         updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
         updateDocument.setName(request.getName());
         updateDocument.setDocumentConstructorType(documentConstructorTypeRepository
-                .findByName(request.getConstructorTypeName()).orElseThrow(
-                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
+                .findById(request.getConstructorTypeId()).orElseThrow(
+                        () -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId())
                 ));
 
         documentRepository.save(updateDocument);

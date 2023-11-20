@@ -1,9 +1,9 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.exceptions.DepartmentCreateException;
-import com.example.caselabproject.exceptions.DepartmentNameExistsException;
-import com.example.caselabproject.exceptions.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.DepartmentStatusException;
+import com.example.caselabproject.exceptions.department.DepartmentCreateException;
+import com.example.caselabproject.exceptions.department.DepartmentNameExistsException;
+import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.department.DepartmentStatusException;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;

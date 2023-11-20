@@ -1,7 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.DocumentDoesNotExistException;
-import com.example.caselabproject.exceptions.WordFileCreationException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.file.WordFileCreationException;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.Field;

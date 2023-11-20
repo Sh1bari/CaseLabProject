@@ -4,6 +4,7 @@ import com.example.caselabproject.models.DTOs.ApplicationItemDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.models.enums.ApplicationStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class ApplicationFindResponseDto {
     private LocalDateTime resultDate;
     private Long creatorId;
     private Long documentId;
+    private ApplicationStatus applicationStatus;
     private List<ApplicationItemDto> applicationItems;
 
 
@@ -41,6 +43,7 @@ public class ApplicationFindResponseDto {
                 .id(application.getId())
                 .name(application.getName())
                 .documentId(documentId)
+                .applicationStatus(application.getApplicationStatus())
                 .resultDate(application.getResultDate())
                 .creationDate(application.getCreationDate())
                 .deadlineDate(application.getDeadlineDate())
@@ -70,6 +73,7 @@ public class ApplicationFindResponseDto {
                     .creationDate(o.getCreationDate())
                     .deadlineDate(o.getDeadlineDate())
                     .resultDate(o.getResultDate())
+                    .applicationStatus(o.getApplicationStatus())
                     .creatorId(o.getCreatorId().getId())
                     .applicationItems(applicationItemDtos)
                     .build()
