@@ -296,8 +296,9 @@ public class DepartmentController {
     //TODO все листы заменить на Page
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
-            @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id);
+            @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
+            Principal principal) {
+        List<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id, principal.getName());
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

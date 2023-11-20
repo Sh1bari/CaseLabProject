@@ -1,5 +1,6 @@
 package com.example.caselabproject.repositories;
 
+import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsernameAndDocuments_id(String username, Long documentId);
 
-    List<User> findByRecordStateAndDepartment_Id(RecordState recordState, Long departmentId);
+    List<User> findByRecordStateAndDepartment_IdAndOrganization(RecordState recordState, Long departmentId, Organization organization);
 
     Optional<User> findByIdAndDepartment_id(Long userId, Long departmentId);
 }

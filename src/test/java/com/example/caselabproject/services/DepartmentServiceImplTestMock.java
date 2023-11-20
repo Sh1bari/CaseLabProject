@@ -216,15 +216,15 @@ public class DepartmentServiceImplTestMock {
 
         List<User> userList = List.of(user1, user2);
 
-        given(userRepository.findByRecordStateAndDepartment_Id(
-                RecordState.ACTIVE, 1L)).willReturn(userList);
+        given(userRepository.findByRecordStateAndDepartment_IdAndOrganization(
+                RecordState.ACTIVE, 1L, new Organization())).willReturn(userList);
 
 
         List<UserGetByIdResponseDto> responseDtoList =
-                departmentService.getAllUsersFilteredByDepartment(RecordState.ACTIVE, 1L);
+                departmentService.getAllUsersFilteredByDepartment(RecordState.ACTIVE, 1L, "");
 
-        verify(userRepository).findByRecordStateAndDepartment_Id(
-                RecordState.ACTIVE, 1L);
+        verify(userRepository).findByRecordStateAndDepartment_IdAndOrganization(
+                RecordState.ACTIVE, 1L, new Organization());
 
 
         assertNotNull(responseDtoList);

@@ -147,7 +147,7 @@ public interface DepartmentService {
     Page<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState, String serialKey, @NotBlank(message = "Department creator username can't be blank.") String username);
 
     /**
-     * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
+     * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента в одной организации.
      * <p>
      * Этот метод осуществляет поиск пользователей в базе данных, соответствующих указанному статусу записи
      * и принадлежащих к указанному департаменту.
@@ -160,7 +160,8 @@ public interface DepartmentService {
      */
     @Transactional
     List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
-                                                                 @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+                                                                 @Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
+                                                                 @NotBlank(message = "Department creator username can't be blank.") String username);
 
     @Transactional(readOnly = true)
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(

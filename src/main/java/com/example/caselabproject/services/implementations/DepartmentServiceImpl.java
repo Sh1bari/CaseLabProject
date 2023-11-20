@@ -141,8 +141,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId) {
-        List<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_Id(recordState, departmentId).stream().map(UserGetByIdResponseDto::mapFromEntity).toList();
+    public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId, String username) {
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        List<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_IdAndOrganization(recordState, departmentId, user.getCreatedOrganization()).stream().map(UserGetByIdResponseDto::mapFromEntity).toList();
         return users;
     }
 
