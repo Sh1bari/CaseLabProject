@@ -5,15 +5,13 @@ import com.example.caselabproject.models.DTOs.response.department.DepartmentCrea
 import com.example.caselabproject.models.DTOs.response.department.DepartmentGetAllResponseDto;
 import com.example.caselabproject.models.DTOs.response.department.DepartmentGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
-import com.example.caselabproject.models.entities.AuthUserInfo;
-import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.entities.PersonalUserInfo;
-import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationItemPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.implementations.DepartmentServiceImpl;
+import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -167,27 +165,29 @@ public class DepartmentServiceImplTestMock {
         List<Department> departmentList = List.of(department1, department2);
         Page<Department> departmentPage = new PageImpl<>(departmentList);
 
+        String serialKey = "";
+        String username = "";
 
-        given(departmentRepository.findDepartmentsByNameContainingAndRecordState(
-                anyString(), any(Pageable.class), any(RecordState.class))).willReturn(departmentPage);
-
-
-        List<DepartmentGetAllResponseDto> responseDtoList =
-                departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE);
+        given(departmentRepository.findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(
+                anyString(), any(Pageable.class), any(RecordState.class), any(String.class), any(Organization.class))).willReturn(departmentPage);
 
 
-        verify(departmentRepository).findDepartmentsByNameContainingAndRecordState(
-                "Department", Pageable.unpaged(), RecordState.ACTIVE);
+        Page<DepartmentGetAllResponseDto> responseDtoList =
+                departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE, serialKey, username);
+
+
+        verify(departmentRepository).findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(
+                anyString(), any(Pageable.class), any(RecordState.class), any(String.class), any(Organization.class));
 
         assertNotNull(responseDtoList);
-        assertEquals(2, responseDtoList.size());
+        assertEquals(2, responseDtoList.getContent().size());
 
-        DepartmentGetAllResponseDto responseDto1 = responseDtoList.get(0);
+        DepartmentGetAllResponseDto responseDto1 = responseDtoList.getContent().get(0);
         assertEquals(1L, responseDto1.getId());
         assertEquals("Department 1", responseDto1.getName());
 
 
-        DepartmentGetAllResponseDto responseDto2 = responseDtoList.get(1);
+        DepartmentGetAllResponseDto responseDto2 = responseDtoList.getContent().get(1);
         assertEquals(2L, responseDto2.getId());
         assertEquals("Department 2", responseDto2.getName());
 

@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -252,12 +253,14 @@ public class DepartmentController {
     //TODO в пагинацию добавить сериал ключ
     //TODO получить департаменты в организации (Principal)
     //TODO все листы заменить на Page
-    public ResponseEntity<List<DepartmentGetAllResponseDto>> getAllDepartments(
+    public ResponseEntity<Page<DepartmentGetAllResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
-            @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<DepartmentGetAllResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
+            @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
+            @RequestParam(value = "serialKey", required = false, defaultValue = "") String serialKey,
+            Principal principal) {
+        Page<DepartmentGetAllResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState, serialKey, principal.getName());
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

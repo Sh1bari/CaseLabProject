@@ -1,6 +1,7 @@
 package com.example.caselabproject.repositories;
 
 import com.example.caselabproject.models.entities.Department;
+import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.enums.RecordState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,8 @@ import java.util.Optional;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Page<Department> findAll(Pageable pageable);
 
-    Page<Department> findDepartmentsByNameContainingAndRecordState(String name, Pageable pageable, RecordState recordState);
+    Page<Department> findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(String name, Pageable pageable, RecordState recordState,
+                                                                                              String serialKey, Organization organization);
 
     Optional<Department> findByName(String name);
 }

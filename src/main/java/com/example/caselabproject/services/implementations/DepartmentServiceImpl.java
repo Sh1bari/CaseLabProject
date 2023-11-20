@@ -16,9 +16,11 @@ import com.example.caselabproject.repositories.ApplicationItemPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DepartmentService;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -121,14 +123,20 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public List<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState) {
+    public Page<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState,
+                                                                         String serialKey, String username) {
+
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         Page<Department> departments =
-                departmentRepository.findDepartmentsByNameContainingAndRecordState(name, pageable, recordState);
+                departmentRepository.findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(name, pageable, recordState, serialKey, user.getCreatedOrganization());
 
-        return departments.getContent().stream()
+        List<DepartmentGetAllResponseDto> dtos = departments.getContent().stream()
                 .map(DepartmentGetAllResponseDto::mapFromEntity)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(dtos, pageable, departments.getTotalElements());
     }
 
 

@@ -13,6 +13,7 @@ import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -51,12 +52,12 @@ public interface DepartmentService {
      * попытки перезаписи уже существующего родительского департамента.
      * </p>
      *
-     * @param departmentId Идентификатор родительского департамента.
+     * @param departmentId       Идентификатор родительского департамента.
      * @param DepartmentChildDto DTO дочернего департамента, который будет привязан.
      * @return DTO {@link DepartmentGetByIdResponseDto} ответа, представляющее обновлённый родительский департамент.
      * @throws DepartmentChildParentException если попытка установить связь не соответствует бизнес-логике.
-     * @throws DepartmentChildException если департамент уже содержится в списке дочерних департаментов.
-     * @throws DepartmentParentException если у дочернего департамента уже есть родительский департамент.
+     * @throws DepartmentChildException       если департамент уже содержится в списке дочерних департаментов.
+     * @throws DepartmentParentException      если у дочернего департамента уже есть родительский департамент.
      * @author Khodov Nikita
      */
     @Transactional
@@ -139,11 +140,11 @@ public interface DepartmentService {
      *
      * @param pageable Модель страницы для пагинации.
      * @param name     Имя для фильтрации списка департаментов.
-     * @return Список {@link DepartmentGetAllResponseDto}, представляющий найденные департаменты.
+     * @return Page {@link DepartmentGetAllResponseDto}, представляющий найденные департаменты.
      * @author Khodov Nikita
      */
     @Transactional
-    List<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
+    Page<DepartmentGetAllResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState, String serialKey, @NotBlank(message = "Department creator username can't be blank.") String username);
 
     /**
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
