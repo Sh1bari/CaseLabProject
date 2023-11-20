@@ -12,5 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ApplicationDeletedException extends GlobalAppException {
     public ApplicationDeletedException(Long applicationId) {
         super(409, "Application with id " + applicationId + " has been deleted.");
+        log.warn(message);
     }
 }

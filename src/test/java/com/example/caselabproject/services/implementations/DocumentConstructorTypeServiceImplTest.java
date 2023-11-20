@@ -304,21 +304,4 @@ class DocumentConstructorTypeServiceImplTest {
                         name, recordState, pageable);
     }
 
-    /*@Test
-    void getAllContaining_willThrowWhenPageIsEmpty() {
-        // given
-        String name = "Приказ";
-        RecordState recordState = RecordState.ACTIVE;
-        int page = 10;
-        int size = 20;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-
-        given(typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, recordState, pageable))
-                .willReturn(Page.empty());
-
-        // then
-        assertThatThrownBy(() -> underTest.getAllContaining(name, recordState, page, size))
-                .isInstanceOf(PageNotFoundException.class)
-                .hasMessageContaining("Page with number " + page + " not found");
-    }*/
 }
