@@ -38,6 +38,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setRecordState(RecordState.ACTIVE);
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
         application.setCreatorId(user);
+        application.setOrganization(user.getOrganization());
         applicationRepository.save(application);
         return ApplicationCreateResponseDto.mapFromEntity(application);
     }
