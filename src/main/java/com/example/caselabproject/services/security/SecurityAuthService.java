@@ -1,10 +1,10 @@
 package com.example.caselabproject.services.security;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.JwtRequest;
-import com.example.caselabproject.models.DTOs.JwtResponse;
-import com.example.caselabproject.models.DTOs.RegistrationUserDto;
-import com.example.caselabproject.models.DTOs.UserDto;
+import com.example.caselabproject.models.DTOs.request.jwt.JwtRequest;
+import com.example.caselabproject.models.DTOs.response.jwt.JwtResponse;
+import com.example.caselabproject.models.DTOs.request.user.RegistrationUserDto;
+import com.example.caselabproject.models.DTOs.request.user.UserDto;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.caselabproject.models.DTOs;
+package com.example.caselabproject.models.DTOs.request.role;
 
 import com.example.caselabproject.models.entities.Role;
 import jakarta.validation.constraints.NotBlank;

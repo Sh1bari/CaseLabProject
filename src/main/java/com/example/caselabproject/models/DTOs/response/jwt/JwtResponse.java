@@ -1,4 +1,4 @@
-package com.example.caselabproject.models.DTOs;
+package com.example.caselabproject.models.DTOs.response.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

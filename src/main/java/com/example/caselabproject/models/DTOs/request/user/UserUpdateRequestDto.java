@@ -1,6 +1,6 @@
 package com.example.caselabproject.models.DTOs.request.user;
 
-import com.example.caselabproject.models.DTOs.RoleDto;
+import com.example.caselabproject.models.DTOs.request.role.RoleDto;
 import com.example.caselabproject.models.entities.AuthUserInfo;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;

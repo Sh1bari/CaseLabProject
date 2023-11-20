@@ -1,9 +1,9 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.JwtRequest;
-import com.example.caselabproject.models.DTOs.JwtResponse;
-import com.example.caselabproject.models.DTOs.RegistrationUserDto;
+import com.example.caselabproject.models.DTOs.request.jwt.JwtRequest;
+import com.example.caselabproject.models.DTOs.response.jwt.JwtResponse;
+import com.example.caselabproject.models.DTOs.request.user.RegistrationUserDto;
 import com.example.caselabproject.services.security.SecurityAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
