@@ -46,9 +46,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
-
         Department department = requestDto.mapToEntity();
-        department.setOrganization(user.getOrganization());
+        department.setOrganization(user.getCreatedOrganization());
 
         Department saveDepartment = saveInternal(department);
         saveDepartment.setSerialKey(generateUniqueSerialKey(saveDepartment));

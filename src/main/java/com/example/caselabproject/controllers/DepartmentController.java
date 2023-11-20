@@ -249,6 +249,9 @@ public class DepartmentController {
     })
     @GetMapping("/")
     @Secured("ROLE_USER")
+    //TODO в пагинацию добавить сериал ключ
+    //TODO получить департаменты в организации (Principal)
+    //TODO все листы заменить на Page
     public ResponseEntity<List<DepartmentGetAllResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
@@ -286,6 +289,8 @@ public class DepartmentController {
     })
     @GetMapping("/{id}/users")
     @Secured("ROLE_USER")
+    //TODO в организации
+    //TODO все листы заменить на Page
     public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
