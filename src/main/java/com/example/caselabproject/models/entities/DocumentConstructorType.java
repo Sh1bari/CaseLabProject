@@ -36,7 +36,8 @@ public class DocumentConstructorType {
     /**
      * Список полей, которые должен содержать документ.
      */
-    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn("field_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
