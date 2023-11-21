@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,18 +30,25 @@ public class DocumentFieldServiceImpl implements DocumentFieldService {
                                                      List<DocumentFieldUpdateRequestDto> documentFieldDtos) {
         Document document = findDocumentByIdInternal(documentId);
 
-        // Получаем имена полей из dto, получаем из бд существующие поля и создаем недостающие
-        List<Field> fields = fieldRepository.saveAll(
-                documentFieldDtos.stream().map(
-                        documentFieldDto -> documentFieldDto.getField().mapToEntity()
-                ).toList()
-        );
-        // Создаем Map полей и их значений
-        Map<Field, String> fieldsMap = new HashMap<>();
-        for (int i = 0; i < fields.size(); i++) {
-            fieldsMap.put(fields.get(i), documentFieldDtos.get(i).getValue());
+        // Создаем список полей, которые нужно будет сохранить, так как их нет в бд
+        List<Field> fieldsToSave = new ArrayList<>();
+        Map<Field, String> fieldsValues = new HashMap<>();
+        for (DocumentFieldUpdateRequestDto documentFieldDto : documentFieldDtos) {
+            // Находим поле в бд по его названию
+            Field field = fieldRepository.findByNameEquals(documentFieldDto.getField().getName())
+                    .orElse(documentFieldDto.getField().mapToEntity());
+            // Если такого поля нет, то добавляем его в список для сохранения
+            if (field.getId() == null) {
+                fieldsToSave.add(field);
+            }
+            fieldsValues.put(
+                    field,
+                    documentFieldDto.getValue()
+            );
         }
-        document.setFieldsValues(fieldsMap);
+        fieldRepository.saveAll(fieldsToSave);
+
+        document.setFieldsValues(fieldsValues);
 
         return DocumentResponseDto.mapFromEntity(
                 documentRepository.save(document));
