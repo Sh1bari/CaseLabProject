@@ -8,6 +8,7 @@ import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,8 @@ class DocumentConstructorTypeServiceImplTest {
     private DocumentConstructorTypeRepository typeRepository;
     @Mock
     private DocumentRepository documentRepository;
+    @Mock
+    private FieldRepository fieldRepository;
     private DocumentConstructorTypeService underTest;
 
     private static DocumentConstructorTypeRequestDto getDocumentConstructorTypeRequestDto() {
@@ -52,7 +55,7 @@ class DocumentConstructorTypeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, documentRepository);
+        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, documentRepository, fieldRepository);
     }
 
     @Test
@@ -142,9 +145,6 @@ class DocumentConstructorTypeServiceImplTest {
         given(typeRepository.findById(1L))
                 .willReturn(Optional.of(documentConstructorType));
 
-        given(documentRepository.existsByDocumentConstructorType(any()))
-                .willReturn(false);
-
         given(typeRepository.saveAndFlush(any()))
                 .willReturn(documentConstructorType);
 
@@ -153,30 +153,6 @@ class DocumentConstructorTypeServiceImplTest {
 
         // then
         verify(typeRepository).saveAndFlush(any());
-    }
-
-    @Test
-    void update_willThrowWhenDocumentConstructorTypeIsUsedInAnyDocument() {
-        // given
-        DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto = getDocumentConstructorTypeRequestDto();
-
-        DocumentConstructorType documentConstructorType = documentConstructorTypeRequestDto.mapToEntity();
-        documentConstructorType.setId(1L);
-
-        given(typeRepository.findById(1L))
-                .willReturn(Optional.of(documentConstructorType));
-
-        given(documentRepository.existsByDocumentConstructorType(any()))
-                .willReturn(true);
-
-        // when
-        // then
-        assertThatThrownBy(() -> underTest.update(1L, documentConstructorTypeRequestDto))
-                .isInstanceOf(DocumentConstructorTypeHasAssociatedDocumentsException.class)
-                .hasMessageContaining("DocumentConstructorType with id "
-                        + 1L + " has associated documents.");
-
-        verify(typeRepository, never()).saveAndFlush(any());
     }
 
     @Test
