@@ -24,12 +24,12 @@ public class DocumentCreateResponseDto {
 
     private Long creatorId;
 
-    private Map<FieldResponseDto, String> fieldsValues;
+    private Map<String, String> fieldsValues;
 
     public static DocumentCreateResponseDto mapFromEntity(Document document) {
-        Map<FieldResponseDto, String> fieldsValuesDto = new HashMap<>();
+        Map<String, String> stringFieldsValues = new HashMap<>();
         document.getFieldsValues().forEach(
-                (field, value) -> fieldsValuesDto.put(FieldResponseDto.mapFromEntity(field), value));
+                (field, value) -> stringFieldsValues.put(field.getName(), value));
 
         return DocumentCreateResponseDto.builder()
                 .id(document.getId())
@@ -37,7 +37,7 @@ public class DocumentCreateResponseDto {
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
-                .fieldsValues(fieldsValuesDto)
+                .fieldsValues(stringFieldsValues)
                 .build();
     }
 

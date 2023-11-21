@@ -30,18 +30,18 @@ public class DocumentResponseDto {
 
     private Long documentConstructorTypeId;
 
-    private Map<FieldResponseDto, String> fieldsValues;
+    private Map<String, String> fieldsValues;
 
     public static DocumentResponseDto mapFromEntity(Document document) {
-        Map<FieldResponseDto, String> fieldsValuesDto = new HashMap<>();
+        Map<String, String> stringFieldsValues = new HashMap<>();
         document.getFieldsValues().forEach(
-                (field, value) -> fieldsValuesDto.put(FieldResponseDto.mapFromEntity(field), value));
+                (field, value) -> stringFieldsValues.put(field.getName(), value));
 
         return DocumentResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .documentConstructorTypeId(document.getDocumentConstructorType().getId())
-                .fieldsValues(fieldsValuesDto)
+                .fieldsValues(stringFieldsValues)
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
