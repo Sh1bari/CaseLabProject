@@ -4,6 +4,7 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.JwtRequest;
 import com.example.caselabproject.models.DTOs.JwtResponse;
 import com.example.caselabproject.models.DTOs.RegistrationUserDto;
+import com.example.caselabproject.models.DTOs.UserDto;
 import com.example.caselabproject.services.security.SecurityAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,6 +49,19 @@ public class AuthController {
         return authService.createAuthToken(authRequest);
     }
 
+    @Operation(summary = "Registration for admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful registration",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserDto.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Password mismatch or user exists",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    })
+    })
     @PostMapping("/registration")
     public ResponseEntity<?> createNewUser(@RequestBody RegistrationUserDto registrationUserDto) {
         return authService.createNewUser(registrationUserDto);

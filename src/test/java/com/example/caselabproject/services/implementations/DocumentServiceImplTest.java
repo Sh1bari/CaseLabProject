@@ -1,6 +1,10 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.document.DocumentAccessException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameNotFoundException;
+import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
@@ -51,7 +55,7 @@ class DocumentServiceImplTest {
     private static DocumentRequestDto getDocumentRequestDto() {
         DocumentRequestDto documentRequestDto = new DocumentRequestDto();
         documentRequestDto.setName("doc_test");
-        documentRequestDto.setConstructorTypeName("doctype-1");
+        documentRequestDto.setConstructorTypeId(1L);
         return documentRequestDto;
     }
 
@@ -70,7 +74,7 @@ class DocumentServiceImplTest {
 
         given(userRepository.findByUsername("username"))
                 .willReturn(Optional.of(new User()));
-        given(typeRepository.findByName("doctype-1"))
+        given(typeRepository.findById(1L))
                 .willReturn(Optional.of(new DocumentConstructorType()));
         given(documentRepository.save(any()))
                 .willReturn(document);

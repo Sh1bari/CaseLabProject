@@ -1,6 +1,10 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.document.DocumentAccessException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.file.FileConnectToDocumentException;
+import com.example.caselabproject.exceptions.file.FileNotExistException;
+import com.example.caselabproject.exceptions.file.NoFilesPageFoundException;
 import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import jakarta.validation.constraints.Min;

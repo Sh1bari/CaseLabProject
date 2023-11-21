@@ -21,6 +21,7 @@ public class CreateApplicationItemRequestDto {
     private Long toUserId;
 
     @NotNull(message = "Department id cant be null.")
+    @Min(value = 1L, message = "Department id cant be less than 1.")
     private Long toDepartmentId;
 
 }

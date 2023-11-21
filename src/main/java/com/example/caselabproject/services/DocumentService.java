@@ -1,6 +1,10 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.exceptions.*;
+import com.example.caselabproject.exceptions.document.DocumentAccessException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameNotFoundException;
+import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
@@ -54,6 +58,7 @@ public interface DocumentService {
                                                RecordState recordState,
                                                LocalDateTime startDate,
                                                LocalDateTime endDate);
+
 
     /**
      * Позволяет пользователю создавшему документ обновить его по ID документа.

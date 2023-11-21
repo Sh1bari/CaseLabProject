@@ -17,7 +17,7 @@ public class DocumentRequestDto {
     private String name;
 
     @NotBlank(message = "Constructor type can not be blank")
-    private String constructorTypeName;
+    private Long constructorTypeId;
 
     public Document mapToEntity() {
         return Document.builder()

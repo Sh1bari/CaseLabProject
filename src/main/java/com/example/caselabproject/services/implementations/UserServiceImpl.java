@@ -1,9 +1,9 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationItemPermissionException;
-import com.example.caselabproject.exceptions.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.UserExistsException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
+import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.user.UserExistsException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
@@ -48,6 +48,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserGetByIdResponseDto getById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return UserGetByIdResponseDto.mapFromEntity(user);
+    }
+
+    @Override
+    public UserGetByIdResponseDto getByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         return UserGetByIdResponseDto.mapFromEntity(user);
     }
 

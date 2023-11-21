@@ -18,7 +18,7 @@ public class JacksonConfig {
     @Bean
     public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
         return new Jackson2ObjectMapperBuilder()
-                .indentOutput(true) // для удобства отладки
-                .dateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")); // формат даты
+                .indentOutput(true)
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS"));
     }
 }

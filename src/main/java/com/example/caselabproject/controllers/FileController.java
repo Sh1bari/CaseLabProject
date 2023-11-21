@@ -94,8 +94,7 @@ public class FileController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Files downloaded successfully",
                     content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = FileDownloadResponseDto.class))
+                            @Content(mediaType = "application/json")
                     }),
             @ApiResponse(responseCode = "404", description = "Document or file not found",
                     content = {
@@ -144,7 +143,7 @@ public class FileController {
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
         List<FileResponseDto> response = fileService.updateFile(principal.getName(), file, docId, fileId);
         return ResponseEntity
-                .created(URI.create("/api/doc/" + docId + "/file/"))
+                .status(HttpStatus.OK)
                 .body(response);
     }
 

@@ -3,6 +3,7 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.DocIdRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
@@ -129,5 +130,23 @@ public class ApplicationController {
                 .body(responseDto);
     }
 
+    @Operation(summary = "Connect document to application")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document connected",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApplicationFindResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Application with provided id is not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
+    @PatchMapping("/{id}/doc")
+    public ResponseEntity<ApplicationFindResponseDto> connectDocToApplication(
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestBody @Valid DocIdRequestDto req) {
+        ApplicationFindResponseDto responseDto = applicationService.connectDocToApplication(id, req);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
 }

@@ -26,7 +26,6 @@ public class DocumentConstructorType {
      * Название документа. Оно же является заголовком документа при генерации его word файла.
      * Примеры: приказ, служебная записка, договор ГПХ.
      */
-    @Column(unique = true)
     private String name;
 
     /**

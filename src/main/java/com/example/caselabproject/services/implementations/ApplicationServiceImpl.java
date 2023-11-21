@@ -1,20 +1,23 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.ApplicationAlreadyDeletedException;
-import com.example.caselabproject.exceptions.ApplicationNotFoundException;
-import com.example.caselabproject.exceptions.UserNotCreatorException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.application.ApplicationAlreadyDeletedException;
+import com.example.caselabproject.exceptions.application.ApplicationNotFoundException;
+import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
+import com.example.caselabproject.exceptions.user.UserNotCreatorException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.DocIdRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
+import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
+import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ApplicationServiceImpl implements ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
-    private final ApplicationItemRepository applicationItemRepository;
+    private final DocumentRepository documentRepository;
 
 
     @Override
@@ -95,34 +98,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
 
-    /*@Override
-    public ApplicationUpdateStatusAndCommentResponseDto updateApplicationStatusAndComment(
-            Long id,
-            String userName,
-            ApplicationItemStatus status,
-            String comment) {
-        Application oldApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationDoesNotExistException(id));
-        List<ApplicationItem> applicationItems = oldApplication.getApplicationItems();
-        User user = userRepository.findByUsername(userName)
-                .orElseThrow(() -> new UserByUsernameNotFoundException(userName));
-        ApplicationItem applicationItem = applicationItems.stream()
-                .filter(o -> o.getApplication().getId().equals(oldApplication.getId()) &&
-                        o.getDepartment().getId().equals(user.getDepartment().getId()))
-                .findFirst()
-                .orElseThrow(() -> new ApplicationItemDoesNotFoundException());
-        applicationItems.remove(applicationItem);
-        applicationItems.remove(applicationItem);
-        if (comment != null) {
-            applicationItem.setComment(comment);
-        }
-        if (status != null) {
-            applicationItem.setStatus(status);
-        }
-        applicationItem.setApplication(oldApplication);
-        applicationItems.add(applicationItem);
-        applicationRepository.save(oldApplication);
+    @Override
+    public ApplicationFindResponseDto connectDocToApplication(Long id, DocIdRequestDto req) {
+        Application getApplication = applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Document document = documentRepository.findById(req.getDocId())
+                .orElseThrow(() -> new DocumentDoesNotExistException(req.getDocId()));
+        getApplication.setDocument(document);
+        applicationRepository.save(getApplication);
+        return ApplicationFindResponseDto.mapFromEntity(getApplication);
+    }
 
-        return ApplicationUpdateStatusAndCommentResponseDto.mapFromEntity(applicationItem);
-    }*/
 }
