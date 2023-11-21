@@ -37,7 +37,7 @@ public class DocumentConstructorType {
      * Список полей, которые должен содержать документ.
      */
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn("field_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "field_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
