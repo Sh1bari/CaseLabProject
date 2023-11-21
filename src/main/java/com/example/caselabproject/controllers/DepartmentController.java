@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -255,7 +256,8 @@ public class DepartmentController {
     //TODO все листы заменить на Page
     public ResponseEntity<Page<DepartmentGetAllResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
-            @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
+            @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1")
+            @Max(value = 100, message = "Page limit cant be more than 100") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(value = "serialKey", required = false, defaultValue = "") String serialKey,

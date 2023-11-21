@@ -16,7 +16,6 @@ import com.example.caselabproject.repositories.ApplicationItemPageRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DepartmentService;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -193,21 +192,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private User getUserByUsername(String username) {
-        User user = userRepository.findByUsername(username)
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
-        return user;
     }
 
     private User getUserById(Long id) {
-        User user = userRepository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
-        return user;
     }
 
     private Department getDepartmentById(Long id) {
-        Department department = departmentRepository.findById(id)
+        return departmentRepository.findById(id)
                 .orElseThrow(() -> new DepartmentNotFoundException(id));
-        return department;
     }
 
     private boolean departmentIsActive(Department department) {
