@@ -21,6 +21,6 @@ public interface DocumentFieldService {
     DocumentResponseDto replaceDocumentFields(
             @Min(value = 1L, message = "Id must be >= 1") Long documentId,
             @UniqueElements(message = "Fields must be unique")
-            @Size(min = 1, message = "Request doesn't contain fields, nothing to put")
+            @Size(min = 1, message = "Request doesn't contain fields")
             List<@Valid DocumentFieldUpdateRequestDto> documentFieldDtos);
 }
