@@ -19,7 +19,6 @@ import com.example.caselabproject.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +27,6 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -129,18 +127,20 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         Page<Department> departments =
-                departmentRepository.findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(name, pageable, recordState, serialKey, user.getCreatedOrganization());
+                departmentRepository.findDepartmentsByNameContainingAndRecordStateAndOrganization(name, pageable, recordState, serialKey, user.getCreatedOrganization());
 
         return departments.map(DepartmentGetAllResponseDto::mapFromEntity);
     }
 
 
     @Override
-    public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId, String username) {
+    public Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId, Pageable pageable, String username) {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
-        List<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_IdAndOrganization(recordState, departmentId, user.getCreatedOrganization()).stream().map(UserGetByIdResponseDto::mapFromEntity).toList();
+        Page<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_IdAndOrganization(recordState, pageable, departmentId, user.getCreatedOrganization())
+                .map(UserGetByIdResponseDto::mapFromEntity);
+
         return users;
     }
 

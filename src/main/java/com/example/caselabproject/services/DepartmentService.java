@@ -155,12 +155,13 @@ public interface DepartmentService {
      *
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
-     * @return Список {@link User}, представляющий найденных пользователей.
+     * @return Page  {@link UserGetByIdResponseDto}, представляющий найденных пользователей.
      * @author Khodov Nikita
      */
     @Transactional
-    List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
+    Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
+                                                                 Pageable pageable,
                                                                  @NotBlank(message = "Department creator username can't be blank.") String username);
 
     @Transactional(readOnly = true)

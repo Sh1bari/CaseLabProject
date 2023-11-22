@@ -296,11 +296,14 @@ public class DepartmentController {
     @Secured("ROLE_USER")
     //TODO в организации
     //TODO все листы заменить на Page
-    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
+    public ResponseEntity<Page<UserGetByIdResponseDto>> getAllUsersInDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
+            @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1")
+            @Max(value = 100, message = "Page limit cant be more than 100") Integer limit,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             Principal principal) {
-        List<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id, principal.getName());
+        Page<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id, PageRequest.of(page, limit), principal.getName());
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

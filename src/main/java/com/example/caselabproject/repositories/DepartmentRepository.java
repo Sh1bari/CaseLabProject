@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Page<Department> findAll(Pageable pageable);
 
-    Page<Department> findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(String name, Pageable pageable, RecordState recordState,
-                                                                                              String serialKey, Organization organization);
+    Page<Department> findDepartmentsByNameContainingAndRecordStateAndOrganization(String name, Pageable pageable, RecordState recordState,
+                                                                                  String serialKey, Organization organization);
 
     Optional<Department> findByName(String name);
 }
