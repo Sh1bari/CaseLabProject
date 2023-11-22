@@ -56,6 +56,11 @@ public class DepartmentController {
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "422", description = "Department name  already exists.",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
                     })
     })
     @PostMapping("/")
@@ -141,6 +146,11 @@ public class DepartmentController {
                                     schema = @Schema(implementation = AppError.class))
                     }),
             @ApiResponse(responseCode = "404", description = "Department not found with id ",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "422", description = "Department name already exists.",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
