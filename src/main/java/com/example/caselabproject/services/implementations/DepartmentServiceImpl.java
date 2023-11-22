@@ -131,11 +131,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Page<Department> departments =
                 departmentRepository.findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(name, pageable, recordState, serialKey, user.getCreatedOrganization());
 
-        List<DepartmentGetAllResponseDto> dtos = departments.getContent().stream()
-                .map(DepartmentGetAllResponseDto::mapFromEntity)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(dtos, pageable, departments.getTotalElements());
+        return departments.map(DepartmentGetAllResponseDto::mapFromEntity);
     }
 
 
