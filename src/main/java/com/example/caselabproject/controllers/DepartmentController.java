@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -206,12 +207,12 @@ public class DepartmentController {
     })
     @GetMapping("/")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(
+    public ResponseEntity<Page<DepartmentResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
+        Page<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
@@ -238,10 +239,12 @@ public class DepartmentController {
     })
     @GetMapping("/{id}/users")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
+    public ResponseEntity<Page<UserGetByIdResponseDto>> getAllUsersInDepartment(
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
+            @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id);
+        Page<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(PageRequest.of(page, limit), recordState, id);
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
