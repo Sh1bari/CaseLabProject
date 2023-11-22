@@ -3136,3 +3136,6 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 2023-11-17 22:12:11 WARN  [main] c.e.c.e.UserNotFoundException - User with username User not found.
 2023-11-17 22:13:12 WARN  [main] c.e.c.e.UserNotFoundException - User with username User not found.
 2023-11-21 01:51:36 WARN  [main] c.e.c.e.UserNotFoundException - User with username  not found.
+2023-11-22 10:38:27 WARN  [main] c.e.c.e.UserNotFoundException - User with username  not found.
+2023-11-22 10:39:15 WARN  [main] c.e.c.e.UserNotFoundException - User with username  not found.
+2023-11-22 16:40:14 WARN  [main] c.e.c.e.UserNotFoundException - User with username username not found.

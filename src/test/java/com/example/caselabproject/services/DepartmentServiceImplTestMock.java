@@ -4,6 +4,7 @@ import com.example.caselabproject.models.DTOs.request.department.DepartmentCreat
 import com.example.caselabproject.models.DTOs.response.department.DepartmentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.department.DepartmentGetAllResponseDto;
 import com.example.caselabproject.models.DTOs.response.department.DepartmentGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationItemPageRepository;
@@ -26,8 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -160,18 +160,23 @@ public class DepartmentServiceImplTestMock {
         department2.setRecordState(RecordState.ACTIVE);
         department2.setUsers(new ArrayList<>());
 
+        User user = new User();
+        user.setUsername("username");
+        user.setCreatedOrganization(new Organization());
+
         List<Department> departmentList = List.of(department1, department2);
         Page<Department> departmentPage = new PageImpl<>(departmentList);
 
-        String serialKey = "";
-        String username = "";
+        String serialKey = "dwd-1";
+
+        given(userRepo.findByUsername(user.getUsername())).willReturn(Optional.of(user));
 
         given(departmentRepository.findDepartmentsByNameContainingAndRecordStateAndOrganization(
                 anyString(), any(Pageable.class), any(RecordState.class), any(String.class), any(Organization.class))).willReturn(departmentPage);
 
 
         Page<DepartmentGetAllResponseDto> responseDtoList =
-                departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE, serialKey, username);
+                departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE, serialKey, "username");
 
 
         verify(departmentRepository).findDepartmentsByNameContainingAndRecordStateAndOrganization(
@@ -213,29 +218,37 @@ public class DepartmentServiceImplTestMock {
 
 
         List<User> userList = List.of(user1, user2);
+        Page<User> userPage = new PageImpl<>(userList);
+
+        User user = new User();
+        user.setUsername("username");
+        user.setCreatedOrganization(new Organization());
+
+        given(userRepo.findByUsername(user.getUsername())).willReturn(Optional.of(user));
+
 
         given(userRepository.findByRecordStateAndDepartment_IdAndOrganization(
-                RecordState.ACTIVE, any(Pageable.class), 1L, new Organization())).willReturn((Page<User>) userList);
+                eq(RecordState.ACTIVE), any(Pageable.class), any(Long.class), any(Organization.class))).willReturn(userPage);
 
 
-//        Page<UserGetByIdResponseDto> responseDtoList =
-//                departmentService.getAllUsersFilteredByDepartment(RecordState.ACTIVE, 1L, "");
+        Page<UserGetByIdResponseDto> responseDtoList =
+                departmentService.getAllUsersFilteredByDepartment(RecordState.ACTIVE, 1L, Pageable.unpaged(),"username");
 
         verify(userRepository).findByRecordStateAndDepartment_IdAndOrganization(
-                RecordState.ACTIVE, any(Pageable.class), 1L, new Organization());
+                eq(RecordState.ACTIVE), any(Pageable.class), eq(1L), any(Organization.class));
 
 
-//        assertNotNull(responseDtoList);
-//        assertEquals(2, responseDtoList.getContent().size());
-//
-//        UserGetByIdResponseDto responseDto1 = responseDtoList.getContent().get(0);
-//
-//        assertEquals(1L, responseDto1.getId());
-//        assertEquals("User 1", responseDto1.getUsername());
-//
-//        UserGetByIdResponseDto responseDto2 = responseDtoList.getContent().get(1);
-//        assertEquals(2L, responseDto2.getId());
-//        assertEquals("User 2", responseDto2.getUsername());
+        assertNotNull(responseDtoList);
+        assertEquals(2, responseDtoList.getContent().size());
+
+        UserGetByIdResponseDto responseDto1 = responseDtoList.getContent().get(0);
+
+        assertEquals(1L, responseDto1.getId());
+        assertEquals("User 1", responseDto1.getUsername());
+
+        UserGetByIdResponseDto responseDto2 = responseDtoList.getContent().get(1);
+        assertEquals(2L, responseDto2.getId());
+        assertEquals("User 2", responseDto2.getUsername());
 
     }
 
