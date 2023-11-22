@@ -41,6 +41,9 @@ public class User {
 
     private String position;
 
+    @Column(name = "is_director")
+    private boolean isDirector;
+
     @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Document> documents;
 
