@@ -1,0 +1,45 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+autonumber
+
+front -> controller++: DELETE /api/doctype/{id}
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: deleteDocumentConstructorTypeById()
+        service -> db++: findDocumentConstructorTypeById()
+        alt "Document type is found"
+            db --> service: Found document type
+            service -> service: Is document type status = ACTIVE?
+            alt "Status = ACTIVE"
+                service -> service: set document type status \n to the DELETED
+                service -> db: saveDocumentConstructorType()
+                db --> service: Updated document type
+                service --> controller: success
+                controller --> front: 204: Document type deleted
+            else "Status = DELETED"
+                service --> controller: Exception
+                controller --> front: 409: Document type already deleted
+            end
+        else "Document type not found"
+            db --> service--: Empty result
+            service --> controller: Exception
+            controller --> front: 404: Document type not found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Bad request
+    end
+else
+    controller --> front--: 401: User doesn't have ADMIN role
+end
+
+@enduml
