@@ -14,7 +14,6 @@ import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ import java.util.List;
 @Validated
 public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTypeService {
     private final DocumentConstructorTypeRepository typeRepository;
-    private final DocumentRepository documentRepository;
     private final FieldRepository fieldRepository;
 
     @Override
