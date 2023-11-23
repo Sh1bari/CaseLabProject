@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,7 @@ public class DocumentFieldServiceImpl implements DocumentFieldService {
     public DocumentResponseDto replaceDocumentFields(Long documentId,
                                                      List<DocumentFieldUpdateRequestDto> documentFieldDtos) {
         Document document = findDocumentByIdInternal(documentId);
+        document.setUpdateDate(LocalDateTime.now());
 
         // Создаем список полей, которые нужно будет сохранить, так как их нет в бд
         List<Field> fieldsToSave = new ArrayList<>();
