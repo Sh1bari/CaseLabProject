@@ -6,7 +6,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -22,13 +24,20 @@ public class DocumentCreateResponseDto {
 
     private Long creatorId;
 
+    private Map<String, String> fieldsValues;
+
     public static DocumentCreateResponseDto mapFromEntity(Document document) {
+        Map<String, String> stringFieldsValues = new HashMap<>();
+        document.getFieldsValues().forEach(
+                (field, value) -> stringFieldsValues.put(field.getName(), value));
+
         return DocumentCreateResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
+                .fieldsValues(stringFieldsValues)
                 .build();
     }
 
