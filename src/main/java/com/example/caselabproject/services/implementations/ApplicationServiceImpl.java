@@ -27,8 +27,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
+
     private final ApplicationRepository applicationRepository;
+
     private final UserRepository userRepository;
+
     private final ApplicationItemRepository applicationItemRepository;
 
 
@@ -59,7 +62,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             updateApplication.setDeadlineDate(application.getDeadlineDate());
             applicationRepository.save(updateApplication);
         }
-
         return ApplicationUpdateResponseDto.mapFromEntity(application);
     }
 
