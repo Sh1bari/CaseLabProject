@@ -1,13 +1,15 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.documentConsType.*;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyActiveException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.request.FieldRequestDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +18,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +37,6 @@ class DocumentConstructorTypeServiceImplTest {
 
     @Mock
     private DocumentConstructorTypeRepository typeRepository;
-    @Mock
-    private DocumentRepository documentRepository;
     @Mock
     private FieldRepository fieldRepository;
     private DocumentConstructorTypeService underTest;
@@ -55,7 +58,7 @@ class DocumentConstructorTypeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, documentRepository, fieldRepository);
+        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, fieldRepository);
     }
 
     @Test
