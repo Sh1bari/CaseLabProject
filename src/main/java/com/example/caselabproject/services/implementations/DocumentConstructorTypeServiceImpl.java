@@ -25,6 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,16 +70,32 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
             Long id, DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToUpdate = findByIdInternal(id);
 
-        // преобразуем DTO с обновленными полями в entity
         DocumentConstructorType updated = typeRequestDto.mapToEntity();
+
+        // Найденные поля
+        List<Field> foundFields = fieldRepository.findAllByNameIn(
+                updated.getFields().stream().map(Field::getName).toList());
+        // Результирующий список полей
+        List<Field> fields = new ArrayList<>(foundFields);
+        // Если найдены не все поля
+        if (foundFields.size() < updated.getFields().size()) {
+            // Создаем список названий найденных полей
+            List<String> foundFieldNames = foundFields.stream().map(Field::getName).toList();
+            // Создаем список полей, которые нужно будет сохранить
+            List<Field> fieldsToSave = new ArrayList<>();
+            for (Field field : updated.getFields()) {
+                // Если поля нет в списке найденных
+                if (!foundFieldNames.contains(field.getName())) {
+                    // Добавляем поле в список для сохранения
+                    fieldsToSave.add(field);
+                }
+            }
+            fields.addAll(fieldRepository.saveAll(fieldsToSave));
+        }
 
         // обновляем существующую entity
         typeToUpdate.setName(updated.getName());
         typeToUpdate.setPrefix(updated.getPrefix());
-        // Сохраняем полученные fields. Сущность Field имеет ограничение уникальности
-        // на поле name. При вызове метода saveAll будут сохранены fields, имена
-        // которых не заняты, а fields с существующими именами метод не изменит.
-        List<Field> fields = fieldRepository.saveAll(updated.getFields());
         typeToUpdate.setFields(fields);
 
         return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
