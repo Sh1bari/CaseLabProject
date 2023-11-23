@@ -33,9 +33,7 @@ public class DocumentFieldController {
     private final DocumentFieldService documentFieldService;
 
 
-    @Operation(summary = "Replaces the field values in the document. If any of the fields did not " +
-            "exist in the document, it will be added. If any of the fields you add did not exist in " +
-            "the database, it will be created.")
+    @Operation(summary = "Replaces the field values in the document")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The document fields have been successfully updated",
                     content = {@Content(mediaType = "application/json",
