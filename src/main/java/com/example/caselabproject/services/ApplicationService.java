@@ -2,6 +2,7 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.DocIdRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
@@ -18,6 +19,12 @@ public interface ApplicationService {
 
     boolean deleteApplication(@Min(value = 1L, message = "Id cant be less than 1") Long id, @NotBlank String username);
 
-    ApplicationFindResponseDto getApplicationById(@Min(value = 1L, message = "Id cant be less than 1") Long id);
+    ApplicationFindResponseDto getApplicationById(
+            @Min(value = 1L, message = "Id cant be less than 1") Long id);
+
+    ApplicationFindResponseDto connectDocToApplication(
+            @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            @Valid DocIdRequestDto req
+    );
 
 }

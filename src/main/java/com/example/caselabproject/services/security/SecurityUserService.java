@@ -56,7 +56,7 @@ public class SecurityUserService implements UserDetailsService {
         authUserInfo.setUser(user);
         user.setAuthUserInfo(authUserInfo);
         user.setUsername(registrationUserDto.getUsername());
-        user.setRoles(List.of(roleService.getUserRole()));
+        user.setRoles(List.of(roleService.getUserRole(), roleService.getAdminRole()));
         user.setRecordState(RecordState.ACTIVE);
         PersonalUserInfo personalUserInfo = new PersonalUserInfo();
         personalUserInfo.setUser(user);

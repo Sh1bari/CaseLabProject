@@ -1,7 +1,7 @@
 package com.example.caselabproject.services;
 
 import com.example.caselabproject.exceptions.department.DepartmentCreateException;
-import com.example.caselabproject.exceptions.department.DepartmentSQLValidationException;
+import com.example.caselabproject.exceptions.department.DepartmentNameExistsException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.department.DepartmentStatusException;
 import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
@@ -14,6 +14,7 @@ import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -26,14 +27,14 @@ public interface DepartmentService {
      * Создаёт новый департамент на основе предоставленного DTO.
      * <p>
      * Этот метод преобразует {@link DepartmentRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
-     * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentSQLValidationException}.
+     * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentNameExistsException}.
      * В случае любых других ошибок при создании будет выброшено исключение {@link DepartmentCreateException}.
      * </p>
      *
      * @param departmentRequestDto DTO запроса для создания департамента. Должно быть валидным.
      * @return DTO {@link DepartmentResponseDto} ответа, представляющее созданный департамент.
-     * @throws DepartmentSQLValidationException ошибка при сохранении {@link Department} в базе данных.
-     * @throws DepartmentCreateException        если произошла ошибка при создании департамента.
+     * @throws DepartmentNameExistsException если департамент с указанным именем уже существует.
+     * @throws DepartmentCreateException     если произошла ошибка при создании департамента.
      * @author Khodov Nikita
      */
     @Transactional
@@ -51,6 +52,7 @@ public interface DepartmentService {
      * @param departmentRequestDto DTO, содержащий новое имя для отдела.
      * @return DepartmentResponseDto DTO, отображающее обновленное состояние отдела.
      * @throws DepartmentNotFoundException если отдел с данным идентификатором не найден.
+     * @throws DepartmentCreateException   если возникла любая другая ошибка при обновлении отдела.
      * @author Khodov Nikita
      */
     @Transactional
@@ -114,11 +116,11 @@ public interface DepartmentService {
      *
      * @param pageable Модель страницы для пагинации.
      * @param name     Имя для фильтрации списка департаментов.
-     * @return Список {@link DepartmentResponseDto}, представляющий найденные департаменты.
+     * @return Page {@link DepartmentResponseDto}, представляющий найденные департаменты.
      * @author Khodov Nikita
      */
     @Transactional
-    List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
+    Page<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
 
     /**
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
@@ -127,13 +129,14 @@ public interface DepartmentService {
      * и принадлежащих к указанному департаменту.
      * </p>
      *
+     * @param pageable Модель страницы для пагинации.
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
-     * @return Список {@link User}, представляющий найденных пользователей.
+     * @return Page {@link User}, представляющий найденных пользователей.
      * @author Khodov Nikita
      */
     @Transactional
-    List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
+    Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(Pageable pageable, RecordState recordState,
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     @Transactional(readOnly = true)

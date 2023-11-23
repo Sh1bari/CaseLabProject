@@ -69,6 +69,20 @@ public class UserController {
                 .body(userResponseDto);
     }
 
+    @Operation(summary = "Get yourself")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Your profile",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserGetByIdResponseDto.class))})})
+    @GetMapping("/me")
+    public ResponseEntity<UserGetByIdResponseDto> getMyId(
+            Principal principal) {
+        UserGetByIdResponseDto userResponseDto = userService.getByUsername(principal.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userResponseDto);
+    }
+
 
     /**
      * Creates user.

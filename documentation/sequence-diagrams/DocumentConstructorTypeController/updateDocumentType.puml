@@ -1,0 +1,54 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: PUT /api/doctype/{id}
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: update(id, request)
+        service -> db++: findById(id)
+        alt "Document type found"
+            db --> service: Document type
+            service -> db: Is this type used in documents?
+            alt "This type is used in documents"
+                db --> service: True
+                service --> controller: Exception
+                controller --> front: Document type already \n has associated documents
+            else "This type is not used in documents"
+                db --> service: False
+                service -> service: Update fields
+                service -> db: saveDocumentConstructorType()
+                db -> db: Check unique name constraint
+                alt "Name is unique"
+                            db --> service: Updated entity
+                            service --> controller: Updated document type
+                            controller --> front: 200: Updated document type
+                        else "Name isn't unique"
+                            db --> service--: error: unique constraint violation
+                            service --> controller--: Exception
+                            controller --> front: 422: Document type with the \n specified name already exists
+                        end
+            end
+        else "Document type is not found"
+            db --> service--: Empty result
+            service --> controller--: Error: document type not found
+            controller --> front: 404: Document type isn't found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Invalid request body or path variable
+    end
+else "User doesn't have ADMIN role""
+    controller --> front--: 401: User doesn't have ADMIN role
+end
+
+@enduml

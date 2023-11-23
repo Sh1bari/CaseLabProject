@@ -1,0 +1,33 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+autonumber
+
+front -> controller++: GET /api/doctype/filter
+controller -> controller: Check user role
+alt "User has any role"
+        alt "Request is valid"
+        controller -> service++: getAllContaining(name, state, page, size)
+        service -> db++: findAllBy(name, state, pageable)
+        db --> service--: Got a page of document constructor types
+        service --> controller--: Converted a page to a list
+            alt "Database has such document constructor types"
+                controller --> front: 200: Page with document types found
+            else "Database doesn't have such document constructor types"
+                controller --> front: 204: Page with document types not found
+            end
+        else "Request is not valid"
+            controller --> front: 400: Invalid request parameter (parameters)
+        end
+else "User doesn't have any role"
+    controller -> front--: 401: User is not authenticated
+end
+
+@enduml

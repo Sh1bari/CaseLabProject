@@ -1,0 +1,46 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: PATCH /api/doctype/{id}
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: updateNameAndPrefix(id, request)
+        service -> db++: findById(id)
+        alt "Document type found"
+            db --> service: Document type
+            service -> service: Set new document\ntype name
+            service -> service: Set new document\ntype prefix
+            alt "New document type name is unique"
+                service -> db: save(documentType)
+                db --> service: Updated document type
+                service --> controller: Success
+                controller --> front: 200: Document type updated
+            else "New document type name is not unique"
+                db --> service: Error: unique constraint violation
+                service --> controller: Exception
+                controller --> front: 422: Document type name already exists
+            end
+        else "Document type is not found"
+            db --> service--: Empty result
+            service --> controller--: Error: document type not found
+            controller --> front: 404: Document type isn't found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Invalid request body or path variable
+    end
+else "User doesn't have ADMIN role""
+    controller --> front--: 401: User doesn't have ADMIN role
+end
+
+@enduml

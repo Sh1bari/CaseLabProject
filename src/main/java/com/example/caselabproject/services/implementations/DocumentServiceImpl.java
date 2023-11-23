@@ -4,12 +4,14 @@ import com.example.caselabproject.exceptions.document.DocumentAccessException;
 import com.example.caselabproject.exceptions.document.DocumentCreateException;
 import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
 import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
-import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameNotFoundException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
@@ -24,7 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -49,10 +53,16 @@ public class DocumentServiceImpl implements DocumentService {
                 .orElseThrow(() -> new UserByPrincipalUsernameDoesNotExistException(username));
         document.setCreator(user);
 
-        document.setDocumentConstructorType(documentConstructorTypeRepository
-                .findByName(request.getConstructorTypeName()).orElseThrow(
-                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
-                ));
+        DocumentConstructorType constructorType = documentConstructorTypeRepository
+                .findById(request.getConstructorTypeId())
+                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId()));
+        document.setDocumentConstructorType(constructorType);
+
+        // Заполняем поля документа пустыми строками
+        Map<Field, String> fieldsValues = new HashMap<>();
+        constructorType.getFields()
+                .forEach(field -> fieldsValues.put(field, ""));
+        document.setFieldsValues(fieldsValues);
 
         try {
             documentRepository.save(document);
@@ -101,6 +111,7 @@ public class DocumentServiceImpl implements DocumentService {
         return documents.map(DocumentResponseDto::mapFromEntity).toList();
     }
 
+
     @Override
     public DocumentResponseDto updateDocument(String username, DocumentRequestDto request, Long documentId) {
 
@@ -118,8 +129,8 @@ public class DocumentServiceImpl implements DocumentService {
         updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
         updateDocument.setName(request.getName());
         updateDocument.setDocumentConstructorType(documentConstructorTypeRepository
-                .findByName(request.getConstructorTypeName()).orElseThrow(
-                        () -> new DocumentConstructorTypeNameNotFoundException(request.getConstructorTypeName())
+                .findById(request.getConstructorTypeId()).orElseThrow(
+                        () -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId())
                 ));
 
         documentRepository.save(updateDocument);
