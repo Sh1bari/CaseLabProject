@@ -1,0 +1,99 @@
+@startuml
+
+
+skinparam defaultTextAlignment center
+skinparam NoteFontSize<<description>> 17
+skinparam NoteBackgroundColor<<description>> #HoneyDew
+
+
+actor "Frontend" as frontend
+
+box "Backend" #Lightgreen
+control "AuthController" as auth
+control "UserController" as user
+control "DepartmentController" as department
+control "DocumentConstructorTypeController" as documentConstructorType
+control "DocumentController" as document
+control "ApplicationController" as application
+control "FileController" as file
+control "ApplicationItemController" as applicationItem
+end box
+
+
+hnote<<description>> over auth, applicationItem: Services and database are not illustrated here.\nBut after each request from "Frontend" there's some internal work.\nFull exception descriptions can be found in Swagger.
+
+frontend -> auth++: POST /api/registration
+auth --> frontend: 200: Success
+hnote over frontend: add ROLE_ADMIN to newly\ncreated user manually\nin the database
+
+==working as an administrator==
+frontend -> auth: POST /api/login
+alt #LightBlue
+    auth --> frontend: 200: Success
+    hnote over frontend: paste JWT to the 'Authorize'\nfield in Swagger
+    frontend -> user++: POST /api/user/
+    alt #LightBlue
+        user --> frontend: 201: Created
+        frontend -> department++: POST /api/department/
+        alt #LightBlue
+            department --> frontend: 201: Created
+            frontend -> user: PUT /api/user/{id}
+                hnote left: assign the created user\nin the newly created department
+            alt #LightBlue
+                user --> frontend: 200: Updated
+                frontend -> documentConstructorType++: POST /api/doctype/
+                alt #LightBlue
+                    documentConstructorType --> frontend: 201: Created
+                else #Pink
+                    documentConstructorType --> frontend--: 400
+                end
+            else #Pink
+                user --> frontend: 400 or 404 or 409
+            end
+        else #Pink
+            department --> frontend--: 400 or 403
+        end
+    else #Pink
+        user --> frontend--: 400 or 409
+    end
+else #Pink
+    auth --> frontend--: 400 or 401 or 403
+end
+
+==working as a user==
+frontend -> auth++: POST /api/login
+alt #LightBlue
+    auth --> frontend: 200: Success
+    hnote over frontend: paste JWT to the 'Authorize'\nfield in Swagger
+    frontend -> document++: POST /api/doc/
+    alt #LightBlue
+        document --> frontend: 201: Created
+        frontend -> application++: POST /api/application/
+        alt #LightBlue
+            application --> frontend: 201: Created
+            '(add files to document from Postman) -- note
+            frontend -> file++: POST /api/doc/{id}/file/
+            hnote left: use Postman to add\nfiles to the request
+            alt #LightBlue
+                file --> frontend: 201: Added
+                frontend -> applicationItem++: /api/application/{id}/applicationItem
+                alt #LightBlue
+                    applicationItem --> frontend: 201: Sent
+                else #Pink
+                    applicationItem --> frontend--: 400 or 404 or 409
+                end
+            else #Pink
+                file --> frontend--: 400 or 403 or 404
+            end
+        else #Pink
+            application --> frontend--: 400 or 404
+        end
+    else #Pink
+        document --> frontend--: 400
+    end
+else #Pink
+    auth --> frontend--: 400 or 401 or 403
+end
+
+
+@enduml
