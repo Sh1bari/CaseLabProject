@@ -3,7 +3,9 @@ package com.example.caselabproject.controllers;
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
+import com.example.caselabproject.services.DocumentService;
 import com.example.caselabproject.services.FileService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -53,6 +55,7 @@ public class FileController {
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
             @RequestParam("file") MultipartFile file,
             Principal principal,
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
         List<FileResponseDto> response = fileService.addFile(principal.getName(), file, docId);
         return ResponseEntity
@@ -81,6 +84,7 @@ public class FileController {
     })
     @GetMapping("/")
     public ResponseEntity<List<FileResponseDto>> getFilesByDocumentId(
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "offset", required = false, defaultValue = "20") Integer offset) {
@@ -103,8 +107,10 @@ public class FileController {
                     })
     })
     @GetMapping("/{fileId}/download")
-    public ResponseEntity<?> downloadFile(@PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
-                                          @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) throws IOException {
+    public ResponseEntity<?> downloadFile(
+            @CheckOrganization(serviceClass = DocumentService.class)
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
+            @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) throws IOException {
         FileDownloadResponseDto response = fileService.downloadFile(docId, fileId);
         byte[] file = response.getBytes();
         return ResponseEntity
@@ -139,6 +145,7 @@ public class FileController {
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
             Principal principal,
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
         List<FileResponseDto> response = fileService.updateFile(principal.getName(), file, docId, fileId);
@@ -160,6 +167,7 @@ public class FileController {
     @DeleteMapping("/{fileId}")
     public ResponseEntity<?> deleteFile(
             Principal principal,
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
         fileService.deleteFile(principal.getName(), docId, fileId);
