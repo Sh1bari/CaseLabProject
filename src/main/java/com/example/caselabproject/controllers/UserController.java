@@ -2,6 +2,7 @@ package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
@@ -111,7 +112,7 @@ public class UserController {
 
 
     /**
-     * Updates user by id.
+     * Updates user password by id.
      *
      * @param id             the id of user to get
      * @param userRequestDto the user request dto
@@ -138,6 +139,28 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userUpdateResponseDto);
+    }
+
+    @Operation(summary = "Update existing user password with given id, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "409", description = "User with given data exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PutMapping("/{id}/password")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<UserUpdateResponseDto> updateUserPasswordById(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestBody @Valid UserUpdatePasswordRequest req) {
+        UserUpdateResponseDto res = userService.updatePasswordById(id, req);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
     }
 
 
