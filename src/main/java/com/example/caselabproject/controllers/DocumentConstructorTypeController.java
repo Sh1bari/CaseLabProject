@@ -9,6 +9,7 @@ import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRe
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -85,6 +86,7 @@ public class DocumentConstructorTypeController {
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentType(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid DocumentConstructorTypeRequestDto request) {
         DocumentConstructorTypeUpdateResponseDto response = typeService.update(id, request);
@@ -114,6 +116,7 @@ public class DocumentConstructorTypeController {
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentTypeNameAndPrefix(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid DocumentConstructorTypePatchRequestDto request) {
         DocumentConstructorTypeUpdateResponseDto response = typeService.updateNameAndPrefix(id, request);
@@ -141,6 +144,7 @@ public class DocumentConstructorTypeController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteDocumentType(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         typeService.deleteById(id);
         return ResponseEntity
@@ -168,6 +172,7 @@ public class DocumentConstructorTypeController {
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeRecoverResponseDto> recoverDocumentType(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentConstructorTypeRecoverResponseDto response = typeService.recoverById(id);
         return ResponseEntity
@@ -193,6 +198,7 @@ public class DocumentConstructorTypeController {
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
     public ResponseEntity<DocumentConstructorTypeByIdResponseDto> getDocumentType(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentConstructorTypeByIdResponseDto response = typeService.getById(id);
         return ResponseEntity
