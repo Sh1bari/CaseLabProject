@@ -5,5 +5,5 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 public interface EntityOrganizationService {
-    Long getOrganizationIdByEntityId(@Min(value = 1L, message = "EntityId must be >= 1") Long entityId);
+    Long getOrganizationIdByEntityId(@Min(value = 1L, message = "EntityId must be more than 0") Long entityId);
 }
