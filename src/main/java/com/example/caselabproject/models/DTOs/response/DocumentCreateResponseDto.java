@@ -45,10 +45,16 @@ public class DocumentCreateResponseDto {
     public static List<DocumentCreateResponseDto> mapFromListOfEntities(List<Document> document) {
         List<DocumentCreateResponseDto> res = new ArrayList<>();
         document.forEach(o -> {
+            Map<String, String> stringFieldsValues = new HashMap<>();
+            o.getFieldsValues().forEach(
+                    (field, value) -> stringFieldsValues.put(field.getName(), value));
             res.add(DocumentCreateResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
+                    .updateDate(o.getUpdateDate())
+                    .creatorId(o.getCreator().getId())
                     .creationDate(o.getCreationDate())
+                    .fieldsValues(stringFieldsValues)
                     .build());
         });
         return res;
