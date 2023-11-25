@@ -10,6 +10,13 @@ import java.lang.annotation.*;
 /**
  * Аннотированный элемент должен быть прикреплен к той же организации, что и
  * пользователь, от лица которого совершается действие (аутентифицированный пользователь).
+ * <p>
+ * Поддерживаемые типы:
+ * <ul>
+ *     <li>{@code Long}</li>
+ * </ul>
+ * <p>
+ * {@code null} элементы поддерживаются.
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -20,6 +27,7 @@ public @interface CheckOrganization {
     /**
      * Класс сервиса, из которого можно получить информацию о том, к какой организации
      * относится запрашиваемая сущность.
+     *
      * @see EntityOrganizationService
      */
     Class<? extends EntityOrganizationService> serviceClass();
