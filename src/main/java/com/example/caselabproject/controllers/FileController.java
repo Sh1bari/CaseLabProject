@@ -52,7 +52,7 @@ public class FileController {
     })
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = true) MultipartFile file,
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
         List<FileResponseDto> response = fileService.addFile(principal.getName(), file, docId);

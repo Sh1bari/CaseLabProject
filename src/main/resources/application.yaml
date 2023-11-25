@@ -5,6 +5,10 @@ server:
 jwt:
   secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
   lifetime: 30m
+minio:
+  url: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
 spring:
   output:
     ansi:
