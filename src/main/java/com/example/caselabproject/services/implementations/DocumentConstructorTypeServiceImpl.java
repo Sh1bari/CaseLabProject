@@ -145,6 +145,11 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                 .toList();
     }
 
+    @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return findByIdInternal(entityId).getOrganization().getId();
+    }
+
     /**
      * Внутренний метод, позволяющий сохранить DocumentConstructor. Используется
      * для избежания повторов кода.

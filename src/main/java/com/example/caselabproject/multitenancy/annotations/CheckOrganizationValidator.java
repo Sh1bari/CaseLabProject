@@ -1,14 +1,12 @@
 package com.example.caselabproject.multitenancy.annotations;
 
-import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
-import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.repositories.UserRepository;
+import com.example.caselabproject.services.EntityOrganizationService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +16,12 @@ public class CheckOrganizationValidator implements ConstraintValidator<CheckOrga
 
     private final UserRepository userRepository;
     private final ApplicationContext applicationContext;
-    private Class<? extends CrudRepository<?, Long>> repositoryClass;
+    private Class<? extends EntityOrganizationService> serviceClass;
 
     @Override
     public void initialize(CheckOrganization constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
-        this.repositoryClass = constraintAnnotation.repositoryClass();
+        this.serviceClass = constraintAnnotation.serviceClass();
     }
 
     private Long getCurrentUserOrganizationId() {
@@ -34,12 +32,10 @@ public class CheckOrganizationValidator implements ConstraintValidator<CheckOrga
 
     @Override
     public boolean isValid(Long entityId, ConstraintValidatorContext context) {
-        CrudRepository<?, Long> repository = applicationContext.getBean(repositoryClass);
+        EntityOrganizationService service = applicationContext.getBean(serviceClass);
 
         Long currentOrgId = getCurrentUserOrganizationId();
-        Long targetOrgId = ((DocumentConstructorType) repository.findById(entityId)
-                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(entityId)))
-                .getOrganization().getId();
+        Long targetOrgId = service.getOrganizationIdByEntityId(entityId);
         return currentOrgId.equals(targetOrgId);
     }
 }

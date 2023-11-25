@@ -1,8 +1,8 @@
 package com.example.caselabproject.multitenancy.annotations;
 
+import com.example.caselabproject.services.EntityOrganizationService;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import org.springframework.data.repository.CrudRepository;
 
 import java.lang.annotation.*;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = {CheckOrganizationValidator.class})
 public @interface CheckOrganization {
 
-    Class<? extends CrudRepository<?, Long>> repositoryClass();
+    Class<? extends EntityOrganizationService> serviceClass();
 
     String message() default "Attempt to access the materials of another organization";
 

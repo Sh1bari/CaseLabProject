@@ -2,7 +2,7 @@ package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.multitenancy.annotations.CheckOrganization;
-import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
+import com.example.caselabproject.services.DocumentConstructorTypeService;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class DocumentRequestDto {
     @NotBlank(message = "Document name can not be blank")
     private String name;
 
-    @CheckOrganization(repositoryClass = DocumentConstructorTypeRepository.class)
+    @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
     @Min(value = 1L, message = "Constructor type id must be >= 1")
     private Long constructorTypeId;
 

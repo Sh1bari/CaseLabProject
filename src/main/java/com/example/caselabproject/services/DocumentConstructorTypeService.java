@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface DocumentConstructorTypeService {
+public interface DocumentConstructorTypeService extends EntityOrganizationService {
 
     /**
      * Creates a new document type, that has unique identifier and name.
