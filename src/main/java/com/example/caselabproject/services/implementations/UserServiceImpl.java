@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByFiltersByPage(
+    public List<DocumentGetAllResponse> findDocsByFiltersByPage(
             Long creatorId,
             String name,
             LocalDateTime creationDateFrom,
@@ -194,7 +194,7 @@ public class UserServiceImpl implements UserService {
                                 pageable).toList();
             }
 
-            List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
+            List<DocumentGetAllResponse> documentCreateResponseDtoList = DocumentGetAllResponse
                     .mapFromListOfEntities(res);
             return documentCreateResponseDtoList;
         } else {

@@ -49,7 +49,7 @@ public interface UserService {
     UserRecoverResponseDto recoverById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional
-    List<DocumentCreateResponseDto> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
+    List<DocumentGetAllResponse> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
                                                             Long creatorId,
                                                             String name,
                                                             LocalDateTime creationDateFrom,
