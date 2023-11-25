@@ -7,6 +7,10 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+/**
+ * Аннотированный элемент должен быть прикреплен к той же организации, что и
+ * пользователь, от лица которого совершается действие (аутентифицированного пользователя).
+ */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
