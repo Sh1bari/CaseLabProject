@@ -33,6 +33,7 @@ import java.util.List;
  */
 @Validated
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class ApplicationItemController {
