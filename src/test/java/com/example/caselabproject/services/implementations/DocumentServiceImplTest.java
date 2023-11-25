@@ -55,7 +55,7 @@ class DocumentServiceImplTest {
     private static DocumentRequestDto getDocumentRequestDto() {
         DocumentRequestDto documentRequestDto = new DocumentRequestDto();
         documentRequestDto.setName("doc_test");
-        documentRequestDto.setConstructorTypeName("doctype-1");
+        documentRequestDto.setConstructorTypeId(1L);
         return documentRequestDto;
     }
 
@@ -74,7 +74,7 @@ class DocumentServiceImplTest {
 
         given(userRepository.findByUsername("username"))
                 .willReturn(Optional.of(new User()));
-        given(typeRepository.findByName("doctype-1"))
+        given(typeRepository.findById(1L))
                 .willReturn(Optional.of(new DocumentConstructorType()));
         given(documentRepository.save(any()))
                 .willReturn(document);

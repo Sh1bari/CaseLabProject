@@ -37,9 +37,20 @@ public class DocumentConstructorTypeController {
     private final DocumentConstructorTypeService typeService;
 
     @Operation(summary = "Create new document type, secured by admin")
-    @ApiResponses(value = @ApiResponse(responseCode = "201", description = "Document type created",
-            content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = DocumentConstructorTypeCreateResponseDto.class))}))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Document type created",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentConstructorTypeCreateResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request body",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User doesn't have the ADMIN role",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "422", description = "Document type with the specified name already exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeCreateResponseDto> createDocumentType(
@@ -51,15 +62,26 @@ public class DocumentConstructorTypeController {
     }
 
     @Operation(summary = "Update an existing document type, secured by admin")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Document type changed",
-            content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Document type changed",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request body or path variable",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User doesn't have the ADMIN role",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "409", description = "Document type already has associated documents",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AppError.class))})})
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "422", description = "Document type with the specified name already exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentType(
@@ -76,9 +98,19 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "200", description = "Document type renamed",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentConstructorTypeUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request body or path variable",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User doesn't have the ADMIN role",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AppError.class))})})
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "422", description = "Document type with the specified name already exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DocumentConstructorTypeUpdateResponseDto> updateDocumentTypeNameAndPrefix(
@@ -94,6 +126,12 @@ public class DocumentConstructorTypeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Document type deleted",
                     content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Invalid path variable",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User doesn't have the ADMIN role",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))}),
@@ -115,6 +153,12 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "200", description = "Document type recovered",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentConstructorTypeRecoverResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid path variable",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User doesn't have the ADMIN role",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))}),
@@ -136,10 +180,18 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "200", description = "Document type found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentConstructorTypeByIdResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid path variable",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "404", description = "Document type with provided id isn't found",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AppError.class))})})
+                            schema = @Schema(implementation = AppError.class))})
+    })
     @GetMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<DocumentConstructorTypeByIdResponseDto> getDocumentType(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentConstructorTypeByIdResponseDto response = typeService.getById(id);
@@ -153,8 +205,16 @@ public class DocumentConstructorTypeController {
             @ApiResponse(responseCode = "200", description = "Page with document types found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class))}),
-            @ApiResponse(responseCode = "204", description = "Page with document types not found")})
+            @ApiResponse(responseCode = "204", description = "Page with document types not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameter (parameters)",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+    })
     @GetMapping("/filter")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<DocumentConstructorTypeByIdResponseDto>> getAllDocumentTypes(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "state", required = false, defaultValue = "ACTIVE") RecordState state,
@@ -162,13 +222,8 @@ public class DocumentConstructorTypeController {
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
         List<DocumentConstructorTypeByIdResponseDto> response =
                 typeService.getAllContaining(name, state, page, size);
-        if (response.isEmpty()) {
-            return ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
-                    .body(response);
-        }
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(response.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK)
                 .body(response);
     }
 }

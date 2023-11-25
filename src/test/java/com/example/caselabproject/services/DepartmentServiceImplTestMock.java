@@ -64,14 +64,16 @@ public class DepartmentServiceImplTestMock {
         Department department = requestDto.mapToEntity();
         department.setRecordState(RecordState.ACTIVE);
         department.setUsers(new ArrayList<>());
+        department.setId(1L);
 
         DepartmentResponseDto responseDto = DepartmentResponseDto.mapFromEntity(department);
+
+        given(departmentRepository.save(any(Department.class))).willReturn(department);
 
         DepartmentResponseDto responseDto1 = departmentService.create(requestDto);
 
         Assertions.assertEquals(responseDto, responseDto1);
 
-        verify(departmentRepository).save(department);
     }
 
     @Test
@@ -158,7 +160,7 @@ public class DepartmentServiceImplTestMock {
                 anyString(), any(Pageable.class), any(RecordState.class))).willReturn(departmentPage);
 
 
-        List<DepartmentResponseDto> responseDtoList =
+        Page<DepartmentResponseDto> responseDtoList =
                 departmentService.getAllDepartmentsPageByPage(Pageable.unpaged(), "Department", RecordState.ACTIVE);
 
 
@@ -166,14 +168,14 @@ public class DepartmentServiceImplTestMock {
                 "Department", Pageable.unpaged(), RecordState.ACTIVE);
 
         assertNotNull(responseDtoList);
-        assertEquals(2, responseDtoList.size());
+        assertEquals(2, responseDtoList.getContent().size());
 
-        DepartmentResponseDto responseDto1 = responseDtoList.get(0);
+        DepartmentResponseDto responseDto1 = responseDtoList.getContent().get(0);
         assertEquals(1L, responseDto1.getId());
         assertEquals("Department 1", responseDto1.getName());
 
 
-        DepartmentResponseDto responseDto2 = responseDtoList.get(1);
+        DepartmentResponseDto responseDto2 = responseDtoList.getContent().get(1);
         assertEquals(2L, responseDto2.getId());
         assertEquals("Department 2", responseDto2.getName());
 
@@ -200,28 +202,29 @@ public class DepartmentServiceImplTestMock {
         user2.setAuthUserInfo(AuthUserInfo.builder().build());
 
 
-        List<User> userList = List.of(user1, user2);
+        List<User> usersList = List.of(user1, user2);
+        Page<User> userList = new PageImpl<>(usersList);
 
         given(userRepository.findByRecordStateAndDepartment_Id(
-                RecordState.ACTIVE, 1L)).willReturn(userList);
+                Pageable.unpaged(), RecordState.ACTIVE, 1L)).willReturn(userList);
 
 
-        List<UserGetByIdResponseDto> responseDtoList =
-                departmentService.getAllUsersFilteredByDepartment(RecordState.ACTIVE, 1L);
+        Page<UserGetByIdResponseDto> responseDtoList =
+                departmentService.getAllUsersFilteredByDepartment(Pageable.unpaged(), RecordState.ACTIVE, 1L);
 
         verify(userRepository).findByRecordStateAndDepartment_Id(
-                RecordState.ACTIVE, 1L);
+                Pageable.unpaged(), RecordState.ACTIVE, 1L);
 
 
         assertNotNull(responseDtoList);
-        assertEquals(2, responseDtoList.size());
+        assertEquals(2, responseDtoList.getContent().size());
 
-        UserGetByIdResponseDto responseDto1 = responseDtoList.get(0);
+        UserGetByIdResponseDto responseDto1 = responseDtoList.getContent().get(0);
 
         assertEquals(1L, responseDto1.getId());
         assertEquals("User 1", responseDto1.getUsername());
 
-        UserGetByIdResponseDto responseDto2 = responseDtoList.get(1);
+        UserGetByIdResponseDto responseDto2 = responseDtoList.getContent().get(1);
         assertEquals(2L, responseDto2.getId());
         assertEquals("User 2", responseDto2.getUsername());
 

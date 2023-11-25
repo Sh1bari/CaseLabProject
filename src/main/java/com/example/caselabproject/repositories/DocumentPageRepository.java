@@ -16,8 +16,6 @@ public interface DocumentPageRepository extends PagingAndSortingRepository<Docum
     Page<Document> findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
             Pageable pageable, LocalDateTime start, LocalDateTime end, RecordState state);
 
-    Page<Document> findAllByCreator_idAndNameContainingIgnoreCase(Long id, String name, Pageable pageable);
-
     Page<Document> findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
             Long creatorId,
             String name,

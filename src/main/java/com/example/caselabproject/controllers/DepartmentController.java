@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +40,9 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @Operation(summary = "Create new department, secured by admin")
+    @Operation(summary = "Create new department", description = "Secured by authorized admin")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Department created",
+            @ApiResponse(responseCode = "201", description = "Created",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = DepartmentResponseDto.class))
@@ -52,6 +53,11 @@ public class DepartmentController {
                                     schema = @Schema(implementation = AppError.class))
                     }),
             @ApiResponse(responseCode = "403", description = "Access denied",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "422", description = "Department name  already exists.",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
@@ -67,16 +73,21 @@ public class DepartmentController {
                 .body(responseDto);
     }
 
-    @Operation(summary = "Delete a department, secured by admin", description = "Deletes a department by its ID, secured by admin")
+    @Operation(summary = "Make State department Delete", description = "Secured by authorized admin")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Department deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Invalid department ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
                     }),
             @ApiResponse(responseCode = "403", description = "Access denied"),
-            @ApiResponse(responseCode = "404", description = "Department not found",
+            @ApiResponse(responseCode = "404", description = "Department not found with id",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "409", description = "Department already has the status",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
@@ -92,9 +103,9 @@ public class DepartmentController {
                 .build();
     }
 
-    @Operation(summary = "Recover a deleted department, secured by admin", description = "Recovers a deleted department by its ID, secured by admin")
+    @Operation(summary = "Recover a State department", description = "Recovers a deleted department State by its ID, secured by admin")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Department recovered successfully"),
+            @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Invalid department ID",
                     content = {
                             @Content(mediaType = "application/json",
@@ -117,9 +128,9 @@ public class DepartmentController {
                 .build();
     }
 
-    @Operation(summary = "Update department name by ID", description = "Updates the name of a specific department using its ID.")
+    @Operation(summary = "Update department name by ID", description = "Updates the name of a specific department using its ID, secured by admin")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Department name updated successfully",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = DepartmentResponseDto.class))
@@ -134,7 +145,12 @@ public class DepartmentController {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "Department not found",
+            @ApiResponse(responseCode = "404", description = "Department not found with id ",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = AppError.class))
+                    }),
+            @ApiResponse(responseCode = "422", description = "Department name already exists.",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
@@ -151,9 +167,9 @@ public class DepartmentController {
                 .body(responseDto);
     }
 
-    @Operation(summary = "Get a department by ID", description = "Retrieves details of a specific department by its ID")
+    @Operation(summary = "Get a department by ID", description = "Get details of a specific department by its ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Department found and returned successfully",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = DepartmentResponseDto.class))
@@ -163,7 +179,7 @@ public class DepartmentController {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "Department not found",
+            @ApiResponse(responseCode = "404", description = "Department not found with id ",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
@@ -180,9 +196,9 @@ public class DepartmentController {
     }
 
 
-    @Operation(summary = "Get all departments", description = "Retrieves a list of departments with pagination and optional filters")
+    @Operation(summary = "Get all departments", description = "Retrieves a page of departments with pagination and optional filters")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of departments retrieved successfully",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = DepartmentResponseDto.class))
@@ -201,12 +217,12 @@ public class DepartmentController {
     })
     @GetMapping("/")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<DepartmentResponseDto>> getAllDepartments(
+    public ResponseEntity<Page<DepartmentResponseDto>> getAllDepartments(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
+        Page<DepartmentResponseDto> responseDto = departmentService.getAllDepartmentsPageByPage(PageRequest.of(page, limit), name, recordState);
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
@@ -217,9 +233,9 @@ public class DepartmentController {
                 .body(responseDto);
     }
 
-    @Operation(summary = "Get all users in a department", description = "Retrieves a list of users within a specific department filtered by the user's record state")
+    @Operation(summary = "Get all users in a department", description = "Retrieves a page of users within a specific department filtered by the user's record state")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of users retrieved successfully",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = UserGetByIdResponseDto.class))
@@ -229,19 +245,16 @@ public class DepartmentController {
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = AppError.class))
-                    }),
-            @ApiResponse(responseCode = "404", description = "Department not found",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = AppError.class))
                     })
     })
     @GetMapping("/{id}/users")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<UserGetByIdResponseDto>> getAllUsersInDepartment(
+    public ResponseEntity<Page<UserGetByIdResponseDto>> getAllUsersInDepartment(
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
+            @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
-        List<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(recordState, id);
+        Page<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(PageRequest.of(page, limit), recordState, id);
         if (responseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

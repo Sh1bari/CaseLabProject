@@ -1,13 +1,16 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.documentConsType.*;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyActiveException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.request.FieldRequestDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +18,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +38,7 @@ class DocumentConstructorTypeServiceImplTest {
     @Mock
     private DocumentConstructorTypeRepository typeRepository;
     @Mock
-    private DocumentRepository documentRepository;
+    private FieldRepository fieldRepository;
     private DocumentConstructorTypeService underTest;
 
     private static DocumentConstructorTypeRequestDto getDocumentConstructorTypeRequestDto() {
@@ -52,7 +58,7 @@ class DocumentConstructorTypeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, documentRepository);
+        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, fieldRepository);
     }
 
     @Test
@@ -142,9 +148,6 @@ class DocumentConstructorTypeServiceImplTest {
         given(typeRepository.findById(1L))
                 .willReturn(Optional.of(documentConstructorType));
 
-        given(documentRepository.existsByDocumentConstructorType(any()))
-                .willReturn(false);
-
         given(typeRepository.saveAndFlush(any()))
                 .willReturn(documentConstructorType);
 
@@ -153,30 +156,6 @@ class DocumentConstructorTypeServiceImplTest {
 
         // then
         verify(typeRepository).saveAndFlush(any());
-    }
-
-    @Test
-    void update_willThrowWhenDocumentConstructorTypeIsUsedInAnyDocument() {
-        // given
-        DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto = getDocumentConstructorTypeRequestDto();
-
-        DocumentConstructorType documentConstructorType = documentConstructorTypeRequestDto.mapToEntity();
-        documentConstructorType.setId(1L);
-
-        given(typeRepository.findById(1L))
-                .willReturn(Optional.of(documentConstructorType));
-
-        given(documentRepository.existsByDocumentConstructorType(any()))
-                .willReturn(true);
-
-        // when
-        // then
-        assertThatThrownBy(() -> underTest.update(1L, documentConstructorTypeRequestDto))
-                .isInstanceOf(DocumentConstructorTypeHasAssociatedDocumentsException.class)
-                .hasMessageContaining("DocumentConstructorType with id "
-                        + 1L + " has associated documents.");
-
-        verify(typeRepository, never()).saveAndFlush(any());
     }
 
     @Test
@@ -304,21 +283,4 @@ class DocumentConstructorTypeServiceImplTest {
                         name, recordState, pageable);
     }
 
-    /*@Test
-    void getAllContaining_willThrowWhenPageIsEmpty() {
-        // given
-        String name = "Приказ";
-        RecordState recordState = RecordState.ACTIVE;
-        int page = 10;
-        int size = 20;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-
-        given(typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, recordState, pageable))
-                .willReturn(Page.empty());
-
-        // then
-        assertThatThrownBy(() -> underTest.getAllContaining(name, recordState, page, size))
-                .isInstanceOf(PageNotFoundException.class)
-                .hasMessageContaining("Page with number " + page + " not found");
-    }*/
 }

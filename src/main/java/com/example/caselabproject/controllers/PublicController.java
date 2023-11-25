@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +12,6 @@ import java.security.Principal;
 import java.util.Collection;
 
 @RestController
-@CrossOrigin
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class PublicController {

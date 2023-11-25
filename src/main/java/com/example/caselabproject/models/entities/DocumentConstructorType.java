@@ -26,7 +26,6 @@ public class DocumentConstructorType {
      * Название документа. Оно же является заголовком документа при генерации его word файла.
      * Примеры: приказ, служебная записка, договор ГПХ.
      */
-    @Column(unique = true)
     private String name;
 
     /**
@@ -37,7 +36,8 @@ public class DocumentConstructorType {
     /**
      * Список полей, которые должен содержать документ.
      */
-    @OneToMany(mappedBy = "documentConstructorType", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "field_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default

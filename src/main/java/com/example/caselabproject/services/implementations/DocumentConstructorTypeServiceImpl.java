@@ -1,6 +1,9 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.documentConsType.*;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyActiveException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
@@ -11,7 +14,7 @@ import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
+import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,13 +32,18 @@ import java.util.List;
 @Validated
 public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTypeService {
     private final DocumentConstructorTypeRepository typeRepository;
-    private final DocumentRepository documentRepository;
+    private final FieldRepository fieldRepository;
 
     @Override
     public DocumentConstructorTypeCreateResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
 
-        typeToSave.getFields().forEach(field -> field.setDocumentConstructorType(typeToSave));
+        // Сохраняем полученные fields. Сущность Field имеет ограничение уникальности
+        // на поле name. При вызове метода saveAll будут сохранены fields, имена
+        // которых не заняты, а fields с существующими именами метод не изменит.
+        List<Field> fields = fieldRepository.saveAll(typeToSave.getFields());
+        typeToSave.setFields(fields);
+
         typeToSave.setRecordState(RecordState.ACTIVE);
 
         return DocumentConstructorTypeCreateResponseDto
@@ -59,25 +68,33 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
             Long id, DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToUpdate = findByIdInternal(id);
 
-        // проверяем, что тип, который нужно обновить, не используется в документах
-        if (documentRepository.existsByDocumentConstructorType(typeToUpdate)) {
-            // если используется
-            throw new DocumentConstructorTypeHasAssociatedDocumentsException(id);
-        }
-
-        // преобразуем DTO с обновленными полями в entity
         DocumentConstructorType updated = typeRequestDto.mapToEntity();
-        // устанавливаем ссылку на обновляемую сущность в каждом поле
-        updated.getFields().forEach(field -> field.setDocumentConstructorType(typeToUpdate));
+
+        // Найденные поля
+        List<Field> foundFields = fieldRepository.findAllByNameIn(
+                updated.getFields().stream().map(Field::getName).toList());
+        // Результирующий список полей
+        List<Field> fields = new ArrayList<>(foundFields);
+        // Если найдены не все поля
+        if (foundFields.size() < updated.getFields().size()) {
+            // Создаем список названий найденных полей
+            List<String> foundFieldNames = foundFields.stream().map(Field::getName).toList();
+            // Создаем список полей, которые нужно будет сохранить
+            List<Field> fieldsToSave = new ArrayList<>();
+            for (Field field : updated.getFields()) {
+                // Если поля нет в списке найденных
+                if (!foundFieldNames.contains(field.getName())) {
+                    // Добавляем поле в список для сохранения
+                    fieldsToSave.add(field);
+                }
+            }
+            fields.addAll(fieldRepository.saveAll(fieldsToSave));
+        }
 
         // обновляем существующую entity
         typeToUpdate.setName(updated.getName());
         typeToUpdate.setPrefix(updated.getPrefix());
-        // Обновляем поля. Мы не можем просто использовать typeToUpdate.setFields(),
-        // так как List, в котором в Hibernate хранятся связанные сущности Field - Immutable.
-        List<Field> fields = typeToUpdate.getFields();
-        fields.clear();
-        fields.addAll(updated.getFields());
+        typeToUpdate.setFields(fields);
 
         return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
                 saveInternal(typeToUpdate));

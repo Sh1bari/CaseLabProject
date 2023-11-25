@@ -52,6 +52,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserGetByIdResponseDto getByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        return UserGetByIdResponseDto.mapFromEntity(user);
+    }
+
+    @Override
     public boolean existById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {

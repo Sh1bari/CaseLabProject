@@ -54,6 +54,7 @@ public class Document {
     @Column(name = "value")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @Builder.Default
     private Map<Field, String> fieldsValues = new HashMap<>();
 
     @ManyToOne
