@@ -20,6 +20,7 @@ public class UserUpdateResponseDto {
     private List<RoleDto> roles;
     private String firstName;
     private String lastName;
+    private Boolean isDirector;
     private String patronymic;
     private LocalDate birthDate;
 
@@ -28,6 +29,7 @@ public class UserUpdateResponseDto {
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
+                .isDirector(user.getIsDirector())
                 .email(user.getAuthUserInfo().getEmail())
                 .departmentId(user.getDepartment().getId())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())

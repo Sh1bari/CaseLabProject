@@ -26,6 +26,7 @@ public class UserRecoverResponseDto {
     private List<RoleDto> roles;
     private String firstName;
     private String lastName;
+    private Boolean isDirector;
     private String patronymic;
     private LocalDate birthDate;
 
@@ -36,6 +37,7 @@ public class UserRecoverResponseDto {
                 .username(user.getUsername())
                 .email(user.getAuthUserInfo().getEmail())
                 .department(user.getDepartment())
+                .isDirector(user.getIsDirector())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())

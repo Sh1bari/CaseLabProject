@@ -50,6 +50,7 @@ public class SecurityUserService implements UserDetailsService {
 
     public User createNewUser(RegistrationUserDto registrationUserDto) {
         User user = new User();
+        user.setIsDirector(false);
         AuthUserInfo authUserInfo = new AuthUserInfo();
         authUserInfo.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
         authUserInfo.setEmail(registrationUserDto.getEmail());
