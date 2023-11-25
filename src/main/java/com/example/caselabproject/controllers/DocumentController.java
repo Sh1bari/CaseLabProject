@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/doc")
 @SecurityRequirement(name = "bearerAuth")

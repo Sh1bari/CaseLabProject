@@ -23,6 +23,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("doc/{docId}/file")
 @SecurityRequirement(name = "bearerAuth")
