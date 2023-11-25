@@ -1,6 +1,7 @@
 package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
@@ -34,7 +35,12 @@ public interface UserService {
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
 
     @Transactional
-    UserUpdateResponseDto updateById(@Min(value = 1L, message = "Id can't be less than 1") Long id, @Valid UserUpdateRequestDto userUpdateRequestDto);
+    UserUpdateResponseDto updateById(@Min(value = 1L, message = "Id can't be less than 1") Long id,
+                                     @Valid UserUpdateRequestDto userUpdateRequestDto);
+
+    @Transactional
+    UserUpdateResponseDto updatePasswordById(@Min(value = 1L, message = "Id can't be less than 1") Long id,
+                                     @Valid UserUpdatePasswordRequest req);
 
     @Transactional
     UserDeleteResponseDto deleteById(@Min(value = 1L, message = "Id can't be less than 1") Long id);

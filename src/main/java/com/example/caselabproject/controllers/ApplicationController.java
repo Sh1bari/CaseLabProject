@@ -35,6 +35,7 @@ import java.security.Principal;
 @Validated
 @CrossOrigin
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/application")
 @SecurityRequirement(name = "bearerAuth")

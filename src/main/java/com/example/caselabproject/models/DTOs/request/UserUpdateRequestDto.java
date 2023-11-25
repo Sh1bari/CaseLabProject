@@ -21,8 +21,6 @@ public class UserUpdateRequestDto {
     private String username;
 
     private Long departmentId;
-
-    private String password;
     @Email(message = "Email is not valid")
     private String email;
     private List<@Valid RoleDto> roles;
