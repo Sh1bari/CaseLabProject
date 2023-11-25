@@ -31,6 +31,12 @@ public class CheckOrganizationValidator implements ConstraintValidator<CheckOrga
                 .orElseThrow(() -> new UserNotFoundException(username)).getOrganization().getId();
     }
 
+    /**
+     * Метод проверяет, что аутентифицированный пользователь относится к той же организации,
+     * что и сущность с entityId.
+     * @param entityId object to validate
+     * @param context context in which the constraint is evaluated
+     */
     @Override
     public boolean isValid(Long entityId, ConstraintValidatorContext context) {
         EntityOrganizationService service = applicationContext.getBean(serviceClass);
