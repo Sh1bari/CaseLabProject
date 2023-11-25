@@ -1,7 +1,9 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
+import com.example.caselabproject.services.DocumentService;
 import com.example.caselabproject.services.WordFileGenerator;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -46,6 +48,7 @@ public class WordFileGenerationController {
     })
     @GetMapping("/doc/{id}/generate")
     public ResponseEntity<Resource> generateAndDownloadFile(
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         byte[] wordFile = wordFileGenerator.generateWordFileForDocumentById(id);
 
