@@ -8,6 +8,7 @@ import com.example.caselabproject.models.DTOs.response.UserGetByIdResponseDto;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DepartmentService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -96,6 +97,7 @@ public class DepartmentController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         departmentService.deleteDepartment(id);
         return ResponseEntity
@@ -121,6 +123,7 @@ public class DepartmentController {
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> recoverDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         departmentService.recoverDepartment(id);
         return ResponseEntity
@@ -159,6 +162,7 @@ public class DepartmentController {
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<DepartmentResponseDto> updateDepartmentNameById(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestBody @Valid DepartmentRequestDto departmentRequestDto) {
         DepartmentResponseDto responseDto = departmentService.updateName(id, departmentRequestDto);
@@ -188,6 +192,7 @@ public class DepartmentController {
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
     public ResponseEntity<DepartmentResponseDto> getDepartmentById(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         DepartmentResponseDto responseDto = departmentService.getById(id);
         return ResponseEntity
@@ -252,6 +257,7 @@ public class DepartmentController {
     public ResponseEntity<Page<UserGetByIdResponseDto>> getAllUsersInDepartment(
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0, message = "Page cant be less than 0") Integer page,
             @RequestParam(name = "limit", defaultValue = "30") @Min(value = 1, message = "Page limit cant be less than 1") Integer limit,
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestParam(value = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
         Page<UserGetByIdResponseDto> responseDto = departmentService.getAllUsersFilteredByDepartment(PageRequest.of(page, limit), recordState, id);
@@ -281,6 +287,7 @@ public class DepartmentController {
     @GetMapping("/{id}/applicationItems")
     @Secured("ROLE_USER")
     public ResponseEntity<List<ApplicationItemGetByIdResponseDto>> getApplicationItemsById(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "applicationName", required = false, defaultValue = "") String applicationName,
             @RequestParam(name = "status", required = false) ApplicationItemStatus status,
