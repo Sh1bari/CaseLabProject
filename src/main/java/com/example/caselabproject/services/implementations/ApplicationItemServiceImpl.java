@@ -84,6 +84,24 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 application.getApplicationItems().add(applicationItem);
                 applicationRepo.save(application);
 
+            } else if (o.getToUserId() != null) {
+                User varUser = userRepo.findByIdAndDepartment_id(o.getToUserId(), o.getToDepartmentId())
+                        .orElseThrow(() -> new UserNotFoundByDepartmentException(o.getToUserId(), o.getToDepartmentId()));
+                userAndDepartmentAreActive(varUser);
+                if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
+                    throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
+                }
+                ApplicationItem applicationItem = ApplicationItem.builder()
+                        .status(ApplicationItemStatus.PENDING)
+                        .recordState(RecordState.ACTIVE)
+                        .toDepartment(varUser.getDepartment())
+                        .toUser(varUser)
+                        .application(application)
+                        .createTime(LocalDateTime.now())
+                        .build();
+                application.getApplicationItems().add(applicationItem);
+                applicationRepo.save(application);
+
             } else {
                 Department department = departmentRepo.findById(o.getToDepartmentId())
                         .orElseThrow(() -> new DepartmentNotFoundException(o.getToDepartmentId()));
