@@ -31,6 +31,8 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
+  kafka:
+    bootstrap-servers: localhost:9092
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
