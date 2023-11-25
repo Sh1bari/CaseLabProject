@@ -2,6 +2,7 @@ package com.example.caselabproject.multitenancy.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.springframework.data.repository.CrudRepository;
 
 import java.lang.annotation.*;
 
@@ -10,6 +11,8 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Constraint(validatedBy = {CheckOrganizationValidator.class})
 public @interface CheckOrganization {
+
+    Class<? extends CrudRepository<?, Long>> repositoryClass();
 
     String message() default "Attempt to access the materials of another organization";
 
