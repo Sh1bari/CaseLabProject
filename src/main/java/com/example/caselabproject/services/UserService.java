@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Validated
-public interface UserService {
+public interface UserService extends EntityOrganizationService {
 
     @Transactional(readOnly = true)
     UserGetByIdResponseDto getById(@Min(value = 1L, message = "Id can't be less than 1") Long id);

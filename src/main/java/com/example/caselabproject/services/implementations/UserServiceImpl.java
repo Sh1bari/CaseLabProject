@@ -259,6 +259,12 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return getUserById(entityId)
+                .getOrganization().getId();
+    }
+
     private User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
