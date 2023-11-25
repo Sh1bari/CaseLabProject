@@ -17,6 +17,11 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = {CheckOrganizationValidator.class})
 public @interface CheckOrganization {
 
+    /**
+     * Класс сервиса, из которого можно получить информацию о том, к какой организации
+     * относится запрашиваемая сущность.
+     * @see EntityOrganizationService
+     */
     Class<? extends EntityOrganizationService> serviceClass();
 
     String message() default "Attempt to access the materials of another organization";
