@@ -5,6 +5,7 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -20,37 +21,44 @@ import java.util.List;
 public interface UserService extends EntityOrganizationService {
 
     @Transactional(readOnly = true)
-    UserGetByIdResponseDto getById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
+    UserGetByIdResponseDto getById(
+            @CheckOrganization(serviceClass = UserService.class)
+            @Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional(readOnly = true)
     UserGetByIdResponseDto getByUsername(@NotBlank(message = "Username cant be null") String username);
-
-
-
-    @Transactional
-    boolean existById(Long id);
 
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
 
     @Transactional
-    UserUpdateResponseDto updateById(@Min(value = 1L, message = "Id can't be less than 1") Long id, @Valid UserUpdateRequestDto userUpdateRequestDto);
+    UserUpdateResponseDto updateById(
+            @CheckOrganization(serviceClass = UserService.class)
+            @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @Valid UserUpdateRequestDto userUpdateRequestDto);
 
     @Transactional
-    UserDeleteResponseDto deleteById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
+    UserDeleteResponseDto deleteById(
+            @CheckOrganization(serviceClass = UserService.class)
+            @Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional
-    UserRecoverResponseDto recoverById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
+    UserRecoverResponseDto recoverById(
+            @CheckOrganization(serviceClass = UserService.class)
+            @Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional
-    List<DocumentCreateResponseDto> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
-                                                            Long creatorId,
-                                                            String name,
-                                                            LocalDateTime creationDateFrom,
-                                                            LocalDateTime creationDateTo,
-                                                            Long documentConstructorTypeId,
-                                                            RecordState recordState,
-                                                            Pageable pageable);
+    List<DocumentCreateResponseDto> findDocsByFiltersByPage(
+            @CheckOrganization(serviceClass = UserService.class)
+            @Min(value = 1L, message = "Id can't be less than 1")
+            Long creatorId,
+            String name,
+            LocalDateTime creationDateFrom,
+            LocalDateTime creationDateTo,
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
+            Long documentConstructorTypeId,
+            RecordState recordState,
+            Pageable pageable);
 
     @Transactional
     List<UserGetByIdResponseDto> findAllUsersByFiltersByPage(String roleName,
@@ -66,11 +74,13 @@ public interface UserService extends EntityOrganizationService {
 
     @Transactional
     List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(
+            @CheckOrganization(serviceClass = UserService.class)
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
             Pageable pageable);
 
     @Transactional
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByUserIdByPage(
+            @CheckOrganization(serviceClass = UserService.class)
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
             String applicationName,
             ApplicationItemStatus status,
