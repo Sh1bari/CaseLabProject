@@ -54,8 +54,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
         Application application = request.mapToEntity();
-        Application updateApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application updateApplication = findApplicationByIdInternal(id);
         if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
@@ -68,8 +67,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean deleteApplication(Long id, String username) {
-        Application application = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application application = findApplicationByIdInternal(id);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
         AtomicBoolean isAdmin = new AtomicBoolean(false);
@@ -93,15 +91,18 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationFindResponseDto getApplicationById(Long id) {
-        Application getApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application getApplication = findApplicationByIdInternal(id);
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
+    }
+
+    private Application findApplicationByIdInternal(Long id) {
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
     }
 
     @Override
     public ApplicationFindResponseDto connectDocToApplication(Long id, DocIdRequestDto req) {
-        Application getApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application getApplication = findApplicationByIdInternal(id);
         Document document = documentRepository.findById(req.getDocId())
                 .orElseThrow(() -> new DocumentDoesNotExistException(req.getDocId()));
         getApplication.setDocument(document);
@@ -109,4 +110,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
 
+    @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return findApplicationByIdInternal(entityId)
+                .getOrganization().getId();
+    }
 }
