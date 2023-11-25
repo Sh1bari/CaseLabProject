@@ -9,6 +9,7 @@ import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.multitenancy.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Validated
-public interface DocumentService {
+public interface DocumentService extends EntityOrganizationService {
 
     /**
      * Позволяет найти документ по его ID.
@@ -40,7 +41,9 @@ public interface DocumentService {
      * @throws DocumentDoesNotExistException если документ с указанным ID не существует.
      */
     @Transactional
-    DocumentResponseDto findDocument(@Min(value = 1L, message = "Id can't be less than 1") Long documentId);
+    DocumentResponseDto findDocument(
+            @CheckOrganization(serviceClass = DocumentService.class)
+            @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
     /**
      * Позволяет получить список документов с пагинцией и с опциями для удобного поиска.
