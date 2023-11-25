@@ -8,6 +8,7 @@ import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponse
 import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
 import com.example.caselabproject.services.ApplicationService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -78,6 +79,7 @@ public class ApplicationController {
     @PutMapping("/{id}")
     public ResponseEntity<ApplicationUpdateResponseDto> update(
             Principal principal,
+            @CheckOrganization(serviceClass = ApplicationService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestBody @Valid ApplicationUpdateRequestDto requestDto) {
         ApplicationUpdateResponseDto responseDto = applicationService.updateApplication(id, principal.getName(),
@@ -104,6 +106,7 @@ public class ApplicationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(
             Principal principal,
+            @CheckOrganization(serviceClass = ApplicationService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         applicationService.deleteApplication(id, principal.getName());
 
@@ -123,6 +126,7 @@ public class ApplicationController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<ApplicationFindResponseDto> findApplicationById(
+            @CheckOrganization(serviceClass = ApplicationService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
         ApplicationFindResponseDto responseDto = applicationService.getApplicationById(id);
         return ResponseEntity
@@ -141,6 +145,7 @@ public class ApplicationController {
     })
     @PatchMapping("/{id}/doc")
     public ResponseEntity<ApplicationFindResponseDto> connectDocToApplication(
+            @CheckOrganization(serviceClass = ApplicationService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
             @RequestBody @Valid DocIdRequestDto req) {
         ApplicationFindResponseDto responseDto = applicationService.connectDocToApplication(id, req);
