@@ -34,6 +34,7 @@ public class DocumentCreateResponseDto {
         return DocumentCreateResponseDto.builder()
                 .id(document.getId())
                 .name(document.getName())
+                .creatorId(document.getCreator().getId())
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
