@@ -6,7 +6,9 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.services.DocumentConstructorTypeService;
 import com.example.caselabproject.services.UserService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -62,6 +64,7 @@ public class UserController {
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}")
     public ResponseEntity<UserGetByIdResponseDto> getUserById(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         UserGetByIdResponseDto userResponseDto = userService.getById(id);
         return ResponseEntity
@@ -132,6 +135,7 @@ public class UserController {
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> updateUserById(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestBody @Valid UserUpdateRequestDto userRequestDto) {
         UserUpdateResponseDto userUpdateResponseDto = userService.updateById(id, userRequestDto);
@@ -159,6 +163,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         userService.deleteById(id);
         return ResponseEntity
@@ -184,6 +189,7 @@ public class UserController {
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserRecoverResponseDto> recoverUserById(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         UserRecoverResponseDto res = userService.recoverById(id);
         return ResponseEntity
@@ -220,10 +226,12 @@ public class UserController {
     @GetMapping("/{id}/docs")
     @Secured("ROLE_USER")
     public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateFrom,
             @RequestParam(name = "dateTo", required = false, defaultValue = "3000-01-01T23:59:59") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateTo,
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @RequestParam(name = "constrType", required = false) Long documentConstructorTypeId,
             @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
@@ -317,6 +325,7 @@ public class UserController {
     @GetMapping(value = "/{id}/applications")
     @Secured("ROLE_USER")
     public ResponseEntity<?> getApplicationsByCreatorId(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page) {
@@ -349,6 +358,7 @@ public class UserController {
     @GetMapping("/{id}/applicationItems")
     @Secured("ROLE_USER")
     public ResponseEntity<List<ApplicationItemGetByIdResponseDto>> getApplicationItemsByUserId(
+            @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "applicationName", required = false, defaultValue = "") String applicationName,
             @RequestParam(name = "status", required = false) ApplicationItemStatus status,
