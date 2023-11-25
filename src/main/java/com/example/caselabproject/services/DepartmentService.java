@@ -12,6 +12,7 @@ import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
@@ -56,7 +57,10 @@ public interface DepartmentService extends EntityOrganizationService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
+    DepartmentResponseDto updateName(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
+            @Valid DepartmentRequestDto departmentRequestDto);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.
@@ -72,7 +76,9 @@ public interface DepartmentService extends EntityOrganizationService {
      * @author Khodov Nikita
      */
     @Transactional
-    boolean deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    boolean deleteDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
@@ -88,7 +94,9 @@ public interface DepartmentService extends EntityOrganizationService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentResponseDto recoverDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Возвращает департамент по указанному ID в виде {@link DepartmentResponseDto}.
@@ -103,7 +111,9 @@ public interface DepartmentService extends EntityOrganizationService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentResponseDto getById(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Возвращает список департаментов с пагинацией и возможностью фильтрации по имени.
@@ -129,18 +139,21 @@ public interface DepartmentService extends EntityOrganizationService {
      * и принадлежащих к указанному департаменту.
      * </p>
      *
-     * @param pageable Модель страницы для пагинации.
+     * @param pageable     Модель страницы для пагинации.
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
      * @return Page {@link User}, представляющий найденных пользователей.
      * @author Khodov Nikita
      */
     @Transactional
-    Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(Pageable pageable, RecordState recordState,
-                                                                 @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(
+            Pageable pageable, RecordState recordState,
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     @Transactional(readOnly = true)
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
             String applicationName,
             ApplicationItemStatus status,
