@@ -22,7 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 
 @Validated
-public interface DepartmentService {
+public interface DepartmentService extends EntityOrganizationService {
     /**
      * Создаёт новый департамент на основе предоставленного DTO.
      * <p>

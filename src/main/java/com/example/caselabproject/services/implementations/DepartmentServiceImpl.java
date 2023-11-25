@@ -28,9 +28,8 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @Service
@@ -60,8 +59,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentResponseDto updateName(Long departmentId, DepartmentRequestDto requestDto) {
 
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+        Department department = findDepartmentByIdInternal(departmentId);
 
         department.setName(requestDto.getName());
 
@@ -69,11 +67,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
-
     @Override
     public boolean deleteDepartment(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+        Department department = findDepartmentByIdInternal(departmentId);
 
         if (department.getRecordState().equals(RecordState.DELETED)) {
             throw new DepartmentStatusException(departmentId, RecordState.DELETED);
@@ -86,8 +82,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentResponseDto recoverDepartment(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+        Department department = findDepartmentByIdInternal(departmentId);
 
         if (department.getRecordState().equals(RecordState.ACTIVE)) {
             throw new DepartmentStatusException(departmentId, RecordState.ACTIVE);
@@ -101,8 +96,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentResponseDto getById(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+        Department department = findDepartmentByIdInternal(departmentId);
 
         return DepartmentResponseDto.mapFromEntity(department);
     }
@@ -125,6 +119,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return findDepartmentByIdInternal(entityId)
+                .getOrganization().getId();
+    }
+
+    @Override
     public List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(
             Long id,
             String applicationName,
@@ -139,8 +139,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 isAdmin.set(true);
             }
         });
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new DepartmentNotFoundException(id));
+        Department department = findDepartmentByIdInternal(id);
         //Can be read only by admins, from the same department
         if (!isAdmin.get() &&
                 !userByUsername.getDepartment().getId().equals(id)) {
@@ -167,6 +166,11 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .toList();
     }
 
+    private Department findDepartmentByIdInternal(Long departmentId) {
+        return departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+    }
+
     private User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
@@ -180,8 +184,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private Department getDepartmentById(Long id) {
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new DepartmentNotFoundException(id));
+        Department department = findDepartmentByIdInternal(id);
         return department;
     }
 
@@ -222,5 +225,4 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return serialKey.toString();
     }
-
 }
