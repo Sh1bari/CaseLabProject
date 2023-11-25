@@ -4,6 +4,8 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.DocumentFieldUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.services.DocumentFieldService;
+import com.example.caselabproject.services.DocumentService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,6 +53,7 @@ public class DocumentFieldController {
     @Secured("ROLE_USER")
     @PatchMapping
     public ResponseEntity<DocumentResponseDto> replaceDocumentFields(
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable("documentId") @Min(value = 1L, message = "Id must be >= 1") Long documentId,
             @RequestBody
             @UniqueElements(message = "Fields must be unique")
