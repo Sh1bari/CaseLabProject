@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateApplicationItemRequestDto {
-    @Min(value = 1L, message = "User id cant be less than 1.")
-    private Long toUserId;
 
     @NotNull(message = "Department id cant be null.")
     private Long toDepartmentId;

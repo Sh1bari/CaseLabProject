@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -47,21 +48,31 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                                         Long applicationId,
                                                                         String username) {
         List<CreateApplicationItemResponseDto> res = new ArrayList<>();
+
         Application application = applicationRepo.findById(applicationId)
                 .orElseThrow(() -> new ApplicationNotFoundException(applicationId));
+
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
+
         if (!application.getCreatorId().getId().equals(user.getId())) {
             throw new UserNotCreatorException(username);
         }
+
         req.forEach(o -> {
-            if (o.getToUserId() != null) {
-                User varUser = userRepo.findByIdAndDepartment_id(o.getToUserId(), o.getToDepartmentId())
-                        .orElseThrow(() -> new UserNotFoundByDepartmentException(o.getToUserId(), o.getToDepartmentId()));
+
+            Optional<User> userCheckIsDirector = userRepo.findByDepartmentIdAndIsDirectorTrue(o.getToDepartmentId());
+
+            if (userCheckIsDirector.isPresent()) {
+
+                User varUser = userCheckIsDirector.get();
+
                 userAndDepartmentAreActive(varUser);
-                if (application.getApplicationItems().stream().anyMatch(k->k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
+
+                if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
                     throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
                 }
+
                 ApplicationItem applicationItem = ApplicationItem.builder()
                         .status(ApplicationItemStatus.PENDING)
                         .recordState(RecordState.ACTIVE)
@@ -72,13 +83,17 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                         .build();
                 application.getApplicationItems().add(applicationItem);
                 applicationRepo.save(application);
+
             } else {
                 Department department = departmentRepo.findById(o.getToDepartmentId())
                         .orElseThrow(() -> new DepartmentNotFoundException(o.getToDepartmentId()));
+
                 departmentIsActive(department);
-                if (application.getApplicationItems().stream().anyMatch(k->k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
+
+                if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
                     throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
                 }
+
                 ApplicationItem applicationItem = ApplicationItem.builder()
                         .status(ApplicationItemStatus.PENDING)
                         .recordState(RecordState.ACTIVE)
@@ -125,7 +140,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                               String username) {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
-        ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
+        ApplicationItem applicationItem = getApplicationItemByApplicationAndId(application, applicationItemId);
         departmentIsActive(user.getDepartment());
         //RecordState check
         applicationIsActive(application);
@@ -150,10 +165,10 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
         applicationIsActive(application);
-        ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
+        ApplicationItem applicationItem = getApplicationItemByApplicationAndId(application, applicationItemId);
         applicationItemIsActive(applicationItem);
         departmentIsActive(user.getDepartment());
-        if(!applicationItem.getToUser().getId().equals(user.getId())){
+        if (!applicationItem.getToUser().getId().equals(user.getId())) {
             throw new ApplicationItemPermissionException();
         }
         applicationItem.setComment(voteApplicationItem.getComment());
@@ -164,9 +179,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         //Check for all vote marks
         Application applicationCheck = getApplicationById(applicationId);
         List<ApplicationItem> applicationItems = applicationCheck.getApplicationItems().stream()
-                .filter(o->o.getStatus().equals(ApplicationItemStatus.PENDING))
+                .filter(o -> o.getStatus().equals(ApplicationItemStatus.PENDING))
                 .toList();
-        if(applicationItems.size() == 0){
+        if (applicationItems.size() == 0) {
             calcApplicationItemsResult(applicationCheck);
         }
 
@@ -179,21 +194,21 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         AtomicInteger denied = new AtomicInteger();
         int sum = application.getApplicationItems().size();
         application.getApplicationItems().stream()
-                .filter(o->o.getRecordState().equals(RecordState.ACTIVE))
-                .forEach(o->{
-                    switch (o.getStatus()){
+                .filter(o -> o.getRecordState().equals(RecordState.ACTIVE))
+                .forEach(o -> {
+                    switch (o.getStatus()) {
                         case ACCEPTED -> accepted.getAndIncrement();
                         case DENIED -> denied.getAndIncrement();
                         case PENDING -> pending.getAndIncrement();
                     }
                 });
-        if(sum * 0.6 >= accepted.get() + denied.get()){
+        if (sum * 0.6 >= accepted.get() + denied.get()) {
             application.setApplicationStatus(ApplicationStatus.NOT_ENOUGH_VOTES);
-        }else if(accepted.get() == denied.get()){
+        } else if (accepted.get() == denied.get()) {
             application.setApplicationStatus(ApplicationStatus.DRAW);
         } else if (accepted.get() > denied.get()) {
             application.setApplicationStatus(ApplicationStatus.ACCEPTED);
-        }else if (accepted.get() < denied.get()) {
+        } else if (accepted.get() < denied.get()) {
             application.setApplicationStatus(ApplicationStatus.DENIED);
         }
         application.setResultDate(LocalDateTime.now());
@@ -217,10 +232,11 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 .orElseThrow(() -> new ApplicationItemNotFoundException(applicationItemId));
         return applicationItem;
     }
+
     private ApplicationItem getApplicationItemByApplicationAndId(Application application, Long applicationItemId) {
         ApplicationItem applicationItem = application.getApplicationItems().stream()
-                .filter(o-> o.getId().equals(applicationItemId)).findFirst()
-                .orElseThrow(()->new ApplicationNotFoundException(applicationItemId));
+                .filter(o -> o.getId().equals(applicationItemId)).findFirst()
+                .orElseThrow(() -> new ApplicationNotFoundException(applicationItemId));
         return applicationItem;
     }
 
