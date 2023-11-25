@@ -33,7 +33,6 @@ import java.security.Principal;
  * @author Tribushko Danil
  */
 @Validated
-@CrossOrigin
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
