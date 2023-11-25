@@ -9,7 +9,7 @@ import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.multitenancy.annotations.CheckOrganization;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

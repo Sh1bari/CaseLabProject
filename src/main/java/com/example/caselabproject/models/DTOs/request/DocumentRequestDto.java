@@ -1,8 +1,8 @@
 package com.example.caselabproject.models.DTOs.request;
 
 import com.example.caselabproject.models.entities.Document;
-import com.example.caselabproject.multitenancy.annotations.CheckOrganization;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

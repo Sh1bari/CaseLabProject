@@ -1,8 +1,9 @@
-package com.example.caselabproject.multitenancy.annotations;
+package com.example.caselabproject.validation;
 
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.EntityOrganizationService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;

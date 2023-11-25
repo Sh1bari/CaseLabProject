@@ -1,6 +1,7 @@
-package com.example.caselabproject.multitenancy.annotations;
+package com.example.caselabproject.validation.annotations;
 
 import com.example.caselabproject.services.EntityOrganizationService;
+import com.example.caselabproject.validation.CheckOrganizationValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
