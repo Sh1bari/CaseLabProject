@@ -22,6 +22,7 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.producer.KafkaProducerService;
 import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
@@ -50,6 +51,8 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
     private final DepartmentRepository departmentRepo;
     private final UserRepository userRepo;
 
+    private final KafkaProducerService kafkaProducerService;
+
     @Override
     public List<CreateApplicationItemResponseDto> createApplicationItem(List<CreateApplicationItemRequestDto> req,
                                                                         Long applicationId,
@@ -67,7 +70,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 User varUser = userRepo.findByIdAndDepartment_id(o.getToUserId(), o.getToDepartmentId())
                         .orElseThrow(() -> new UserNotFoundByDepartmentException(o.getToUserId(), o.getToDepartmentId()));
                 userAndDepartmentAreActive(varUser);
-                if (application.getApplicationItems().stream().anyMatch(k->k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
+                if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
                     throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
                 }
                 ApplicationItem applicationItem = ApplicationItem.builder()
@@ -84,7 +87,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 Department department = departmentRepo.findById(o.getToDepartmentId())
                         .orElseThrow(() -> new DepartmentNotFoundException(o.getToDepartmentId()));
                 departmentIsActive(department);
-                if (application.getApplicationItems().stream().anyMatch(k->k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
+                if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
                     throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
                 }
                 ApplicationItem applicationItem = ApplicationItem.builder()
@@ -133,7 +136,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                                                               String username) {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
-        ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
+        ApplicationItem applicationItem = getApplicationItemByApplicationAndId(application, applicationItemId);
         departmentIsActive(user.getDepartment());
         //RecordState check
         applicationIsActive(application);
@@ -158,10 +161,10 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         User user = getUserByUsername(username);
         Application application = getApplicationById(applicationId);
         applicationIsActive(application);
-        ApplicationItem applicationItem =  getApplicationItemByApplicationAndId(application, applicationItemId);
+        ApplicationItem applicationItem = getApplicationItemByApplicationAndId(application, applicationItemId);
         applicationItemIsActive(applicationItem);
         departmentIsActive(user.getDepartment());
-        if(!applicationItem.getToUser().getId().equals(user.getId())){
+        if (!applicationItem.getToUser().getId().equals(user.getId())) {
             throw new ApplicationItemPermissionException();
         }
         applicationItem.setComment(voteApplicationItem.getComment());
@@ -172,9 +175,9 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         //Check for all vote marks
         Application applicationCheck = getApplicationById(applicationId);
         List<ApplicationItem> applicationItems = applicationCheck.getApplicationItems().stream()
-                .filter(o->o.getStatus().equals(ApplicationItemStatus.PENDING))
+                .filter(o -> o.getStatus().equals(ApplicationItemStatus.PENDING))
                 .toList();
-        if(applicationItems.size() == 0){
+        if (applicationItems.size() == 0) {
             calcApplicationItemsResult(applicationCheck);
         }
 
@@ -187,24 +190,29 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         AtomicInteger denied = new AtomicInteger();
         int sum = application.getApplicationItems().size();
         application.getApplicationItems().stream()
-                .filter(o->o.getRecordState().equals(RecordState.ACTIVE))
-                .forEach(o->{
-                    switch (o.getStatus()){
+                .filter(o -> o.getRecordState().equals(RecordState.ACTIVE))
+                .forEach(o -> {
+                    switch (o.getStatus()) {
                         case ACCEPTED -> accepted.getAndIncrement();
                         case DENIED -> denied.getAndIncrement();
                         case PENDING -> pending.getAndIncrement();
                     }
                 });
-        if(sum * 0.6 >= accepted.get() + denied.get()){
+        if (sum * 0.6 >= accepted.get() + denied.get()) {
             application.setApplicationStatus(ApplicationStatus.DENIED);
-        }else if(accepted.get() == denied.get()){
+        } else if (accepted.get() == denied.get()) {
             application.setApplicationStatus(ApplicationStatus.DENIED);
         } else if (accepted.get() > denied.get()) {
             application.setApplicationStatus(ApplicationStatus.ACCEPTED);
-        }else if (accepted.get() < denied.get()) {
+        } else if (accepted.get() < denied.get()) {
             application.setApplicationStatus(ApplicationStatus.DENIED);
         }
         application.setResultDate(LocalDateTime.now());
+
+        if (application.getApplicationStatus().equals(ApplicationStatus.ACCEPTED)) {
+            kafkaProducerService.sendApplication(application);
+        }
+
         applicationRepo.save(application);
     }
 
@@ -225,10 +233,11 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 .orElseThrow(() -> new ApplicationItemNotFoundException(applicationItemId));
         return applicationItem;
     }
+
     private ApplicationItem getApplicationItemByApplicationAndId(Application application, Long applicationItemId) {
         ApplicationItem applicationItem = application.getApplicationItems().stream()
-                .filter(o-> o.getId().equals(applicationItemId)).findFirst()
-                .orElseThrow(()->new ApplicationNotFoundException(applicationItemId));
+                .filter(o -> o.getId().equals(applicationItemId)).findFirst()
+                .orElseThrow(() -> new ApplicationNotFoundException(applicationItemId));
         return applicationItem;
     }
 

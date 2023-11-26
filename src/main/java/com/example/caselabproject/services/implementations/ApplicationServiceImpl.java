@@ -34,7 +34,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final UserRepository userRepository;
     private final DocumentRepository documentRepository;
 
-
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
         User user = userRepository.findByUsername(username)
