@@ -73,6 +73,7 @@ public interface UserService {
     @Transactional
     List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
+            RecordState recordState,
             Pageable pageable);
 
     @Transactional

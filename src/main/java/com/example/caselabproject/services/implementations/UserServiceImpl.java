@@ -236,10 +236,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, Pageable pageable) {
+    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, RecordState recordState, Pageable pageable) {
         if (existById(id)) {
             return ApplicationFindResponseDto
-                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_id(id, pageable).toList());
+                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_idAndRecordState(id,recordState, pageable).toList());
         } else throw new UserNotFoundException(id);
     }
 
