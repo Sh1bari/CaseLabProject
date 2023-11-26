@@ -13,6 +13,7 @@ public class UserDto {
     private Long id;
     private String username;
     private String email;
+    private String token;
 
     public static UserDto mapFromEntity(User user) {
         return UserDto.builder()

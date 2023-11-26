@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
@@ -44,7 +45,9 @@ public class SecurityAuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с указанным именем уже существует"), HttpStatus.BAD_REQUEST);
         }
         User user = userService.createNewUser(registrationUserDto);
-        return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername(), user.getAuthUserInfo().getEmail()));
+        UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+        String token = jwtTokenUtils.generateToken(userDetails);
+        return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername(), user.getAuthUserInfo().getEmail(), token));
     }
 
     public ResponseEntity<?> resetToken(String username) {
