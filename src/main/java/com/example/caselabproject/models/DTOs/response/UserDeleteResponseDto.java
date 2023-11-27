@@ -25,6 +25,7 @@ public class UserDeleteResponseDto {
     private String lastName;
     private String patronymic;
     private LocalDate birthDate;
+    private Boolean isDirector;
 
     public static UserDeleteResponseDto mapFromEntity(User user) {
         return UserDeleteResponseDto.builder()
@@ -38,6 +39,7 @@ public class UserDeleteResponseDto {
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())
                 .patronymic(user.getPersonalUserInfo().getPatronymic())
+                .isDirector(user.getIsDirector())
                 .birthDate(user.getPersonalUserInfo().getBirthDate())
                 .build();
     }
