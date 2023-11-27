@@ -9,6 +9,7 @@ import com.example.caselabproject.exceptions.user.UserDeletedException;
 import com.example.caselabproject.exceptions.user.UserNotCreatorException;
 import com.example.caselabproject.exceptions.user.UserNotFoundByDepartmentException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
+import com.example.caselabproject.messaging.producer.ApplicationStateProducer;
 import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
 import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
@@ -22,7 +23,6 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.producer.KafkaProducerService;
 import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
@@ -50,8 +50,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
     private final ApplicationItemRepository applicationItemRepo;
     private final DepartmentRepository departmentRepo;
     private final UserRepository userRepo;
-
-    private final KafkaProducerService kafkaProducerService;
+    private final ApplicationStateProducer applicationStateProducer;
 
     @Override
     public List<CreateApplicationItemResponseDto> createApplicationItem(List<CreateApplicationItemRequestDto> req,
@@ -210,7 +209,7 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
         application.setResultDate(LocalDateTime.now());
 
         if (application.getApplicationStatus().equals(ApplicationStatus.ACCEPTED)) {
-            kafkaProducerService.sendApplication(application);
+            applicationStateProducer.send(application);
         }
 
         applicationRepo.save(application);
