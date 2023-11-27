@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ import java.security.Principal;
  */
 @Validated
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/application")
 @SecurityRequirement(name = "bearerAuth")
@@ -74,6 +76,7 @@ public class ApplicationController {
                             schema = @Schema(implementation = AppError.class))})
 
     })
+    @PreAuthorize("@applicationSecurityService.canUpdateApplication(#principal.getName, #id)")
     @Secured("ROLE_USER")
     @PutMapping("/{id}")
     public ResponseEntity<ApplicationUpdateResponseDto> update(

@@ -3,27 +3,27 @@
 actor "Frontend" as front
 
 box "Backend" #Lightgreen
-control "DepartmentController" as controller
-participant "DepartmentService" as service
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
 database "Database" as db
 end box
 
-'autonumber
+autonumber
 
-front -> controller++: GET /api/department/{id}
+front -> controller++: GET /api/doctype/{id}
 controller -> controller: Check user role
 alt "User has any role"
     alt "Request is valid"
         controller -> service++: getById(id)
         service -> db++: findById(id)
-        alt "Department is found"
-            db --> service: Department
-            service --> controller: Department
-            controller --> front: 200: Department found
+        alt "Document type is found"
+            db --> service: document type
+            service --> controller: document type
+            controller --> front: 200: Document type found
         else
-            db --> service--: error: Department not found
+            db --> service--: error: document constructor type not found
             service --> controller--: exception
-            controller --> front: 404: Department isn't found
+            controller --> front: 404: Document type isn't found
         end
     else "Request is not valid"
         controller --> front: 400: Invalid path variable

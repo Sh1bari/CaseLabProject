@@ -109,21 +109,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState) {
+    public Page<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState) {
 
         Page<Department> departments =
                 departmentRepository.findDepartmentsByNameContainingAndRecordState(name, pageable, recordState);
 
-        return departments.getContent().stream()
-                .map(DepartmentResponseDto::mapFromEntity)
-                .collect(Collectors.toList());
+        return departments.map(DepartmentResponseDto::mapFromEntity);
     }
 
 
     @Override
-    public List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState, Long departmentId) {
-        List<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_Id(recordState, departmentId).stream().map(UserGetByIdResponseDto::mapFromEntity).toList();
-        return users;
+    public Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(Pageable pageable, RecordState recordState, Long departmentId) {
+        Page<User> users = userRepository.findByRecordStateAndDepartment_Id(pageable, recordState, departmentId);
+        return users.map(UserGetByIdResponseDto::mapFromEntity);
     }
 
     @Override
@@ -202,7 +200,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             return departmentRepository.save(department);
         } catch (DataIntegrityViolationException ex) {
-            throw new DepartmentSQLValidationException(department.getName());
+            throw new DepartmentNameExistsException(department.getName());
         }
     }
 

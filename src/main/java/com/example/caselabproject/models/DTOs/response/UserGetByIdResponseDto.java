@@ -19,6 +19,7 @@ public class UserGetByIdResponseDto {
     private String email;
     private List<RoleDto> roles;
     private String firstName;
+    private Boolean isDirector;
     private String lastName;
     private String patronymic;
     private Long departmentId;
@@ -29,6 +30,7 @@ public class UserGetByIdResponseDto {
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
+                .isDirector(user.getIsDirector())
                 .email(user.getAuthUserInfo().getEmail())
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())

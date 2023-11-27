@@ -30,7 +30,6 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private AuthUserInfo authUserInfo;
 
-
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"))
     private List<Role> roles;
@@ -40,6 +39,9 @@ public class User {
     private Department department;
 
     private String position;
+
+    @Column(name = "is_director")
+    private Boolean isDirector;
 
     @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Document> documents;

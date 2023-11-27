@@ -13,6 +13,7 @@ import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FileRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.FileService;
+import com.example.caselabproject.services.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,8 @@ public class FileServiceImpl implements FileService {
 
     private final UserRepository userRepository;
 
+    private final MinioService minioService;
+
     @Override
     public List<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
 
@@ -53,14 +56,11 @@ public class FileServiceImpl implements FileService {
 
         file.setDocument(document);
 
-        try {
-            multipartFileToFile(multipartFile, file);
-            FileUtils.writeByteArrayToFile(
-                    new java.io.File(file.getPath()),
-                    multipartFile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        file.setName(multipartFile.getOriginalFilename());
+        file.setType(multipartFile.getContentType());
+        file.setSize(multipartFile.getSize());
+
+        file.setPath(minioService.saveFile("files", multipartFile));
 
         List<File> files = document.getFiles();
 
@@ -177,7 +177,6 @@ public class FileServiceImpl implements FileService {
 
         return true;
     }
-
 
     private void multipartFileToFile(MultipartFile multipartFile, File file) throws IOException {
         file.setName(multipartFile.getOriginalFilename());

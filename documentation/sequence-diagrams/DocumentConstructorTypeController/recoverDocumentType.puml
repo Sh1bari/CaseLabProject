@@ -1,0 +1,45 @@
+@startuml
+
+actor "Frontend" as front
+
+box "Backend" #Lightgreen
+control "DocumentConstructorTypeController" as controller
+participant "DocumentConstructorTypeService" as service
+database "Database" as db
+end box
+
+'autonumber
+
+front -> controller++: POST /api/doctype/{id}/recover
+controller -> controller: Check user role
+alt "User has ADMIN role"
+    controller -> controller: Validate request
+    alt "Request is valid"
+        controller -> service++: recoverById(id)
+        service -> db++: findById(id)
+        alt "Document type found"
+            db --> service: Document type
+            service -> service: Check document\ntype state
+            alt "Document type state == DELETED"
+                service -> service: Set document type\nstate = ACTIVE
+                service -> db: save(documentType)
+                db --> service: Updated document type
+                service --> controller: success
+                controller --> front: 200: Document type recovered
+            else "Document type state == ACTIVE"
+                service --> controller: Error: document type already active
+                controller --> front: 409: Document type already active
+            end
+        else "Document type is not found"
+            db --> service--: Empty result
+            service --> controller--: Error: document type not found
+            controller --> front: 404: Document type isn't found
+        end
+    else "Request is invalid"
+        controller --> front: 400: Bad request
+    end
+else "User doesn't have ADMIN role""
+    controller --> front--: 401: User doesn't have ADMIN role
+end
+
+@enduml

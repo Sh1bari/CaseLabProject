@@ -14,6 +14,7 @@ import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -115,11 +116,11 @@ public interface DepartmentService {
      *
      * @param pageable Модель страницы для пагинации.
      * @param name     Имя для фильтрации списка департаментов.
-     * @return Список {@link DepartmentResponseDto}, представляющий найденные департаменты.
+     * @return Page {@link DepartmentResponseDto}, представляющий найденные департаменты.
      * @author Khodov Nikita
      */
     @Transactional
-    List<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
+    Page<DepartmentResponseDto> getAllDepartmentsPageByPage(Pageable pageable, String name, RecordState recordState);
 
     /**
      * Возвращает список пользователей, имеющих статус записи {@link RecordState#ACTIVE} и ID департамента.
@@ -128,13 +129,14 @@ public interface DepartmentService {
      * и принадлежащих к указанному департаменту.
      * </p>
      *
+     * @param pageable Модель страницы для пагинации.
      * @param recordState  Статус записи для фильтрации пользователей.
      * @param departmentId ID департамента для фильтрации пользователей.
-     * @return Список {@link User}, представляющий найденных пользователей.
+     * @return Page {@link User}, представляющий найденных пользователей.
      * @author Khodov Nikita
      */
     @Transactional
-    List<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
+    Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(Pageable pageable, RecordState recordState,
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     @Transactional(readOnly = true)

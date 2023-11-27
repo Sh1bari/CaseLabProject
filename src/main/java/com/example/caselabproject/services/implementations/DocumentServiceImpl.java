@@ -10,6 +10,8 @@ import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
 import com.example.caselabproject.models.entities.Document;
+import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
@@ -24,7 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -49,10 +53,16 @@ public class DocumentServiceImpl implements DocumentService {
                 .orElseThrow(() -> new UserByPrincipalUsernameDoesNotExistException(username));
         document.setCreator(user);
 
-        document.setDocumentConstructorType(documentConstructorTypeRepository
-                .findById(request.getConstructorTypeId()).orElseThrow(
-                        () -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId())
-                ));
+        DocumentConstructorType constructorType = documentConstructorTypeRepository
+                .findById(request.getConstructorTypeId())
+                .orElseThrow(() -> new DocumentConstructorTypeNotFoundException(request.getConstructorTypeId()));
+        document.setDocumentConstructorType(constructorType);
+
+        // Заполняем поля документа пустыми строками
+        Map<Field, String> fieldsValues = new HashMap<>();
+        constructorType.getFields()
+                .forEach(field -> fieldsValues.put(field, ""));
+        document.setFieldsValues(fieldsValues);
 
         try {
             documentRepository.save(document);

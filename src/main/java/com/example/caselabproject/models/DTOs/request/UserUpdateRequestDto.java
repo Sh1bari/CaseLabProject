@@ -21,13 +21,12 @@ public class UserUpdateRequestDto {
     private String username;
 
     private Long departmentId;
-
-    private String password;
     @Email(message = "Email is not valid")
     private String email;
     private List<@Valid RoleDto> roles;
     private String firstName;
     private String lastName;
+    private Boolean isDirector;
 
     private String patronymic;
     @Past(message = "Date of birth can't be more than current date")
@@ -41,6 +40,7 @@ public class UserUpdateRequestDto {
                 .authUserInfo(AuthUserInfo.builder()
                         .email(email)
                         .build())
+                .isDirector(isDirector)
                 .personalUserInfo(PersonalUserInfo.builder()
                         .firstName(firstName)
                         .lastName(lastName)
