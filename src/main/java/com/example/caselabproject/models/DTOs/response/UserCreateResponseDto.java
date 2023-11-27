@@ -25,6 +25,7 @@ public class UserCreateResponseDto {
     private String lastName;
     private String patronymic;
     private LocalDate birthDate;
+    private Boolean isDirector;
 
     public static UserCreateResponseDto mapFromEntity(User user) {
         return UserCreateResponseDto.builder()
@@ -35,6 +36,7 @@ public class UserCreateResponseDto {
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())
+                .isDirector(user.getIsDirector())
                 .patronymic(user.getPersonalUserInfo().getPatronymic())
                 .birthDate(user.getPersonalUserInfo().getBirthDate())
                 .build();

@@ -33,6 +33,7 @@ public class UserCreateRequestDto {
     private String firstName;
     @NotBlank(message = "Last name must not be blank")
     private String lastName;
+    private Boolean isDirector;
 
     private String patronymic;
     @Past(message = "Date of birth can't be more than current date")
@@ -46,6 +47,7 @@ public class UserCreateRequestDto {
                 .authUserInfo(AuthUserInfo.builder()
                         .email(email)
                         .build())
+                .isDirector(isDirector)
                 .personalUserInfo(PersonalUserInfo.builder()
                         .firstName(firstName)
                         .lastName(lastName)

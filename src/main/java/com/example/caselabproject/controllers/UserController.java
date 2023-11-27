@@ -214,6 +214,32 @@ public class UserController {
                 .body(res);
     }
 
+    /**
+     * Appoints new director by id, transfers application items of former director to new director.
+     * @param departmentId id of department of former director and new director
+     * @param userId new director's id
+     * @return the response entity
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Appoints new director by his and department's id, transfers to him application items of former director if he exists, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Director is appointed",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PutMapping("department/{departmentId}/user/{userId}/appointDirector")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<UserUpdateResponseDto> appointDirectorById(
+            @PathVariable("departmentId") @Min(value = 1L, message = "Department id can't be less than 1") Long departmentId,
+            @PathVariable("userId") @Min(value = 1L, message = "User id can't be less than 1") Long userId) {
+        UserUpdateResponseDto userUpdateResponseDto = userService.appointDirector(departmentId, userId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userUpdateResponseDto);
+    }
+
 
     /**
      * Gets docs by creator id.

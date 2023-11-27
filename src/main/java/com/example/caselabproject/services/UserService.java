@@ -27,7 +27,6 @@ public interface UserService {
     UserGetByIdResponseDto getByUsername(@NotBlank(message = "Username cant be null") String username);
 
 
-
     @Transactional
     boolean existById(Long id);
 
@@ -40,13 +39,18 @@ public interface UserService {
 
     @Transactional
     UserUpdateResponseDto updatePasswordById(@Min(value = 1L, message = "Id can't be less than 1") Long id,
-                                     @Valid UserUpdatePasswordRequest req);
+                                             @Valid UserUpdatePasswordRequest req);
 
     @Transactional
     UserDeleteResponseDto deleteById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
 
     @Transactional
     UserRecoverResponseDto recoverById(@Min(value = 1L, message = "Id can't be less than 1") Long id);
+
+    @Transactional
+    UserUpdateResponseDto appointDirector(
+            @Min(value = 1L, message = "Id can't be less than 1.") Long departmentId,
+            @Min(value = 1L, message = "Id can't be less than 1.") Long userId);
 
     @Transactional
     List<DocumentCreateResponseDto> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
