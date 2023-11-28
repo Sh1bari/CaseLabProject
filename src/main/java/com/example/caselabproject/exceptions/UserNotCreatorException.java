@@ -8,4 +8,5 @@ public class UserNotCreatorException extends GlobalAppException {
         super(403, "User " + username + " is not creator");
         log.warn(message);
     }
+
 }

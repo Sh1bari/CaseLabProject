@@ -3139,3 +3139,25 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 2023-11-22 10:38:27 WARN  [main] c.e.c.e.UserNotFoundException - User with username  not found.
 2023-11-22 10:39:15 WARN  [main] c.e.c.e.UserNotFoundException - User with username  not found.
 2023-11-22 16:40:14 WARN  [main] c.e.c.e.UserNotFoundException - User with username username not found.
+2023-11-26 15:19:26 WARN  [http-nio-8082-exec-10] c.e.c.e.ApplicationNotFoundException - Application with id 1 not found
+2023-11-26 15:23:18 WARN  [http-nio-8082-exec-5] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 9
+2023-11-26 16:35:21 WARN  [http-nio-8082-exec-9] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 7 in department with id 15
+2023-11-26 16:35:26 WARN  [http-nio-8082-exec-10] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 7 in department with id 13
+2023-11-26 16:49:28 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentNotFoundException - Department not found with id 1
+2023-11-27 18:25:09 WARN  [http-nio-8082-exec-10] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 19. You should resolve this issue within the department
+2023-11-27 18:39:02 WARN  [http-nio-8082-exec-2] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-27 18:40:18 WARN  [http-nio-8082-exec-4] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-27 18:40:51 WARN  [http-nio-8082-exec-5] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-27 18:42:06 WARN  [http-nio-8082-exec-8] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-27 19:16:57 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-27 19:40:58 WARN  [http-nio-8083-exec-1] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 26 in department with id 23
+2023-11-27 19:42:45 WARN  [http-nio-8083-exec-4] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-27 19:45:01 WARN  [http-nio-8083-exec-8] c.e.c.e.UserNotFoundByDepartmentException - Cant find user with id 23 in department with id 16
+2023-11-28 17:10:59 WARN  [http-nio-8082-exec-10] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-28 17:11:16 WARN  [http-nio-8082-exec-2] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-28 17:11:40 WARN  [http-nio-8082-exec-5] c.e.c.exceptions.UserNotOwnException - User user doesn't own application item
+2023-11-28 17:11:59 WARN  [http-nio-8082-exec-4] c.e.c.e.ApplicationItemAlreadyHasBeenSentToUserException - Application item already has been sent to user with id 2
+2023-11-28 17:13:53 WARN  [http-nio-8082-exec-8] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 2The user with id 4 can access this item inside the directory
+2023-11-28 17:27:18 WARN  [http-nio-8082-exec-2] c.e.c.e.ApplicationItemNotFoundException - Application item with id 5 not found
+2023-11-28 17:27:23 WARN  [http-nio-8082-exec-6] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 4The users in department string4 should access this item inside the directory
+2023-11-28 17:28:26 WARN  [http-nio-8082-exec-5] c.e.c.e.ApplicationItemAlreadyHasBeenSentToDepartmentException - Application item already has been sent to department with id 4The users in department string4 should access this item inside the directory
