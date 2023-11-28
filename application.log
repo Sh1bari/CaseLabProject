@@ -3062,3 +3062,4 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 2023-11-14 19:34:10 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentNameExistsException - Department test already exists.
 2023-11-14 19:38:48 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentNameExistsException - Department test already exists.
 2023-11-25 19:38:19 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout
+2023-11-25 23:30:13 WARN  [http-nio-8082-exec-1] c.e.c.configs.JwtRequestFilter - Token timeout

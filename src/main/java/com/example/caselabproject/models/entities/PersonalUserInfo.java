@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class PersonalUserInfo {
     private LocalDate birthDate;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private User user;

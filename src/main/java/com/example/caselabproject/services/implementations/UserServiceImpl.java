@@ -10,6 +10,7 @@ import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.*;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
+import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
@@ -172,24 +173,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByFiltersByPage(Long creatorId,
-                                                                   String name,
-                                                                   LocalDateTime creationDateFrom,
-                                                                   LocalDateTime creationDateTo,
-                                                                   Long documentConstructorTypeId,
-                                                                   RecordState recordState,
-                                                                   Pageable pageable) {
+    public List<DocumentGetAllResponse> findDocsByFiltersByPage(
+            Long creatorId,
+            String name,
+            LocalDateTime creationDateFrom,
+            LocalDateTime creationDateTo,
+            Long documentConstructorTypeId,
+            RecordState recordState,
+            Pageable pageable) {
         if (existById(creatorId)) {
-            List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentPageRepository
-                            .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
-                                    creatorId,
-                                    name,
-                                    creationDateFrom,
-                                    creationDateTo,
-                                    documentConstructorTypeId,
-                                    recordState,
-                                    pageable).toList());
+            List<Document> res;
+
+            if (documentConstructorTypeId != null) {
+                // Фильтр по documentConstructorTypeId, если он не null
+                res = documentPageRepository
+                        .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                                creatorId,
+                                name,
+                                creationDateFrom,
+                                creationDateTo,
+                                documentConstructorTypeId,
+                                recordState,
+                                pageable).toList();
+            } else {
+                // Если documentConstructorTypeId == null, игнорируем фильтр
+                res = documentPageRepository
+                        .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
+                                creatorId,
+                                name,
+                                creationDateFrom,
+                                creationDateTo,
+                                recordState,
+                                pageable).toList();
+            }
+
+            List<DocumentGetAllResponse> documentCreateResponseDtoList = DocumentGetAllResponse
+                    .mapFromListOfEntities(res);
             return documentCreateResponseDtoList;
         } else {
             throw new UserNotFoundException(creatorId);
@@ -230,10 +249,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, Pageable pageable) {
+    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, RecordState recordState, Pageable pageable) {
         if (existById(id)) {
             return ApplicationFindResponseDto
-                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_id(id, pageable).toList());
+                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_idAndRecordState(id,recordState, pageable).toList());
         } else throw new UserNotFoundException(id);
     }
 

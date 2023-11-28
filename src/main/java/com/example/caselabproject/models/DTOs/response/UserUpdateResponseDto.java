@@ -25,18 +25,23 @@ public class UserUpdateResponseDto {
     private LocalDate birthDate;
 
     public static UserUpdateResponseDto mapFromEntity(User user) {
-        return UserUpdateResponseDto.builder()
+        Long departmentId = null;
+        try{
+            departmentId = user.getDepartment().getId();
+        }catch (Exception e){}
+        UserUpdateResponseDto builder = UserUpdateResponseDto.builder()
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
                 .isDirector(user.getIsDirector())
                 .email(user.getAuthUserInfo().getEmail())
-                .departmentId(user.getDepartment().getId())
+                .departmentId(departmentId)
                 .roles(user.getRoles().stream().map(RoleDto::mapFromEntity).toList())
                 .firstName(user.getPersonalUserInfo().getFirstName())
                 .lastName(user.getPersonalUserInfo().getLastName())
                 .patronymic(user.getPersonalUserInfo().getPatronymic())
                 .birthDate(user.getPersonalUserInfo().getBirthDate())
                 .build();
+        return builder;
     }
 }

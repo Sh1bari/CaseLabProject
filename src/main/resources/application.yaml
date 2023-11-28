@@ -21,7 +21,7 @@ spring:
       mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/CaseLab
+    url: jdbc:postgresql://5.35.83.142:5432/CaseLab
     username: root
     password: 123
   jpa:
