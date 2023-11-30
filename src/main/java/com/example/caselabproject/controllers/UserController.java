@@ -76,6 +76,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserGetByIdResponseDto.class))})})
     @GetMapping("/me")
+    @Secured("ROLE_USER")
     public ResponseEntity<UserGetByIdResponseDto> getMyId(
             Principal principal) {
         UserGetByIdResponseDto userResponseDto = userService.getByUsername(principal.getName());
