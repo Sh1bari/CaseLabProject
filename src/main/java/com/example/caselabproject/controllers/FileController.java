@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,6 +52,7 @@ public class FileController {
                     })
     })
     @PostMapping("/")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
             @RequestParam("file") MultipartFile file,
             Principal principal,
@@ -137,6 +139,7 @@ public class FileController {
                     })
     })
     @PutMapping("/{fileId}")
+    @Secured("ROLE_USER")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
             Principal principal,
@@ -159,6 +162,7 @@ public class FileController {
                     })
     })
     @DeleteMapping("/{fileId}")
+    @Secured("ROLE_USER")
     public ResponseEntity<?> deleteFile(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,

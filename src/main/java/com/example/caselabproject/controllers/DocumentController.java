@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -48,6 +49,7 @@ public class DocumentController {
                     })
     })
     @PostMapping("/")
+    @Secured("ROLE_USER")
     public ResponseEntity<DocumentCreateResponseDto> createDocument(
             Principal principal,
             @RequestBody @Valid DocumentRequestDto requestDto) {
@@ -128,6 +130,7 @@ public class DocumentController {
                     })
     })
     @PutMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<DocumentResponseDto> updateDocument(
             Principal principal,
             @RequestBody @Valid DocumentRequestDto requestDto,
@@ -150,6 +153,7 @@ public class DocumentController {
     })
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<?> deleteDocument(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
