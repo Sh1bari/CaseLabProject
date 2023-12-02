@@ -6,6 +6,12 @@ jwt:
   secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
   lifetime: 30m
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB  # максимальный размер каждого файла
+      max-request-size: 200MB  # максимальный размер всего запроса
+      file-size-threshold: 10MB  # размер, при котором данные будут записаны во временный файл
   output:
     ansi:
       enabled: always
