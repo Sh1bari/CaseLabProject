@@ -1,8 +1,8 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileResponseDto;
 import com.example.caselabproject.services.FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

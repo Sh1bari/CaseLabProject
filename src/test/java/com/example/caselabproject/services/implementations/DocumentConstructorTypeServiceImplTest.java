@@ -4,9 +4,9 @@ import com.example.caselabproject.exceptions.documentConsType.DocumentConstructo
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.request.FieldRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentConstructorTypePatchRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentConstructorTypeRequestDto;
+import com.example.caselabproject.models.DTOs.request.field.FieldRequestDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;

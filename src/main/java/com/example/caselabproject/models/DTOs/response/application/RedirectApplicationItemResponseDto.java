@@ -1,0 +1,16 @@
+package com.example.caselabproject.models.DTOs.response.application;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RedirectApplicationItemResponseDto {
+    private Long id;
+}
