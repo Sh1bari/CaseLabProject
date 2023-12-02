@@ -1,5 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
+
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyActiveException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
@@ -43,6 +44,7 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
         // которых не заняты, а fields с существующими именами метод не изменит.
         List<Field> fields = fieldRepository.saveAll(typeToSave.getFields());
         typeToSave.setFields(fields);
+        // typeToSave.setOrga(getOrganization());
 
         typeToSave.setRecordState(RecordState.ACTIVE);
 
@@ -136,9 +138,12 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
                                                                          RecordState state,
                                                                          Integer page,
                                                                          Integer size) {
+//        SecurityContextHolder context = SecurityContextHolder.getContext()
+//        context.getUser().getOrganization().getId();
+        
         Page<DocumentConstructorType> documentTypes =
-                typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, state,
-                        PageRequest.of(page, size, Sort.by("name").ascending()));
+                typeRepository.findAllByNameContainingIgnoreCaseAndRecordStateAndOrganizationId(name, state,
+                        PageRequest.of(page, size, Sort.by("name").ascending()), );
 
         return documentTypes
                 .map(DocumentConstructorTypeByIdResponseDto::mapFromEntity)
