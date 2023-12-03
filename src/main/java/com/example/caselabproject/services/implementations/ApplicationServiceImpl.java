@@ -53,16 +53,16 @@ public class ApplicationServiceImpl implements ApplicationService {
                                                           ApplicationUpdateRequestDto request) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
-        Application application = request.mapToEntity();
         Application updateApplication = findApplicationByIdInternal(id);
-        if (!user.getUsername().equals(application.getCreatorId().getUsername())) {
+        if (!user.getUsername().equals(updateApplication.getCreatorId().getUsername())) {
             throw new UserNotCreatorException(username);
         } else {
-            updateApplication.setDeadlineDate(application.getDeadlineDate());
+            updateApplication.setDeadlineDate(request.getDeadline());
+            updateApplication.setName(request.getName());
             applicationRepository.save(updateApplication);
         }
 
-        return ApplicationUpdateResponseDto.mapFromEntity(application);
+        return ApplicationUpdateResponseDto.mapFromEntity(updateApplication);
     }
 
     @Override
