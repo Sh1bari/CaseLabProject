@@ -11,6 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface DocumentConstructorTypeRepository extends JpaRepository<DocumentConstructorType, Long> {
+    Page<DocumentConstructorType> findAllByNameContainingIgnoreCaseAndRecordStateAndOrganizationId(
+            String name, RecordState state, Long organizationId, Pageable pageable);
+    
     Page<DocumentConstructorType> findAllByNameContainingIgnoreCaseAndRecordState(
             String name, RecordState state, Pageable pageable);
 

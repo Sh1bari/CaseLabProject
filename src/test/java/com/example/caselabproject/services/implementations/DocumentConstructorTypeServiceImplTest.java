@@ -1,5 +1,6 @@
 package com.example.caselabproject.services.implementations;
 
+
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyActiveException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeAlreadyDeletedException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameExistsException;
@@ -8,9 +9,12 @@ import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePat
 import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
 import com.example.caselabproject.models.DTOs.request.FieldRequestDto;
 import com.example.caselabproject.models.entities.DocumentConstructorType;
+import com.example.caselabproject.models.entities.Organization;
+import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.repositories.FieldRepository;
+import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +26,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +39,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+
 @ExtendWith(MockitoExtension.class)
 class DocumentConstructorTypeServiceImplTest {
 
@@ -39,6 +47,13 @@ class DocumentConstructorTypeServiceImplTest {
     private DocumentConstructorTypeRepository typeRepository;
     @Mock
     private FieldRepository fieldRepository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private SecurityContext securityContext;
+    @Mock
+    private Authentication authentication;
+    
     private DocumentConstructorTypeService underTest;
 
     private static DocumentConstructorTypeRequestDto getDocumentConstructorTypeRequestDto() {
@@ -58,19 +73,28 @@ class DocumentConstructorTypeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, fieldRepository);
+        underTest = new DocumentConstructorTypeServiceImpl(typeRepository, fieldRepository, userRepository);
     }
 
     @Test
     void createDocumentConstructorType_canCreateDocumentConstructorType() {
         // given
-        DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto = getDocumentConstructorTypeRequestDto();
-
-        DocumentConstructorType documentConstructorType = documentConstructorTypeRequestDto.mapToEntity();
-        documentConstructorType.setId(1L);
+        final DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto = getDocumentConstructorTypeRequestDto();
+        final DocumentConstructorType documentConstructorType = documentConstructorTypeRequestDto.mapToEntity();
+        final String username = "somename";
+        final User user = User.builder().username(username).build();
+        
+        SecurityContextHolder.setContext(securityContext);
+        
+        given(securityContext.getAuthentication())
+                .willReturn(authentication);
+        given(authentication.getName())
+                .willReturn(username);
+        given(userRepository.findByUsername(any()))
+                .willReturn(Optional.ofNullable(user));
         given(typeRepository.saveAndFlush(any()))
                 .willReturn(documentConstructorType);
-
+        
         // when
         underTest.create(documentConstructorTypeRequestDto);
 
@@ -81,11 +105,22 @@ class DocumentConstructorTypeServiceImplTest {
     @Test
     void createDocumentConstructorType_willThrowWhenNameIsTaken() {
         // given
-        DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto = getDocumentConstructorTypeRequestDto();
-
+        final DocumentConstructorTypeRequestDto documentConstructorTypeRequestDto
+                = getDocumentConstructorTypeRequestDto();
+        final String username = "somename";
+        final User user = User.builder().username(username).build();
+        
+        SecurityContextHolder.setContext(securityContext);
+        
+        given(securityContext.getAuthentication())
+                .willReturn(authentication);
+        given(authentication.getName())
+                .willReturn(username);
+        given(userRepository.findByUsername(any()))
+                .willReturn(Optional.ofNullable(user));
         given(typeRepository.saveAndFlush(any()))
                 .willThrow(DataIntegrityViolationException.class);
-
+        
         // when
         // then
         assertThatThrownBy(() -> underTest.create(documentConstructorTypeRequestDto))
@@ -265,13 +300,30 @@ class DocumentConstructorTypeServiceImplTest {
     @Test
     void getAllContaining_canGet() {
         // given
-        String name = "Приказ";
-        RecordState recordState = RecordState.ACTIVE;
-        int page = 10;
-        int size = 20;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        final String name = "Приказ";
+        final RecordState recordState = RecordState.ACTIVE;
+        final int page = 10;
+        final int size = 20;
+        final Long organizationId = 1L;
+        final Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        
+        final String username = "somename";
+        final User user = User.builder()
+                .username(username)
+                .organization(Organization.builder().id(organizationId).build())
+                .build();
 
-        given(typeRepository.findAllByNameContainingIgnoreCaseAndRecordState(name, recordState, pageable))
+        
+        SecurityContextHolder.setContext(securityContext);
+        
+        given(securityContext.getAuthentication())
+                .willReturn(authentication);
+        given(authentication.getName())
+                .willReturn(username);
+        given(userRepository.findByUsername(username))
+                .willReturn(Optional.ofNullable(user));
+        given(typeRepository.findAllByNameContainingIgnoreCaseAndRecordStateAndOrganizationId(
+                name, recordState, organizationId, pageable))
                 .willReturn(new PageImpl<>(List.of(new DocumentConstructorType())));
 
         // when
@@ -279,8 +331,8 @@ class DocumentConstructorTypeServiceImplTest {
 
         // then
         verify(typeRepository)
-                .findAllByNameContainingIgnoreCaseAndRecordState(
-                        name, recordState, pageable);
+                .findAllByNameContainingIgnoreCaseAndRecordStateAndOrganizationId(
+                        name, recordState, organizationId, pageable);
     }
 
 }
