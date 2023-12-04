@@ -90,6 +90,7 @@ public class ApplicationController {
                 .body(responseDto);
     }
 
+    @PreAuthorize("@applicationSecurityService.canDeleteApplication(#principal.getName, #id)")
     @Operation(summary = "Delete application", description = "Secured by authorized users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Application deleted",

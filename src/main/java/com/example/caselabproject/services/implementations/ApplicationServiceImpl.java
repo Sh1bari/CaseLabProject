@@ -37,9 +37,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-
+        User user = getUser(username);
         Application application = request.mapToEntity();
         application.setRecordState(RecordState.ACTIVE);
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
@@ -51,13 +49,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationUpdateResponseDto updateApplication(Long id, String username,
                                                           ApplicationUpdateRequestDto request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-        Application application = request.mapToEntity();
-        Application updateApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
-        updateApplication.setDeadlineDate(application.getDeadlineDate());
-        updateApplication.setName(application.getName());
+        User user = getUser(username);
+        Application updateApplication = getApplication(id);
+        updateApplication.setDeadlineDate(request.getDeadline());
+        updateApplication.setName(request.getName());
         applicationRepository.save(updateApplication);
 
         return ApplicationUpdateResponseDto.mapFromEntity(updateApplication);
@@ -65,45 +60,38 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean deleteApplication(Long id, String username) {
-        Application application = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-        AtomicBoolean isAdmin = new AtomicBoolean(false);
-        user.getRoles().forEach(o -> {
-            if (o.getName().equals("ROLE_ADMIN")) {
-                isAdmin.set(true);
-            }
-        });
-        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()) {
-            throw new UserNotCreatorException(username);
-        } else {
-            if (!application.getRecordState().equals(RecordState.DELETED)) {
-                application.setRecordState(RecordState.DELETED);
-            } else {
-                throw new ApplicationAlreadyDeletedException(application.getId());
-            }
-            applicationRepository.save(application);
-        }
+        Application application = getApplication(id);
+        User user = getUser(username);
+        application.setRecordState(RecordState.DELETED);
+        applicationRepository.save(application);
+
         return true;
     }
 
     @Override
     public ApplicationFindResponseDto getApplicationById(Long id) {
-        Application getApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application getApplication = getApplication(id);
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
     }
 
     @Override
     public ApplicationFindResponseDto connectDocToApplication(Long id, DocIdRequestDto req) {
-        Application getApplication = applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        Application getApplication = getApplication(id);
         Document document = documentRepository.findById(req.getDocId())
                 .orElseThrow(() -> new DocumentDoesNotExistException(req.getDocId()));
         getApplication.setDocument(document);
         applicationRepository.save(getApplication);
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
+    }
+
+    private User getUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+    }
+
+    private Application getApplication(Long id) {
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
     }
 
 }
