@@ -1,12 +1,5 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.DepartmentRequestDto;
-import com.example.caselabproject.models.DTOs.response.DepartmentResponseDto;
-import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.DepartmentRepository;
-import com.example.caselabproject.repositories.UserRepository;
-import com.example.caselabproject.services.implementations.DepartmentServiceImpl;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +9,6 @@ import org.springframework.test.context.DynamicPropertySource;
 /*import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;*/
-
-import java.util.List;
 
 @SpringBootTest
 /*@Testcontainers*/
