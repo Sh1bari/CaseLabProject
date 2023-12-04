@@ -103,6 +103,7 @@ public class ApplicationController {
                             schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "409", description = "Application already deleted")
     })
+    @PreAuthorize("@applicationSecurityService.canDeleteApplication(#principal.getName, #id)")
     @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(
