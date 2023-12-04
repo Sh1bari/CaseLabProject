@@ -3061,3 +3061,55 @@ Caused by: org.postgresql.util.PSQLException: ERROR: no schema has been selected
 >>>>>>>>> Temporary merge branch 2
 2023-11-14 19:34:10 WARN  [http-nio-8082-exec-2] c.e.c.e.DepartmentNameExistsException - Department test already exists.
 2023-11-14 19:38:48 WARN  [http-nio-8082-exec-1] c.e.c.e.DepartmentNameExistsException - Department test already exists.
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.NoDocumentPageFoundException - No content found by page 0
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:35:57 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.file.FileNotExistException - File does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.file.FileNotExistException - File does not exist!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:15 WARN  [main] c.e.c.e.file.FileNotExistException - File does not exist!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.NoDocumentPageFoundException - No content found by page 0
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 21:36:28 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:36:29 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:40:49 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:43:16 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:46:10 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 21:48:02 WARN  [main] c.e.c.e.d.NoDocumentPageFoundException - No content found by page 0
+2023-12-04 21:48:09 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:49:54 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:51:15 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:51:59 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 21:52:08 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 22:01:05 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 22:04:15 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 22:07:43 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 22:07:52 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 22:08:20 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentAccessException - User username does not have access to this document!
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.NoDocumentPageFoundException - No content found by page 0
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentConstructorTypeNotFoundException - Document type with id 1 isn't found
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
+2023-12-04 22:08:38 WARN  [main] c.e.c.e.d.DocumentDoesNotExistException - Document with id:1 does not exist!
