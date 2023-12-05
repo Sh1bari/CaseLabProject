@@ -4,9 +4,9 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
@@ -223,8 +223,9 @@ public class UserController {
 
     /**
      * Appoints new director by id, transfers application items of former director to new director.
+     *
      * @param departmentId id of department of former director and new director
-     * @param userId new director's id
+     * @param userId       new director's id
      * @return the response entity
      * @author Igor Golovkov
      */

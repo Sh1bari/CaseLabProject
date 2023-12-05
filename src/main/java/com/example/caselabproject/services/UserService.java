@@ -3,9 +3,9 @@ package com.example.caselabproject.services;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
@@ -57,13 +57,13 @@ public interface UserService {
 
     @Transactional
     List<DocumentGetAllResponse> findDocsByFiltersByPage(@Min(value = 1L, message = "Id can't be less than 1")
-                                                            Long creatorId,
-                                                            String name,
-                                                            LocalDateTime creationDateFrom,
-                                                            LocalDateTime creationDateTo,
-                                                            Long documentConstructorTypeId,
-                                                            RecordState recordState,
-                                                            Pageable pageable);
+                                                         Long creatorId,
+                                                         String name,
+                                                         LocalDateTime creationDateFrom,
+                                                         LocalDateTime creationDateTo,
+                                                         Long documentConstructorTypeId,
+                                                         RecordState recordState,
+                                                         Pageable pageable);
 
     @Transactional
     List<UserGetByIdResponseDto> findAllUsersByFiltersByPage(String roleName,

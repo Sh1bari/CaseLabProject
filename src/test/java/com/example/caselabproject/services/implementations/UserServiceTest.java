@@ -1,15 +1,13 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.UserExistsException;
-import com.example.caselabproject.exceptions.UserNotFoundException;
+import com.example.caselabproject.exceptions.user.UserExistsException;
+import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.RoleDto;
-import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
 import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.Role;
 import com.example.caselabproject.models.entities.User;
-import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.*;
 import com.example.caselabproject.services.RoleService;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +21,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,8 +35,6 @@ public class UserServiceTest {
     @Mock
     private UserPageRepository userPageRepository;
     @Mock
-    private DocumentRepository documentRepository;
-    @Mock
     private DocumentPageRepository documentPageRepository;
     @Mock
     private RoleService roleService;
@@ -50,8 +44,6 @@ public class UserServiceTest {
     private DepartmentRepository departmentRepository;
     @Mock
     private ApplicationPageRepository applicationPageRepository;
-    @Mock
-    private ApplicationItemRepository applicationItemRepository;
     @Mock
     private ApplicationItemPageRepository applicationItemPageRepository;
     @Mock
@@ -83,16 +75,14 @@ public class UserServiceTest {
         userUpdateRequestDto.setPatronymic("qwe");
         userUpdateRequestDto.setBirthDate(LocalDate.of(2003, 6, 19));
         userUpdateRequestDto.setUsername("qwe");
-        userUpdateRequestDto.setPassword("qwe");
         userUpdateRequestDto.setRoles(List.of(RoleDto.mapFromEntity(new Role(1, "ROLE_USER"))));
         return userUpdateRequestDto;
     }
 
     @BeforeEach
     void setUp() {
-        underTest = new UserServiceImpl(userRepository, userPageRepository, documentRepository, documentPageRepository,
-                roleService, passwordEncoder, departmentRepository, applicationPageRepository,
-                applicationItemRepository, applicationItemPageRepository);
+        underTest = new UserServiceImpl(userRepository, userPageRepository, documentPageRepository, roleService,
+                passwordEncoder, departmentRepository, applicationPageRepository, applicationItemPageRepository);
     }
 
     @Test
@@ -134,16 +124,19 @@ public class UserServiceTest {
 
         given(userRepository.save(any())).willThrow(DataIntegrityViolationException.class);
 
-        assertThatThrownBy(() -> underTest.create(userCreateRequestDto))
+        assertThatThrownBy(() -> underTest
+                .create(userCreateRequestDto))
                 .isInstanceOf(UserExistsException.class)
-                .hasMessageContaining("User with username " + getUserCreateRequestDto().getUsername() + " already exists");
+                .hasMessageContaining("User with username "
+                        + getUserCreateRequestDto().getUsername() + " already exists");
     }
 
     @Test
     void findUser_willThrowWhenUserNotFound() {
         given(userRepository.findById(1L)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> underTest.getById(1L))
+        assertThatThrownBy(() -> underTest
+                .getById(1L))
                 .isInstanceOf(UserNotFoundException.class)
                 .hasMessageContaining("User with id " + 1 + " not found.");
     }
@@ -193,40 +186,14 @@ public class UserServiceTest {
     @Test
     void findAllUsersByFiltersByPageTest() {
         given(userPageRepository
-                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
-                        "",
-                        "",
-                        "",
-                        "",
-                        LocalDate.of(1900, 1, 1),
-                        LocalDate.of(3000, 1, 1),
-                        "qwe@qwe.qwe",
-                        PageRequest.of(0, 1)))
-                .willReturn(new PageImpl<>(List.of(new User())));
+                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase("", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1))).willReturn(new PageImpl<>(List.of(new User())));
         try {
-            underTest.findAllUsersByFiltersByPage(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    LocalDate.of(1900, 1, 1),
-                    LocalDate.of(3000, 1, 1),
-                    "qwe@qwe.qwe",
-                    PageRequest.of(0, 1));
+            underTest.findAllUsersByFiltersByPage("", "", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1));
         } catch (NullPointerException ignored) {
         }
 
         verify(userPageRepository)
-                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
-                        "",
-                        "",
-                        "",
-                        "",
-                        LocalDate.of(1900, 1, 1),
-                        LocalDate.of(3000, 1, 1),
-                        "qwe@qwe.qwe",
-                        PageRequest.of(0, 1));
+                .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase("", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1));
     }
 
 /*   @Test
