@@ -10,6 +10,12 @@ minio:
   access-key: minioadmin
   secret-key: minioadmin
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB  # максимальный размер каждого файла
+      max-request-size: 200MB  # максимальный размер всего запроса
+      file-size-threshold: 10MB  # размер, при котором данные будут записаны во временный файл
   output:
     ansi:
       enabled: always
