@@ -1,8 +1,8 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileResponseDto;
 import com.example.caselabproject.services.FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,8 +51,8 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canAddFileToDocument(#principal.getName, #docId)")
     @PostMapping("/")
-    @Secured("ROLE_USER")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
             @RequestParam(value = "file", required = true) MultipartFile file,
             Principal principal,
@@ -138,8 +138,8 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canUpdateDocumentOrFile(#principal.getName, #docId)")
     @PutMapping("/{fileId}")
-    @Secured("ROLE_USER")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
             Principal principal,
@@ -161,8 +161,8 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canDeleteDocumentOrFile(#principal.getName, #docId)")
     @DeleteMapping("/{fileId}")
-    @Secured("ROLE_USER")
     public ResponseEntity<?> deleteFile(
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,

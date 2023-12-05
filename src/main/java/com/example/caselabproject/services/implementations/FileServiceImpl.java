@@ -5,8 +5,8 @@ import com.example.caselabproject.exceptions.document.DocumentDoesNotExistExcept
 import com.example.caselabproject.exceptions.file.FileConnectToDocumentException;
 import com.example.caselabproject.exceptions.file.FileNotExistException;
 import com.example.caselabproject.exceptions.file.NoFilesPageFoundException;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.File;
 import com.example.caselabproject.repositories.DocumentRepository;

@@ -1,7 +1,7 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.DocumentFieldUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentFieldUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;

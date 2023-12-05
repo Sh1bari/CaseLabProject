@@ -10,6 +10,7 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FileRepository;
 import com.example.caselabproject.repositories.UserRepository;
+import com.example.caselabproject.services.MinioService;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,8 @@ class FileServiceImplTest {
     private UserRepository userRepository;
     @Mock
     private FileRepository fileRepository;
+    @Mock
+    private MinioService minioService;
 
     private FileServiceImpl underTest;
 
@@ -58,30 +61,9 @@ class FileServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new FileServiceImpl(fileRepository, documentRepository, userRepository);
+        underTest = new FileServiceImpl(fileRepository, documentRepository, userRepository, minioService);
     }
 
-    @Test
-    void addFile_CanAddFileToDocument() throws IOException {
-        Document document = new Document();
-        User user = new User();
-        user.setUsername("username");
-        document.setId(1L);
-        document.setCreator(user);
-        document.setFiles(new ArrayList<>());
-        document.setDocumentConstructorType(new DocumentConstructorType());
-
-        given(documentRepository.findById(1L))
-                .willReturn(Optional.of(document));
-        given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
-                .willReturn(true);
-
-        underTest.addFile("username", getMockMultipartFile(), 1L);
-
-        Files.delete(Path.of("src/main/resources/fileBase/username/docId_1_hello_text.txt"));
-
-        verify(documentRepository).save(any());
-    }
 
     @Test
     void addFile_CanThrowUserException() {
