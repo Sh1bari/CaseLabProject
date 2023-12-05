@@ -129,6 +129,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canUpdateDocumentOrFile(#principal.getName, #id)")
     @PutMapping("/{id}")
     public ResponseEntity<DocumentResponseDto> updateDocument(
             Principal principal,
@@ -150,7 +151,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
-
+    @PreAuthorize("@documentAndFileSecurityService.canDeleteDocumentOrFile(#principal.getName, #id)")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDocument(
             Principal principal,

@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,6 +51,7 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canAddFileToDocument(#principal.getName, #docId)")
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
             @RequestParam(value = "file", required = true) MultipartFile file,
@@ -136,6 +138,7 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canUpdateDocumentOrFile(#principal.getName, #docId)")
     @PutMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
@@ -158,6 +161,7 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canDeleteDocumentOrFile(#principal.getName, #docId)")
     @DeleteMapping("/{fileId}")
     public ResponseEntity<?> deleteFile(
             Principal principal,
