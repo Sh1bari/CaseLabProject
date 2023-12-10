@@ -1,5 +1,6 @@
 package com.example.caselabproject.models.entities;
 
+import com.example.caselabproject.models.enums.SubscriptionName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,8 @@ public class Subscription {
     @Column(name = "id")
     private Integer id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private SubscriptionName subscriptionName;
 
     private String description;
 
