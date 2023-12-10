@@ -1,12 +1,12 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocIdRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocIdRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationUpdateResponseDto;
 import com.example.caselabproject.services.ApplicationService;
 import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ import java.security.Principal;
  */
 @Validated
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/application")
 @SecurityRequirement(name = "bearerAuth")
@@ -75,6 +77,7 @@ public class ApplicationController {
                             schema = @Schema(implementation = AppError.class))})
 
     })
+    @PreAuthorize("@applicationSecurityService.canUpdateApplication(#principal.getName, #id)")
     @Secured("ROLE_USER")
     @PutMapping("/{id}")
     public ResponseEntity<ApplicationUpdateResponseDto> update(
@@ -102,6 +105,7 @@ public class ApplicationController {
                             schema = @Schema(implementation = AppError.class))}),
             @ApiResponse(responseCode = "409", description = "Application already deleted")
     })
+    @PreAuthorize("@applicationSecurityService.canDeleteApplication(#principal.getName, #id)")
     @Secured("ROLE_USER")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(

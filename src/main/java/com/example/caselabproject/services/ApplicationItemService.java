@@ -1,11 +1,13 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.ApplicationItemVoteRequestDto;
-import com.example.caselabproject.models.DTOs.request.CreateApplicationItemRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemTakeResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationItemVoteResponseDto;
-import com.example.caselabproject.models.DTOs.response.CreateApplicationItemResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationItemVoteRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.CreateApplicationItemRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.RedirectApplicationItemRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemTakeResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemVoteResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.CreateApplicationItemResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.RedirectApplicationItemResponseDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +30,12 @@ public interface ApplicationItemService {
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @NotBlank(message = "Application creator username cant be blank.") String username);
 
+    @Transactional
+    RedirectApplicationItemResponseDto redirectApplicationItem(
+            @Valid RedirectApplicationItemRequestDto redirectApplicationItemRequestDto,
+            @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationItemId,
+            @NotBlank(message = "Application creator username cant be blank.") String username);
+
     @Transactional(readOnly = true)
     ApplicationItemGetByIdResponseDto getApplicationItemById(
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
@@ -39,6 +47,7 @@ public interface ApplicationItemService {
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,
             @Min(value = 1L, message = "Application item id cant be less than 1.") Long applicationItemId,
             @NotBlank(message = "Application creator username cant be blank.") String username);
+
     @Transactional
     ApplicationItemVoteResponseDto voteApplicationItem(
             @Min(value = 1L, message = "Application id cant be less than 1.") Long applicationId,

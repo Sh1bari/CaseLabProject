@@ -1,11 +1,9 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
-import com.example.caselabproject.services.DocumentService;
+import com.example.caselabproject.models.DTOs.response.filed.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileResponseDto;
 import com.example.caselabproject.services.FileService;
-import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +14,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +24,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("doc/{docId}/file")
 @SecurityRequirement(name = "bearerAuth")
@@ -51,9 +51,10 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canAddFileToDocument(#principal.getName, #docId)")
     @PostMapping("/")
     public ResponseEntity<List<FileResponseDto>> addFileToDocument(
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = true) MultipartFile file,
             Principal principal,
             @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
@@ -141,6 +142,7 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canUpdateDocumentOrFile(#principal.getName, #docId)")
     @PutMapping("/{fileId}")
     public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
@@ -164,6 +166,7 @@ public class FileController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canDeleteDocumentOrFile(#principal.getName, #docId)")
     @DeleteMapping("/{fileId}")
     public ResponseEntity<?> deleteFile(
             Principal principal,

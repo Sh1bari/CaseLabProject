@@ -5,9 +5,8 @@ import com.example.caselabproject.exceptions.document.DocumentDoesNotExistExcept
 import com.example.caselabproject.exceptions.file.FileConnectToDocumentException;
 import com.example.caselabproject.exceptions.file.FileNotExistException;
 import com.example.caselabproject.exceptions.file.NoFilesPageFoundException;
-import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
-import com.example.caselabproject.models.DTOs.response.FileResponseDto;
-import com.example.caselabproject.validation.annotations.CheckOrganization;
+import com.example.caselabproject.models.DTOs.response.filed.FileDownloadResponseDto;
+import com.example.caselabproject.models.DTOs.response.filed.FileResponseDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
@@ -32,11 +31,9 @@ public interface FileService {
      * @throws FileConnectToDocumentException если добавить файл к документу не получилось
      */
     @Transactional
-    List<FileResponseDto> addFile(
-            @NotBlank(message = "Username cant be blank.") String username,
-            MultipartFile file,
-            @CheckOrganization(serviceClass = DocumentService.class)
-            @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
+    List<FileResponseDto> addFile(@NotBlank(message = "Username cant be blank.") String username, MultipartFile file,
+                                  @CheckOrganization(serviceClass = DocumentService.class)
+                                  @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
     /**
      * Позволяет найти получить список файлов прикрепленных к документу по его ID.
@@ -48,8 +45,7 @@ public interface FileService {
     @Transactional
     List<FileResponseDto> getFiles(
             @CheckOrganization(serviceClass = DocumentService.class)
-            @Min(value = 1L, message = "Id can't be less than 1") Long documentId,
-            Pageable pageable);
+            @Min(value = 1L, message = "Id can't be less than 1") Long documentId, Pageable pageable);
 
     /**
      * Позволяет скачать файл по ID файла и по ID документа, к которому он привязан.

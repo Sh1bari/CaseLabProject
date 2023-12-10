@@ -1,9 +1,16 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.UserUpdateResponseDto;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
@@ -114,7 +121,7 @@ public class UserController {
 
 
     /**
-     * Updates user by id.
+     * Updates user password by id.
      *
      * @param id             the id of user to get
      * @param userRequestDto the user request dto
@@ -142,6 +149,28 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userUpdateResponseDto);
+    }
+
+    @Operation(summary = "Update existing user password with given id, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "409", description = "User with given data exists",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PutMapping("/{id}/password")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<UserUpdateResponseDto> updateUserPasswordById(
+            @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
+            @RequestBody @Valid UserUpdatePasswordRequest req) {
+        UserUpdateResponseDto res = userService.updatePasswordById(id, req);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(res);
     }
 
 

@@ -1,8 +1,8 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.DocumentFieldUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentFieldUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import com.example.caselabproject.services.DocumentFieldService;
 import com.example.caselabproject.services.DocumentService;
 import com.example.caselabproject.validation.annotations.CheckOrganization;

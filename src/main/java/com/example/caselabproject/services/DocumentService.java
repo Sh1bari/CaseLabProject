@@ -5,9 +5,9 @@ import com.example.caselabproject.exceptions.document.DocumentDoesNotExistExcept
 import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
 import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameNotFoundException;
 import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
-import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;

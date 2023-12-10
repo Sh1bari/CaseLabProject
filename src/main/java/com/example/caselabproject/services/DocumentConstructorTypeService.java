@@ -1,11 +1,11 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypePatchRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocumentConstructorTypeRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeRecoverResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentConstructorTypeUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentConstructorTypePatchRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentConstructorTypeRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeRecoverResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;

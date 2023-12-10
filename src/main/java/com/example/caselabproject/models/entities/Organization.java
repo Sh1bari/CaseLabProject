@@ -40,4 +40,8 @@ public class Organization {
     @Enumerated(EnumType.STRING)
     private OrganizationStatus status;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "subscription_id")
+    private Subscription subscription;
+
 }

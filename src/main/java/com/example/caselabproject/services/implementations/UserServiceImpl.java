@@ -4,9 +4,13 @@ import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPerm
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.user.UserExistsException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
-import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
@@ -35,11 +39,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final UserPageRepository userPageRepository;
     private final DocumentRepository documentRepository;
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepo;
     private final ApplicationPageRepository applicationPageRepository;
     private final ApplicationItemRepository applicationItemRepo;
@@ -95,9 +99,6 @@ public class UserServiceImpl implements UserService {
         if (userUpdateRequestDto.getRoles() != null) {
             user.setRoles(roleService.findRolesByRoleDtoList(userUpdateRequestDto.getRoles()));
         }
-        if (userUpdateRequestDto.getPassword() != null) {
-            user.getAuthUserInfo().setPassword(userUpdateRequestDto.getPassword());
-        }
 
         if (userUpdateRequestDto.getEmail() != null) {
             user.getAuthUserInfo().setEmail(userUpdateRequestDto.getEmail());
@@ -129,6 +130,15 @@ public class UserServiceImpl implements UserService {
         } catch (DataIntegrityViolationException ex) {
             throw new UserExistsException(userUpdateRequestDto.getUsername());
         }
+        return UserUpdateResponseDto.mapFromEntity(user);
+    }
+
+    @Override
+    public UserUpdateResponseDto updatePasswordById(Long id, UserUpdatePasswordRequest req) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        user.getAuthUserInfo().setPassword(passwordEncoder.encode(req.getPassword()));
+        userRepository.save(user);
         return UserUpdateResponseDto.mapFromEntity(user);
     }
 

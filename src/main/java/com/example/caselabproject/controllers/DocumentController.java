@@ -1,9 +1,9 @@
 package com.example.caselabproject.controllers;
 
 import com.example.caselabproject.exceptions.AppError;
-import com.example.caselabproject.models.DTOs.request.DocumentRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentService;
 import com.example.caselabproject.validation.annotations.CheckOrganization;
@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/doc")
 @SecurityRequirement(name = "bearerAuth")
@@ -47,6 +49,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+
     @PostMapping("/")
     public ResponseEntity<DocumentCreateResponseDto> createDocument(
             Principal principal,
@@ -128,6 +131,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
+    @PreAuthorize("@documentAndFileSecurityService.canUpdateDocumentOrFile(#principal.getName, #id)")
     @PutMapping("/{id}")
     public ResponseEntity<DocumentResponseDto> updateDocument(
             Principal principal,
@@ -150,7 +154,7 @@ public class DocumentController {
                                     schema = @Schema(implementation = AppError.class))
                     })
     })
-
+    @PreAuthorize("@documentAndFileSecurityService.canDeleteDocumentOrFile(#principal.getName, #id)")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDocument(
             Principal principal,

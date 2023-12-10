@@ -1,11 +1,14 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.DTOs.request.UserCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.UserUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.*;
+import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
+import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +31,10 @@ public interface UserService extends EntityOrganizationService {
     @Transactional(readOnly = true)
     UserGetByIdResponseDto getByUsername(@NotBlank(message = "Username cant be null") String username);
 
+
+    @Transactional
+    boolean existById(Long id);
+
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
 
@@ -36,6 +43,10 @@ public interface UserService extends EntityOrganizationService {
             @CheckOrganization(serviceClass = UserService.class)
             @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @Valid UserUpdateRequestDto userUpdateRequestDto);
+
+    @Transactional
+    UserUpdateResponseDto updatePasswordById(@Min(value = 1L, message = "Id can't be less than 1") Long id,
+                                             @Valid UserUpdatePasswordRequest req);
 
     @Transactional
     UserDeleteResponseDto deleteById(

@@ -1,8 +1,8 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
-import com.example.caselabproject.models.DTOs.request.DocumentFieldUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.response.DocumentResponseDto;
+import com.example.caselabproject.models.DTOs.request.document.DocumentFieldUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.repositories.DocumentRepository;

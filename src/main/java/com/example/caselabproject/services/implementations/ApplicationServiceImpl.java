@@ -5,12 +5,12 @@ import com.example.caselabproject.exceptions.application.ApplicationNotFoundExce
 import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
 import com.example.caselabproject.exceptions.user.UserNotCreatorException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
-import com.example.caselabproject.models.DTOs.request.ApplicationCreateRequestDto;
-import com.example.caselabproject.models.DTOs.request.ApplicationUpdateRequestDto;
-import com.example.caselabproject.models.DTOs.request.DocIdRequestDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationFindResponseDto;
-import com.example.caselabproject.models.DTOs.response.ApplicationUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationCreateRequestDto;
+import com.example.caselabproject.models.DTOs.request.application.ApplicationUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.request.document.DocIdRequestDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationCreateResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
+import com.example.caselabproject.models.DTOs.response.application.ApplicationUpdateResponseDto;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.User;
@@ -37,9 +37,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationCreateResponseDto createApplication(String username, ApplicationCreateRequestDto request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-
+        User user = getUserByUserName(username);
         Application application = request.mapToEntity();
         application.setRecordState(RecordState.ACTIVE);
         application.setApplicationStatus(ApplicationStatus.WAITING_FOR_ANSWER);
@@ -51,58 +49,34 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationUpdateResponseDto updateApplication(Long id, String username,
                                                           ApplicationUpdateRequestDto request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-        Application updateApplication = findApplicationByIdInternal(id);
-        if (!user.getUsername().equals(updateApplication.getCreatorId().getUsername())) {
-            throw new UserNotCreatorException(username);
-        } else {
-            updateApplication.setDeadlineDate(request.getDeadline());
-            updateApplication.setName(request.getName());
-            applicationRepository.save(updateApplication);
-        }
+        User user = getUserByUserName(username);
+        Application updateApplication = getApplication(id);
+        updateApplication.setDeadlineDate(request.getDeadline());
+        updateApplication.setName(request.getName());
+        applicationRepository.save(updateApplication);
 
         return ApplicationUpdateResponseDto.mapFromEntity(updateApplication);
     }
 
     @Override
     public boolean deleteApplication(Long id, String username) {
-        Application application = findApplicationByIdInternal(id);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
-        AtomicBoolean isAdmin = new AtomicBoolean(false);
-        user.getRoles().forEach(o -> {
-            if (o.getName().equals("ROLE_ADMIN")) {
-                isAdmin.set(true);
-            }
-        });
-        if (!application.getCreatorId().getUsername().equals(user.getUsername()) || !isAdmin.get()) {
-            throw new UserNotCreatorException(username);
-        } else {
-            if (!application.getRecordState().equals(RecordState.DELETED)) {
-                application.setRecordState(RecordState.DELETED);
-            } else {
-                throw new ApplicationAlreadyDeletedException(application.getId());
-            }
-            applicationRepository.save(application);
-        }
+        Application application = applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
+        User user = getUserByUserName(username);
+        application.setRecordState(RecordState.DELETED);
+        applicationRepository.save(application);
         return true;
     }
 
     @Override
     public ApplicationFindResponseDto getApplicationById(Long id) {
-        Application getApplication = findApplicationByIdInternal(id);
+        Application getApplication = getApplication(id);
         return ApplicationFindResponseDto.mapFromEntity(getApplication);
-    }
-
-    private Application findApplicationByIdInternal(Long id) {
-        return applicationRepository.findById(id)
-                .orElseThrow(() -> new ApplicationNotFoundException(id));
     }
 
     @Override
     public ApplicationFindResponseDto connectDocToApplication(Long id, DocIdRequestDto req) {
-        Application getApplication = findApplicationByIdInternal(id);
+        Application getApplication = getApplication(id);
         Document document = documentRepository.findById(req.getDocId())
                 .orElseThrow(() -> new DocumentDoesNotExistException(req.getDocId()));
         getApplication.setDocument(document);
@@ -115,4 +89,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         return findApplicationByIdInternal(entityId)
                 .getOrganization().getId();
     }
+
+    private Application getApplication(Long id){
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(id));
+    }
+
+    private User getUserByUserName(String username){
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+    }
+
 }
