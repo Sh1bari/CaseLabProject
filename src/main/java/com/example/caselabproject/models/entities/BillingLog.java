@@ -23,17 +23,17 @@ public class BillingLog {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "current_subscription_id")
     private Subscription currentSubscription;
     
     // @Basic
     private LocalDateTime subscriptionStart;
     
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "organization_id")
     private Organization organizationId;
     
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "last_subscription_id")
     private Subscription lastSubscription;
 }
