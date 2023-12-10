@@ -1,16 +1,12 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemAlreadyHasBeenSentToUserException;
-import com.example.caselabproject.exceptions.user.UserNotOwnException;
+import com.example.caselabproject.exceptions.user.*;
 import com.example.caselabproject.exceptions.application.ApplicationDeletedException;
 import com.example.caselabproject.exceptions.application.ApplicationNotFoundException;
 import com.example.caselabproject.exceptions.applicationItem.*;
 import com.example.caselabproject.exceptions.department.DepartmentDeletedException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.user.UserDeletedException;
-import com.example.caselabproject.exceptions.user.UserNotCreatorException;
-import com.example.caselabproject.exceptions.user.UserNotFoundByDepartmentException;
-import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.application.ApplicationItemVoteRequestDto;
 import com.example.caselabproject.models.DTOs.request.application.CreateApplicationItemRequestDto;
 import com.example.caselabproject.models.DTOs.request.application.RedirectApplicationItemRequestDto;
@@ -210,37 +206,24 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
     }
 
 
-
     private CreateApplicationItemResponseDto sendApplicationItem(CreateApplicationItemRequestDto o, Application application) {
 
 
         Optional<User> userCheckIsDirector = userRepo.findByDepartmentIdAndIsDirectorTrue(o.getToDepartmentId());
 
-        CreateApplicationItemResponseDto createApplicationItemResponseDto;
 
-        if (userDirectorAreActiveAndExists(userCheckIsDirector)) {
+        userDirectorAreActiveAndExists(userCheckIsDirector, o.getToDepartmentId());
 
-            createApplicationItemResponseDto = sendApplicationItemToDepartmentDirector(userCheckIsDirector,
-                    application, o);
 
-        } else if (o.getToUserId() != null) {
-
-            createApplicationItemResponseDto = sendApplicationItemToUser(o, application);
-
-        } else {
-
-            createApplicationItemResponseDto = sendApplicationItemToDepartment(o, application);
-
-        }
-
-        return createApplicationItemResponseDto;
+        return sendApplicationItemToDepartmentDirector(userCheckIsDirector,
+                application, o);
     }
 
     private CreateApplicationItemResponseDto sendApplicationItemToDepartmentDirector(Optional<User> userCheckIsDirector,
                                                                                      Application application, CreateApplicationItemRequestDto o) {
         User varUser = userCheckIsDirector.get();
 
-        userAndDepartmentAreActive(varUser);
+        departmentIsActive(varUser.getDepartment());
 
         if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
             throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
@@ -264,66 +247,12 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
                 .build();
     }
 
-
-    private CreateApplicationItemResponseDto sendApplicationItemToUser(CreateApplicationItemRequestDto o, Application application) {
-        User varUser = userRepo.findByIdAndDepartment_id(o.getToUserId(), o.getToDepartmentId())
-                .orElseThrow(() -> new UserNotFoundByDepartmentException(o.getToUserId(), o.getToDepartmentId()));
-
-        userAndDepartmentAreActive(varUser);
-
-        if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
-            throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
-        }
-
-        ApplicationItem applicationItem = ApplicationItem.builder()
-                .status(ApplicationItemStatus.PENDING)
-                .recordState(RecordState.ACTIVE)
-                .toDepartment(varUser.getDepartment())
-                .toUser(varUser)
-                .application(application)
-                .createTime(LocalDateTime.now())
-                .build();
-
-        applicationItem = applicationItemRepo.save(applicationItem);
-        application.getApplicationItems().add(applicationItem);
-        applicationRepo.save(application);
-
-        return CreateApplicationItemResponseDto.builder()
-                .id(applicationItem.getId())
-                .build();
-    }
-
-    private CreateApplicationItemResponseDto sendApplicationItemToDepartment(CreateApplicationItemRequestDto o, Application application) {
-        Department department = departmentRepo.findById(o.getToDepartmentId())
-                .orElseThrow(() -> new DepartmentNotFoundException(o.getToDepartmentId()));
-
-        departmentIsActive(department);
-
-        if (application.getApplicationItems().stream().anyMatch(k -> k.getToDepartment().getId().equals(o.getToDepartmentId()))) {
-            throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(o.getToDepartmentId());
-        }
-
-        ApplicationItem applicationItem = ApplicationItem.builder()
-                .status(ApplicationItemStatus.PENDING)
-                .recordState(RecordState.ACTIVE)
-                .toDepartment(department)
-                .application(application)
-                .createTime(LocalDateTime.now())
-                .build();
-
-        applicationItem = applicationItemRepo.save(applicationItem);
-        application.getApplicationItems().add(applicationItem);
-        applicationRepo.save(application);
-
-        return CreateApplicationItemResponseDto.builder()
-                .id(applicationItem.getId())
-                .build();
-    }
 
     private void redirectToUserFromRequest(RedirectApplicationItemRequestDto req, ApplicationItem applicationItem, User user) {
 
         User varUser = userRepo.findByIdAndDepartment_id(req.getToUserId(), req.getToDepartmentId())
                 .orElseThrow(() -> new UserNotFoundByDepartmentException(req.getToUserId(), req.getToDepartmentId()));
+
 
         //Если пользователь уже занят данной заявкой
         if (applicationItem.getApplication().getApplicationItems().stream()
@@ -332,11 +261,13 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
 
 
         //Если передаем ApplicationItem не внутри своей дирекции
-        if (!varUser.getDepartment().getId().equals(user.getDepartment().getId()))
+        if (!varUser.getDepartment().getId().equals(user.getDepartment().getId())) {
+            if (!varUser.getIsDirector())
+                throw new UserIsNotDirectorException();
             if (applicationItem.getApplication().getApplicationItems().stream()
                     .anyMatch(k -> k.getToDepartment().getId().equals(req.getToDepartmentId())))
                 throw new ApplicationItemAlreadyHasBeenSentToDepartmentException(req.getToDepartmentId(), varUser.getId());
-
+        }
 
         userAndDepartmentAreActive(varUser);
 
@@ -368,12 +299,12 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
             User varUser = userCheckIsDirector.get();
 
             applicationItem.setToUser(varUser);
+
+            applicationItem.setToDepartment(department);
+            applicationItemRepo.save(applicationItem);
+        } else {
+            throw new UserDirectorNotExists(department.getId());
         }
-
-
-        applicationItem.setToDepartment(department);
-        applicationItemRepo.save(applicationItem);
-
     }
 
     private User getUserByUsername(String username) {
@@ -432,5 +363,13 @@ public class ApplicationItemServiceImpl implements ApplicationItemService {
 
     private boolean userDirectorAreActiveAndExists(Optional<User> user) {
         return user.map(value -> value.getRecordState().equals(RecordState.ACTIVE)).orElse(false);
+    }
+
+    private void userDirectorAreActiveAndExists(Optional<User> user, Long id) {
+        user.ifPresent(value -> {
+            if (!value.getRecordState().equals(RecordState.ACTIVE)) {
+                throw new UserDirectorNotExists(id);
+            }
+        });
     }
 }
