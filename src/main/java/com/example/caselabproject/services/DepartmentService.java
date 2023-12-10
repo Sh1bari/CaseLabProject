@@ -30,7 +30,6 @@ public interface DepartmentService {
      * <p>
      * Этот метод преобразует {@link DepartmentCreateRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
      * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentSQLValidationException}.
-     * В случае любых других ошибок при создании будет выброшено исключение {@link DepartmentCreateException}.
      * </p>
      *
      * @param departmentRequestDto DTO запроса для создания департамента. Должно быть валидным.
