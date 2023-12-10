@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    // если подходит количество юзеров то не меняем тариф
     public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
         User user = userRequestDto.mapToEntity();
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
