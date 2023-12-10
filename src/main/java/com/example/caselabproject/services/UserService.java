@@ -9,6 +9,7 @@ import com.example.caselabproject.models.DTOs.response.document.DocumentCreateRe
 import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -30,10 +31,6 @@ public interface UserService extends EntityOrganizationService {
 
     @Transactional(readOnly = true)
     UserGetByIdResponseDto getByUsername(@NotBlank(message = "Username cant be null") String username);
-
-
-    @Transactional
-    boolean existById(Long id);
 
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);

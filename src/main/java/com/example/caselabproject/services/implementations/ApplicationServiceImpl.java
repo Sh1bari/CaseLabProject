@@ -1,9 +1,7 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.application.ApplicationAlreadyDeletedException;
 import com.example.caselabproject.exceptions.application.ApplicationNotFoundException;
 import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
-import com.example.caselabproject.exceptions.user.UserNotCreatorException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.application.ApplicationCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.application.ApplicationUpdateRequestDto;
@@ -23,8 +21,6 @@ import com.example.caselabproject.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Service
@@ -86,7 +82,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Long getOrganizationIdByEntityId(Long entityId) {
-        return findApplicationByIdInternal(entityId)
+        return getApplication(entityId)
                 .getOrganization().getId();
     }
 

@@ -1,20 +1,14 @@
 package com.example.caselabproject.services.implementations;
 
-import com.example.caselabproject.exceptions.department.DepartmentChildException;
-import com.example.caselabproject.exceptions.department.DepartmentChildParentException;
-import com.example.caselabproject.exceptions.department.DepartmentParentException;
-import com.example.caselabproject.exceptions.department.DepartmentSQLValidationException;
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
-import com.example.caselabproject.exceptions.department.DepartmentDeletedException;
-import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
-import com.example.caselabproject.exceptions.department.DepartmentStatusException;
+import com.example.caselabproject.exceptions.department.*;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.department.DepartmentChildDto;
 import com.example.caselabproject.models.DTOs.request.department.DepartmentCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.department.DepartmentRequestDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.department.*;
+import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
@@ -32,8 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @Service
@@ -154,7 +148,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Long getOrganizationIdByEntityId(Long entityId) {
-        return findDepartmentByIdInternal(entityId)
+        return findDepartmentById(entityId)
                 .getOrganization().getId();
     }
 

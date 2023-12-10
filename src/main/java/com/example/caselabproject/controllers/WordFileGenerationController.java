@@ -17,6 +17,7 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.util.InMemoryResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class WordFileGenerationController {
                             schema = @Schema(implementation = AppError.class))})
     })
     @GetMapping("/doc/{id}/generate")
+    @Secured("ROLE_USER")
     public ResponseEntity<Resource> generateAndDownloadFile(
             @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id) {
