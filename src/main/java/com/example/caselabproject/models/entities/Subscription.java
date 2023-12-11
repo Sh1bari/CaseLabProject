@@ -19,6 +19,7 @@ public class Subscription {
     @Column(name = "id")
     private Integer id;
 
+    @Column(unique = true)
     @Enumerated(EnumType.STRING)
     private SubscriptionName subscriptionName;
 
