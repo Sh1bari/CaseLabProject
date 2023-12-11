@@ -29,6 +29,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -114,9 +115,11 @@ public class DepartmentController {
             })
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("@departmentSecurityService.canDeleteDepartment(#principal.getName, #id)")
     public ResponseEntity<?> deleteDepartment(
             @CheckOrganization(serviceClass = DepartmentService.class)
-            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            Principal principal) {
         departmentService.deleteDepartment(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -140,6 +143,7 @@ public class DepartmentController {
     })
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("@departmentSecurityService.canRecoverDepartment(#principal.getName, #id)")
     public ResponseEntity<?> recoverDepartment(
             @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
@@ -179,10 +183,12 @@ public class DepartmentController {
     })
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("@departmentSecurityService.canUpdateDepartment(#principal.getName, #id)")
     public ResponseEntity<DepartmentUpdateResponseDto> updateDepartmentNameById(
             @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
-            @RequestBody @Valid DepartmentRequestDto departmentRequestDto) {
+            @RequestBody @Valid DepartmentRequestDto departmentRequestDto,
+            Principal principal) {
         DepartmentUpdateResponseDto responseDto = departmentService.updateName(id, departmentRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -209,9 +215,11 @@ public class DepartmentController {
     })
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
+    @PreAuthorize("@departmentSecurityService.canGetDepartmentById(#principal.getName, #id)")
     public ResponseEntity<DepartmentGetByIdResponseDto> getDepartmentById(
             @CheckOrganization(serviceClass = DepartmentService.class)
-            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id) {
+            @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
+            Principal principal) {
         DepartmentGetByIdResponseDto responseDto = departmentService.getById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -264,9 +272,11 @@ public class DepartmentController {
     })
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("@departmentSecurityService.canAddChildDepartment(#principal.getName, #id,#departmentChildDto)")
     public ResponseEntity<DepartmentGetByIdResponseDto> addChildDepartment(
             @PathVariable @Min(value = 1L, message = "Id cant be less than 1") Long id,
-            @RequestBody @Valid DepartmentChildDto departmentChildDto) {
+            @RequestBody @Valid DepartmentChildDto departmentChildDto,
+            Principal principal) {
 
         DepartmentGetByIdResponseDto responseDto = departmentService.setParentDepartment(id, departmentChildDto);
 
@@ -371,6 +381,7 @@ public class DepartmentController {
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/applicationItems")
     @Secured("ROLE_USER")
+    @PreAuthorize("@departmentSecurityService.canGetApplicationItemsById(#principal.getName, #id)")
     public ResponseEntity<List<ApplicationItemGetByIdResponseDto>> getApplicationItemsById(
             @CheckOrganization(serviceClass = DepartmentService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
