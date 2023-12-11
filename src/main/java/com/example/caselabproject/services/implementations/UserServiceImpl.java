@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return UserGetByIdResponseDto.mapFromEntity(user);
     }
 
-    private boolean existById(Long id) {
+    public boolean existById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new UserNotFoundException(id);

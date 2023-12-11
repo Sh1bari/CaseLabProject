@@ -7,7 +7,6 @@ import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
@@ -283,7 +282,7 @@ public class UserController {
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/docs")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
+    public ResponseEntity<List<DocumentGetAllResponse>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateFrom,
@@ -294,7 +293,7 @@ public class UserController {
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
     ) {
-        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
+        List<DocumentGetAllResponse> documentCreateResponseDto = userService.findDocsByFiltersByPage(
                 creatorId,
                 name,
                 creationDateFrom,
