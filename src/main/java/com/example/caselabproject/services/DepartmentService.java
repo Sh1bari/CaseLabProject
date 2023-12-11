@@ -13,6 +13,7 @@ import com.example.caselabproject.models.DTOs.response.department.*;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -24,13 +25,12 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 
 @Validated
-public interface DepartmentService {
+public interface DepartmentService extends EntityOrganizationService {
     /**
      * Создаёт новый департамент на основе предоставленного DTO.
      * <p>
      * Этот метод преобразует {@link DepartmentCreateRequestDto} в сущность {@link Department} и сохраняет её в базе данных.
      * Если департамент с таким именем уже существует, будет выброшено исключение {@link DepartmentSQLValidationException}.
-     * В случае любых других ошибок при создании будет выброшено исключение {@link DepartmentCreateException}.
      * </p>
      *
      * @param departmentRequestDto DTO запроса для создания департамента. Должно быть валидным.
@@ -82,7 +82,10 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentUpdateResponseDto updateName(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId, @Valid DepartmentRequestDto departmentRequestDto);
+    DepartmentUpdateResponseDto updateName(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
+            @Valid DepartmentRequestDto departmentRequestDto);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#DELETED}.
@@ -98,7 +101,9 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentDeleteRecoverResponseDto deleteDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentDeleteRecoverResponseDto deleteDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Обновляет статус записи департамента на {@link RecordState#ACTIVE}.
@@ -114,7 +119,9 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentDeleteRecoverResponseDto recoverDepartment(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentDeleteRecoverResponseDto recoverDepartment(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Возвращает департамент по указанному ID в виде {@link DepartmentGetByIdResponseDto}.
@@ -129,7 +136,9 @@ public interface DepartmentService {
      * @author Khodov Nikita
      */
     @Transactional
-    DepartmentGetByIdResponseDto getById(@Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
+    DepartmentGetByIdResponseDto getById(
+            @CheckOrganization(serviceClass = DepartmentService.class)
+            @Min(value = 1L, message = "Id cant be less than 1") Long departmentId);
 
     /**
      * Возвращает список департаментов с пагинацией и возможностью фильтрации по имени.
@@ -162,12 +171,14 @@ public interface DepartmentService {
      */
     @Transactional
     Page<UserGetByIdResponseDto> getAllUsersFilteredByDepartment(RecordState recordState,
+                                                                 @CheckOrganization(serviceClass = DepartmentService.class)
                                                                  @Min(value = 1L, message = "Id cant be less than 1") Long departmentId,
                                                                  Pageable pageable,
                                                                  @NotBlank(message = "Department creator username can't be blank.") String username);
 
     @Transactional(readOnly = true)
     List<ApplicationItemGetByIdResponseDto> findApplicationItemsByDepartmentIdByPage(
+            @CheckOrganization(serviceClass = DepartmentService.class)
             @Min(value = 1L, message = "Id can't be less than 1.") Long id,
             String applicationName,
             ApplicationItemStatus status,

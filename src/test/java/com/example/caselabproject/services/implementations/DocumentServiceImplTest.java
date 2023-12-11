@@ -3,7 +3,7 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.document.DocumentAccessException;
 import com.example.caselabproject.exceptions.document.DocumentDoesNotExistException;
 import com.example.caselabproject.exceptions.document.NoDocumentPageFoundException;
-import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNameNotFoundException;
+import com.example.caselabproject.exceptions.documentConsType.DocumentConstructorTypeNotFoundException;
 import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.DTOs.request.document.DocumentRequestDto;
 import com.example.caselabproject.models.entities.Document;
@@ -101,8 +101,8 @@ class DocumentServiceImplTest {
                 .willReturn(Optional.of(new User()));
 
         assertThatThrownBy(() -> underTest.createDocument("username", documentRequestDto))
-                .isInstanceOf(DocumentConstructorTypeNameNotFoundException.class)
-                .hasMessageContaining("DocumentConstructorType doctype-1 does not exist");
+                .isInstanceOf(DocumentConstructorTypeNotFoundException.class)
+                .hasMessageContaining("Document type with id 1 isn't found");
     }
 
     @Test
@@ -117,6 +117,8 @@ class DocumentServiceImplTest {
         document.setId(1L);
         document.setCreator(user);
         document.setFiles(List.of());
+        document.setRecordState(RecordState.ACTIVE);
+        document.setDocumentConstructorType(new DocumentConstructorType());
 
         given(documentRepository.findById(1L))
                 .willReturn(Optional.of(document));
@@ -146,6 +148,7 @@ class DocumentServiceImplTest {
         document.setCreator(user);
         document.setFiles(List.of());
         document.setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0));
+        document.setDocumentConstructorType(new DocumentConstructorType());
 
         Pageable pageable = PageRequest.of(0, 10);
         Page<Document> page = new PageImpl<>(List.of(document));
@@ -180,6 +183,7 @@ class DocumentServiceImplTest {
         document.setCreator(user);
         document.setFiles(List.of());
         document.setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0));
+        document.setDocumentConstructorType(new DocumentConstructorType());
 
         Pageable pageable = PageRequest.of(0, 10);
         Page<Document> page = new PageImpl<>(List.of(document));
@@ -237,7 +241,7 @@ class DocumentServiceImplTest {
                 .willReturn(true);
         given(documentRepository.findById(1L))
                 .willReturn(Optional.of(document));
-        given(typeRepository.findByName("doctype-1"))
+        given(typeRepository.findById(1L))
                 .willReturn(Optional.of(new DocumentConstructorType()));
 
         underTest.updateDocument("username", documentRequestDto, 1L);
@@ -292,8 +296,8 @@ class DocumentServiceImplTest {
                 .willReturn(Optional.of(document));
 
         assertThatThrownBy(() -> underTest.updateDocument("username", documentRequestDto, 1L))
-                .isInstanceOf(DocumentConstructorTypeNameNotFoundException.class)
-                .hasMessageContaining("DocumentConstructorType doctype-1 does not exist");
+                .isInstanceOf(DocumentConstructorTypeNotFoundException.class)
+                .hasMessageContaining("Document type with id 1 isn't found");
     }
 
     @Test
@@ -302,21 +306,27 @@ class DocumentServiceImplTest {
 
         Document document = requestDto.mapToEntity();
         document.setId(1L);
+        document.setRecordState(RecordState.ACTIVE);
 
-        given(documentRepository.existsById(1L))
-                .willReturn(true);
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
 
         underTest.deleteDocument("username", 1L);
 
-        verify(documentRepository).deleteById(any());
+        verify(documentRepository).save(any());
     }
 
     @Test
     void deleteDocument_CanThrowDocumentException() {
-        given(documentRepository.existsById(1L))
-                .willReturn(false);
+        Document document = new Document();
+        document.setRecordState(RecordState.DELETED);
+
+        given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
+                .willReturn(true);
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
 
         assertThatThrownBy(() -> underTest.deleteDocument("username", 1L))
                 .isInstanceOf(DocumentDoesNotExistException.class)
@@ -325,8 +335,6 @@ class DocumentServiceImplTest {
 
     @Test
     void deleteDocument_CanThrowUserException() {
-        given(documentRepository.existsById(1L))
-                .willReturn(true);
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(false);
 

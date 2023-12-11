@@ -1,8 +1,12 @@
 package com.example.caselabproject.models.entities;
 
+
 import com.example.caselabproject.models.enums.OrganizationStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -40,4 +44,7 @@ public class Organization {
     @Enumerated(EnumType.STRING)
     private OrganizationStatus status;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "subscription_id")
+    private Subscription subscription;
 }

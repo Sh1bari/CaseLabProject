@@ -6,6 +6,7 @@ import com.example.caselabproject.models.DTOs.response.document.DocumentCreateRe
 import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -74,6 +75,7 @@ public class DocumentController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<DocumentResponseDto> findDocument(
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentResponseDto responseDto = documentService.findDocument(id);
         return ResponseEntity
@@ -134,6 +136,7 @@ public class DocumentController {
     public ResponseEntity<DocumentResponseDto> updateDocument(
             Principal principal,
             @RequestBody @Valid DocumentRequestDto requestDto,
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         DocumentResponseDto responseDto = documentService.updateDocument(principal.getName(), requestDto, id);
         return ResponseEntity
@@ -155,6 +158,7 @@ public class DocumentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDocument(
             Principal principal,
+            @CheckOrganization(serviceClass = DocumentService.class)
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long id) {
         documentService.deleteDocument(principal.getName(), id);
         return ResponseEntity

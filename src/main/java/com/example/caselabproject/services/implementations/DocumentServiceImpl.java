@@ -76,8 +76,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public DocumentResponseDto findDocument(Long documentId) {
 
-        Document document = documentRepository.findById(documentId)
-                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+        Document document = findDocumentByIdInternal(documentId);
 
         if (document.getRecordState().equals(RecordState.DELETED)) {
             throw new DocumentDoesNotExistException(documentId);
@@ -123,8 +122,7 @@ public class DocumentServiceImpl implements DocumentService {
             throw new DocumentAccessException(username);
         }
 
-        Document updateDocument = documentRepository.findById(documentId)
-                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+        Document updateDocument = findDocumentByIdInternal(documentId);
 
         updateDocument.setUpdateDate(request.mapToEntity().getUpdateDate());
         updateDocument.setName(request.getName());
@@ -145,8 +143,7 @@ public class DocumentServiceImpl implements DocumentService {
             throw new DocumentAccessException(username);
         }
 
-        Document document = documentRepository.findById(documentId)
-                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
+        Document document = findDocumentByIdInternal(documentId);
 
         if (document.getRecordState().equals(RecordState.DELETED)) {
             throw new DocumentDoesNotExistException(documentId);
@@ -156,5 +153,16 @@ public class DocumentServiceImpl implements DocumentService {
         documentRepository.save(document);
 
         return true;
+    }
+
+    @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return findDocumentByIdInternal(entityId)
+                .getOrganization().getId();
+    }
+
+    private Document findDocumentByIdInternal(Long documentId) {
+        return documentRepository.findById(documentId)
+                .orElseThrow(() -> new DocumentDoesNotExistException(documentId));
     }
 }

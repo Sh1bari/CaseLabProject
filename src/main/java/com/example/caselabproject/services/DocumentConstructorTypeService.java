@@ -7,6 +7,7 @@ import com.example.caselabproject.models.DTOs.response.document.DocumentConstruc
 import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeRecoverResponseDto;
 import com.example.caselabproject.models.DTOs.response.document.DocumentConstructorTypeUpdateResponseDto;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface DocumentConstructorTypeService {
+public interface DocumentConstructorTypeService extends EntityOrganizationService {
 
     /**
      * Creates a new document type, that has unique identifier and name.
@@ -31,6 +32,7 @@ public interface DocumentConstructorTypeService {
      */
     @Transactional
     DocumentConstructorTypeUpdateResponseDto updateNameAndPrefix(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @Min(value = 1L, message = "id can't be less than 1") Long id,
             @Valid DocumentConstructorTypePatchRequestDto patch);
 
@@ -45,6 +47,7 @@ public interface DocumentConstructorTypeService {
      */
     @Transactional
     DocumentConstructorTypeUpdateResponseDto update(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @Min(value = 1L, message = "id can't be less than 1") Long id,
             @Valid DocumentConstructorTypeRequestDto typeRequestDto);
 
@@ -55,7 +58,9 @@ public interface DocumentConstructorTypeService {
      * @see com.example.caselabproject.models.entities.DocumentConstructorType
      */
     @Transactional
-    void deleteById(@Min(value = 1L, message = "id can't be less than 1") Long id);
+    void deleteById(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
+            @Min(value = 1L, message = "id can't be less than 1") Long id);
 
     /**
      * Recovers a deleted document type (found by <code>id</code>)
@@ -65,6 +70,7 @@ public interface DocumentConstructorTypeService {
      */
     @Transactional
     DocumentConstructorTypeRecoverResponseDto recoverById(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @Min(value = 1L, message = "id can't be less than 1") Long id);
 
     /**
@@ -74,6 +80,7 @@ public interface DocumentConstructorTypeService {
      */
     @Transactional
     DocumentConstructorTypeByIdResponseDto getById(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @Min(value = 1L, message = "id can't be less than 1") Long id);
 
     /**

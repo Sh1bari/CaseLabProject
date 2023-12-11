@@ -61,8 +61,7 @@ public class UserServiceImpl implements UserService {
         return UserGetByIdResponseDto.mapFromEntity(user);
     }
 
-    @Override
-    public boolean existById(Long id) {
+    private boolean existById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new UserNotFoundException(id);
@@ -71,6 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    // если подходит количество юзеров то не меняем тариф
     public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
         User user = userRequestDto.mapToEntity();
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
@@ -300,6 +300,12 @@ public class UserServiceImpl implements UserService {
         return res.stream()
                 .map(ApplicationItemGetByIdResponseDto::mapFromEntity)
                 .toList();
+    }
+
+    @Override
+    public Long getOrganizationIdByEntityId(Long entityId) {
+        return getUserById(entityId)
+                .getOrganization().getId();
     }
 
     private User getUserByUsername(String username) {

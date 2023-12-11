@@ -10,6 +10,8 @@ import com.example.caselabproject.models.DTOs.response.application.ApplicationIt
 import com.example.caselabproject.models.DTOs.response.application.CreateApplicationItemResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.RedirectApplicationItemResponseDto;
 import com.example.caselabproject.services.ApplicationItemService;
+import com.example.caselabproject.services.ApplicationService;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -58,9 +60,11 @@ public class ApplicationItemController {
                             schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/application/{id}/applicationItem")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<CreateApplicationItemResponseDto>> createApplicationItems(@PathVariable(name = "id") Long id,
-                                                                                         Principal principal,
-                                                                                         @RequestBody List<@Valid CreateApplicationItemRequestDto> applicationItemList) {
+    public ResponseEntity<List<CreateApplicationItemResponseDto>> createApplicationItems(
+            @CheckOrganization(serviceClass = ApplicationService.class)
+            @PathVariable(name = "id") Long id,
+            Principal principal,
+            @RequestBody List<@Valid CreateApplicationItemRequestDto> applicationItemList) {
         List<CreateApplicationItemResponseDto> res = applicationItemService.createApplicationItem(applicationItemList, id, principal.getName());
         return ResponseEntity
                 .created(URI.create("/api/application/" + id + "/applicationItem/"))
@@ -107,9 +111,11 @@ public class ApplicationItemController {
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/application/{applicationId}/applicationItem/{id}")
     @Secured("ROLE_USER")
-    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(@PathVariable(name = "applicationId") Long applicationId,
-                                                                                    @PathVariable(name = "id") Long id,
-                                                                                    Principal principal) {
+    public ResponseEntity<ApplicationItemGetByIdResponseDto> getApplicationItemById(
+            @CheckOrganization(serviceClass = ApplicationService.class)
+            @PathVariable(name = "applicationId") Long applicationId,
+            @PathVariable(name = "id") Long id,
+            Principal principal) {
         ApplicationItemGetByIdResponseDto res = applicationItemService.getApplicationItemById(applicationId, id, principal.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -132,9 +138,11 @@ public class ApplicationItemController {
                             schema = @Schema(implementation = AppError.class))})})
     @PostMapping("/application/{applicationId}/applicationItem/{id}/take")
     @Secured("ROLE_USER")
-    public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(@PathVariable(name = "applicationId") Long applicationId,
-                                                                              @PathVariable(name = "id") Long id,
-                                                                              Principal principal) {
+    public ResponseEntity<ApplicationItemTakeResponseDto> takeApplicationItem(
+            @CheckOrganization(serviceClass = ApplicationService.class)
+            @PathVariable(name = "applicationId") Long applicationId,
+            @PathVariable(name = "id") Long id,
+            Principal principal) {
         ApplicationItemTakeResponseDto res = applicationItemService.takeApplicationItem(applicationId, id, principal.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -158,6 +166,7 @@ public class ApplicationItemController {
     @PostMapping("/application/{applicationId}/applicationItem/{id}/vote")
     @Secured("ROLE_USER")
     public ResponseEntity<ApplicationItemVoteResponseDto> voteApplicationItem(
+            @CheckOrganization(serviceClass = ApplicationService.class)
             @PathVariable(name = "applicationId") Long applicationId,
             @PathVariable(name = "id") Long id,
             Principal principal,

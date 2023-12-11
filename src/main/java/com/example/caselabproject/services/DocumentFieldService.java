@@ -2,6 +2,7 @@ package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.document.DocumentFieldUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.document.DocumentResponseDto;
+import com.example.caselabproject.validation.annotations.CheckOrganization;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
@@ -19,6 +20,7 @@ public interface DocumentFieldService {
      */
     @Transactional
     DocumentResponseDto replaceDocumentFields(
+            @CheckOrganization(serviceClass = DocumentConstructorTypeService.class)
             @Min(value = 1L, message = "Id must be >= 1") Long documentId,
             @UniqueElements(message = "Fields must be unique")
             @Size(min = 1, message = "Request doesn't contain fields")
