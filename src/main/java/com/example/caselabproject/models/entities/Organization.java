@@ -40,6 +40,9 @@ public class Organization {
     private List<Application> applications;
 
     @OneToMany(mappedBy = "organization", orphanRemoval = true)
+    private List<Bill> bills;
+
+    @OneToMany(mappedBy = "organization", orphanRemoval = true)
     private List<Document> documents;
 
     @Enumerated(EnumType.STRING)

@@ -25,8 +25,8 @@ public class BillingLog {
     @ManyToOne
     @JoinColumn(name = "current_subscription_id")
     private Subscription currentSubscription;
-    
-    // @Basic
+
+    @Basic
     private LocalDateTime subscriptionStart;
     
     @ManyToOne
