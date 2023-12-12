@@ -1,8 +1,7 @@
-package com.example.caselabproject.models.DTOs.response.document;
+package com.example.caselabproject.models.DTOs.response;
 
 import com.example.caselabproject.models.entities.Document;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,9 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Description:
+ *
+ * @author Vladimir Krasnov
+ */
 @Data
 @Builder
-public class DocumentCreateResponseDto {
+public class DocumentGetAllResponse {
 
     private Long id;
 
@@ -24,37 +28,27 @@ public class DocumentCreateResponseDto {
 
     private Long creatorId;
 
-    private Map<String, String> fieldsValues;
+    public static DocumentGetAllResponse mapFromEntity(Document document) {
 
-    public static DocumentCreateResponseDto mapFromEntity(Document document) {
-        Map<String, String> stringFieldsValues = new HashMap<>();
-        document.getFieldsValues().forEach(
-                (field, value) -> stringFieldsValues.put(field.getName(), value));
-
-        return DocumentCreateResponseDto.builder()
+        return DocumentGetAllResponse.builder()
                 .id(document.getId())
                 .name(document.getName())
                 .creatorId(document.getCreator().getId())
                 .creationDate(document.getCreationDate())
                 .updateDate(document.getUpdateDate())
                 .creatorId(document.getCreator().getId())
-                .fieldsValues(stringFieldsValues)
                 .build();
     }
 
-    public static List<DocumentCreateResponseDto> mapFromListOfEntities(List<Document> document) {
-        List<DocumentCreateResponseDto> res = new ArrayList<>();
+    public static List<DocumentGetAllResponse> mapFromListOfEntities(List<Document> document) {
+        List<DocumentGetAllResponse> res = new ArrayList<>();
         document.forEach(o -> {
-            Map<String, String> stringFieldsValues = new HashMap<>();
-            o.getFieldsValues().forEach(
-                    (field, value) -> stringFieldsValues.put(field.getName(), value));
-            res.add(DocumentCreateResponseDto.builder()
+            res.add(DocumentGetAllResponse.builder()
                     .id(o.getId())
                     .name(o.getName())
                     .updateDate(o.getUpdateDate())
                     .creatorId(o.getCreator().getId())
                     .creationDate(o.getCreationDate())
-                    .fieldsValues(stringFieldsValues)
                     .build());
         });
         return res;

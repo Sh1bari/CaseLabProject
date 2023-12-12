@@ -43,7 +43,7 @@ public class UserUpdateRequestDto {
                 .authUserInfo(AuthUserInfo.builder()
                         .email(email)
                         .build())
-                .isDirector(isDirector)
+                .isDirector(false)
                 .personalUserInfo(PersonalUserInfo.builder()
                         .firstName(firstName)
                         .lastName(lastName)

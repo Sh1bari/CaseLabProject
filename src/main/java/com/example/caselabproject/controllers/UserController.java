@@ -4,9 +4,9 @@ import com.example.caselabproject.exceptions.AppError;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
@@ -85,6 +85,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserGetByIdResponseDto.class))})})
     @GetMapping("/me")
+    @Secured("ROLE_USER")
     public ResponseEntity<UserGetByIdResponseDto> getMyId(
             Principal principal) {
         UserGetByIdResponseDto userResponseDto = userService.getByUsername(principal.getName());
@@ -227,6 +228,33 @@ public class UserController {
                 .body(res);
     }
 
+    /**
+     * Appoints new director by id, transfers application items of former director to new director.
+     *
+     * @param departmentId id of department of former director and new director
+     * @param userId       new director's id
+     * @return the response entity
+     * @author Igor Golovkov
+     */
+    @Operation(summary = "Appoints new director by his and department's id, transfers to him application items of former director if he exists, secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Director is appointed",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User with given id not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppError.class))})})
+    @PutMapping("department/{departmentId}/user/{userId}/appointDirector")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<UserUpdateResponseDto> appointDirectorById(
+            @PathVariable("departmentId") @Min(value = 1L, message = "Department id can't be less than 1") Long departmentId,
+            @PathVariable("userId") @Min(value = 1L, message = "User id can't be less than 1") Long userId) {
+        UserUpdateResponseDto userUpdateResponseDto = userService.appointDirector(departmentId, userId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userUpdateResponseDto);
+    }
+
 
     /**
      * Gets docs by creator id.
@@ -255,8 +283,7 @@ public class UserController {
                             schema = @Schema(implementation = AppError.class))})})
     @GetMapping("/{id}/docs")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<DocumentCreateResponseDto>> getDocsByCreatorId(
-            @CheckOrganization(serviceClass = UserService.class)
+    public ResponseEntity<List<DocumentGetAllResponse>> getDocsByCreatorId(
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long creatorId,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "dateFrom", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime creationDateFrom,
@@ -267,7 +294,7 @@ public class UserController {
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
             @RequestParam(name = "page", required = false, defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page
     ) {
-        List<DocumentCreateResponseDto> documentCreateResponseDto = userService.findDocsByFiltersByPage(
+        List<DocumentGetAllResponse> documentCreateResponseDto = userService.findDocsByFiltersByPage(
                 creatorId,
                 name,
                 creationDateFrom,
@@ -358,8 +385,9 @@ public class UserController {
             @CheckOrganization(serviceClass = UserService.class)
             @PathVariable("id") @Min(value = 1L, message = "Id can't be less than 1") Long id,
             @RequestParam(name = "limit", required = false, defaultValue = "30") @Min(value = 1L, message = "Page limit can't be less than 1") Integer limit,
-            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page) {
-        List<ApplicationFindResponseDto> applicationFindResponseDto = userService.findApplicationsByCreatorIdByPage(id, PageRequest.of(page, limit));
+            @RequestParam(name = "page", defaultValue = "0") @Min(value = 0L, message = "Page number can't be less than 0") Integer page,
+            @RequestParam(name = "recordState", required = false, defaultValue = "ACTIVE") RecordState recordState) {
+        List<ApplicationFindResponseDto> applicationFindResponseDto = userService.findApplicationsByCreatorIdByPage(id, recordState, PageRequest.of(page, limit));
         if (applicationFindResponseDto.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

@@ -75,7 +75,7 @@ public interface DepartmentService extends EntityOrganizationService {
      * DTO, отображающее обновленное состояние отдела.
      * </p>
      *
-     * @param departmentId         Идентификатор отдела, который нужно обновить.
+     * @param departmentId Идентификатор отдела, который нужно обновить.
      * @param departmentRequestDto DTO, содержащий новое имя для отдела.
      * @return {@link DepartmentUpdateResponseDto} DTO, отображающее обновленное состояние отдела.
      * @throws com.example.caselabproject.exceptions.department.DepartmentNotFoundException если отдел с данным идентификатором не найден.

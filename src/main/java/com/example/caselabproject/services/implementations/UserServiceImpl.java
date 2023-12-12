@@ -2,11 +2,13 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
 import com.example.caselabproject.exceptions.user.UserExistsException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdatePasswordRequest;
 import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
+import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
@@ -31,6 +33,7 @@ import org.springframework.validation.annotation.Validated;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
@@ -44,7 +47,8 @@ public class UserServiceImpl implements UserService {
     private final DocumentRepository documentRepository;
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
-    private final DepartmentRepository departmentRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final DepartmentRepository departmentRepository;
     private final ApplicationPageRepository applicationPageRepository;
     private final ApplicationItemRepository applicationItemRepo;
     private final ApplicationItemPageRepository applicationItemPageRepo;
@@ -65,7 +69,7 @@ public class UserServiceImpl implements UserService {
         return UserGetByIdResponseDto.mapFromEntity(user);
     }
 
-    private boolean existById(Long id) {
+    public boolean existById(Long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new UserNotFoundException(id);
@@ -104,7 +108,7 @@ public class UserServiceImpl implements UserService {
             user.setUsername(userUpdateRequestDto.getUsername());
         }
         if (userUpdateRequestDto.getDepartmentId() != null) {
-            user.setDepartment(departmentRepo.findById(userUpdateRequestDto.getDepartmentId())
+            user.setDepartment(departmentRepository.findById(userUpdateRequestDto.getDepartmentId())
                     .orElseThrow(() -> new DepartmentNotFoundException(userUpdateRequestDto.getDepartmentId())));
         }
         if (userUpdateRequestDto.getRoles() != null) {
@@ -146,10 +150,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserUpdateResponseDto updatePasswordById(Long id, UserUpdatePasswordRequest req) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
-        user.getAuthUserInfo().setPassword(passwordEncoder.encode(req.getPassword()));
-        userRepository.save(user);
+        User user = getUserById(id);
+        user.getAuthUserInfo().setPassword(req.getPassword());
         return UserUpdateResponseDto.mapFromEntity(user);
     }
 
@@ -157,6 +159,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        if (user.getIsDirector()) {
+            long amountOfActiveUsersInDepartment = user.getDepartment()
+                    .getUsers()
+                    .stream()
+                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
+                    .count();
+            if (amountOfActiveUsersInDepartment != 1) {
+                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
+            }
+        }
         user.setRecordState(RecordState.DELETED);
         userRepository.save(user);
         return UserDeleteResponseDto.mapFromEntity(user);
@@ -171,25 +183,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserUpdateResponseDto appointDirector(Long departmentId, Long userId) {
+        Optional<User> formerDirector = userRepository.findByIsDirectorAndDepartment_Id(true, departmentId);
+        User newDirector = userRepository.findByIdAndDepartment_id(userId, departmentId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        newDirector.setIsDirector(true);
+        if (formerDirector.isPresent()) {
+            formerDirector.get().setIsDirector(false);
+            List<ApplicationItem> activeApplicationItems = formerDirector.get().getApplicationItems()
+                    .stream()
+                    .filter(applicationItem -> applicationItem.getRecordState() == RecordState.ACTIVE)
+                    .toList();
+            newDirector.setApplicationItems(activeApplicationItems);
+        }
+        return UserUpdateResponseDto.mapFromEntity(newDirector);
+    }
+
+
+    @Override
     @Transactional
-    public List<DocumentCreateResponseDto> findDocsByFiltersByPage(Long creatorId,
-                                                                   String name,
-                                                                   LocalDateTime creationDateFrom,
-                                                                   LocalDateTime creationDateTo,
-                                                                   Long documentConstructorTypeId,
-                                                                   RecordState recordState,
-                                                                   Pageable pageable) {
+    public List<DocumentGetAllResponse> findDocsByFiltersByPage(
+            Long creatorId,
+            String name,
+            LocalDateTime creationDateFrom,
+            LocalDateTime creationDateTo,
+            Long documentConstructorTypeId,
+            RecordState recordState,
+            Pageable pageable) {
         if (existById(creatorId)) {
-            List<DocumentCreateResponseDto> documentCreateResponseDtoList = DocumentCreateResponseDto
-                    .mapFromListOfEntities(documentPageRepository
-                            .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
-                                    creatorId,
-                                    name,
-                                    creationDateFrom,
-                                    creationDateTo,
-                                    documentConstructorTypeId,
-                                    recordState,
-                                    pageable).toList());
+            List<Document> res;
+
+            if (documentConstructorTypeId != null) {
+                // Фильтр по documentConstructorTypeId, если он не null
+                res = documentPageRepository
+                        .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
+                                creatorId,
+                                name,
+                                creationDateFrom,
+                                creationDateTo,
+                                documentConstructorTypeId,
+                                recordState,
+                                pageable).toList();
+            } else {
+                // Если documentConstructorTypeId == null, игнорируем фильтр
+                res = documentPageRepository
+                        .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
+                                creatorId,
+                                name,
+                                creationDateFrom,
+                                creationDateTo,
+                                recordState,
+                                pageable).toList();
+            }
+
+            List<DocumentGetAllResponse> documentCreateResponseDtoList = DocumentGetAllResponse
+                    .mapFromListOfEntities(res);
             return documentCreateResponseDtoList;
         } else {
             throw new UserNotFoundException(creatorId);
@@ -218,7 +266,7 @@ public class UserServiceImpl implements UserService {
                                 email,
                                 pageable).toList());
         if (!departmentName.isEmpty()) {
-            Department department = departmentRepo
+            Department department = departmentRepository
                     .findByName(departmentName)
                     .orElseThrow(() -> new DepartmentNotFoundException(departmentName));
             userCreateResponseDtoList = userCreateResponseDtoList
@@ -230,10 +278,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, Pageable pageable) {
+    public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, RecordState recordState, Pageable pageable) {
         if (existById(id)) {
             return ApplicationFindResponseDto
-                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_id(id, pageable).toList());
+                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_idAndRecordState(id, recordState, pageable).toList());
         } else throw new UserNotFoundException(id);
     }
 
@@ -259,7 +307,7 @@ public class UserServiceImpl implements UserService {
                 !userById.getDepartment().getId().equals(userByUsername.getDepartment().getId())) {
             throw new ApplicationItemPermissionException();
         }
-        Page<ApplicationItem> applicationItemPage = applicationItemPageRepo
+        Page<ApplicationItem> applicationItemPage = applicationItemPageRepository
                 .findAllByToUser_idAndRecordStateAndApplication_NameContainsIgnoreCase(
                         id,
                         recordState,

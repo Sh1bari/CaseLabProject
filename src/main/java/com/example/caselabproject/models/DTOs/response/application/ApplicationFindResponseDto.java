@@ -5,6 +5,7 @@ import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.entities.ApplicationItem;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.enums.ApplicationStatus;
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class ApplicationFindResponseDto {
     private LocalDateTime resultDate;
     private Long creatorId;
     private Long documentId;
+    private RecordState state;
     private ApplicationStatus applicationStatus;
     private List<ApplicationItemDto> applicationItems;
 
@@ -43,6 +45,7 @@ public class ApplicationFindResponseDto {
                 .id(application.getId())
                 .name(application.getName())
                 .documentId(documentId)
+                .state(application.getRecordState())
                 .applicationStatus(application.getApplicationStatus())
                 .resultDate(application.getResultDate())
                 .creationDate(application.getCreationDate())
@@ -70,6 +73,7 @@ public class ApplicationFindResponseDto {
                     .id(o.getId())
                     .name(o.getName())
                     .documentId(documentId)
+                    .state(o.getRecordState())
                     .creationDate(o.getCreationDate())
                     .deadlineDate(o.getDeadlineDate())
                     .resultDate(o.getResultDate())

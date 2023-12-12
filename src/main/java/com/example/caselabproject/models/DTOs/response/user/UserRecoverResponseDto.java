@@ -3,6 +3,7 @@ package com.example.caselabproject.models.DTOs.response.user;
 import com.example.caselabproject.models.DTOs.RoleDto;
 import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.RecordState;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,6 +24,7 @@ public class UserRecoverResponseDto {
     private String username;
     private String email;
     private Department department;
+    private RecordState recordState;
     private List<RoleDto> roles;
     private String firstName;
     private String lastName;
@@ -35,6 +37,7 @@ public class UserRecoverResponseDto {
                 .id(user.getId())
                 .position(user.getPosition())
                 .username(user.getUsername())
+                .recordState(RecordState.ACTIVE)
                 .email(user.getAuthUserInfo().getEmail())
                 .department(user.getDepartment())
                 .isDirector(user.getIsDirector())
