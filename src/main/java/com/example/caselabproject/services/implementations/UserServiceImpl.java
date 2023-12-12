@@ -160,7 +160,8 @@ public class UserServiceImpl implements UserService {
                     .stream()
                     .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
                     .count();
-            if (amountOfActiveUsersInDepartment != 1) {
+            //TODO он не дожен быть последним
+            if (amountOfActiveUsersInDepartment == 1) {
                 throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
             }
         }
