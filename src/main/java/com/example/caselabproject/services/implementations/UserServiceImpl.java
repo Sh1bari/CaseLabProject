@@ -152,6 +152,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
+        // Дойти до первого активного не-директора findByIsDirectorAndRecordState false/active : List . findFirst
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         if (user.getIsDirector()) {
             long amountOfActiveUsersInDepartment = user.getDepartment()
@@ -186,10 +187,12 @@ public class UserServiceImpl implements UserService {
             formerDirector.get().setIsDirector(false);
             List<ApplicationItem> activeApplicationItems = formerDirector.get().getApplicationItems()
                     .stream()
-                    .filter(applicationItem -> applicationItem.getRecordState() == RecordState.ACTIVE)
+                    .filter(applicationItem -> applicationItem.getRecordState() == RecordState.ACTIVE
+                    && applicationItem.getStatus() == ApplicationItemStatus.PENDING)
                     .toList();
-            newDirector.setApplicationItems(activeApplicationItems);
+            newDirector.getApplicationItems().addAll(activeApplicationItems);
         }
+        userRepository.save(newDirector);
         return UserUpdateResponseDto.mapFromEntity(newDirector);
     }
 
