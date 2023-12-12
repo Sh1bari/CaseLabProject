@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
     private final DocumentRepository documentRepository;
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepository;
     private final ApplicationPageRepository applicationPageRepository;
     private final ApplicationItemRepository applicationItemRepo;
@@ -159,6 +158,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        if (user.getIsDirector()) {
+            long amountOfActiveUsersInDepartment = user.getDepartment()
+                    .getUsers()
+                    .stream()
+                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
+                    .count();
+            if (amountOfActiveUsersInDepartment != 1) {
+                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
+            }
+        }
         if (user.getIsDirector()) {
             long amountOfActiveUsersInDepartment = user.getDepartment()
                     .getUsers()
@@ -307,7 +316,7 @@ public class UserServiceImpl implements UserService {
                 !userById.getDepartment().getId().equals(userByUsername.getDepartment().getId())) {
             throw new ApplicationItemPermissionException();
         }
-        Page<ApplicationItem> applicationItemPage = applicationItemPageRepository
+        Page<ApplicationItem> applicationItemPage = applicationItemPageRepo
                 .findAllByToUser_idAndRecordStateAndApplication_NameContainsIgnoreCase(
                         id,
                         recordState,
