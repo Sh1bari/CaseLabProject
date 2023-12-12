@@ -3,6 +3,7 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
+import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
 import com.example.caselabproject.exceptions.user.UserExistsException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
@@ -158,6 +159,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        if (user.getIsDirector()) {
+            long amountOfActiveUsersInDepartment = user.getDepartment()
+                    .getUsers()
+                    .stream()
+                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
+                    .count();
+            if (amountOfActiveUsersInDepartment != 1) {
+                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
+            }
+        }
         if (user.getIsDirector()) {
             long amountOfActiveUsersInDepartment = user.getDepartment()
                     .getUsers()
