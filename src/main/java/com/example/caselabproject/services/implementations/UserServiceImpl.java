@@ -3,7 +3,6 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
 import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
-import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
 import com.example.caselabproject.exceptions.user.UserExistsException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.user.UserCreateRequestDto;
@@ -12,14 +11,12 @@ import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.models.enums.SubscriptionName;
 import com.example.caselabproject.repositories.*;
-import com.example.caselabproject.services.OrganizationService;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -45,14 +42,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserPageRepository userPageRepository;
-    private final DocumentRepository documentRepository;
     private final DocumentPageRepository documentPageRepository;
     private final RoleService roleService;
     private final DepartmentRepository departmentRepository;
     private final ApplicationPageRepository applicationPageRepository;
-    private final ApplicationItemRepository applicationItemRepo;
     private final ApplicationItemPageRepository applicationItemPageRepo;
-    private final OrganizationService organizationService;
     private final OrganizationRepository organizationRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final BillingLogRepository billingLogRepository;
@@ -159,26 +153,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        if (user.getIsDirector()) {
-            long amountOfActiveUsersInDepartment = user.getDepartment()
-                    .getUsers()
-                    .stream()
-                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
-                    .count();
-            if (amountOfActiveUsersInDepartment != 1) {
-                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
-            }
-        }
-        if (user.getIsDirector()) {
-            long amountOfActiveUsersInDepartment = user.getDepartment()
-                    .getUsers()
-                    .stream()
-                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
-                    .count();
-            if (amountOfActiveUsersInDepartment != 1) {
-                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
-            }
-        }
         if (user.getIsDirector()) {
             long amountOfActiveUsersInDepartment = user.getDepartment()
                     .getUsers()
