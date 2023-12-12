@@ -33,7 +33,7 @@ public interface UserService extends EntityOrganizationService {
     UserGetByIdResponseDto getByUsername(@NotBlank(message = "Username cant be null") String username);
 
     @Transactional
-    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto);
+    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto,String username);
 
     @Transactional
     UserUpdateResponseDto updateById(

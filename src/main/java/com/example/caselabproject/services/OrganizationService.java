@@ -1,13 +1,12 @@
 package com.example.caselabproject.services;
 
-import com.example.caselabproject.models.entities.Subscription;
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationSubscriptionChangeRequestDto;
+import com.example.caselabproject.models.DTOs.response.organization.OrganizationSubscriptionChangeResponseDto;
 
 public interface OrganizationService {
 
-    Subscription changeSubscription();
+    public OrganizationSubscriptionChangeResponseDto raiseSubscription(OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto);
 
-    Integer getBill();
-
-    Integer getEmployees();
+    public OrganizationSubscriptionChangeResponseDto lowerSubscription(OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto);
 
 }

@@ -112,8 +112,9 @@ public class UserController {
     @PostMapping("/")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserCreateResponseDto> createUser(
-            @RequestBody @Valid UserCreateRequestDto userRequestDto) {
-        UserCreateResponseDto userResponseDto = userService.create(userRequestDto);
+            @RequestBody @Valid UserCreateRequestDto userRequestDto,
+            Principal principal) {
+        UserCreateResponseDto userResponseDto = userService.create(userRequestDto,principal.getName());
         return ResponseEntity
                 .created(URI.create("api/user/" + userResponseDto.getId()))
                 .body(userResponseDto);

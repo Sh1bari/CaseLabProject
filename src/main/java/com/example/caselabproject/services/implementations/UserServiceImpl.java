@@ -11,12 +11,12 @@ import com.example.caselabproject.models.DTOs.response.application.ApplicationFi
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.document.DocumentCreateResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.*;
-import com.example.caselabproject.models.entities.ApplicationItem;
-import com.example.caselabproject.models.entities.Department;
-import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
+import com.example.caselabproject.models.enums.SubscriptionName;
 import com.example.caselabproject.repositories.*;
+import com.example.caselabproject.services.OrganizationService;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +48,10 @@ public class UserServiceImpl implements UserService {
     private final ApplicationPageRepository applicationPageRepository;
     private final ApplicationItemRepository applicationItemRepo;
     private final ApplicationItemPageRepository applicationItemPageRepo;
+    private final OrganizationService organizationService;
+    private final OrganizationRepository organizationRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final BillingLogRepository billingLogRepository;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
@@ -69,9 +73,15 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+
     @Override
     // если подходит количество юзеров то не меняем тариф
-    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto) {
+    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto, String username) {
+        User userAdmin = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        checkSubscription(userAdmin);
+
         User user = userRequestDto.mapToEntity();
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
         user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
@@ -285,5 +295,39 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         return user;
+    }
+
+    private void checkSubscription(User userAdmin) {
+        Organization organization = userAdmin.getOrganization();
+        Subscription currentSubscription = organization.getSubscription();
+        Integer employees = organization.getEmployees().size();
+        Integer amountOfPeopleInCurrentSubscription = organization.getSubscription().getAmountOfPeople();
+        BillingLog billingLog = new BillingLog();
+        if (employees.equals(amountOfPeopleInCurrentSubscription)) {
+            switch (currentSubscription.getSubscriptionName()) {
+                case DEFAULT -> setSubscription(billingLog, currentSubscription, organization, SubscriptionName.BASIC);
+                case BASIC -> setSubscription(billingLog, currentSubscription, organization, SubscriptionName.STANDARD);
+                case STANDARD ->
+                        setSubscription(billingLog, currentSubscription, organization, SubscriptionName.ENTERPRISE);
+            }
+
+        }
+
+    }
+
+    private void setSubscription(BillingLog billingLog, Subscription currentSubscription, Organization organization, SubscriptionName subscriptionName) {
+        billingLog.setLastSubscription(currentSubscription);
+
+        currentSubscription.setSubscriptionName(subscriptionName);
+
+        billingLog.setCurrentSubscription(currentSubscription);
+        billingLog.setSubscriptionStart(LocalDateTime.now());
+        billingLog.setOrganizationId(organization);
+
+
+        organization.setSubscription(currentSubscription);
+        organizationRepository.save(organization);
+        subscriptionRepository.save(currentSubscription);
+        billingLogRepository.save(billingLog);
     }
 }
