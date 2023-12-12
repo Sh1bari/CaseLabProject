@@ -115,7 +115,7 @@ public class UserController {
     public ResponseEntity<UserCreateResponseDto> createUser(
             @RequestBody @Valid UserCreateRequestDto userRequestDto,
             Principal principal) {
-        UserCreateResponseDto userResponseDto = userService.create(userRequestDto,principal.getName());
+        UserCreateResponseDto userResponseDto = userService.create(userRequestDto, principal.getName());
         return ResponseEntity
                 .created(URI.create("api/user/" + userResponseDto.getId()))
                 .body(userResponseDto);
@@ -190,7 +190,10 @@ public class UserController {
                             schema = @Schema(implementation = ResponseEntity.class))}),
             @ApiResponse(responseCode = "404", description = "User with given id not found",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AppError.class))})})
+                            schema = @Schema(implementation = AppError.class))}),
+            @ApiResponse(responseCode = "403", description = "Director is not last active user in department",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
