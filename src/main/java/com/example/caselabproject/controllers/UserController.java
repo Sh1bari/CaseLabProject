@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -194,6 +195,7 @@ public class UserController {
             @ApiResponse(responseCode = "403", description = "Director is not last active user in department",
                     content = {@Content(mediaType = "application/json")})
     })
+    @PreAuthorize("@userSecurityService.canDeleteUserById(#id)")
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(
@@ -220,6 +222,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User with given id not found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
+    @PreAuthorize("userSecurityService.canRecoverUserById(#id)")
     @PostMapping("/{id}/recover")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserRecoverResponseDto> recoverUserById(
@@ -247,6 +250,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User with given id not found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = AppError.class))})})
+    @PreAuthorize("@userSecurityService.canAppointDirector(#userId, #departmentId)")
     @PutMapping("department/{departmentId}/user/{userId}/appointDirector")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserUpdateResponseDto> appointDirectorById(

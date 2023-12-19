@@ -37,7 +37,7 @@ public interface UserService extends EntityOrganizationService {
     boolean existById(Long id);
 
     @Transactional
-    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto,String username);
+    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto, String username);
 
     @Transactional
     UserUpdateResponseDto updateById(
