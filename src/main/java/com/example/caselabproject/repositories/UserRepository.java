@@ -20,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByIsDirectorAndDepartment_Id(Boolean isDirector, Long id);
 
+    List<User> findByIsDirectorAndRecordStateAndDepartment_Id(Boolean isDirector, RecordState recordState, Long departmentId);
+
     boolean existsByUsernameAndDocuments_id(String username, Long documentId);
 
     Page<User> findByRecordStateAndDepartment_Id(Pageable pageable, RecordState recordState, Long departmentId);

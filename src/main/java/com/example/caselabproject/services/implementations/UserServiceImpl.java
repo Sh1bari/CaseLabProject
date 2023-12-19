@@ -152,17 +152,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDeleteResponseDto deleteById(Long id) {
-        // Дойти до первого активного не-директора findByIsDirectorAndRecordState false/active : List . findFirst
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         if (user.getIsDirector()) {
-            long amountOfActiveUsersInDepartment = user.getDepartment()
-                    .getUsers()
-                    .stream()
-                    .filter(userOfDepartment -> userOfDepartment.getRecordState().equals(RecordState.ACTIVE))
-                    .count();
-            //TODO он не дожен быть последним
-            if (amountOfActiveUsersInDepartment == 1) {
-                throw new DirectorIsNotLastException(user.getDepartment().getId(), user.getId());
+            Long departmentIdOfDirector = user.getDepartment().getId();
+            List<User> activeUsersOfDepartment = userRepository.findByIsDirectorAndRecordStateAndDepartment_Id(
+                    false,
+                    RecordState.ACTIVE,
+                    departmentIdOfDirector);
+            if (!activeUsersOfDepartment.isEmpty()) {
+                throw new DirectorIsNotLastException(departmentIdOfDirector, id);
             }
         }
         user.setRecordState(RecordState.DELETED);
@@ -189,7 +187,7 @@ public class UserServiceImpl implements UserService {
             List<ApplicationItem> activeApplicationItems = formerDirector.get().getApplicationItems()
                     .stream()
                     .filter(applicationItem -> applicationItem.getRecordState() == RecordState.ACTIVE
-                    && applicationItem.getStatus() == ApplicationItemStatus.PENDING)
+                            && applicationItem.getStatus() == ApplicationItemStatus.PENDING)
                     .toList();
             newDirector.getApplicationItems().addAll(activeApplicationItems);
         }

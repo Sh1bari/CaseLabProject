@@ -15,23 +15,20 @@ public class UserSecurityService {
 
     UserRepository userRepository;
 
-    private boolean canDeleteUserById(@Min(value = 1L, message = "Id can't be less than 1") Long id) {
+    public boolean canDeleteUserById(@Min(value = 1L, message = "Id can't be less than 1") Long id) {
         User user = getUserById(id);
         return !user.getRecordState().equals(RecordState.DELETED);
     }
 
-    private boolean canRecoverUserById(@Min(value = 1L, message = "Id can't be less than 1") Long id) {
+    public boolean canRecoverUserById(@Min(value = 1L, message = "Id can't be less than 1") Long id) {
         User user = getUserById(id);
         return !user.getRecordState().equals(RecordState.ACTIVE);
     }
 
-    private boolean canAppointDirector(@Min(value = 1L, message = "Id can't be less than 1") Long userId, @Min(value = 1L, message = "Id can't be less than 1") Long departmentId) {
+    public boolean canAppointDirector(@Min(value = 1L, message = "Id can't be less than 1") Long userId,
+                                      @Min(value = 1L, message = "Id can't be less than 1") Long departmentId) {
         User user = getDirectorByDepartment(departmentId);
         return !user.getId().equals(userId);
-    }
-
-    private User getUserByUserName(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
     private User getUserById(@Min(value = 1L, message = "Id can't be less than 1") Long id) {
@@ -39,6 +36,7 @@ public class UserSecurityService {
     }
 
     private User getDirectorByDepartment(@Min(value = 1L, message = "Id can't be less than 1") Long departmentId) {
-        return userRepository.findByIsDirectorAndDepartment_Id(true, departmentId).orElseThrow(() -> new DepartmentNotFoundException(departmentId));
+        return userRepository.findByIsDirectorAndDepartment_Id(true, departmentId)
+                .orElseThrow(() -> new DepartmentNotFoundException(departmentId));
     }
 }
