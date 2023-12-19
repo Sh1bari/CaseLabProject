@@ -16,6 +16,7 @@ import com.example.caselabproject.services.FileService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +41,7 @@ public class FileServiceImpl implements FileService {
     private final UserRepository userRepository;
 
     @Override
-    public List<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
+    public Page<FileResponseDto> addFile(String username, MultipartFile multipartFile, Long documentId) {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
             throw new DocumentAccessException(username);
@@ -77,11 +78,11 @@ public class FileServiceImpl implements FileService {
             throw new FileConnectToDocumentException();
         }
 
-        return document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList();
+        return new PageImpl<>(document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList());
     }
 
     @Override
-    public List<FileResponseDto> getFiles(Long documentId, Pageable pageable) {
+    public Page<FileResponseDto> getFiles(Long documentId, Pageable pageable) {
 
         Page<File> files = fileRepository.findAllByDocument_Id(documentId, pageable);
 
@@ -89,7 +90,7 @@ public class FileServiceImpl implements FileService {
             throw new NoFilesPageFoundException(pageable.getPageNumber());
         }
 
-        return files.map(FileResponseDto::mapFromEntity).toList();
+        return files.map(FileResponseDto::mapFromEntity);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileResponseDto> updateFile(String username, MultipartFile file,
+    public Page<FileResponseDto> updateFile(String username, MultipartFile file,
                                             Long documentId, Long fileId) {
 
         if (!userRepository.existsByUsernameAndDocuments_id(username, documentId)) {
@@ -144,7 +145,7 @@ public class FileServiceImpl implements FileService {
 
         documentRepository.save(document);
 
-        return document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList();
+        return new PageImpl<>(document.getFiles().stream().map(FileResponseDto::mapFromEntity).toList());
     }
 
     @Override

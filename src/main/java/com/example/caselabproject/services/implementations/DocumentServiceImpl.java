@@ -87,7 +87,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<DocumentResponseDto> filteredDocument(Pageable pageable,
+    public Page<DocumentResponseDto> filteredDocument(Pageable pageable,
                                                       String name,
                                                       RecordState state,
                                                       LocalDateTime start,
@@ -108,7 +108,7 @@ public class DocumentServiceImpl implements DocumentService {
             throw new NoDocumentPageFoundException(pageable.getPageNumber());
         }
 
-        return documents.map(DocumentResponseDto::mapFromEntity).toList();
+        return documents.map(DocumentResponseDto::mapFromEntity);
     }
 
 

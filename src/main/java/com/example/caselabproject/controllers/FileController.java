@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
@@ -53,11 +54,11 @@ public class FileController {
     })
     @PostMapping("/")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<FileResponseDto>> addFileToDocument(
+    public ResponseEntity<Page<FileResponseDto>> addFileToDocument(
             @RequestParam("file") MultipartFile file,
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId) {
-        List<FileResponseDto> response = fileService.addFile(principal.getName(), file, docId);
+        Page<FileResponseDto> response = fileService.addFile(principal.getName(), file, docId);
         return ResponseEntity
                 .created(URI.create("/api/doc/" + docId + "/file/"))
                 .body(response);
@@ -83,11 +84,16 @@ public class FileController {
                     })
     })
     @GetMapping("/")
-    public ResponseEntity<List<FileResponseDto>> getFilesByDocumentId(
+    public ResponseEntity<Page<FileResponseDto>> getFilesByDocumentId(
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "offset", required = false, defaultValue = "20") Integer offset) {
-        List<FileResponseDto> response = fileService.getFiles(docId, PageRequest.of(page, offset));
+        Page<FileResponseDto> response = fileService.getFiles(docId, PageRequest.of(page, offset));
+        if (response.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -140,12 +146,12 @@ public class FileController {
     })
     @PutMapping("/{fileId}")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<FileResponseDto>> updateFileByDocumentId(
+    public ResponseEntity<Page<FileResponseDto>> updateFileByDocumentId(
             @RequestParam("file") MultipartFile file,
             Principal principal,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long docId,
             @PathVariable @Min(value = 1L, message = "Id can't be less than 1") Long fileId) {
-        List<FileResponseDto> response = fileService.updateFile(principal.getName(), file, docId, fileId);
+        Page<FileResponseDto> response = fileService.updateFile(principal.getName(), file, docId, fileId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);

@@ -9,13 +9,13 @@ import com.example.caselabproject.models.DTOs.response.FileDownloadResponseDto;
 import com.example.caselabproject.models.DTOs.response.FileResponseDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Validated
 public interface FileService {
@@ -31,7 +31,7 @@ public interface FileService {
      * @throws FileConnectToDocumentException если добавить файл к документу не получилось
      */
     @Transactional
-    List<FileResponseDto> addFile(@NotBlank(message = "Username cant be blank.") String username, MultipartFile file,
+    Page<FileResponseDto> addFile(@NotBlank(message = "Username cant be blank.") String username, MultipartFile file,
                                   @Min(value = 1L, message = "Id can't be less than 1") Long documentId);
 
     /**
@@ -42,7 +42,7 @@ public interface FileService {
      * @throws NoFilesPageFoundException если файлов не найдено на странице.
      */
     @Transactional
-    List<FileResponseDto> getFiles(@Min(value = 1L, message = "Id can't be less than 1") Long documentId, Pageable pageable);
+    Page<FileResponseDto> getFiles(@Min(value = 1L, message = "Id can't be less than 1") Long documentId, Pageable pageable);
 
     /**
      * Позволяет скачать файл по ID файла и по ID документа, к которому он привязан.
@@ -67,7 +67,7 @@ public interface FileService {
      * @throws FileNotExistException если файл с указанным ID не существует.
      */
     @Transactional
-    List<FileResponseDto> updateFile(String username, MultipartFile file,
+    Page<FileResponseDto> updateFile(String username, MultipartFile file,
                                      @Min(value = 1L, message = "Id can't be less than 1") Long documentId,
                                      @Min(value = 1L, message = "Id can't be less than 1") Long fileId);
 

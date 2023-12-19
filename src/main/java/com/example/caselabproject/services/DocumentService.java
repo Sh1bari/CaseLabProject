@@ -12,6 +12,7 @@ import com.example.caselabproject.models.enums.RecordState;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +54,7 @@ public interface DocumentService {
      * @throws NoDocumentPageFoundException если документов не найдено на странице.
      */
     @Transactional
-    List<DocumentResponseDto> filteredDocument(Pageable pageable,
+    Page<DocumentResponseDto> filteredDocument(Pageable pageable,
                                                String name,
                                                RecordState recordState,
                                                LocalDateTime startDate,

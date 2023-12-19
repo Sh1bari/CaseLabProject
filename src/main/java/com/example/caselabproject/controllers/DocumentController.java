@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -96,15 +96,20 @@ public class DocumentController {
                     })
     })
     @GetMapping("/filter")
-    public ResponseEntity<List<DocumentResponseDto>> filteredSearch(
+    public ResponseEntity<Page<DocumentResponseDto>> filteredSearch(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "limit", required = false, defaultValue = "20") Integer limit,
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
             @RequestParam(name = "state", required = false, defaultValue = "ACTIVE") RecordState recordState,
             @RequestParam(name = "creationDateStart", required = false, defaultValue = "2000-01-01T00:00:00") LocalDateTime startDate,
             @RequestParam(name = "creationDateEnd", required = false, defaultValue = "3000-01-01T00:00:00") LocalDateTime endDate) {
-        List<DocumentResponseDto> response = documentService
+        Page<DocumentResponseDto> response = documentService
                 .filteredDocument(PageRequest.of(page, limit), name, recordState, startDate, endDate);
+        if (response.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
