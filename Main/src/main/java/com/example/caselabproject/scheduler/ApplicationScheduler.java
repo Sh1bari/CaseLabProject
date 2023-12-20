@@ -1,11 +1,13 @@
 package com.example.caselabproject.scheduler;
 
+import com.example.caselabproject.messaging.producer.implementation.KafkaApplicationStateProducer;
 import com.example.caselabproject.models.entities.Application;
 import com.example.caselabproject.models.enums.ApplicationStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.ApplicationRepository;
 import com.example.caselabproject.services.implementations.ApplicationItemServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -32,5 +34,11 @@ public class ApplicationScheduler {
         for (Application application : applications) {
             applicationItemServiceImpl.calcApplicationItemsResult(application);
         }
+    }
+    
+    private final KafkaApplicationStateProducer applicationStateProducer;
+    @Scheduled(cron = "*/1 * * * * *") // every second
+    public void test() {
+        applicationStateProducer.send(Application.builder().name("asdfadf").build());
     }
 }

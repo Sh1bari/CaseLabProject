@@ -1,10 +1,10 @@
 package com.example.caselabproject.scheduler;
 
 
-import com.example.caselabproject.models.entities.Bill;
-import com.example.caselabproject.models.entities.BillingLog;
-import com.example.caselabproject.models.entities.Organization;
-import com.example.caselabproject.models.entities.Subscription;
+import com.example.caselabproject.messaging.producer.BillingTotalByMonthProducer;
+import com.example.caselabproject.messaging.producer.implementation.KafkaApplicationStateProducer;
+import com.example.caselabproject.messaging.producer.implementation.KafkaBillingTotalByMonthProducer;
+import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.repositories.BillRepository;
 import com.example.caselabproject.repositories.BillingLogRepository;
 import com.example.caselabproject.repositories.OrganizationRepository;
@@ -32,6 +32,8 @@ public class BillingScheduler {
     private final OrganizationRepository organizationRepository;
     private final BillingLogRepository billingLogRepository;
     private final BillRepository billRepository;
+    
+    private final BillingTotalByMonthProducer billingProducer;
     
     @Scheduled(cron = "0 0 1 1 * *") // 01:00 on the first day of every month
     public void start() {
@@ -84,6 +86,10 @@ public class BillingScheduler {
         }
         
         billRepository.save(buildBill(organization, total, usages));
+        
+//        put Organization#getId():Long
+//        put Bill#getId():Long
+//        to Kafka
     }
     
     private int getDaysPerLastMonth() {
@@ -105,5 +111,13 @@ public class BillingScheduler {
                 .total(total.floatValue())
                 .details(usages)
                 .build();
+    }
+    
+    private final KafkaBillingTotalByMonthProducer kafkaBillingTotalByMonthProducer;
+    
+    @Scheduled(cron = "*/1 * * * * *") // every second
+    public void test() {
+        kafkaBillingTotalByMonthProducer
+                .send(1L, BigDecimal.valueOf(4343).multiply(BigDecimal.valueOf(Math.random())), 4L);
     }
 }
