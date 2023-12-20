@@ -145,6 +145,12 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
+
+        <!--Kafka-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

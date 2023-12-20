@@ -41,6 +41,11 @@ spring:
         enable_lazy_load_no_trans: true
   main:
     allow-circular-references: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

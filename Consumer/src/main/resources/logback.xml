@@ -1,0 +1,26 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%magenta(%thread)] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_CONTROLLERS" class="ch.qos.logback.core.FileAppender">
+        <file>Consumer/application.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %(%-5level) [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="com.example.consumer" level="info">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="com.example" level="warn">
+        <appender-ref ref="FILE_CONTROLLERS"/>
+    </logger>
+</configuration>
