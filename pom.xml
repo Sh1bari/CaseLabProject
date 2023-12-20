@@ -11,8 +11,13 @@
     <groupId>com.example</groupId>
     <artifactId>Case-Lab-Project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Case Lab Project</name>
     <description>Case Lab Project</description>
+    <modules>
+        <module>Consumer</module>
+        <module>Main</module>
+    </modules>
     <properties>
         <java.version>17</java.version>
     </properties>
