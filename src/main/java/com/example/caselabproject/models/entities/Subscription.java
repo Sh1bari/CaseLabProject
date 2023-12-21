@@ -21,6 +21,7 @@ public class Subscription {
 
     @Column(unique = true)
     @Enumerated(EnumType.STRING)
+    //String
     private SubscriptionName subscriptionName;
 
     private String description;

@@ -28,6 +28,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 
     @Override
+    // прередавать id подписки
+    // id орг через принципал
+    // проверка количество людей из организации и доступ к более низкому тарифу
     public OrganizationSubscriptionChangeResponseDto raiseSubscription(OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto) {
         Organization organization = organizationRepository.getReferenceById(subscriptionChangeRequestDto.getId());
         Subscription currentSubscription = organization.getSubscription();

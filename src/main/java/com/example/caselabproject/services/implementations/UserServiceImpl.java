@@ -365,6 +365,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //вынести в преавторайз
     private void checkSubscription(User userAdmin) {
         Organization organization = userAdmin.getOrganization();
         Subscription currentSubscription = organization.getSubscription();
