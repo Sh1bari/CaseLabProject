@@ -5,10 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>Case-Lab-Project</artifactId>
+        <artifactId>case-lab-project</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>caselabkafka</artifactId>
-
+    <artifactId>consumer</artifactId>
 </project>
