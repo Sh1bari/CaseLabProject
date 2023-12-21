@@ -2,9 +2,11 @@ package com.example.caselabproject.scheduler;
 
 
 import com.example.caselabproject.messaging.producer.BillingTotalByMonthProducer;
-import com.example.caselabproject.messaging.producer.implementation.KafkaApplicationStateProducer;
 import com.example.caselabproject.messaging.producer.implementation.KafkaBillingTotalByMonthProducer;
-import com.example.caselabproject.models.entities.*;
+import com.example.caselabproject.models.entities.Bill;
+import com.example.caselabproject.models.entities.BillingLog;
+import com.example.caselabproject.models.entities.Organization;
+import com.example.caselabproject.models.entities.Subscription;
 import com.example.caselabproject.repositories.BillRepository;
 import com.example.caselabproject.repositories.BillingLogRepository;
 import com.example.caselabproject.repositories.OrganizationRepository;
@@ -46,10 +48,6 @@ public class BillingScheduler {
         }
     }
     
-//  - Запрос информации из reddiss (Степан)
-//  - Данные по счету (id счета, сумма, id организации)
-//      кладем в кафку в отдельный топик (В РАБОТЕ)
-    
     private void processBillingLog(Organization organization, List<BillingLog> billingLog) {
         final int daysPerLastMonth = getDaysPerLastMonth();
 
@@ -85,11 +83,9 @@ public class BillingScheduler {
             prices.merge(subscription, price, BigDecimal::add);
         }
         
-        billRepository.save(buildBill(organization, total, usages));
-        
-//        put Organization#getId():Long
-//        put Bill#getId():Long
-//        to Kafka
+        Bill monthlyBill = billRepository.save(buildBill(organization, total, usages));
+        billingProducer.send(organization.getId(), total, monthlyBill.getId());
+        // make Запрос информации из reddiss
     }
     
     private int getDaysPerLastMonth() {
