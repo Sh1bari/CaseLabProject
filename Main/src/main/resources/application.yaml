@@ -1,0 +1,53 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+jwt:
+  secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
+  lifetime: 30m
+minio:
+  url: http://5.35.83.142:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB  # максимальный размер каждого файла
+      max-request-size: 200MB  # максимальный размер всего запроса
+      file-size-threshold: 10MB  # размер, при котором данные будут записаны во временный файл
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  sql:
+    init:
+      mode: always
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/CaseLab
+    username: root
+    password: 123
+  jpa:
+    openInView: true
+    show-sql: false
+    generateDdl: true
+    database: postgresql
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  main:
+    allow-circular-references: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
