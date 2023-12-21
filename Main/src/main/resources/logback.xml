@@ -6,6 +6,12 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%magenta(%thread)] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="CONSOLE_KAFKA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%magenta(%thread)] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
     <appender name="FILE_CONTROLLERS" class="ch.qos.logback.core.FileAppender">
         <file>Main/application.log</file> <!-- Путь и имя файла логов -->
@@ -31,5 +37,8 @@
     </logger>
     <logger name="org.hibernate" level="warn">
         <appender-ref ref="FILE_HIBERNATE" />
+    </logger>
+    <logger name="org.apache.kafka.clients.NetworkClient" level="error">
+        <appender-ref ref="CONSOLE_KAFKA"/>
     </logger>
 </configuration>
