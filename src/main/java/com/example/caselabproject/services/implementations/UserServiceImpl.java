@@ -211,10 +211,11 @@ public class UserServiceImpl implements UserService {
                                                                     LocalDate birthDateFrom,
                                                                     LocalDate birthDateTo,
                                                                     String email,
-                                                                    Pageable pageable) {
+                                                                    Pageable pageable,
+                                                                    RecordState recordState) {
         List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
                 userPageRepository
-                        .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
+                        .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCaseAndRecorState(
                                 roleName,
                                 firstName,
                                 lastName,
@@ -222,7 +223,8 @@ public class UserServiceImpl implements UserService {
                                 birthDateFrom,
                                 birthDateTo,
                                 email,
-                                pageable).toList());
+                                pageable,
+                                recordState).toList());
         if (!departmentName.isEmpty()) {
             Department department = departmentRepo
                     .findByName(departmentName)

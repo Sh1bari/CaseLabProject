@@ -67,7 +67,8 @@ public interface UserService {
                                                              LocalDate birthDateFrom,
                                                              LocalDate birthDateTo,
                                                              String email,
-                                                             Pageable pageable
+                                                             Pageable pageable,
+                                                             RecordState recordState
     );
 
     @Transactional
