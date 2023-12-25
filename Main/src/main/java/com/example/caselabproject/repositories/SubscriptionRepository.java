@@ -1,19 +1,14 @@
 package com.example.caselabproject.repositories;
 
-
 import com.example.caselabproject.models.entities.Organization;
-import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.entities.Subscription;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
-@Repository
-public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
     @NotNull
-    Optional<Organization> findById(@NotNull Long id);
-
+    Optional<Subscription> findById(@NotNull Long id);
 }

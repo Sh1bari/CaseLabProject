@@ -22,30 +22,43 @@ import java.security.Principal;
 public class OrganizationController {
     private final OrganizationService organizationService;
 
-    @PatchMapping("/lower")
+    @PatchMapping("/changeOrganizationSubscription")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> lowerOrganizationSubscription(
+    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> changeSubscription(
             @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
             Principal principal) {
 
-        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.lowerSubscription(subscriptionChangeRequestDto);
+        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.changeSubscription(subscriptionChangeRequestDto, principal.getName());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responseDto);
     }
 
-    @PatchMapping("/raise")
-    @Secured("ROLE_ADMIN")
-    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> raiseOrganizationSubscription(
-            @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
-            Principal principal) {
-
-        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.raiseSubscription(subscriptionChangeRequestDto);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(responseDto);
-    }
+//    @PatchMapping("/lower")
+//    @Secured("ROLE_ADMIN")
+//    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> lowerOrganizationSubscription(
+//            @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
+//            Principal principal) {
+//
+//        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.lowerSubscription(subscriptionChangeRequestDto);
+//
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(responseDto);
+//    }
+//
+//    @PatchMapping("/raise")
+//    @Secured("ROLE_ADMIN")
+//    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> raiseOrganizationSubscription(
+//            @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
+//            Principal principal) {
+//
+//        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.raiseSubscription(subscriptionChangeRequestDto);
+//
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(responseDto);
+//    }
 
 }

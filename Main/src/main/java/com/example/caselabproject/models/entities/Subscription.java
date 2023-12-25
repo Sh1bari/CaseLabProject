@@ -17,12 +17,12 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(unique = true)
     @Enumerated(EnumType.STRING)
-    //String
-    private SubscriptionName subscriptionName;
+
+    private String subscriptionName;
 
     private String description;
 

@@ -2,6 +2,7 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.applicationItem.ApplicationItemPermissionException;
 import com.example.caselabproject.exceptions.department.DepartmentNotFoundException;
+import com.example.caselabproject.exceptions.subscription.SubscriptionShouldChangeException;
 import com.example.caselabproject.exceptions.user.DirectorIsNotLastException;
 import com.example.caselabproject.exceptions.user.UserExistsException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     private final ApplicationPageRepository applicationPageRepository;
     private final ApplicationItemPageRepository applicationItemPageRepo;
     private final OrganizationRepository organizationRepository;
-//    private final SubscriptionRepository subscriptionRepository;
+    private final SubscriptionRepository subscriptionRepository;
     private final BillingLogRepository billingLogRepository;
 
     @Override
@@ -346,33 +347,12 @@ public class UserServiceImpl implements UserService {
         Organization organization = userAdmin.getOrganization();
         Subscription currentSubscription = organization.getSubscription();
         Integer employees = organization.getEmployees().size();
-        Integer amountOfPeopleInCurrentSubscription = organization.getSubscription().getAmountOfPeople();
-        BillingLog billingLog = new BillingLog();
-        if (employees.equals(amountOfPeopleInCurrentSubscription)) {
-            switch (currentSubscription.getSubscriptionName()) {
-                case DEFAULT -> setSubscription(billingLog, currentSubscription, organization, SubscriptionName.BASIC);
-                case BASIC -> setSubscription(billingLog, currentSubscription, organization, SubscriptionName.STANDARD);
-                case STANDARD ->
-                        setSubscription(billingLog, currentSubscription, organization, SubscriptionName.ENTERPRISE);
-            }
+        Integer amountOfPeopleInCurrentSubscription = currentSubscription.getAmountOfPeople();
 
-        }
+        if (employees.equals(amountOfPeopleInCurrentSubscription))
+            throw new SubscriptionShouldChangeException(amountOfPeopleInCurrentSubscription);
+
 
     }
 
-    private void setSubscription(BillingLog billingLog, Subscription currentSubscription, Organization organization, SubscriptionName subscriptionName) {
-        billingLog.setLastSubscription(currentSubscription);
-
-        currentSubscription.setSubscriptionName(subscriptionName);
-
-        billingLog.setCurrentSubscription(currentSubscription);
-        billingLog.setSubscriptionStart(LocalDateTime.now());
-        billingLog.setOrganizationId(organization);
-
-
-        organization.setSubscription(currentSubscription);
-        organizationRepository.save(organization);
-//        subscriptionRepository.save(currentSubscription);
-        billingLogRepository.save(billingLog);
-    }
 }
