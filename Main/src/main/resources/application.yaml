@@ -10,6 +10,10 @@ minio:
   access-key: minioadmin
   secret-key: minioadmin
 spring:
+  redis:
+    lettuce:
+      host: 5.35.83.142
+      port: 6379
   servlet:
     multipart:
       enabled: true

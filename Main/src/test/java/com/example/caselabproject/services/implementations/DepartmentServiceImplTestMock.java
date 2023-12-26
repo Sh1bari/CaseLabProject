@@ -8,7 +8,7 @@ import com.example.caselabproject.models.DTOs.response.department.DepartmentGetB
 import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
 import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.ApplicationItemPageRepository;
+import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -49,7 +49,7 @@ public class DepartmentServiceImplTestMock {
     private DepartmentServiceImpl departmentService;
 
     @Mock
-    private ApplicationItemPageRepository applicationItemPageRepo;
+    private ApplicationItemRepository applicationItemPageRepo;
 
 
     @BeforeEach

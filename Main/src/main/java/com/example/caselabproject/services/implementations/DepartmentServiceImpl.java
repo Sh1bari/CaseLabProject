@@ -14,7 +14,7 @@ import com.example.caselabproject.models.entities.Department;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
-import com.example.caselabproject.repositories.ApplicationItemPageRepository;
+import com.example.caselabproject.repositories.ApplicationItemRepository;
 import com.example.caselabproject.repositories.DepartmentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DepartmentService;
@@ -36,9 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-
-    private final UserRepository userRepository;
-    private final ApplicationItemPageRepository applicationItemPageRepo;
+    private final ApplicationItemRepository applicationItemPageRepo;
     private final UserRepository userRepo;
 
     @Override
@@ -140,7 +138,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
-        Page<UserGetByIdResponseDto> users = userRepository.findByRecordStateAndDepartment_IdAndOrganization(recordState, pageable, departmentId, user.getCreatedOrganization())
+        Page<UserGetByIdResponseDto> users = userRepo.findByRecordStateAndDepartment_IdAndOrganization(recordState, pageable, departmentId, user.getCreatedOrganization())
                 .map(UserGetByIdResponseDto::mapFromEntity);
 
         return users;
@@ -196,12 +194,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
+        return userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     private User getUserById(Long id) {
-        return userRepository.findById(id)
+        return userRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 

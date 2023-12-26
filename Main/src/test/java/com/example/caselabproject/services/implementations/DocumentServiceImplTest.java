@@ -11,7 +11,7 @@ import com.example.caselabproject.models.entities.DocumentConstructorType;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentPageRepository;
+import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +47,7 @@ class DocumentServiceImplTest {
     private DocumentRepository documentRepository;
 
     @Mock
-    private DocumentPageRepository pageRepository;
+    private DocumentRepository pageRepository;
 
     @InjectMocks
     private DocumentServiceImpl underTest;

@@ -15,7 +15,7 @@ import com.example.caselabproject.models.entities.Field;
 import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
-import com.example.caselabproject.repositories.DocumentPageRepository;
+import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DocumentService;
@@ -36,8 +36,6 @@ import java.util.Map;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
-
-    private final DocumentPageRepository documentPageRepository;
 
     private final DocumentConstructorTypeRepository documentConstructorTypeRepository;
 
@@ -95,11 +93,11 @@ public class DocumentServiceImpl implements DocumentService {
         Page<Document> documents;
 
         if (!(name.length() == 0)) {
-            documents = documentPageRepository
+            documents = documentRepository
                     .findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
                             name, pageable, start, end, state);
         } else {
-            documents = documentPageRepository.findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
+            documents = documentRepository.findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
                     pageable, start, end, state);
         }
 

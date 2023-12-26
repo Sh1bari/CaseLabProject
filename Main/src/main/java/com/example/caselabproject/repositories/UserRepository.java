@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,4 +33,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByDepartmentIdAndIsDirectorTrue(@Param("departmentId") Long departmentId);
 
     Optional<User> findByIdAndDepartment_id(Long userId, Long departmentId);
+
+    Page<User> findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
+            String roleName,
+            String firstname,
+            String lastName,
+            String patronymic,
+            LocalDate birthDateFrom,
+            LocalDate birthDateTo,
+            String email,
+            Pageable pageable
+    );
 }

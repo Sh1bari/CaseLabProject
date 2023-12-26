@@ -42,12 +42,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserPageRepository userPageRepository;
-    private final DocumentPageRepository documentPageRepository;
+    private final DocumentRepository DocumentRepository;
     private final RoleService roleService;
     private final DepartmentRepository departmentRepository;
-    private final ApplicationPageRepository applicationPageRepository;
-    private final ApplicationItemPageRepository applicationItemPageRepo;
+    private final ApplicationRepository ApplicationRepository;
+    private final ApplicationItemRepository applicationItemPageRepo;
     private final OrganizationRepository organizationRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final BillingLogRepository billingLogRepository;
@@ -212,7 +211,7 @@ public class UserServiceImpl implements UserService {
 
             if (documentConstructorTypeId != null) {
                 // Фильтр по documentConstructorTypeId, если он не null
-                res = documentPageRepository
+                res = DocumentRepository
                         .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
                                 creatorId,
                                 name,
@@ -223,7 +222,7 @@ public class UserServiceImpl implements UserService {
                                 pageable).toList();
             } else {
                 // Если documentConstructorTypeId == null, игнорируем фильтр
-                res = documentPageRepository
+                res = DocumentRepository
                         .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
                                 creatorId,
                                 name,
@@ -252,7 +251,7 @@ public class UserServiceImpl implements UserService {
                                                                     String email,
                                                                     Pageable pageable) {
         List<UserGetByIdResponseDto> userCreateResponseDtoList = UserGetByIdResponseDto.mapFromEntities(
-                userPageRepository
+                userRepository
                         .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase(
                                 roleName,
                                 firstName,
@@ -278,7 +277,7 @@ public class UserServiceImpl implements UserService {
     public List<ApplicationFindResponseDto> findApplicationsByCreatorIdByPage(Long id, RecordState recordState, Pageable pageable) {
         if (existById(id)) {
             return ApplicationFindResponseDto
-                    .mapFromListEntity(applicationPageRepository.findAllByCreatorId_idAndRecordState(id, recordState, pageable).toList());
+                    .mapFromListEntity(ApplicationRepository.findAllByCreatorId_idAndRecordState(id, recordState, pageable).toList());
         } else throw new UserNotFoundException(id);
     }
 

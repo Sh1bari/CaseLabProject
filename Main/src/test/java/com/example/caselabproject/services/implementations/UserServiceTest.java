@@ -33,9 +33,9 @@ import static org.mockito.Mockito.verify;
 public class UserServiceTest {
 
     @Mock
-    private UserPageRepository userPageRepository;
+    private UserRepository UserRepository;
     @Mock
-    private DocumentPageRepository documentPageRepository;
+    private DocumentRepository DocumentRepository;
     @Mock
     private RoleService roleService;
     @Mock
@@ -43,9 +43,9 @@ public class UserServiceTest {
     @Mock
     private DepartmentRepository departmentRepository;
     @Mock
-    private ApplicationPageRepository applicationPageRepository;
+    private ApplicationRepository ApplicationRepository;
     @Mock
-    private ApplicationItemPageRepository applicationItemPageRepository;
+    private ApplicationItemRepository ApplicationItemRepository;
     @Mock
     private UserRepository userRepository;
     private UserServiceImpl underTest;
@@ -81,8 +81,8 @@ public class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-//        underTest = new UserServiceImpl(userRepository, userPageRepository, documentPageRepository, roleService,
-//                passwordEncoder, departmentRepository, applicationPageRepository, applicationItemPageRepository);
+//        underTest = new UserServiceImpl(userRepository, UserRepository, DocumentRepository, roleService,
+//                passwordEncoder, departmentRepository, ApplicationRepository, ApplicationItemRepository);
     }
 
     @Test
@@ -185,20 +185,20 @@ public class UserServiceTest {
 
     @Test
     void findAllUsersByFiltersByPageTest() {
-        given(userPageRepository
+        given(UserRepository
                 .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase("", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1))).willReturn(new PageImpl<>(List.of(new User())));
         try {
             underTest.findAllUsersByFiltersByPage("", "", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1));
         } catch (NullPointerException ignored) {
         }
 
-        verify(userPageRepository)
+        verify(UserRepository)
                 .findAllByRoles_nameContainsIgnoreCaseAndPersonalUserInfo_FirstNameContainsIgnoreCaseAndPersonalUserInfo_LastNameContainsIgnoreCaseAndPersonalUserInfo_PatronymicContainsIgnoreCaseAndPersonalUserInfo_BirthDateAfterAndPersonalUserInfo_BirthDateBeforeAndAuthUserInfo_EmailContainsIgnoreCase("", "", "", "", LocalDate.of(1900, 1, 1), LocalDate.of(3000, 1, 1), "qwe@qwe.qwe", PageRequest.of(0, 1));
     }
 
 /*   @Test
     void findAllDocsByUserTest() {
-        given(documentPageRepository
+        given(DocumentRepository
                 .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
                         1L,
                         "",
@@ -217,7 +217,7 @@ public class UserServiceTest {
                     RecordState.ACTIVE,
                     PageRequest.of(0, 1));
 
-        verify(documentPageRepository)
+        verify(DocumentRepository)
                 .findAllByCreator_idAndNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndDocumentConstructorType_IdAndRecordState(
                         1L,
                         "",
