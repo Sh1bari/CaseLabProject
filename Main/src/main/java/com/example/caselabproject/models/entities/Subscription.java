@@ -20,8 +20,6 @@ public class Subscription {
     private Long id;
 
     @Column(unique = true)
-    @Enumerated(EnumType.STRING)
-
     private String subscriptionName;
 
     private String description;
