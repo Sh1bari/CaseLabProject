@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ public interface UserService extends EntityOrganizationService {
     boolean existById(Long id);
 
     @Transactional
-    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto, String username);
+    UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto, String username, MultipartFile avatarFile);
 
     @Transactional
     UserUpdateResponseDto updateById(

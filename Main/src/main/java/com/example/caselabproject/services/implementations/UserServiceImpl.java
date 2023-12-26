@@ -18,6 +18,7 @@ import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.models.enums.SubscriptionName;
 import com.example.caselabproject.repositories.*;
+import com.example.caselabproject.services.MinioService;
 import com.example.caselabproject.services.RoleService;
 import com.example.caselabproject.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
     private final OrganizationRepository organizationRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final BillingLogRepository billingLogRepository;
+    private final MinioService minioService;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
@@ -74,13 +77,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     // если подходит количество юзеров то не меняем тариф
-    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto, String username) {
+    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto, String username, MultipartFile avatarFile) {
         User userAdmin = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         checkSubscription(userAdmin);
 
         User user = userRequestDto.mapToEntity();
+
+        checkMinioBucket(userRequestDto, avatarFile, user);
+
+
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
         user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         try {
@@ -352,6 +359,14 @@ public class UserServiceImpl implements UserService {
             throw new SubscriptionShouldChangeException(amountOfPeopleInCurrentSubscription);
 
 
+    }
+
+    private void checkMinioBucket(UserCreateRequestDto userRequestDto, MultipartFile avatarFile, User user) {
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            String bucket = userRequestDto.getMinioBucket();
+            String avatarPath = minioService.saveFile(bucket, avatarFile);
+            user.setAvatarPath(avatarPath);
+        }
     }
 
 }
