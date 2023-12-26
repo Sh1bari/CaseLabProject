@@ -46,9 +46,6 @@ class DocumentServiceImplTest {
     @Mock
     private DocumentRepository documentRepository;
 
-    @Mock
-    private DocumentRepository pageRepository;
-
     @InjectMocks
     private DocumentServiceImpl underTest;
 
@@ -62,7 +59,7 @@ class DocumentServiceImplTest {
     @BeforeEach
     void setUp() {
         underTest = new DocumentServiceImpl(
-                documentRepository, pageRepository, typeRepository, userRepository
+                documentRepository, typeRepository, userRepository
         );
     }
 
@@ -153,7 +150,7 @@ class DocumentServiceImplTest {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Document> page = new PageImpl<>(List.of(document));
 
-        given(pageRepository
+        given(documentRepository
                 .findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
                         "doc_test", pageable, LocalDateTime.of(1970, 1, 1, 0, 0),
                         LocalDateTime.of(2020, 1, 1, 0, 0),
@@ -164,7 +161,7 @@ class DocumentServiceImplTest {
                 LocalDateTime.of(1970, 1, 1, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 0, 0));
 
-        verify(pageRepository).findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
+        verify(documentRepository).findAllByNameContainingIgnoreCaseAndCreationDateAfterAndCreationDateBeforeAndRecordState(
                 "doc_test", pageable, LocalDateTime.of(1970, 1, 1, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 0, 0), RecordState.ACTIVE
         );
@@ -188,7 +185,7 @@ class DocumentServiceImplTest {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Document> page = new PageImpl<>(List.of(document));
 
-        given(pageRepository
+        given(documentRepository
                 .findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
                         pageable, LocalDateTime.of(1970, 1, 1, 0, 0),
                         LocalDateTime.of(2020, 1, 1, 0, 0), RecordState.ACTIVE
@@ -198,7 +195,7 @@ class DocumentServiceImplTest {
                 LocalDateTime.of(1970, 1, 1, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 0, 0));
 
-        verify(pageRepository).findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
+        verify(documentRepository).findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
                 pageable, LocalDateTime.of(1970, 1, 1, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 0, 0), RecordState.ACTIVE
         );
@@ -209,7 +206,7 @@ class DocumentServiceImplTest {
         Pageable pageable = PageRequest.of(0, 1);
         Page<Document> page = new PageImpl<>(List.of());
 
-        given(pageRepository
+        given(documentRepository
                 .findAllByCreationDateAfterAndCreationDateBeforeAndRecordState(
                         pageable, LocalDateTime.of(1970, 1, 1, 0, 0),
                         LocalDateTime.of(2020, 1, 1, 0, 0), RecordState.ACTIVE

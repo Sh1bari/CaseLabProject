@@ -42,9 +42,6 @@ public class DepartmentServiceImplTestMock {
     @Mock
     private UserRepository userRepository;
 
-    @Mock
-    private UserRepository userRepo;
-
 
     private DepartmentServiceImpl departmentService;
 
@@ -54,7 +51,7 @@ public class DepartmentServiceImplTestMock {
 
     @BeforeEach
     void setUp() {
-        departmentService = new DepartmentServiceImpl(departmentRepository, userRepository, applicationItemPageRepo, userRepo);
+        departmentService = new DepartmentServiceImpl(departmentRepository, applicationItemPageRepo, userRepository);
     }
 
 
@@ -71,7 +68,7 @@ public class DepartmentServiceImplTestMock {
 
         given(departmentRepository.save(any(Department.class))).willReturn(department);
 
-        given(userRepo.findByUsername(any())).willReturn(Optional.of(user));
+        given(userRepository.findByUsername(any())).willReturn(Optional.of(user));
 
         DepartmentCreateResponseDto responseDto = DepartmentCreateResponseDto.mapFromEntity(department);
 
@@ -169,7 +166,7 @@ public class DepartmentServiceImplTestMock {
 
         String serialKey = "dwd-1";
 
-        given(userRepo.findByUsername(user.getUsername())).willReturn(Optional.of(user));
+        given(userRepository.findByUsername(user.getUsername())).willReturn(Optional.of(user));
 
         given(departmentRepository.findDepartmentsByNameContainingAndRecordStateAndSerialKeyAndOrganization(
                 anyString(), any(Pageable.class), any(RecordState.class), any(String.class), any(Organization.class))).willReturn(departmentPage);
@@ -224,7 +221,7 @@ public class DepartmentServiceImplTestMock {
         user.setUsername("username");
         user.setCreatedOrganization(new Organization());
 
-        given(userRepo.findByUsername(user.getUsername())).willReturn(Optional.of(user));
+        given(userRepository.findByUsername(user.getUsername())).willReturn(Optional.of(user));
 
 
         given(userRepository.findByRecordStateAndDepartment_IdAndOrganization(
