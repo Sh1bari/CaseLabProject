@@ -24,8 +24,9 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-   // @Column(name = "avatar_path")
-  //  private File avatarPath;
+    @Column(name = "avatar_path")
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
+    private File avatarPath;
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;

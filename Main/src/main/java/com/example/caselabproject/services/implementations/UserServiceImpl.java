@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
         user.getAuthUserInfo().setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setAvatarPath(new File());
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
