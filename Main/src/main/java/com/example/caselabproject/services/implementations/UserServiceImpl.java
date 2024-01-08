@@ -74,6 +74,20 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public UserAvatarResponseDto addAvatar(MultipartFile multipartFile, String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        File avatarPath = user.getAvatarPath();
+        avatarPath.setType(multipartFile.getContentType());
+        avatarPath.setSize(multipartFile.getSize());
+        avatarPath.setName(multipartFile.getName());
+        //  avatarPath.setPath(multipartFile.);
+        // avatarPath.setDocument(multipartFile.getResource());
+
+        userRepository.save(user);
+        return UserAvatarResponseDto.mapFromEntity(user);
+    }
+
 
     @Override
     // если подходит количество юзеров то не меняем тариф
@@ -84,7 +98,6 @@ public class UserServiceImpl implements UserService {
         checkSubscription(userAdmin);
 
         User user = userRequestDto.mapToEntity();
-
 
 
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));

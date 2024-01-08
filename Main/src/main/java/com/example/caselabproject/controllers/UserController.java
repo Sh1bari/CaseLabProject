@@ -7,10 +7,7 @@ import com.example.caselabproject.models.DTOs.request.user.UserUpdateRequestDto;
 import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.user.UserCreateResponseDto;
-import com.example.caselabproject.models.DTOs.response.user.UserGetByIdResponseDto;
-import com.example.caselabproject.models.DTOs.response.user.UserRecoverResponseDto;
-import com.example.caselabproject.models.DTOs.response.user.UserUpdateResponseDto;
+import com.example.caselabproject.models.DTOs.response.user.*;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
@@ -34,6 +31,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.security.Principal;
@@ -119,6 +117,16 @@ public class UserController {
         UserCreateResponseDto userResponseDto = userService.create(userRequestDto, principal.getName());
         return ResponseEntity
                 .created(URI.create("api/user/" + userResponseDto.getId()))
+                .body(userResponseDto);
+    }
+
+    @PutMapping("/id/avatar")
+    @Secured("ROLE_USER")
+    public ResponseEntity<UserAvatarResponseDto> addAvatar(
+            Principal principal, MultipartFile multipartFile) {
+        UserAvatarResponseDto userResponseDto = userService.addAvatar(multipartFile, principal.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
                 .body(userResponseDto);
     }
 

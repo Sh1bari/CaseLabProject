@@ -7,6 +7,7 @@ import com.example.caselabproject.models.DTOs.response.DocumentGetAllResponse;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationFindResponseDto;
 import com.example.caselabproject.models.DTOs.response.application.ApplicationItemGetByIdResponseDto;
 import com.example.caselabproject.models.DTOs.response.user.*;
+import com.example.caselabproject.models.entities.File;
 import com.example.caselabproject.models.enums.ApplicationItemStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.validation.annotations.CheckOrganization;
@@ -36,6 +37,9 @@ public interface UserService extends EntityOrganizationService {
 
     @Transactional
     boolean existById(Long id);
+
+    @Transactional
+    UserAvatarResponseDto addAvatar(MultipartFile multipartFile, String username);
 
     @Transactional
     UserCreateResponseDto create(@Valid UserCreateRequestDto userRequestDto, String username);
