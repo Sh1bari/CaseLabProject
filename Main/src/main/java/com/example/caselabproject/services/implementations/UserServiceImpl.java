@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     // если подходит количество юзеров то не меняем тариф
-    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto, String username, MultipartFile avatarFile) {
+    public UserCreateResponseDto create(UserCreateRequestDto userRequestDto, String username) {
         User userAdmin = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
@@ -85,7 +85,6 @@ public class UserServiceImpl implements UserService {
 
         User user = userRequestDto.mapToEntity();
 
-        checkMinioBucket(userRequestDto, avatarFile, user);
 
 
         user.setRoles(roleService.findRolesByRoleDtoList(userRequestDto.getRoles()));
@@ -361,12 +360,5 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private void checkMinioBucket(UserCreateRequestDto userRequestDto, MultipartFile avatarFile, User user) {
-        if (avatarFile != null && !avatarFile.isEmpty()) {
-            String bucket = userRequestDto.getMinioBucket();
-            String avatarPath = minioService.saveFile(bucket, avatarFile);
-            user.setAvatarPath(avatarPath);
-        }
-    }
 
 }

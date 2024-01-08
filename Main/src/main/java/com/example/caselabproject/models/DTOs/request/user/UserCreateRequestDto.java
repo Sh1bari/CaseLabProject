@@ -38,7 +38,6 @@ public class UserCreateRequestDto {
     private String patronymic;
     @Past(message = "Date of birth can't be more than current date")
     private LocalDate birthDate;
-    private String minioBucket;
 
     public User mapToEntity() {
         User user = User.builder()

@@ -24,8 +24,8 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "avatar_path")
-    private String avatarPath;
+   // @Column(name = "avatar_path")
+  //  private File avatarPath;
 
     @Enumerated(EnumType.STRING)
     private RecordState recordState;
