@@ -83,6 +83,7 @@ public class BillingScheduler {
             prices.merge(subscription, price, BigDecimal::add);
         }
         
+//        add billing status
         Bill monthlyBill = billRepository.save(buildBill(organization, total, usages));
         billingProducer.send(organization.getId(), total, monthlyBill.getId());
         // make Запрос информации из reddiss

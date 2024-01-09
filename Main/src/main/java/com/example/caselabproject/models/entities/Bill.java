@@ -1,6 +1,7 @@
 package com.example.caselabproject.models.entities;
 
 
+import com.example.caselabproject.models.enums.BillStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,9 @@ public class Bill {
     private LocalDateTime date;
     
     private Float total;
+    
+    @Enumerated(EnumType.STRING)
+    private BillStatus status;
     
     @ElementCollection
     @CollectionTable(name = "bill_details", joinColumns = @JoinColumn(name = "bill_id"))
