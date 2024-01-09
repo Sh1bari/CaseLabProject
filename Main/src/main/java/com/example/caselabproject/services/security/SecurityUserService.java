@@ -3,8 +3,10 @@ package com.example.caselabproject.services.security;
 import com.example.caselabproject.exceptions.user.DeletedUserException;
 import com.example.caselabproject.models.DTOs.RegistrationUserDto;
 import com.example.caselabproject.models.entities.AuthUserInfo;
+import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.entities.PersonalUserInfo;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.OrganizationStatus;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +51,12 @@ public class SecurityUserService implements UserDetailsService {
 
     public User createNewUser(RegistrationUserDto registrationUserDto) {
         User user = new User();
+        Organization org = new Organization();
+        org.setCreator(user);
+        user.setCreatedOrganization(org);
+        org.setName("Default");
+        org.getEmployees().add(user);
+        org.setStatus(OrganizationStatus.NOT_PAID);
         user.setIsDirector(false);
         AuthUserInfo authUserInfo = new AuthUserInfo();
         authUserInfo.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
