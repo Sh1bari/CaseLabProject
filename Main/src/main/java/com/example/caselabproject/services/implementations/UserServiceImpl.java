@@ -81,8 +81,7 @@ public class UserServiceImpl implements UserService {
         avatarPath.setType(multipartFile.getContentType());
         avatarPath.setSize(multipartFile.getSize());
         avatarPath.setName(multipartFile.getName());
-        //  avatarPath.setPath(multipartFile.);
-        // avatarPath.setDocument(multipartFile.getResource());
+        avatarPath.setPath(minioService.saveFile("files", multipartFile));
 
         userRepository.save(user);
         return UserAvatarResponseDto.mapFromEntity(user);
