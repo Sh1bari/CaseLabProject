@@ -20,20 +20,20 @@ import java.security.Principal;
 @RequestMapping("/organization")
 @SecurityRequirement(name = "bearerAuth")
 public class OrganizationController {
-    private final OrganizationService organizationService;
-
-    @PatchMapping("/changeOrganizationSubscription")
-    @Secured("ROLE_ADMIN")
-    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> changeSubscription(
-            @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
-            Principal principal) {
-
-        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.changeSubscription(subscriptionChangeRequestDto, principal.getName());
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(responseDto);
-    }
+//    private final OrganizationService organizationService;
+//
+//    @PatchMapping("/changeOrganizationSubscription")
+//    @Secured("ROLE_ADMIN")
+//    public ResponseEntity<OrganizationSubscriptionChangeResponseDto> changeSubscription(
+//            @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,
+//            Principal principal) {
+//
+//        OrganizationSubscriptionChangeResponseDto responseDto = organizationService.changeSubscription(subscriptionChangeRequestDto, principal.getName());
+//
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(responseDto);
+//    }
 
 //    @PatchMapping("/lower")
 //    @Secured("ROLE_ADMIN")
