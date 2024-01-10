@@ -1,7 +1,9 @@
 package com.example.caselabproject.controllers;
 
 
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationChangeNameRequestDto;
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationSubscriptionChangeRequestDto;
+import com.example.caselabproject.models.DTOs.response.organization.OrganizationChangeNameResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationSubscriptionChangeResponseDto;
 import com.example.caselabproject.services.OrganizationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -20,7 +22,22 @@ import java.security.Principal;
 @RequestMapping("/organization")
 @SecurityRequirement(name = "bearerAuth")
 public class OrganizationController {
-//    private final OrganizationService organizationService;
+    private final OrganizationService organizationService;
+
+    @PatchMapping("/changeName")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<OrganizationChangeNameResponseDto> changeOrganizationName(
+            @RequestBody @Valid OrganizationChangeNameRequestDto organizationChangeNameRequestDto,
+            Principal principal) {
+
+        OrganizationChangeNameResponseDto responseDto = organizationService.changeOrganizationName(organizationChangeNameRequestDto, principal.getName());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
+
+
 //
 //    @PatchMapping("/changeOrganizationSubscription")
 //    @Secured("ROLE_ADMIN")
