@@ -11,13 +11,13 @@ public class OrganizationSubscriptionChangeResponseDto {
 
     private Long id;
     private String orgName;
-    private Subscription subscription;
+    private String subscriptionName;
 
     public static OrganizationSubscriptionChangeResponseDto mapFromEntity(Organization organization) {
         return OrganizationSubscriptionChangeResponseDto.builder()
                 .id(organization.getId())
                 .orgName(organization.getName())
-                .subscription(organization.getSubscription())
+                .subscriptionName(organization.getSubscription().getSubscriptionName())
                 .build();
     }
 
