@@ -22,7 +22,7 @@ public class SubscriptionController {
 
     private final OrganizationService organizationService;
 
-    @PatchMapping("/changeOrganizationSubscription")
+    @PostMapping("/change")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<OrganizationSubscriptionChangeResponseDto> changeSubscription(
             @RequestBody @Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto,

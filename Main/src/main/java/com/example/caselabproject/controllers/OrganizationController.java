@@ -12,19 +12,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 @RestController
 @CrossOrigin
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/organization")
 @SecurityRequirement(name = "bearerAuth")
 public class OrganizationController {
     private final OrganizationService organizationService;
 
-    @PatchMapping("/changeName")
+    @PatchMapping("/name")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<OrganizationChangeNameResponseDto> changeOrganizationName(
             @RequestBody @Valid OrganizationChangeNameRequestDto organizationChangeNameRequestDto,

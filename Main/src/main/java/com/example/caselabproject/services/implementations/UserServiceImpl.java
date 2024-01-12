@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
     private final SubscriptionRepository subscriptionRepository;
     private final BillingLogRepository billingLogRepository;
     private final MinioService minioService;
+    private final FileRepository fileRepository;
 
     @Override
     public UserGetByIdResponseDto getById(Long id) {
@@ -76,13 +77,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAvatarResponseDto addAvatar(MultipartFile multipartFile, String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
         File avatarPath = user.getAvatarPath();
         avatarPath.setType(multipartFile.getContentType());
         avatarPath.setSize(multipartFile.getSize());
         avatarPath.setName(multipartFile.getName());
         avatarPath.setPath(minioService.saveFile("files", multipartFile));
-
+        fileRepository.save(avatarPath);
         userRepository.save(user);
         return UserAvatarResponseDto.mapFromEntity(user);
     }
