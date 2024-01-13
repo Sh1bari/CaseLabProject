@@ -14,5 +14,4 @@ public class CaseLabProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(CaseLabProjectApplication.class, args);
     }
-
 }

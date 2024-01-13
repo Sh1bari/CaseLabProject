@@ -7,6 +7,7 @@ import com.example.caselabproject.exceptions.file.FileNotExistException;
 import com.example.caselabproject.models.entities.Document;
 import com.example.caselabproject.models.entities.File;
 import com.example.caselabproject.models.entities.User;
+import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.FileRepository;
 import com.example.caselabproject.repositories.UserRepository;
@@ -86,10 +87,31 @@ class FileServiceImplTest {
     }
 
     @Test
+    void addFile_CanThrowDocumentDeletedException() {
+        Document document = new Document();
+        document.setRecordState(RecordState.DELETED);
+        document.setId(1L);
+
+        given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
+                .willReturn(true);
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
+
+        assertThatThrownBy(() -> underTest.addFile("username", getMockMultipartFile(), 1L))
+                .isInstanceOf(DocumentDoesNotExistException.class)
+                .hasMessageContaining("Document with id:1 does not exist!");
+    }
+
+    @Test
     void getFiles_CanReturnListOfFiles() {
+        Document document = new Document();
+        document.setRecordState(RecordState.ACTIVE);
+
         File file = new File();
         Page<File> page = new PageImpl<>(List.of(file));
 
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
         given(fileRepository.findAllByDocument_Id(1L, PageRequest.of(0, 1)))
                 .willReturn(page);
 
@@ -100,6 +122,9 @@ class FileServiceImplTest {
 
     @Test
     void downloadFile_CanSendFileToDownload() throws IOException {
+        Document document = new Document();
+        document.setRecordState(RecordState.ACTIVE);
+
         File file = new File();
         FileUtils.writeByteArrayToFile(new java.io.File(
                         "src\\test\\resources\\hello_text.txt"),
@@ -110,7 +135,7 @@ class FileServiceImplTest {
 
         given(fileRepository.findById(1L))
                 .willReturn(Optional.of(file));
-        given(documentRepository.existsById(1L))
+        given(documentRepository.existsByIdAndRecordState(1L, RecordState.ACTIVE))
                 .willReturn(true);
 
         underTest.downloadFile(1L, 1L);
@@ -122,7 +147,7 @@ class FileServiceImplTest {
 
     @Test
     void downloadFile_CanThrowDocumentException() {
-        given(documentRepository.existsById(1L))
+        given(documentRepository.existsByIdAndRecordState(1L, RecordState.ACTIVE))
                 .willReturn(false);
 
         assertThatThrownBy(() -> underTest.downloadFile(1L, 1L))
@@ -132,7 +157,7 @@ class FileServiceImplTest {
 
     @Test
     void downloadFile_CanThrowFileException() {
-        given(documentRepository.existsById(1L))
+        given(documentRepository.existsByIdAndRecordState(1L, RecordState.ACTIVE))
                 .willReturn(true);
 
         assertThatThrownBy(() -> underTest.downloadFile(1L, 1L))
@@ -148,6 +173,7 @@ class FileServiceImplTest {
         user.setUsername("username");
         document.setId(1L);
         document.setCreator(user);
+        document.setRecordState(RecordState.ACTIVE);
         ArrayList<File> files = new ArrayList<>();
         files.add(file);
         file.setDocument(document);
@@ -181,8 +207,14 @@ class FileServiceImplTest {
 
     @Test
     void updateFile_CanThrowFileException() {
+        Document document = new Document();
+        document.setId(1L);
+        document.setRecordState(RecordState.ACTIVE);
+
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
 
         assertThatThrownBy(() -> underTest.updateFile("username", getMockMultipartFile(), 1L, 1L))
                 .isInstanceOf(FileNotExistException.class)
@@ -197,6 +229,7 @@ class FileServiceImplTest {
         user.setUsername("username");
         document.setId(1L);
         document.setCreator(user);
+        document.setRecordState(RecordState.DELETED);
         ArrayList<File> files = new ArrayList<>();
         files.add(file);
         file.setDocument(document);
@@ -204,8 +237,8 @@ class FileServiceImplTest {
 
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
-        given(fileRepository.findById(1L))
-                .willReturn(Optional.of(file));
+        given(documentRepository.findById(1L))
+                .willReturn(Optional.of(document));
 
         assertThatThrownBy(() -> underTest.updateFile("username", getMockMultipartFile(), 1L, 1L))
                 .isInstanceOf(DocumentDoesNotExistException.class)
@@ -216,6 +249,7 @@ class FileServiceImplTest {
     void deleteFile_CanDeleteFile() throws IOException {
         Document document = new Document();
         document.setId(1L);
+        document.setRecordState(RecordState.ACTIVE);
         File file = new File();
         ArrayList<File> files = new ArrayList<>();
         files.add(file);
@@ -264,11 +298,13 @@ class FileServiceImplTest {
 
     @Test
     void deleteFile_CanThrowFileException() {
+        Document document = new Document();
+        document.setRecordState(RecordState.ACTIVE);
 
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
         given(documentRepository.findById(1L))
-                .willReturn(Optional.of(new Document()));
+                .willReturn(Optional.of(document));
 
         assertThatThrownBy(() -> underTest.deleteFile("username", 1L, 1L))
                 .isInstanceOf(FileNotExistException.class)
