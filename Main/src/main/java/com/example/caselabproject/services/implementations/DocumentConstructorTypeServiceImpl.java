@@ -21,6 +21,7 @@ import com.example.caselabproject.repositories.FieldRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import com.example.caselabproject.services.DocumentConstructorTypeService;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,11 +44,8 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
     @Override
     public DocumentConstructorTypeCreateResponseDto create(DocumentConstructorTypeRequestDto typeRequestDto) {
         DocumentConstructorType typeToSave = typeRequestDto.mapToEntity();
-        
-        // Сохраняем полученные fields. Сущность Field имеет ограничение уникальности
-        // на поле name. При вызове метода saveAll будут сохранены fields, имена
-        // которых не заняты, а fields с существующими именами метод не изменит.
-        List<Field> fields = fieldRepository.saveAll(typeToSave.getFields());
+
+        List<Field> fields = saveFieldsInternal(typeToSave.getFields());
         
         typeToSave.setFields(fields);
         typeToSave.setOrganization(findAssociatedOrganizationInternal());
@@ -76,37 +74,49 @@ public class DocumentConstructorTypeServiceImpl implements DocumentConstructorTy
         DocumentConstructorType typeToUpdate = findByIdInternal(id);
         
         DocumentConstructorType updated = typeRequestDto.mapToEntity();
-        
+
+        List<Field> fields = saveFieldsInternal(updated.getFields());
+
+        // обновляем существующую entity
+        typeToUpdate.setName(updated.getName());
+        typeToUpdate.setPrefix(updated.getPrefix());
+        typeToUpdate.setFields(fields);
+
+        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
+                saveInternal(typeToUpdate));
+    }
+
+    /**
+     * Метод сохраняет поля, которые еще не существуют и находит поля, которые уже существуют
+     *
+     * @param fields список полей
+     * @return общий список найденных и сохраненных полей
+     */
+    @NotNull
+    private List<Field> saveFieldsInternal(List<Field> fields) {
         // Найденные поля
         List<Field> foundFields = fieldRepository.findAllByNameIn(
-                updated.getFields().stream().map(Field::getName).toList());
+                fields.stream().map(Field::getName).toList());
         // Результирующий список полей
-        List<Field> fields = new ArrayList<>(foundFields);
+        List<Field> result = new ArrayList<>(foundFields);
         // Если найдены не все поля
-        if (foundFields.size() < updated.getFields().size()) {
+        if (foundFields.size() < fields.size()) {
             // Создаем список названий найденных полей
             List<String> foundFieldNames = foundFields.stream().map(Field::getName).toList();
             // Создаем список полей, которые нужно будет сохранить
             List<Field> fieldsToSave = new ArrayList<>();
-            for (Field field : updated.getFields()) {
+            for (Field field : fields) {
                 // Если поля нет в списке найденных
                 if (!foundFieldNames.contains(field.getName())) {
                     // Добавляем поле в список для сохранения
                     fieldsToSave.add(field);
                 }
             }
-            fields.addAll(fieldRepository.saveAll(fieldsToSave));
+            result.addAll(fieldRepository.saveAll(fieldsToSave));
         }
-        
-        // обновляем существующую entity
-        typeToUpdate.setName(updated.getName());
-        typeToUpdate.setPrefix(updated.getPrefix());
-        typeToUpdate.setFields(fields);
-        
-        return DocumentConstructorTypeUpdateResponseDto.mapFromEntity(
-                saveInternal(typeToUpdate));
+        return result;
     }
-    
+
     @Override
     public void deleteById(Long id) {
         DocumentConstructorType typeToDelete = findByIdInternal(id);
