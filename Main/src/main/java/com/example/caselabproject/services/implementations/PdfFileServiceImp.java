@@ -1,12 +1,10 @@
 package com.example.caselabproject.services.implementations;
 
 
+import com.example.caselabproject.exceptions.biling.PdfCreatingException;
 import com.example.caselabproject.models.enums.SubscriptionName;
 import com.example.caselabproject.services.PdfFileService;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +34,42 @@ public class PdfFileServiceImp implements PdfFileService {
             Font font = new Font(times, 14);
             //Заполнение документа
             for (Map.Entry<SubscriptionName, Integer> usedDay : usages.entrySet()) {
-                document.add(new Paragraph("Тариф "
+                addParagraphInDocument(document, new Chunk("Тариф "
                         + usedDay.getKey() +
-                        "-" + usedDay.getValue() +
+                        " - " + usedDay.getValue() +
                         " дней - " + prices.get(usedDay.getKey()) + " руб", font));
             }
-            document.add(new Paragraph("Итоговая цена " + total + "руб", font));
+            addParagraphInDocument(document, new Chunk("Итоговая цена " + total + "руб", font));
             document.close();
         } catch (IOException | DocumentException e) {
-            throw new RuntimeException(e);
+            throw new PdfCreatingException(e.getMessage());
         }
+    }
+
+    /**
+     * Добавление параграфа в документ pdf с одним куском текста
+     *
+     * @param document      pdf документ
+     * @param paragraphName имя параграфа
+     */
+    private void addParagraphInDocument(Document document,
+                                        Chunk paragraphName) throws DocumentException {
+        Paragraph paragraph = new Paragraph();
+        //Устанавливаем отступ для первой стркои
+        paragraph.setFirstLineIndent(20.0f);
+        addChunkInParagraph(paragraph, paragraphName);
+        document.add(paragraph);
+    }
+
+    /**
+     * Добавление текста в параграф
+     *
+     * @param paragraph параграф pdf документа
+     * @param chunk     кусок текста
+     */
+    private void addChunkInParagraph(Paragraph paragraph, Chunk chunk) {
+        //Устанавливаем размер строки
+        chunk.setLineHeight(26);
+        paragraph.add(chunk);
     }
 }
