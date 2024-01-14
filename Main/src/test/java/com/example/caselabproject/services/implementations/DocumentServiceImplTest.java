@@ -12,7 +12,6 @@ import com.example.caselabproject.models.entities.User;
 import com.example.caselabproject.models.enums.RecordState;
 import com.example.caselabproject.repositories.DocumentConstructorTypeRepository;
 import com.example.caselabproject.repositories.DocumentRepository;
-import com.example.caselabproject.repositories.DocumentRepository;
 import com.example.caselabproject.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -231,9 +230,8 @@ class DocumentServiceImplTest {
         document.setId(1L);
         document.setCreator(user);
         document.setFiles(List.of());
+        document.setRecordState(RecordState.ACTIVE);
 
-        given(documentRepository.existsById(1L))
-                .willReturn(true);
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
         given(documentRepository.findById(1L))
@@ -247,29 +245,27 @@ class DocumentServiceImplTest {
     }
 
     @Test
-    void updateDocument_CanThrowDocumentException() {
-        DocumentRequestDto documentRequestDto = getDocumentRequestDto();
-
-        given(documentRepository.existsById(1L))
-                .willReturn(false);
-
-        assertThatThrownBy(() -> underTest.updateDocument("username", documentRequestDto, 1L))
-                .isInstanceOf(DocumentDoesNotExistException.class)
-                .hasMessageContaining("Document with id:1 does not exist!");
-    }
-
-    @Test
     void updateDocument_CanThrowUserException() {
         DocumentRequestDto documentRequestDto = getDocumentRequestDto();
 
-        given(documentRepository.existsById(1L))
-                .willReturn(true);
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(false);
 
         assertThatThrownBy(() -> underTest.updateDocument("username", documentRequestDto, 1L))
                 .isInstanceOf(DocumentAccessException.class)
                 .hasMessageContaining("User username does not have access to this document!");
+    }
+
+    @Test
+    void updateDocument_CanThrowDocumentException() {
+        DocumentRequestDto documentRequestDto = getDocumentRequestDto();
+
+        given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
+                .willReturn(true);
+
+        assertThatThrownBy(() -> underTest.updateDocument("username", documentRequestDto, 1L))
+                .isInstanceOf(DocumentDoesNotExistException.class)
+                .hasMessageContaining("Document with id:1 does not exist!");
     }
 
     @Test
@@ -284,9 +280,8 @@ class DocumentServiceImplTest {
         document.setId(1L);
         document.setCreator(user);
         document.setFiles(List.of());
+        document.setRecordState(RecordState.ACTIVE);
 
-        given(documentRepository.existsById(1L))
-                .willReturn(true);
         given(userRepository.existsByUsernameAndDocuments_id("username", 1L))
                 .willReturn(true);
         given(documentRepository.findById(1L))
