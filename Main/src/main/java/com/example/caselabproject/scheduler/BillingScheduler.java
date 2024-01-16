@@ -2,11 +2,11 @@ package com.example.caselabproject.scheduler;
 
 
 import com.example.caselabproject.messaging.producer.BillingTotalByMonthProducer;
-import com.example.caselabproject.messaging.producer.implementation.KafkaBillingTotalByMonthProducer;
 import com.example.caselabproject.models.entities.Bill;
 import com.example.caselabproject.models.entities.BillingLog;
 import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.entities.Subscription;
+import com.example.caselabproject.models.enums.BillStatus;
 import com.example.caselabproject.repositories.BillRepository;
 import com.example.caselabproject.repositories.BillingLogRepository;
 import com.example.caselabproject.repositories.OrganizationRepository;
@@ -34,7 +34,6 @@ public class BillingScheduler {
     private final OrganizationRepository organizationRepository;
     private final BillingLogRepository billingLogRepository;
     private final BillRepository billRepository;
-    
     private final BillingTotalByMonthProducer billingProducer;
     
     @Scheduled(cron = "0 0 1 1 * *") // 01:00 on the first day of every month
@@ -58,7 +57,8 @@ public class BillingScheduler {
         
         /*
         If there are no history entries from `billingLog`,
-            calculate the price for current organization's subscription anyway.
+        calculate the price for current organization's subscription anyway.
+        
         That's why here's `billingLog.size() + 1`.
         */
         int alreadyUsedDays = 0;
@@ -82,9 +82,17 @@ public class BillingScheduler {
             usages.merge(subscription, usage, Integer::sum);
             prices.merge(subscription, price, BigDecimal::add);
         }
-        
-//        add billing status
+
         Bill monthlyBill = billRepository.save(buildBill(organization, total, usages));
+        
+        /**/
+        System.out.println(monthlyBill);
+        System.out.println(monthlyBill.getId());
+        System.out.println(monthlyBill.getDate());
+        System.out.println(monthlyBill.getTotal());
+        System.out.println(monthlyBill.getOrganization());
+        /**/
+        
         billingProducer.send(organization.getId(), total, monthlyBill.getId());
         // make Запрос информации из reddiss
     }
@@ -107,14 +115,7 @@ public class BillingScheduler {
                 .date(LocalDateTime.now())
                 .total(total.floatValue())
                 .details(usages)
+                .status(BillStatus.NOT_PAID)
                 .build();
-    }
-    
-    private final KafkaBillingTotalByMonthProducer kafkaBillingTotalByMonthProducer;
-    
-    @Scheduled(cron = "*/1 * * * * *")
-    public void test() {
-        kafkaBillingTotalByMonthProducer
-                .send(1L, BigDecimal.valueOf(4343).multiply(BigDecimal.valueOf(Math.random())), 4L);
     }
 }
