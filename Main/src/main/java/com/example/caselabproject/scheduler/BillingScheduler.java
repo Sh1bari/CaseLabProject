@@ -112,9 +112,9 @@ public class BillingScheduler {
     
     private final KafkaBillingTotalByMonthProducer kafkaBillingTotalByMonthProducer;
     
-    //@Scheduled(cron = "*/1 * * * * *")
-    /*public void test() {
+    @Scheduled(cron = "*/1 * * * * *")
+    public void test() {
         kafkaBillingTotalByMonthProducer
                 .send(1L, BigDecimal.valueOf(4343).multiply(BigDecimal.valueOf(Math.random())), 4L);
-    }*/
+    }
 }

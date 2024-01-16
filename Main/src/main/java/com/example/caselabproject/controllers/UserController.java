@@ -120,10 +120,11 @@ public class UserController {
                 .body(userResponseDto);
     }
 
-    @PutMapping("/id/avatar")
+    @PutMapping("/avatar")
     @Secured("ROLE_USER")
     public ResponseEntity<UserAvatarResponseDto> addAvatar(
-            Principal principal, MultipartFile multipartFile) {
+            Principal principal,
+            @RequestParam(value = "file", required = true) MultipartFile multipartFile) {
         UserAvatarResponseDto userResponseDto = userService.addAvatar(multipartFile, principal.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)

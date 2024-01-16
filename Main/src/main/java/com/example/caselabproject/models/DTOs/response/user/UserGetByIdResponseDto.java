@@ -17,6 +17,7 @@ public class UserGetByIdResponseDto {
     private String position;
     private String username;
     private String email;
+    private String avatarPath;
     private List<RoleDto> roles;
     private String firstName;
     private Boolean isDirector;
@@ -28,6 +29,7 @@ public class UserGetByIdResponseDto {
     public static UserGetByIdResponseDto mapFromEntity(User user) {
         UserGetByIdResponseDto userDto = UserGetByIdResponseDto.builder()
                 .id(user.getId())
+                .avatarPath(user.getAvatarPath().getPath())
                 .position(user.getPosition())
                 .username(user.getUsername())
                 .isDirector(user.getIsDirector())

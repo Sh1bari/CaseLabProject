@@ -19,13 +19,13 @@ public class UserAvatarResponseDto {
 
     private Long id;
     private String username;
-    private File avatarPath;
+    private String avatarPath;
 
     public static UserAvatarResponseDto mapFromEntity(User user) {
         return UserAvatarResponseDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
-                .avatarPath(user.getAvatarPath())
+                .avatarPath(user.getAvatarPath().getPath())
                 .build();
     }
 

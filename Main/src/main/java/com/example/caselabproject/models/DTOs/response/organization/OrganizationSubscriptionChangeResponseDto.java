@@ -10,14 +10,14 @@ import lombok.Data;
 public class OrganizationSubscriptionChangeResponseDto {
 
     private Long id;
-    private String name;
-    private Subscription subscription;
+    private String orgName;
+    private String subscriptionName;
 
     public static OrganizationSubscriptionChangeResponseDto mapFromEntity(Organization organization) {
         return OrganizationSubscriptionChangeResponseDto.builder()
                 .id(organization.getId())
-                .name(organization.getName())
-                .subscription(organization.getSubscription())
+                .orgName(organization.getName())
+                .subscriptionName(organization.getSubscription().getSubscriptionName())
                 .build();
     }
 

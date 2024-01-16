@@ -4,7 +4,9 @@ package com.example.caselabproject.services.implementations;
 import com.example.caselabproject.exceptions.organization.OrganizationNotFoundException;
 import com.example.caselabproject.exceptions.subscription.SubscriptionNotFoundException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationChangeNameRequestDto;
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationSubscriptionChangeRequestDto;
+import com.example.caselabproject.models.DTOs.response.organization.OrganizationChangeNameResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationSubscriptionChangeResponseDto;
 import com.example.caselabproject.models.entities.BillingLog;
 import com.example.caselabproject.models.entities.Organization;
@@ -50,11 +52,25 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         setSubscription(currentSubscription, organization, neededSubscription);
 
-        return null;
+        return OrganizationSubscriptionChangeResponseDto.mapFromEntity(organization);
     }
 
+    @Override
+    public OrganizationChangeNameResponseDto changeOrganizationName(OrganizationChangeNameRequestDto organizationChangeNameRequestDto, String username) {
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
+        Long organizationId = user.getOrganization().getId();
 
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new OrganizationNotFoundException(organizationId));
+
+        organization.setName(organizationChangeNameRequestDto.getName());
+
+        organizationRepository.save(organization);
+
+        return OrganizationChangeNameResponseDto.mapFromEntity(organization);
+    }
 
 
     private void setSubscription(Subscription currentSubscription, Organization organization, Subscription neededSubscription) {
