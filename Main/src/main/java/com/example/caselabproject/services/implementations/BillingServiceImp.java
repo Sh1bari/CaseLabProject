@@ -1,13 +1,13 @@
 package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.organization.OrganizationNotFoundException;
-import com.example.caselabproject.exceptions.user.UserByPrincipalUsernameDoesNotExistException;
 import com.example.caselabproject.models.BillingDaysAndPrice;
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationIdRequestDto;
 import com.example.caselabproject.models.entities.*;
 import com.example.caselabproject.repositories.BillRepository;
-import com.example.caselabproject.repositories.BillingLogRepository;
 import com.example.caselabproject.repositories.OrganizationRepository;
 import com.example.caselabproject.repositories.UserRepository;
+import com.example.caselabproject.services.BillingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +15,30 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.Year;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class BillingServiceImp {
+public class BillingServiceImp implements BillingService {
     private final OrganizationRepository organizationRepository;
     private final BillRepository billRepository;
     private final UserRepository userRepository;
 
-    public Map<Integer, Map<Month, List<BillingDaysAndPrice>>> calculationAllBilling(Long organizationId) {
-        Organization organization = organizationRepository.findById(organizationId)
-                .orElseThrow(() -> new OrganizationNotFoundException(organizationId));
+    @Override
+    public Map<Integer, Map<Month, List<BillingDaysAndPrice>>> calculationAllBilling(OrganizationIdRequestDto request) {
+        Organization organization = organizationRepository.findById(request.getId())
+                .orElseThrow(() -> new OrganizationNotFoundException(request.getId()));
         List<Bill> bills = billRepository.findAllByOrganization(organization);
         if (bills.isEmpty()) {
             return new HashMap<>();
         }
         Map<Integer, Map<Month, List<BillingDaysAndPrice>>> result = new TreeMap<>();
         Bill lastBill = bills.get(bills.size() - 1);
-        LocalDateTime data = lastBill.getDate();
-        int year = data.getYear();
-        Month month = data.getMonth();
+        //Получаем последний билл
+        LocalDateTime date = lastBill.getDate();
+        int year = date.getYear();
+        Month month = date.getMonth();
+        //Добавляем данные за месяц
         Map<Month, List<BillingDaysAndPrice>> dataInYear = addBillingDaysAndPrice(month, lastBill.getDetails());
         for (int j = bills.size() - 2; j > -1; j--) {
             Bill bill = bills.get(j);
@@ -54,6 +56,12 @@ public class BillingServiceImp {
         return result;
     }
 
+    /**
+     * Получение количество дней и цену для подписки
+     * @param subscription подписка
+     * @param days количество дней пользования
+     * @param prices цена
+     */
     private BillingDaysAndPrice buildBillingDaysAndPrice(String subscription, Integer days, BigDecimal prices) {
         return BillingDaysAndPrice.builder()
                 .days(days)
@@ -62,6 +70,11 @@ public class BillingServiceImp {
                 .build();
     }
 
+    /**
+     * Добавление количество дней и цену за все подписки с определенным месяцем в мапу
+     * @param month месяц
+     * @param details детализация по билу
+     */
     private Map<Month, List<BillingDaysAndPrice>> addBillingDaysAndPrice(Month month,
                                                                          Map<Subscription, Integer> details) {
         Map<Month, List<BillingDaysAndPrice>> dataInYear = new TreeMap<>();
