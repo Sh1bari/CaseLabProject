@@ -2,7 +2,10 @@ package com.example.caselabproject.services;
 
 
 import com.example.caselabproject.models.BillingDaysAndPrice;
+import com.example.caselabproject.models.DTOs.response.organization.GetOrganizationResponseDto;
+import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.enums.SubscriptionName;
+import org.springframework.core.io.Resource;
 
 import java.math.BigDecimal;
 import java.time.Month;
@@ -19,5 +22,6 @@ public interface PdfFileService {
     void generatePdfBillingFile(Map<SubscriptionName, Integer> usages,
                                 Map<SubscriptionName, BigDecimal> prices,
                                 BigDecimal total);
-    void generatePdfBillingDetailsFile(Map<Integer, Map<Month, List<BillingDaysAndPrice>>> details);
+    Resource generatePdfBillingDetailsFile(GetOrganizationResponseDto organization,
+                                           Map<Integer, Map<Month, List<BillingDaysAndPrice>>> details);
 }

@@ -5,7 +5,9 @@ import com.example.caselabproject.exceptions.organization.OrganizationNotFoundEx
 import com.example.caselabproject.exceptions.subscription.SubscriptionNotFoundException;
 import com.example.caselabproject.exceptions.user.UserNotFoundException;
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationChangeNameRequestDto;
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationIdRequestDto;
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationSubscriptionChangeRequestDto;
+import com.example.caselabproject.models.DTOs.response.organization.GetOrganizationResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationChangeNameResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationSubscriptionChangeResponseDto;
 import com.example.caselabproject.models.entities.BillingLog;
@@ -72,6 +74,13 @@ public class OrganizationServiceImpl implements OrganizationService {
         return OrganizationChangeNameResponseDto.mapFromEntity(organization);
     }
 
+    @Override
+    public GetOrganizationResponseDto findOrganizationNameById(OrganizationIdRequestDto requestDto) {
+        Organization organization = organizationRepository.findById(requestDto.getId())
+                .orElseThrow(() -> new OrganizationNotFoundException(requestDto.getId()));
+        return GetOrganizationResponseDto.builder().name(organization.getName()).build();
+    }
+
 
     private void setSubscription(Subscription currentSubscription, Organization organization, Subscription neededSubscription) {
 
@@ -122,3 +131,4 @@ public class OrganizationServiceImpl implements OrganizationService {
 //
 //        return OrganizationSubscriptionChangeResponseDto.mapFromEntity(organization);
 //    }
+

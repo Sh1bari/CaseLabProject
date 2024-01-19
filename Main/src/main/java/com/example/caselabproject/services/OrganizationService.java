@@ -1,7 +1,9 @@
 package com.example.caselabproject.services;
 
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationChangeNameRequestDto;
+import com.example.caselabproject.models.DTOs.request.organization.OrganizationIdRequestDto;
 import com.example.caselabproject.models.DTOs.request.organization.OrganizationSubscriptionChangeRequestDto;
+import com.example.caselabproject.models.DTOs.response.organization.GetOrganizationResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationChangeNameResponseDto;
 import com.example.caselabproject.models.DTOs.response.organization.OrganizationSubscriptionChangeResponseDto;
 import jakarta.validation.Valid;
@@ -18,5 +20,6 @@ public interface OrganizationService {
     OrganizationSubscriptionChangeResponseDto changeSubscription(@Valid OrganizationSubscriptionChangeRequestDto subscriptionChangeRequestDto, @NotBlank(message = "Organization user username can't be blank.") String username);
 
     OrganizationChangeNameResponseDto changeOrganizationName(@Valid OrganizationChangeNameRequestDto organizationChangeNameRequestDto, @NotBlank(message = "Organization user username can't be blank.") String username);
+    GetOrganizationResponseDto findOrganizationNameById(@Valid OrganizationIdRequestDto requestDto);
 
 }
