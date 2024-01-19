@@ -3,17 +3,23 @@ package com.example.caselabproject.services.implementations;
 
 import com.example.caselabproject.exceptions.biling.PdfCreatingException;
 import com.example.caselabproject.models.BillingDaysAndPrice;
+import com.example.caselabproject.models.DTOs.response.organization.GetOrganizationResponseDto;
+import com.example.caselabproject.models.entities.Organization;
 import com.example.caselabproject.models.enums.SubscriptionName;
 import com.example.caselabproject.services.PdfFileService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.time.Month;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +56,13 @@ public class PdfFileServiceImp implements PdfFileService {
     }
 
     @Override
-    public void generatePdfBillingDetailsFile(Map<Integer, Map<Month, List<BillingDaysAndPrice>>> details) {
+    public Resource generatePdfBillingDetailsFile(GetOrganizationResponseDto organization,
+                                                  Map<Integer, Map<Month, List<BillingDaysAndPrice>>> details) {
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/files/allBilling.pdf"));
+            String fileName = "src/main/resources/files/allBilling_" +
+                    organization.getName() + ".pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
             //Щрифт
             BaseFont times = BaseFont.createFont("src/main/resources/fonts/times.ttf",
@@ -61,10 +70,11 @@ public class PdfFileServiceImp implements PdfFileService {
             Font font1 = new Font(times, 24);
             Font font2 = new Font(times, 22);
             Font font3 = new Font(times, 18);
-            addParagraphTitleInDocument(document, new Chunk("Организация 4", font1));
+            addParagraphTitleInDocument(document, new Chunk("Организация " + organization.getName(),
+                    font1));
             //Заполнение документа
             for (Map.Entry<Integer, Map<Month, List<BillingDaysAndPrice>>> detailByYear : details.entrySet()) {
-                addParagraphInDocument(document, new Chunk("Год: " + detailByYear.getKey()));
+                addParagraphInDocument(document, new Chunk("Год: " + detailByYear.getKey(), font2));
                 for (Map.Entry<Month, List<BillingDaysAndPrice>> detailByMonth : detailByYear.getValue().entrySet()){
                     addParagraphInDocument(document, new Chunk("Месяц: " + detailByMonth.getKey().toString(),
                             font2));
@@ -79,6 +89,7 @@ public class PdfFileServiceImp implements PdfFileService {
                 }
             }
             document.close();
+            return new UrlResource(Path.of(fileName).toUri());
         } catch (IOException | DocumentException e) {
             throw new PdfCreatingException(e.getMessage());
         }
