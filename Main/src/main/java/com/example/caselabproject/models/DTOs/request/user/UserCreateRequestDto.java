@@ -47,7 +47,7 @@ public class UserCreateRequestDto {
                 .authUserInfo(AuthUserInfo.builder()
                         .email(email)
                         .build())
-                .isDirector(false)
+                .isDirector(isDirector)
                 .personalUserInfo(PersonalUserInfo.builder()
                         .firstName(firstName)
                         .lastName(lastName)
