@@ -18,9 +18,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -71,8 +69,9 @@ public class BillingController {
         var resource = pdfFileService.generatePdfBillingDetailsFile(organization, response);
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" +
-                                resource.getFilename() + "\"")
+                        String.valueOf(ContentDisposition.attachment().filename("billing-details.pdf").build()))
+                .contentType(MediaType.parseMediaType("billind/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
 }
