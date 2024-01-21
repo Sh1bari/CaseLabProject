@@ -63,7 +63,7 @@ public class BillingController {
     @Secured("ROLE_ADMIN")
     @GetMapping("/details")
     @PreAuthorize("@billingSecurityService.canGetBillingDetails(#principal.getUsername, #request.getId)")
-    public ResponseEntity<Map<Integer, Map<Month, List<BillingDaysAndPrice>>>> getBillingDetailsByOrganization(
+    public ResponseEntity<Resource> getBillingDetailsByOrganization(
             @Valid @RequestBody OrganizationIdRequestDto request){
         var response = billingService.calculationAllBilling(request);
         var organization = organizationService.findOrganizationNameById(request);
@@ -72,6 +72,6 @@ public class BillingController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" +
                                 resource.getFilename() + "\"")
-                .body(response);
+                .body(resource);
     }
 }
