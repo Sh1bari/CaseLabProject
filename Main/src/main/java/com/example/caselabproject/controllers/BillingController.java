@@ -26,6 +26,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.Month;
 import java.util.List;
 import java.util.Map;
@@ -61,9 +62,9 @@ public class BillingController {
     })
     @SecurityRequirement(name = "bearerAuth")
     @Secured("ROLE_ADMIN")
-    @GetMapping("/details")
-    @PreAuthorize("@billingSecurityService.canGetBillingDetails(#principal.getUsername, #request.getId)")
-    public ResponseEntity<Resource> getBillingDetailsByOrganization(
+    @PostMapping("/details")
+    @PreAuthorize("@billingSecurityService.canGetBillingDetails(#principal.name, #request.getId)")
+    public ResponseEntity<Resource> getBillingDetailsByOrganization(Principal principal,
             @Valid @RequestBody OrganizationIdRequestDto request){
         var response = billingService.calculationAllBilling(request);
         var organization = organizationService.findOrganizationNameById(request);

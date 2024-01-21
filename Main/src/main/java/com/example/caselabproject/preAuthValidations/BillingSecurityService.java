@@ -18,6 +18,7 @@ public class BillingSecurityService {
     private final OrganizationRepository organizationRepository;
 
     public boolean canGetBillingDetails(String userName, Long organizationId){
+        System.out.println(organizationId);
         User user = userRepository.findByUsername(userName)
                 .orElseThrow(() -> new UserNotFoundException(userName));
         Organization organization = organizationRepository.findById(organizationId)

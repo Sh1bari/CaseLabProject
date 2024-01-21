@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Month;
 import java.util.List;
@@ -60,12 +61,12 @@ public class PdfFileServiceImp implements PdfFileService {
                                                   Map<Integer, Map<Month, List<BillingDaysAndPrice>>> details) {
         Document document = new Document();
         try {
-            String fileName = "src/main/resources/files/allBilling_" +
+            String fileName = "Main/src/main/resources/files/allBilling_" +
                     organization.getName() + ".pdf";
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
             //Щрифт
-            BaseFont times = BaseFont.createFont("src/main/resources/fonts/times.ttf",
+            BaseFont times = BaseFont.createFont("Main/src/main/resources/fonts/times.ttf",
                     "cp1251", BaseFont.EMBEDDED);
             Font font1 = new Font(times, 24);
             Font font2 = new Font(times, 22);
