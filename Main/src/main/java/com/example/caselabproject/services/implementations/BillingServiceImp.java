@@ -40,6 +40,9 @@ public class BillingServiceImp implements BillingService {
         Month month = date.getMonth();
         //Добавляем данные за месяц
         Map<Month, List<BillingDaysAndPrice>> dataInYear = addBillingDaysAndPrice(month, lastBill.getDetails());
+        if (bills.size() == 1){
+            result.put(year, dataInYear);
+        }
         for (int j = bills.size() - 2; j > -1; j--) {
             Bill bill = bills.get(j);
             LocalDateTime dataBill = bill.getDate();
@@ -53,6 +56,7 @@ public class BillingServiceImp implements BillingService {
                 year = yearBill;
             }
         }
+        result.put(year, dataInYear);
         return result;
     }
 
