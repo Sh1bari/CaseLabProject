@@ -55,8 +55,10 @@ public class BillingServiceImp implements BillingService {
                 dataInYear = addBillingDaysAndPrice(month, bill.getDetails());
                 year = yearBill;
             }
+            if (j == 0){
+                result.put(year, dataInYear);
+            }
         }
-        result.put(year, dataInYear);
         return result;
     }
 
